@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+:root {
+  /* Ultra-minimal palette - Adjusted for readability */
+  --bg-primary: #ffffff;
+  --bg-secondary: #fbfbfb;
+  --bg-tertiary: #f4f4f5;
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  --text-muted: #a3a3a3;
+  --border-color: #e5e5e5;
+  --accent: #000000;
+  --text-highlight: #404040; /* Intermediate gray for Light mode */
+  
+  /* Lighter, fresher greens for Light Mode */
+  --contrib-0: #e5e7eb; /* gray-200 */
+  --contrib-1: #bbf7d0; /* green-200 */
+  --contrib-2: #86efac; /* green-300 */
+  --contrib-3: #4ade80; /* green-400 */
+  --contrib-4: #22c55e; /* green-500 */
+}
+
+.dark {
+  /* True dark, high contrast, no blueish tint */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #121212;
+  --bg-tertiary: #1e1e1e;
+  --text-primary: #ededed;
+  --text-secondary: #a1a1aa;
+  --text-muted: #525252;
+  --border-color: #262626;
+  --accent: #ffffff;
+  --text-highlight: #d4d4d4; /* Intermediate white for Dark mode */
+  /* Vibrant Neon/Emerald for Dark Mode - "Cyber/Sleek" look */
+  --contrib-0: #1f1f1f; /* subtle gray */
+  --contrib-1: #064e3b; /* emerald-900 (deep) */
+  --contrib-2: #10b981; /* emerald-500 */
+  --contrib-3: #34d399; /* emerald-400 */
+  --contrib-4: #6ee7b7; /* emerald-300 (bright) */
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg-primary); /* Fixes white background on overscroll */
+  color: var(--text-primary);
+  transition: background-color 500ms ease, color 500ms ease; /* Smooth transition matching App.tsx */
+}
+
+/* Subtle flip animation */
+@keyframes text-flip {
+  0%, 45% { transform: translateY(0); }
+  50%, 95% { transform: translateY(-33.33%); }
+  100% { transform: translateY(-66.66%); }
+}
+
+.animate-flip {
+  animation: text-flip 8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Mask for smooth edge fade on the graph if it overflows */
+.fade-mask {
+  mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+/* Minimal Badge Colors (Text only, no heavy background) */
+.badge-react { color: #61dafb; }
+.badge-typescript { color: #3178c6; }
+.badge-bun { color: #fbf0df; }
+.badge-nodejs { color: #339933; }
+.badge-mongodb { color: #47a248; }
+.badge-postgresql { color: #336791; }
+.badge-prisma { color: #5a67d8; }
+.badge-docker { color: #2496ed; }
+.badge-tailwind { color: #38bdf8; }
+.badge-nextjs { color: var(--text-primary); } /* Next.js is b&w usually */
+
+/* Contrib Graph Colors */
+.contrib-0 { background-color: var(--contrib-0); }
+.contrib-1 { background-color: var(--contrib-1); }
+.contrib-2 { background-color: var(--contrib-2); }
+.contrib-3 { background-color: var(--contrib-3); }
+.contrib-4 { background-color: var(--contrib-4); }
