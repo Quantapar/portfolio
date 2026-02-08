@@ -3,11 +3,8 @@ import index from "./index.html";
 
 const server = serve({
   routes: {
-    // Serve index.html for all unmatched routes.
-    "/*": index,
-
     // Serve static assets from src/assets
-    "/me-bw.jpeg": file("src/assets/me-black:w.jpeg"),
+    "/me-bw.jpeg": file("src/assets/me-bw.jpeg"),
     "/me-color.jpeg": file("src/assets/me-color.jpeg"),
 
     "/api/hello": {
@@ -31,6 +28,10 @@ const server = serve({
         message: `Hello, ${name}!`,
       });
     },
+
+    // Serve index.html for all unmatched routes.
+    // This must be last as it is a catch-all.
+    "/*": index,
   },
 
   development: process.env.NODE_ENV !== "production" && {

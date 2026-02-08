@@ -141,6 +141,22 @@ const result = await Bun.build({
   ...cliConfig,
 });
 
+// Copy assets from src/assets to dist
+const assetsSrc = path.join(process.cwd(), "src", "assets");
+if (existsSync(assetsSrc)) {
+  console.log(`📂 Copying assets from ${assetsSrc} to ${outdir}`);
+  const assets = new Bun.Glob("**/*").scanSync(assetsSrc);
+  for (const asset of assets) {
+    const srcPath = path.join(assetsSrc, asset);
+    const destPath = path.join(outdir, asset);
+    const destDir = path.dirname(destPath);
+    if (!existsSync(destDir)) {
+      await Bun.write(path.join(destDir, ".keep"), ""); // ensure dir exists
+    }
+    await Bun.write(destPath, Bun.file(srcPath));
+  }
+}
+
 const end = performance.now();
 
 const outputTable = result.outputs.map((output) => ({
