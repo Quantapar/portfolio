@@ -230,12 +230,12 @@ const AboutSection = () => (
     <div className="flex flex-col md:flex-row gap-8 items-start pl-1">
       <div className="relative group w-32 h-32 shrink-0 cursor-pointer overflow-hidden rounded-xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-700 ease-out shadow-sm hover:shadow-md bg-(--bg-tertiary)">
         <img
-          src="/me-color.jpeg"
+          src="/assets/me-color.jpeg"
           alt="Manu Sharma Color"
           className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out z-10"
         />
         <img
-          src="/me-bw.jpeg"
+          src="/assets/me-bw.jpeg"
           alt="Manu Sharma B&W"
           className="w-full h-full object-cover transition-all duration-700 ease-out scale-100 group-hover:scale-105"
         />
