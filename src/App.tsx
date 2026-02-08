@@ -99,6 +99,39 @@ const MailIcon = () => (
   </svg>
 );
 
+const CopyIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+  </svg>
+);
+
+const CheckIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="3"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="20 6 9 17 4 12" />
+  </svg>
+);
+
 const NameFlip = () => (
   <div className="h-12.5 overflow-hidden inline-flex flex-col relative top-1">
     <div className="animate-flip text-(--text-primary) font-bold text-4xl tracking-tight leading-12.5">
@@ -266,6 +299,13 @@ const AboutSection = () => (
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("quantapar@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
@@ -344,21 +384,42 @@ export function App() {
       <main className="max-w-2xl mx-auto px-6 py-20 space-y-12">
         <header className="flex flex-col justify-center min-h-40 pl-1">
           <NameFlip />
-          <p className="text-(--text-secondary) text-[15px] leading-relaxed mt-4 max-w-lg font-light transition-colors duration-500">
-            I craft interactive web experiences using{" "}
-            <span className="font-medium text-(--text-primary)">
-              TypeScript
-            </span>
-            , <span className="font-medium text-(--text-primary)">React</span>,{" "}
-            <span className="font-medium text-(--text-primary)">Next.js</span>,
-            and{" "}
-            <span className="font-medium text-(--text-primary)">
-              PostgreSQL
-            </span>
-            . Driven by a passion for{" "}
-            <span className="font-medium text-(--text-primary)">UI design</span>{" "}
-            and seamless user interactions.
-          </p>
+          
+          <div className="flex flex-col gap-6 mt-4">
+            <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-light transition-colors duration-500">
+              I craft interactive web experiences using{" "}
+              <span className="font-medium text-(--text-primary)">
+                TypeScript
+              </span>
+              , <span className="font-medium text-(--text-primary)">React</span>,{" "}
+              <span className="font-medium text-(--text-primary)">Next.js</span>,
+              and{" "}
+              <span className="font-medium text-(--text-primary)">
+                PostgreSQL
+              </span>
+              . Driven by a passion for{" "}
+              <span className="font-medium text-(--text-primary)">
+                UI design
+              </span>{" "}
+              and seamless user interactions.
+            </p>
+
+            <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
+              <span className="text-(--text-secondary)">
+                Get in touch:
+              </span>
+              <span className="font-medium text-(--text-primary)">
+                quantapar@gmail.com
+              </span>
+              <button
+                onClick={copyEmail}
+                className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-all duration-300 ml-1 cursor-pointer"
+                title="Copy email"
+              >
+                {copied ? <CheckIcon /> : <CopyIcon />}
+              </button>
+            </div>
+          </div>
         </header>
 
         <SectionMinimal title="Socials">

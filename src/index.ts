@@ -6,6 +6,7 @@ const server = serve({
     // Serve static assets from src/assets
     "/me-bw.jpeg": file("src/assets/me-bw.jpeg"),
     "/me-color.jpeg": file("src/assets/me-color.jpeg"),
+    "/og-image.png": file("src/assets/og-image.png"),
 
     "/api/hello": {
       async GET(req) {
