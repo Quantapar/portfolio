@@ -1,21 +1,21 @@
-# bun-react-tailwind-template
+# Portfolio
 
-To install dependencies:
+A clean and minimal portfolio website showcasing my work as a fullstack developer.
 
-```bash
-bun install
-```
+## Overview
 
-To start a development server:
+Personal portfolio built with React and TypeScript using Bun, featuring a minimalist design with smooth animations, dark/light theme support, and responsive layout.
 
-```bash
-bun dev
-```
+## Features
 
-To run for production:
+- 🎨 **Theme Switching** - Toggle between dark and light modes with persistent preference
+- 📱 **Fully Responsive** - Optimized for all screen sizes
+- ⚡ **Smooth Animations** - Micro-interactions and transitions throughout
+- 🎯 **Project Showcase** - Highlighted projects with live demos and source code
+- 🔗 **Social Integration** - Quick links to GitHub, LinkedIn, Twitter, and email
 
-```bash
-bun start
-```
+## Tech Stack
 
-This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+- **Frontend**: React, TypeScript
+- **Styling**: Tailwind CSS (with custom CSS properties)
+- **Runtime**: Bun
