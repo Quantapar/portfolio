@@ -384,16 +384,17 @@ export function App() {
       <main className="max-w-2xl mx-auto px-6 py-20 space-y-12">
         <header className="flex flex-col justify-center min-h-40 pl-1">
           <NameFlip />
-          
+
           <div className="flex flex-col gap-6 mt-4">
             <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-light transition-colors duration-500">
               I craft interactive web experiences using{" "}
               <span className="font-medium text-(--text-primary)">
                 TypeScript
               </span>
-              , <span className="font-medium text-(--text-primary)">React</span>,{" "}
-              <span className="font-medium text-(--text-primary)">Next.js</span>,
-              and{" "}
+              , <span className="font-medium text-(--text-primary)">React</span>
+              ,{" "}
+              <span className="font-medium text-(--text-primary)">Next.js</span>
+              , and{" "}
               <span className="font-medium text-(--text-primary)">
                 PostgreSQL
               </span>
@@ -405,9 +406,7 @@ export function App() {
             </p>
 
             <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
-              <span className="text-(--text-secondary)">
-                Get in touch:
-              </span>
+              <span className="text-(--text-secondary)">Get in touch:</span>
               <span className="font-medium text-(--text-primary)">
                 quantapar@gmail.com
               </span>
