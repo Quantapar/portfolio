@@ -339,7 +339,7 @@ export function App() {
         "A full-stack contest hosting platform. Built for scalability with role-based access, real-time code submissions, and live leaderboards.",
       tech: ["React", "Bun", "Postgres", "Prisma", "Docker"],
       githubUrl: "https://github.com/Quantapar/contest-platform",
-      liveUrl: "https://contest-platform-inky.vercel.app/",
+      liveUrl: "https://cypherarena.vercel.app/",
     },
     {
       title: "Mayhem",
