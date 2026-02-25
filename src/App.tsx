@@ -149,8 +149,8 @@ const SectionMinimal = ({
   children: React.ReactNode;
   title: string;
 }) => (
-  <section className="py-2 transition-all duration-500">
-    <h2 className="text-[11px] font-bold tracking-[0.2em] text-(--text-muted) uppercase mb-6 pl-1 transition-colors duration-500">
+  <section className="py-2">
+    <h2 className="text-[11px] font-bold tracking-[0.2em] text-(--text-muted) uppercase mb-6 pl-1 transition-colors duration-200 ease-out">
       {title}
     </h2>
     {children}
@@ -171,10 +171,10 @@ const ExperienceRow = ({
   <div className="group pl-1">
     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
       <div className="flex items-center gap-3">
-        <div className="font-medium text-(--text-primary) transition-colors duration-500">
+        <div className="font-medium text-(--text-primary)">
           {company}
         </div>
-        <div className="text-xs font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2.5 py-1 rounded-md border border-(--border-color) transition-all duration-500">
+        <div className="text-xs font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2.5 py-1 rounded-md border border-(--border-color) transition-colors duration-200 ease-out">
           {role}
         </div>
       </div>
@@ -183,7 +183,7 @@ const ExperienceRow = ({
       </div>
     </div>
     {description && (
-      <p className="text-sm text-(--text-secondary) leading-relaxed max-w-2xl transition-colors duration-500">
+      <p className="text-sm text-(--text-secondary) leading-relaxed max-w-2xl transition-colors duration-200 ease-out">
         {description}
       </p>
     )}
@@ -191,7 +191,7 @@ const ExperienceRow = ({
 );
 
 const TechBadge = ({ name }: { name: string; colorClass: string }) => (
-  <span className="inline-flex items-center text-[13px] font-medium px-3 py-1.5 rounded-lg bg-(--bg-tertiary) border border-(--border-color) text-(--text-secondary) transition-all duration-500 hover:text-(--text-primary) hover:border-(--text-muted) cursor-default">
+  <span className="inline-flex items-center text-[13px] font-medium px-3 py-1.5 rounded-lg bg-(--bg-tertiary) border border-(--border-color) text-(--text-secondary) transition-colors duration-200 ease-out hover:text-(--text-primary) hover:border-(--text-muted) cursor-default">
     <span>{name}</span>
   </span>
 );
@@ -209,7 +209,7 @@ const ProjectRow = ({
   githubUrl: string;
   liveUrl?: string;
 }) => (
-  <article className="group py-4 border-b border-(--border-color) last:border-0 last:pb-0 first:pt-0 pl-1 transition-colors duration-500">
+  <article className="group py-4 border-b border-(--border-color) last:border-0 last:pb-0 first:pt-0 pl-1">
     <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
       <h3 className="text-base font-medium text-(--text-primary) mb-1 sm:mb-0">
         <a
@@ -221,35 +221,35 @@ const ProjectRow = ({
           {title}
         </a>
       </h3>
-      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-all duration-500">
+      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
         {liveUrl && (
           <a
             href={liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-all duration-500 text-xs flex items-center gap-1"
+            className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1"
           >
             <ExternalLinkIcon /> Live
           </a>
         )}
-        <a
+          <a
           href={githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-all duration-500 text-xs flex items-center gap-1"
+          className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1"
         >
           <GitHubIcon /> Code
         </a>
       </div>
     </div>
-    <p className="text-sm text-(--text-secondary) mb-3 leading-relaxed max-w-2xl transition-colors duration-500">
+    <p className="text-sm text-(--text-secondary) mb-3 leading-relaxed max-w-2xl">
       {description}
     </p>
     <div className="flex flex-wrap gap-2">
       {tech.map((t) => (
         <span
           key={t}
-          className="text-[10px] text-(--text-muted) font-mono tracking-tight bg-(--bg-primary) px-1.5 py-0.5 rounded border border-(--border-color) bg-opacity-50 transition-all duration-500"
+          className="text-[10px] text-(--text-muted) font-mono tracking-tight bg-(--bg-primary) px-1.5 py-0.5 rounded border border-(--border-color) bg-opacity-50 transition-colors duration-200 ease-out"
         >
           {t}
         </span>
@@ -261,16 +261,20 @@ const ProjectRow = ({
 const AboutSection = () => (
   <SectionMinimal title="About Me">
     <div className="flex flex-col md:flex-row gap-8 items-start pl-1">
-      <div className="relative group w-32 h-32 shrink-0 cursor-pointer overflow-hidden rounded-xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-700 ease-out shadow-sm hover:shadow-md bg-(--bg-tertiary)">
+      <div className="relative group w-32 h-32 shrink-0 overflow-hidden rounded-xl border border-(--border-color) hover:border-(--text-muted) transition-colors duration-200 ease-out shadow-sm hover:shadow-md bg-(--bg-tertiary)">
         <img
           src="/me-color.jpeg"
           alt="Manu Sharma Color"
-          className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out z-10"
+          width={128}
+          height={128}
+          className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10"
         />
         <img
           src="/me-bw.jpeg"
           alt="Manu Sharma B&W"
-          className="w-full h-full object-cover transition-all duration-700 ease-out scale-100 group-hover:scale-105"
+          width={128}
+          height={128}
+          className="w-full h-full object-cover transition-transform duration-300 ease-out scale-100 group-hover:scale-[1.03]"
         />
       </div>
       <div>
@@ -288,7 +292,7 @@ const AboutSection = () => (
             </div>
           </div>
         </div>
-        <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-lg transition-colors duration-500">
+        <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-lg">
           I'm a Full Stack web developer. I love building products to solve
           real-world problems and creates MVPs efficiently.
         </p>
@@ -321,15 +325,49 @@ export function App() {
     }
   }, []);
 
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-    if (isDark) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
+  const toggleTheme = (event: React.MouseEvent) => {
+    const isSwitchingToDark = !isDark;
+
+    const toggle = () => {
+      setIsDark(isSwitchingToDark);
+      if (isSwitchingToDark) {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      }
+    };
+
+    if (!("startViewTransition" in document)) {
+      toggle();
+      return;
     }
+
+    const x = event.clientX;
+    const y = event.clientY;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    const transition = (document as any).startViewTransition(toggle);
+
+    transition.ready.then(() => {
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${x}px ${y}px)`,
+            `circle(${endRadius}px at ${x}px ${y}px)`,
+          ],
+        },
+        {
+          duration: 500,
+          easing: "ease-out",
+          pseudoElement: "::view-transition-new(root)",
+        }
+      );
+    });
   };
 
   const projects = [
@@ -372,11 +410,11 @@ export function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) transition-colors duration-500 font-sans">
+    <div className="min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans">
       <nav className="fixed top-0 right-0 p-6 z-50">
         <button
           onClick={toggleTheme}
-          className="p-3 rounded-full bg-(--bg-secondary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-all duration-300 hover:scale-110 shadow-sm"
+          className="p-3 rounded-full bg-(--bg-secondary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-transform duration-200 ease-out hover:scale-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) shadow-sm cursor-pointer"
         >
           {isDark ? <SunIcon /> : <MoonIcon />}
         </button>
@@ -387,7 +425,7 @@ export function App() {
           <NameFlip />
 
           <div className="flex flex-col gap-6 mt-4">
-            <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-light transition-colors duration-500">
+            <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-light">
               I craft interactive web experiences using{" "}
               <span className="font-medium text-(--text-primary)">
                 TypeScript
@@ -413,7 +451,7 @@ export function App() {
               </span>
               <button
                 onClick={copyEmail}
-                className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-all duration-300 ml-1 cursor-pointer"
+                className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
                 title="Copy email"
               >
                 {copied ? <CheckIcon /> : <CopyIcon />}
@@ -426,9 +464,9 @@ export function App() {
           <div className="flex flex-wrap gap-x-6 gap-y-3 pl-1">
             <a
               href="mailto:quantapar@gmail.com"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-all duration-500"
+              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
             >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-all duration-500">
+              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
                 <MailIcon />
               </span>
               <span>Email</span>
@@ -437,9 +475,9 @@ export function App() {
               href="https://x.com/quantapar"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-all duration-500"
+              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
             >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-all duration-500">
+              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
                 <TwitterIcon />
               </span>
               <span>Twitter</span>
@@ -448,9 +486,9 @@ export function App() {
               href="https://github.com/Quantapar"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-all duration-500"
+              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
             >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-all duration-500">
+              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
                 <GitHubIcon />
               </span>
               <span>GitHub</span>
@@ -459,9 +497,9 @@ export function App() {
               href="https://www.linkedin.com/in/manu-sharma-6012bb32a/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-all duration-500"
+              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
             >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-all duration-500">
+              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
                 <LinkedInIcon />
               </span>
               <span>LinkedIn</span>
@@ -478,11 +516,13 @@ export function App() {
                   href="https://www.appx.co.in/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-(--text-primary) font-bold tracking-tight transition-all duration-500 hover:opacity-80"
+                  className="transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm inline-flex items-center text-[15px]"
+                  aria-label="AppX"
                 >
-                  AppX
+                  <span className="font-black tracking-tighter text-(--text-primary)">App</span>
+                  <span className="font-black tracking-tighter text-[#FF3512]">X</span>
                 </a>
-                <span className="w-px h-4 bg-(--border-color) transition-colors duration-500"></span>
+                <span className="w-px h-4 bg-(--border-color)"></span>
                 <a
                   href="https://www.ycombinator.com/"
                   target="_blank"
@@ -526,7 +566,7 @@ export function App() {
 
         <AboutSection />
 
-        <footer className="mt-24 py-12 flex flex-col items-center gap-6 border-t border-(--border-color) transition-colors duration-500">
+        <footer className="mt-24 py-12 flex flex-col items-center gap-6 border-t border-(--border-color)">
           <div className="flex gap-6 text-xs text-(--text-muted)">
             <a
               href="mailto:quantapar@gmail.com"

@@ -45,7 +45,6 @@ body {
   -webkit-font-smoothing: antialiased;
   background-color: var(--bg-primary); /* Fixes white background on overscroll */
   color: var(--text-primary);
-  transition: background-color 500ms ease, color 500ms ease; /* Smooth transition matching App.tsx */
 }
 
 /* Subtle flip animation */
@@ -82,3 +81,19 @@ body {
 .contrib-2 { background-color: var(--contrib-2); }
 .contrib-3 { background-color: var(--contrib-3); }
 .contrib-4 { background-color: var(--contrib-4); }
+
+/* --- View Transitions: circular clip-path for dark mode toggle --- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
