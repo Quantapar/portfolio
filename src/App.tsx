@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import "./index.css";
+import devsImage from "./assets/100xDevsFrontend.png";
+import cypherImage from "./assets/Cypher.png";
+import mayhemImage from "./assets/Mayhem.png";
+import contactImage from "./assets/contact.png";
 
 const SunIcon = () => (
   <svg
@@ -202,58 +206,79 @@ const ProjectRow = ({
   tech,
   githubUrl,
   liveUrl,
+  image,
 }: {
   title: string;
   description: string;
   tech: string[];
   githubUrl: string;
   liveUrl?: string;
+  image?: string;
 }) => (
-  <article className="group py-4 border-b border-(--border-color) last:border-0 last:pb-0 first:pt-0 pl-1">
-    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
-      <h3 className="text-base font-medium text-(--text-primary) mb-1 sm:mb-0">
-        <a
-          href={liveUrl || githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 hover:text-(--accent)"
-        >
-          {title}
-        </a>
-      </h3>
-      <div className="flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200 ease-out">
-        {liveUrl && (
-          <a
-            href={liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1"
-          >
-            <ExternalLinkIcon /> Live
-          </a>
+  <article className="group py-8 first:pt-0 last:pb-0 border-b border-(--border-color) last:border-0 pl-1">
+    <div className="flex flex-col sm:flex-row gap-6">
+      <a 
+        href={liveUrl || githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full sm:w-56 shrink-0 aspect-16/10 rounded-xl overflow-hidden border border-(--border-color) bg-(--bg-tertiary) transition-all duration-300 relative shadow-[0_1px_4px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.10)] group-hover:border-(--text-muted) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+      >
+        {image ? (
+          <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-[10px] text-(--text-muted) font-mono uppercase tracking-widest opacity-60">Screenshot</span>
+          </div>
         )}
-          <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1"
-        >
-          <GitHubIcon /> Code
-        </a>
+      </a>
+      
+      <div className="flex flex-col grow">
+        <div className="flex flex-col lg:flex-row lg:items-baseline justify-between mb-2">
+          <h3 className="text-base font-medium text-(--text-primary) mb-2 lg:mb-0">
+            <a
+              href={liveUrl || githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-(--text-muted) transition-colors duration-200 focus-visible:outline-none"
+            >
+              {title}
+            </a>
+          </h3>
+          <div className="flex gap-2 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 ease-out mb-1 lg:mb-0">
+            {liveUrl && (
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1.5"
+              >
+                <ExternalLinkIcon /> Live
+              </a>
+            )}
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1.5"
+            >
+              <GitHubIcon /> Code
+            </a>
+          </div>
+        </div>
+        <p className="text-sm text-(--text-secondary) mb-5 leading-relaxed max-w-xl">
+          {description}
+        </p>
+        <div className="flex flex-wrap gap-2 mt-auto">
+          {tech.map((t) => (
+            <span
+              key={t}
+              className="text-[10px] text-(--text-muted) font-mono tracking-tight bg-(--bg-primary) px-2 py-0.5 rounded border border-(--border-color) bg-opacity-50 transition-colors duration-200 ease-out"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
       </div>
-    </div>
-    <p className="text-sm text-(--text-secondary) mb-3 leading-relaxed max-w-2xl">
-      {description}
-    </p>
-    <div className="flex flex-wrap gap-2">
-      {tech.map((t) => (
-        <span
-          key={t}
-          className="text-[10px] text-(--text-muted) font-mono tracking-tight bg-(--bg-primary) px-1.5 py-0.5 rounded border border-(--border-color) bg-opacity-50 transition-colors duration-200 ease-out"
-        >
-          {t}
-        </span>
-      ))}
     </div>
   </article>
 );
@@ -304,6 +329,7 @@ const AboutSection = () => (
 export function App() {
   const [isDark, setIsDark] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [showAllProjects, setShowAllProjects] = useState(false);
 
   const copyEmail = () => {
     navigator.clipboard.writeText("quantapar@gmail.com");
@@ -372,12 +398,22 @@ export function App() {
 
   const projects = [
     {
+      title: "100xDevs Frontend Revamp",
+      description:
+        "A complete frontend revamp for the 100xDevs platform. Features immersive web animations, modern UI components, and a robust design system.",
+      tech: ["React", "Tailwind CSS", "Framer Motion"],
+      githubUrl: "https://github.com/Quantapar/100xDevs-Frontend",
+      liveUrl: "https://100xdevslanding.vercel.app/",
+      image: devsImage,
+    },
+    {
       title: "Cypher",
       description:
         "A full-stack contest hosting platform. Built for scalability with role-based access, real-time code submissions, and live leaderboards.",
       tech: ["React", "Bun", "Postgres", "Prisma", "Docker"],
       githubUrl: "https://github.com/Quantapar/contest-platform",
       liveUrl: "https://cypherarena.vercel.app/",
+      image: cypherImage,
     },
     {
       title: "Mayhem",
@@ -386,6 +422,7 @@ export function App() {
       tech: ["HTML", "Tailwind", "Motion"],
       githubUrl: "https://github.com/Quantapar/Tailwind/tree/main/tailwind01",
       liveUrl: "https://joinmayhem.vercel.app/",
+      image: mayhemImage,
     },
     {
       title: "Contact Manager",
@@ -393,10 +430,13 @@ export function App() {
         "Robust REST API design pattern demonstration. Features protected routes, input validation, and secure JWT handling.",
       tech: ["Node.js", "Express", "MongoDB", "Zod"],
       githubUrl: "https://github.com/Quantapar/contact-manager-api",
+      image: contactImage,
     },
   ];
 
   const techStack = [
+    { name: "Framer Motion", colorClass: "badge-framermotion" },
+    { name: "Figma", colorClass: "badge-figma" },
     { name: "React", colorClass: "badge-react" },
     { name: "Next.js", colorClass: "badge-nextjs" },
     { name: "TypeScript", colorClass: "badge-typescript" },
@@ -549,11 +589,37 @@ export function App() {
         </SectionMinimal>
 
         <SectionMinimal title="Projects">
-          <div className="flex flex-col gap-6">
-            {projects.map((project) => (
+          <div className="flex flex-col">
+            {(showAllProjects ? projects : projects.slice(0, 3)).map((project) => (
               <ProjectRow key={project.title} {...project} />
             ))}
           </div>
+          {projects.length > 3 && (
+            <div className="mt-8 pl-1">
+              <button
+                onClick={() => setShowAllProjects(!showAllProjects)}
+                className="group flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
+              >
+                <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97] flex items-center justify-center">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    width="14" 
+                    height="14" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    strokeWidth="2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    className={`transition-transform duration-300 ease-out ${showAllProjects ? 'rotate-180' : ''}`}
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </span>
+                <span>{showAllProjects ? "Show fewer projects" : "Show more projects"}</span>
+              </button>
+            </div>
+          )}
         </SectionMinimal>
 
         <SectionMinimal title="Technologies">
