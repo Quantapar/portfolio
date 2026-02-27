@@ -126,7 +126,7 @@ export function App() {
           ],
         },
         {
-          duration: 300,
+          duration: 900,
           easing: "cubic-bezier(0.32, 0.72, 0, 1)",
           pseudoElement: "::view-transition-new(root)",
         }
