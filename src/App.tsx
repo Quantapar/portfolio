@@ -5,331 +5,69 @@ import cypherImage from "./assets/Cypher.png";
 import mayhemImage from "./assets/Mayhem.png";
 import contactImage from "./assets/contact.png";
 
-const SunIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle cx="12" cy="12" r="5" />
-    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-  </svg>
-);
-const MoonIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="18"
-    height="18"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-  </svg>
-);
-const GitHubIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-  >
-    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-  </svg>
-);
-const ExternalLinkIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="12"
-    height="12"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-    <polyline points="15 3 21 3 21 9" />
-    <line x1="10" y1="14" x2="21" y2="3" />
-  </svg>
-);
-const TwitterIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-  >
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-const LinkedInIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-  >
-    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-  </svg>
-);
-const MailIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-    <polyline points="22,6 12,13 2,6" />
-  </svg>
-);
-
-const CopyIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-  </svg>
-);
-
-const CheckIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="14"
-    height="14"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="3"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-
-const NameFlip = () => (
-  <div className="h-12.5 overflow-hidden inline-flex flex-col relative top-1">
-    <div className="animate-flip text-(--text-primary) font-bold text-4xl tracking-tight leading-12.5">
-      <span className="block h-12.5">Manu Sharma</span>
-      <span className="block h-12.5 text-(--text-muted)">Quantapar</span>
-      <span className="block h-12.5">Manu Sharma</span>
-    </div>
-  </div>
-);
-
-const SectionMinimal = ({
-  children,
-  title,
-}: {
-  children: React.ReactNode;
-  title: string;
-}) => (
-  <section className="py-2">
-    <h2 className="text-[11px] font-bold tracking-[0.2em] text-(--text-muted) uppercase mb-6 pl-1 transition-colors duration-200 ease-out">
-      {title}
-    </h2>
-    {children}
-  </section>
-);
-
-const ExperienceRow = ({
-  role,
-  company,
-  duration,
-  description,
-}: {
-  role: string;
-  company: React.ReactNode;
-  duration: string;
-  description?: string;
-}) => (
-  <div className="group pl-1">
-    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-2">
-      <div className="flex items-center gap-3">
-        <div className="font-medium text-(--text-primary)">
-          {company}
-        </div>
-        <div className="text-xs font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2.5 py-1 rounded-md border border-(--border-color) transition-colors duration-200 ease-out">
-          {role}
-        </div>
-      </div>
-      <div className="text-xs text-(--text-muted) font-mono mt-1 sm:mt-0 opacity-60 transition-colors hover:opacity-100 hover:text-(--text-primary) cursor-default">
-        {duration}
-      </div>
-    </div>
-    {description && (
-      <p className="text-sm text-(--text-secondary) leading-relaxed max-w-2xl transition-colors duration-200 ease-out">
-        {description}
-      </p>
-    )}
-  </div>
-);
-
-const TechBadge = ({ name }: { name: string; colorClass: string }) => (
-  <span className="inline-flex items-center text-[13px] font-medium px-3 py-1.5 rounded-lg bg-(--bg-tertiary) border border-(--border-color) text-(--text-secondary) transition-colors duration-200 ease-out hover:text-(--text-primary) hover:border-(--text-muted) cursor-default">
-    <span>{name}</span>
-  </span>
-);
-
-const ProjectRow = ({
-  title,
-  description,
-  tech,
-  githubUrl,
-  liveUrl,
-  image,
-}: {
-  title: string;
-  description: string;
-  tech: string[];
-  githubUrl: string;
-  liveUrl?: string;
-  image?: string;
-}) => (
-  <article className="group py-8 first:pt-0 last:pb-0 border-b border-(--border-color) last:border-0 pl-1">
-    <div className="flex flex-col sm:flex-row gap-6">
-      <a 
-        href={liveUrl || githubUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block w-full sm:w-56 shrink-0 aspect-16/10 rounded-xl overflow-hidden border border-(--border-color) bg-(--bg-tertiary) transition-all duration-300 relative shadow-[0_1px_4px_rgba(0,0,0,0.08)] hover:shadow-[0_4px_16px_rgba(0,0,0,0.10)] group-hover:border-(--text-muted) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
-      >
-        {image ? (
-          <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-[10px] text-(--text-muted) font-mono uppercase tracking-widest opacity-60">Screenshot</span>
-          </div>
-        )}
-      </a>
-      
-      <div className="flex flex-col grow">
-        <div className="flex flex-col lg:flex-row lg:items-baseline justify-between mb-2">
-          <h3 className="text-base font-medium text-(--text-primary) mb-2 lg:mb-0">
-            <a
-              href={liveUrl || githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-(--text-muted) transition-colors duration-200 focus-visible:outline-none"
-            >
-              {title}
-            </a>
-          </h3>
-          <div className="flex gap-2 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-200 ease-out mb-1 lg:mb-0">
-            {liveUrl && (
-              <a
-                href={liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1.5"
-              >
-                <ExternalLinkIcon /> Live
-              </a>
-            )}
-            <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1 px-2 rounded-md bg-(--bg-primary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) text-xs flex items-center gap-1.5"
-            >
-              <GitHubIcon /> Code
-            </a>
-          </div>
-        </div>
-        <p className="text-sm text-(--text-secondary) mb-5 leading-relaxed max-w-xl">
-          {description}
-        </p>
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {tech.map((t) => (
-            <span
-              key={t}
-              className="text-[10px] text-(--text-muted) font-mono tracking-tight bg-(--bg-primary) px-2 py-0.5 rounded border border-(--border-color) bg-opacity-50 transition-colors duration-200 ease-out"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
-  </article>
-);
-
-const AboutSection = () => (
-  <SectionMinimal title="About Me">
-    <div className="flex flex-col md:flex-row gap-8 items-start pl-1">
-      <div className="relative group w-32 h-32 shrink-0 overflow-hidden rounded-xl border border-(--border-color) hover:border-(--text-muted) transition-colors duration-200 ease-out shadow-sm hover:shadow-md bg-(--bg-tertiary)">
-        <img
-          src="/me-color.jpeg"
-          alt="Manu Sharma Color"
-          width={128}
-          height={128}
-          className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10"
-        />
-        <img
-          src="/me-bw.jpeg"
-          alt="Manu Sharma B&W"
-          width={128}
-          height={128}
-          className="w-full h-full object-cover transition-transform duration-300 ease-out scale-100 group-hover:scale-[1.03]"
-        />
-      </div>
-      <div>
-        <h3 className="text-lg font-medium text-(--text-primary) mb-1">
-          Manu Sharma
-        </h3>
-        <div className="flex items-center gap-1.5 text-[13px] text-(--text-highlight) font-medium mb-4">
-          <span>20</span>
-          <span className="opacity-40">•</span>
-          <div className="h-4.5 overflow-hidden inline-flex flex-col relative top-[0.5px]">
-            <div className="animate-flip leading-4.5">
-              <span className="block h-4.5">Fullstack Engineer</span>
-              <span className="block h-4.5">Freelancer</span>
-              <span className="block h-4.5">Fullstack Engineer</span>
-            </div>
-          </div>
-        </div>
-        <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-lg">
-          I'm a Full Stack web developer. I love building products to solve
-          real-world problems and creates MVPs efficiently.
-        </p>
-      </div>
-    </div>
-  </SectionMinimal>
-);
+import {
+  SunIcon,
+  MoonIcon,
+  HomeIcon,
+  UserIcon,
+  LayersIcon,
+  GitHubIcon,
+  ExternalLinkIcon,
+  TwitterIcon,
+  LinkedInIcon,
+  MailIcon,
+  CopyIcon,
+  CheckIcon,
+} from "./components/Icons";
+import { SectionMinimal } from "./components/ui/SectionMinimal";
+import { NameFlip } from "./components/ui/NameFlip";
+import { ExperienceRow } from "./components/ui/ExperienceRow";
+import { TechBadge } from "./components/ui/TechBadge";
+import { ProjectRow } from "./components/projects/ProjectRow";
+import { ProjectCard } from "./components/projects/ProjectCard";
+import { AboutSection } from "./components/about/AboutSection";
+import { MovieShelf } from "./components/about/MovieShelf";
+import { Footer } from "./components/layout/Footer";
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
   const [copied, setCopied] = useState(false);
   const [showAllProjects, setShowAllProjects] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [activeSection, setActiveSection] = useState("home");
+
+  useEffect(() => {
+    const handlePopState = () => setCurrentPath(window.location.pathname);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const navigateTo = (path: string, event?: React.MouseEvent) => {
+    if (event) event.preventDefault();
+    if (path.includes('#')) {
+      const [base, hash] = path.split('#');
+      const targetBase = base || '/';
+      
+      if (currentPath !== targetBase) {
+        window.history.pushState({}, "", path);
+        setCurrentPath(targetBase);
+        if (hash) {
+          setTimeout(() => {
+            document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      } else {
+        window.history.pushState({}, "", path);
+        if (hash) {
+          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    } else {
+      window.history.pushState({}, "", path);
+      setCurrentPath(path);
+      window.scrollTo(0, 0);
+    }
+  };
 
   const copyEmail = () => {
     navigator.clipboard.writeText("quantapar@gmail.com");
@@ -388,8 +126,8 @@ export function App() {
           ],
         },
         {
-          duration: 500,
-          easing: "ease-out",
+          duration: 300,
+          easing: "cubic-bezier(0.32, 0.72, 0, 1)",
           pseudoElement: "::view-transition-new(root)",
         }
       );
@@ -398,37 +136,45 @@ export function App() {
 
   const projects = [
     {
+      id: "100xdevs",
       title: "100xDevs Frontend Revamp",
       description:
         "A complete frontend revamp for the 100xDevs platform. Features immersive web animations, modern UI components, and a robust design system.",
       tech: ["React", "Tailwind CSS", "Framer Motion"],
+      roles: [{ name: "Design", type: "design" }, { name: "Dev", type: "dev" }] as const,
       githubUrl: "https://github.com/Quantapar/100xDevs-Frontend",
       liveUrl: "https://100xdevslanding.vercel.app/",
       image: devsImage,
     },
     {
+      id: "cypher",
       title: "Cypher",
       description:
         "A full-stack contest hosting platform. Built for scalability with role-based access, real-time code submissions, and live leaderboards.",
       tech: ["React", "Bun", "Postgres", "Prisma", "Docker"],
+      roles: [{ name: "Fullstack", type: "dev" }] as const,
       githubUrl: "https://github.com/Quantapar/contest-platform",
       liveUrl: "https://cypherarena.vercel.app/",
       image: cypherImage,
     },
     {
+      id: "mayhem",
       title: "Mayhem",
       description:
         "Experimental landing page design. Focusing on micro-interactions, smooth scrolling, and cinematic typography.",
       tech: ["HTML", "Tailwind", "Motion"],
+      roles: [{ name: "Design", type: "design" }, { name: "Interactions", type: "prototype" }] as const,
       githubUrl: "https://github.com/Quantapar/Tailwind/tree/main/tailwind01",
       liveUrl: "https://joinmayhem.vercel.app/",
       image: mayhemImage,
     },
     {
+      id: "contact-manager",
       title: "Contact Manager",
       description:
         "Robust REST API design pattern demonstration. Features protected routes, input validation, and secure JWT handling.",
       tech: ["Node.js", "Express", "MongoDB", "Zod"],
+      roles: [{ name: "Backend Concept", type: "dev" }] as const,
       githubUrl: "https://github.com/Quantapar/contact-manager-api",
       image: contactImage,
     },
@@ -449,235 +195,297 @@ export function App() {
     { name: "Tailwind", colorClass: "badge-tailwind" },
   ];
 
+  const menuItems = [
+    { id: 'home', icon: <HomeIcon />, label: 'Home', targetPath: '/' },
+    { id: 'projects', icon: <LayersIcon />, label: 'Projects', targetPath: '/projects' },
+    { id: 'about', icon: <UserIcon />, label: 'About', targetPath: '/about' },
+  ];
+
   return (
-    <div className="min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans">
-      <nav className="fixed top-0 right-0 p-6 z-50">
+    <div className="min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
+      <nav className="fixed top-0 left-0 h-full w-auto pt-[102px] pl-8 lg:pl-16 z-50 hidden md:flex flex-col items-start gap-3 transition-all">
+        {menuItems.map((item) => {
+          const isMainPage = currentPath === '/' || currentPath === '';
+          let isActive = false;
+          if (item.id === 'home' && isMainPage) isActive = true;
+          if (item.id === 'projects' && currentPath === '/projects') isActive = true;
+          if (item.id === 'about' && currentPath === '/about') isActive = true;
+          
+          return (
+            <a
+              key={item.id}
+              href={item.targetPath}
+              onClick={(e) => navigateTo(item.targetPath, e)}
+              className={`group flex items-center h-10 rounded-full border transition-colors duration-200 focus-visible:outline-none ${
+                isActive 
+                  ? 'bg-(--bg-tertiary) border-(--text-muted)' 
+                  : 'bg-(--bg-secondary) border-(--border-color) hover:bg-(--bg-tertiary)'
+              }`}
+            >
+              <div className={`w-10 h-10 flex items-center justify-center shrink-0 transition-colors ${
+                isActive ? 'text-(--text-primary)' : 'text-(--text-secondary) group-hover:text-(--text-primary)'
+              }`}>
+                {item.icon}
+              </div>
+              <div className={`overflow-hidden transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+                isActive ? 'max-w-0 opacity-0' : 'max-w-0 group-hover:max-w-[100px] opacity-0 group-hover:opacity-100'
+              }`}>
+                <span className="pr-4 text-sm font-medium text-(--text-primary) whitespace-nowrap block">
+                  {item.label}
+                </span>
+              </div>
+            </a>
+          );
+        })}
         <button
           onClick={toggleTheme}
-          className="p-3 rounded-full bg-(--bg-secondary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-transform duration-200 ease-out hover:scale-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) shadow-sm cursor-pointer"
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-(--bg-secondary) border border-(--border-color) hover:bg-(--bg-tertiary) text-(--text-secondary) hover:text-(--text-primary) transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:outline-none cursor-pointer active:scale-[0.97]"
+          title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
         >
           {isDark ? <SunIcon /> : <MoonIcon />}
         </button>
       </nav>
 
-      <main className="max-w-2xl mx-auto px-6 py-20 space-y-12">
-        <header className="flex flex-col justify-center min-h-40 pl-1">
-          <NameFlip />
+      <nav className="fixed top-0 right-0 p-6 z-50 md:hidden">
+        <button
+          onClick={toggleTheme}
+          className="p-3 rounded-full bg-(--bg-secondary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-transform duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) shadow-sm cursor-pointer"
+        >
+          {isDark ? <SunIcon /> : <MoonIcon />}
+        </button>
+      </nav>
 
-          <div className="flex flex-col gap-6 mt-4">
-            <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-light">
-              I craft interactive web experiences using{" "}
-              <span className="font-medium text-(--text-primary)">
-                TypeScript
-              </span>
-              , <span className="font-medium text-(--text-primary)">React</span>
-              ,{" "}
-              <span className="font-medium text-(--text-primary)">Next.js</span>
-              , and{" "}
-              <span className="font-medium text-(--text-primary)">
-                PostgreSQL
-              </span>
-              . Driven by a passion for{" "}
-              <span className="font-medium text-(--text-primary)">
-                UI design
-              </span>{" "}
-              and seamless user interactions.
-            </p>
-
-            <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
-              <span className="text-(--text-secondary)">Get in touch:</span>
-              <span className="font-medium text-(--text-primary)">
-                quantapar@gmail.com
-              </span>
-              <button
-                onClick={copyEmail}
-                className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
-                title="Copy email"
-              >
-                {copied ? <CheckIcon /> : <CopyIcon />}
-              </button>
-            </div>
+      {currentPath === '/about' ? (
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all md:pl-24 lg:pl-6 min-h-[80vh]">
+          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
+            <AboutSection />
+            <SectionMinimal title="Technologies">
+              <div className="flex flex-wrap gap-x-2 gap-y-2 pl-1 mb-8">
+                {techStack.map((tech) => (
+                  <TechBadge key={tech.name} {...tech} />
+                ))}
+              </div>
+            </SectionMinimal>
+            
+            <SectionMinimal title="Movies I'm lovin'">
+              <MovieShelf />
+            </SectionMinimal>
           </div>
-        </header>
-
-        <SectionMinimal title="Socials">
-          <div className="flex flex-wrap gap-x-6 gap-y-3 pl-1">
-            <a
-              href="mailto:quantapar@gmail.com"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-            >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
-                <MailIcon />
-              </span>
-              <span>Email</span>
-            </a>
-            <a
-              href="https://x.com/quantapar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-            >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
-                <TwitterIcon />
-              </span>
-              <span>Twitter</span>
-            </a>
-            <a
-              href="https://github.com/Quantapar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-            >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
-                <GitHubIcon />
-              </span>
-              <span>GitHub</span>
-            </a>
-            <a
-              href="https://www.linkedin.com/in/manu-sharma-6012bb32a/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-2 text-xs font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-            >
-              <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97]">
-                <LinkedInIcon />
-              </span>
-              <span>LinkedIn</span>
-            </a>
+        </main>
+      ) : currentPath === '/projects' ? (
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all md:pl-24 lg:pl-6 min-h-[80vh]">
+          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
+             <SectionMinimal title="Projects">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                {projects.map((project) => (
+                  <ProjectCard key={project.id} {...project} />
+                ))}
+              </div>
+            </SectionMinimal>
           </div>
-        </SectionMinimal>
+        </main>
+      ) : currentPath !== '/' && currentPath !== '' && !currentPath.includes('#') && projects.find(p => p.id === currentPath.slice(1)) ? (
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all md:pl-24 lg:pl-6 min-h-[80vh]">
+          {(() => {
+            const project = projects.find(p => p.id === currentPath.slice(1))!;
+            return (
+              <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
+                <SectionMinimal title="Project Details">
+                  <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-6 pl-1">{project.title}</h1>
+                  
+                  <div className="flex flex-wrap gap-2 mb-8 pl-1">
+                    {project.tech.map((t) => (
+                      <TechBadge key={t} name={t} colorClass="" />
+                    ))}
+                  </div>
+                  
+                  <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl mb-10 pl-1">
+                    {project.description}
+                  </p>
+                  
+                  <div className="flex gap-4 mb-16 pl-1">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
+                      >
+                        Visit Website <ExternalLinkIcon />
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--border-color) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
+                      >
+                        <GitHubIcon /> View Source
+                      </a>
+                    )}
+                  </div>
 
-        <SectionMinimal title="Experience">
-          <ExperienceRow
-            role="Fullstack Intern"
-            company={
-              <span className="flex items-center gap-3">
-                <a
-                  href="https://www.appx.co.in/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm inline-flex items-center text-[15px]"
-                  aria-label="AppX"
-                >
-                  <span className="font-black tracking-tighter text-(--text-primary)">App</span>
-                  <span className="font-black tracking-tighter text-[#FF3512]">X</span>
-                </a>
-                <span className="w-px h-4 bg-(--border-color)"></span>
-                <a
-                  href="https://www.ycombinator.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:opacity-80 transition-opacity flex items-center"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="rounded-sm"
-                  >
-                    <rect width="24" height="24" fill="#F26522" rx="2" />
-                    <path d="M7 6L12 14L17 6H15L12 11L9 6H7Z" fill="white" />
-                    <rect x="11" y="13" width="2" height="7" fill="white" />
-                  </svg>
-                </a>
-              </span>
-            }
-            duration="Feb 2026 — Present"
-          />
-        </SectionMinimal>
+                  {project.image && (
+                    <div className="w-full rounded-2xl overflow-hidden border border-(--border-color) shadow-sm bg-(--bg-tertiary) pl-1 ml-[-4px]">
+                      <img src={project.image} alt={project.title} className="w-full h-auto" />
+                    </div>
+                  )}
+                </SectionMinimal>
+              </div>
+            );
+          })()}
+        </main>
+      ) : (
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 md:pl-24 lg:pl-6 transition-all min-h-[80vh]">
+          <header id="home" className="flex flex-col pl-1 scroll-mt-24">
+            <NameFlip />
 
-        <SectionMinimal title="Projects">
-          <div className="flex flex-col">
-            {(showAllProjects ? projects : projects.slice(0, 3)).map((project) => (
-              <ProjectRow key={project.title} {...project} />
-            ))}
-          </div>
-          {projects.length > 3 && (
-            <div className="mt-8 pl-1">
-              <button
-                onClick={() => setShowAllProjects(!showAllProjects)}
-                className="group flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
-              >
-                <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-out group-active:scale-[0.97] flex items-center justify-center">
-                  <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="14" 
-                    height="14" 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className={`transition-transform duration-300 ease-out ${showAllProjects ? 'rotate-180' : ''}`}
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </svg>
+            <div className="flex flex-col gap-6 mt-4">
+              <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-light">
+                I am currently building <a href="https://cypherarena.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-medium wavy-link">Cypher</a>, a full-stack contest hosting platform.
+                <br /><br />
+                I craft interactive web experiences using <span className="font-medium text-(--text-primary)">TypeScript</span>, <span className="font-medium text-(--text-primary)">React</span>, <span className="font-medium text-(--text-primary)">Next.js</span>, and <span className="font-medium text-(--text-primary)">PostgreSQL</span>. Driven by a passion for UI design and seamless user interactions.
+              </p>
+
+              <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
+                <span className="text-(--text-secondary)">Get in touch:</span>
+                <span className="font-medium text-(--text-primary)">
+                  quantapar@gmail.com
                 </span>
-                <span>{showAllProjects ? "Show fewer projects" : "Show more projects"}</span>
-              </button>
+                <button
+                  onClick={copyEmail}
+                  className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
+                  title="Copy email"
+                >
+                  {copied ? <CheckIcon /> : <CopyIcon />}
+                </button>
+                <div className="flex flex-wrap gap-x-4 gap-y-3 mt-4">
+                  <a
+                    href="mailto:quantapar@gmail.com"
+                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
+                  >
+                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
+                      <MailIcon />
+                    </span>
+                    <span>Email</span>
+                  </a>
+                  <a
+                    href="https://x.com/quantapar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
+                  >
+                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
+                      <TwitterIcon />
+                    </span>
+                    <span>Twitter</span>
+                  </a>
+                  <a
+                    href="https://github.com/Quantapar"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
+                  >
+                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
+                      <GitHubIcon />
+                    </span>
+                    <span>GitHub</span>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/manu-sharma-6012bb32a/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
+                  >
+                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
+                      <LinkedInIcon />
+                    </span>
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
+              </div>
             </div>
-          )}
-        </SectionMinimal>
+          </header>
 
-        <SectionMinimal title="Technologies">
-          <div className="flex flex-wrap gap-x-2 gap-y-2 pl-1">
-            {techStack.map((tech) => (
-              <TechBadge key={tech.name} {...tech} />
-            ))}
-          </div>
-        </SectionMinimal>
+          <SectionMinimal title="Experience" id="experience">
+            <ExperienceRow
+              role="Fullstack Intern"
+              company={
+                <span className="flex items-center gap-3">
+                  <a
+                    href="https://www.appx.co.in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm inline-flex items-center text-[15px]"
+                    aria-label="AppX"
+                  >
+                    <span className="font-black tracking-tighter text-(--text-primary)">App</span>
+                    <span className="font-black tracking-tighter text-[#FF3512]">X</span>
+                  </a>
+                  <span className="w-px h-4 bg-(--border-color)"></span>
+                  <a
+                    href="https://www.ycombinator.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:opacity-80 transition-opacity flex items-center"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="rounded-sm"
+                    >
+                      <rect width="24" height="24" fill="#F26522" rx="2" />
+                      <path d="M7 6L12 14L17 6H15L12 11L9 6H7Z" fill="white" />
+                      <rect x="11" y="13" width="2" height="7" fill="white" />
+                    </svg>
+                  </a>
+                </span>
+              }
+              duration="Feb 2026 — Present"
+            />
+          </SectionMinimal>
+          <SectionMinimal title="Work" id="projects">
+            <div className="flex flex-col gap-1">
+              {(showAllProjects ? projects : projects.slice(0, 3)).map((project) => (
+                <ProjectRow key={project.id} id={project.id} title={project.title} roles={project.roles as any} onClick={(id, e) => navigateTo(`/${id}`, e)} />
+              ))}
+            </div>
+            {projects.length > 3 && (
+              <div className="mt-8 pl-1">
+                <button
+                  onClick={() => setShowAllProjects(!showAllProjects)}
+                  className="group flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
+                >
+                  <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97] flex items-center justify-center">
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="14" 
+                      height="14" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      className={`transition-transform duration-300 ease-out ${showAllProjects ? 'rotate-180' : ''}`}
+                    >
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  </span>
+                  <span>{showAllProjects ? "Show fewer projects" : "Show more projects"}</span>
+                </button>
+              </div>
+            )}
+          </SectionMinimal>
 
-        <AboutSection />
+        </main>
+      )}
 
-        <footer className="mt-24 py-12 flex flex-col items-center gap-6 border-t border-(--border-color)">
-          <div className="flex gap-6 text-xs text-(--text-muted)">
-            <a
-              href="mailto:quantapar@gmail.com"
-              className="hover:text-(--text-primary) transition-colors"
-            >
-              Email
-            </a>
-            <a
-              href="https://x.com/quantapar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-(--text-primary) transition-colors"
-            >
-              Twitter
-            </a>
-            <a
-              href="https://github.com/Quantapar"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-(--text-primary) transition-colors"
-            >
-              GitHub
-            </a>
-            <a
-              href="https://www.linkedin.com/in/manu-sharma-6012bb32a/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-(--text-primary) transition-colors"
-            >
-              LinkedIn
-            </a>
-          </div>
-          <div className="flex flex-col items-center text-[11px] text-(--text-muted) gap-1">
-            <span className="flex items-center gap-1">
-              Design & Developed by{" "}
-              <span className="font-medium text-(--text-primary)">
-                Manu Sharma
-              </span>
-            </span>
-            <span className="opacity-60">
-              © {new Date().getFullYear()}. All rights reserved.
-            </span>
-          </div>
-        </footer>
-      </main>
+      <Footer />
     </div>
   );
 }

@@ -7,6 +7,12 @@ const server = serve({
         "/me-bw.jpeg": file("src/assets/me-bw.jpeg"),
         "/me-color.jpeg": file("src/assets/me-color.jpeg"),
         "/og-image.png": file("src/assets/og-image.png"),
+        "/fight_club.jpg": file("src/assets/fight_club.jpg"),
+        "/interstellar.jpg": file("src/assets/interstellar.jpg"),
+        "/martian.jpg": file("src/assets/martian.jpg"),
+        "/inception.jpg": file("src/assets/inception.jpg"),
+        "/oppenheimer.jpg": file("src/assets/oppenheimer.jpg"),
+        "/tenet.jpg": file("src/assets/tenet.jpg"),
 
         "/api/hello": {
             async GET(req) {
