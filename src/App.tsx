@@ -342,7 +342,7 @@ export function App() {
             <NameFlip />
 
             <div className="flex flex-col gap-6 mt-4">
-              <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-light">
+              <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
                 I am currently building <a href="https://cypherarena.vercel.app/" target="_blank" rel="noopener noreferrer" className="font-medium wavy-link">Cypher</a>, a full-stack contest hosting platform.
                 <br /><br />
                 I craft interactive web experiences using <span className="font-medium text-(--text-primary)">TypeScript</span>, <span className="font-medium text-(--text-primary)">React</span>, <span className="font-medium text-(--text-primary)">Next.js</span>, and <span className="font-medium text-(--text-primary)">PostgreSQL</span>. Driven by a passion for UI design and seamless user interactions.

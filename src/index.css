@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: "Inter", sans-serif;
+}
+
 :root {
   --bg-primary: #f8f8f7;
   --bg-secondary: #ffffff;
