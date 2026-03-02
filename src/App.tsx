@@ -409,44 +409,53 @@ export function App() {
           </header>
 
           <SectionMinimal title="Experience" id="experience">
-            <ExperienceRow
-              role="Fullstack Intern"
-              company={
-                <span className="flex items-center gap-3">
-                  <a
-                    href="https://www.appx.co.in/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm inline-flex items-center text-[15px]"
-                    aria-label="AppX"
-                  >
-                    <span className="font-black tracking-tighter text-(--text-primary)">App</span>
-                    <span className="font-black tracking-tighter text-[#FF3512]">X</span>
-                  </a>
-                  <span className="w-px h-4 bg-(--border-color)"></span>
-                  <a
-                    href="https://www.ycombinator.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:opacity-80 transition-opacity flex items-center"
-                  >
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="rounded-sm"
+            <div className="flex flex-col gap-6">
+              <ExperienceRow
+                role="Fullstack Intern"
+                company={
+                  <span className="flex items-center gap-3">
+                    <a
+                      href="https://www.appx.co.in/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm inline-flex items-center text-[15px]"
+                      aria-label="AppX"
                     >
-                      <rect width="24" height="24" fill="#F26522" rx="2" />
-                      <path d="M7 6L12 14L17 6H15L12 11L9 6H7Z" fill="white" />
-                      <rect x="11" y="13" width="2" height="7" fill="white" />
-                    </svg>
-                  </a>
-                </span>
-              }
-              duration="Feb 2026 — Present"
-            />
+                      <span className="font-black tracking-tighter text-(--text-primary)">App</span>
+                      <span className="font-black tracking-tighter text-[#FF3512]">X</span>
+                    </a>
+                    <span className="w-px h-4 bg-(--border-color)"></span>
+                    <a
+                      href="https://www.ycombinator.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:opacity-80 transition-opacity flex items-center"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="rounded-sm"
+                      >
+                        <rect width="24" height="24" fill="#F26522" rx="2" />
+                        <path d="M7 6L12 14L17 6H15L12 11L9 6H7Z" fill="white" />
+                        <rect x="11" y="13" width="2" height="7" fill="white" />
+                      </svg>
+                    </a>
+                  </span>
+                }
+                duration="Feb 2026 — Present"
+              />
+              <ExperienceRow
+                role="Developer"
+                company={
+                  <span className="text-[15px] font-medium text-(--text-primary)">Freelancer</span>
+                }
+                duration="Nov 2025 — Present"
+              />
+            </div>
           </SectionMinimal>
           <SectionMinimal title="Work" id="projects">
             <div className="flex flex-col gap-1">
