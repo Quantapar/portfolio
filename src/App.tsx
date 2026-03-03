@@ -18,6 +18,7 @@ import {
   MailIcon,
   CopyIcon,
   CheckIcon,
+  DiscordIcon,
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { NameFlip } from "./components/ui/NameFlip";
@@ -402,6 +403,17 @@ export function App() {
                       <LinkedInIcon />
                     </span>
                     <span>LinkedIn</span>
+                  </a>
+                  <a
+                    href="https://discord.com/users/762906412564217857"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
+                  >
+                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
+                      <DiscordIcon />
+                    </span>
+                    <span>Discord</span>
                   </a>
                 </div>
               </div>
