@@ -480,6 +480,15 @@ export function App() {
           <SectionMinimal title="Experience" id="experience">
             <div className="flex flex-col gap-6">
               <ExperienceRow
+                role="Developer"
+                company={
+                  <span className="text-[15px] font-medium text-(--text-primary)">
+                    Freelancer
+                  </span>
+                }
+                duration="Nov 2025 — Present"
+              />
+              <ExperienceRow
                 role="Fullstack Intern"
                 company={
                   <span className="flex items-center gap-3">
@@ -522,16 +531,7 @@ export function App() {
                     </a>
                   </span>
                 }
-                duration="Feb 2026 — Present"
-              />
-              <ExperienceRow
-                role="Developer"
-                company={
-                  <span className="text-[15px] font-medium text-(--text-primary)">
-                    Freelancer
-                  </span>
-                }
-                duration="Nov 2025 — Present"
+                duration="Feb 2026 — Mar 2026"
               />
             </div>
           </SectionMinimal>
