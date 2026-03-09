@@ -4,6 +4,7 @@ import devsImage from "./assets/100xDevsFrontend.png";
 import cypherImage from "./assets/Cypher.png";
 import mayhemImage from "./assets/Mayhem.png";
 import contactImage from "./assets/contact.png";
+import pulseapiImage from "./assets/pulse-api.png";
 
 import {
   SunIcon,
@@ -138,6 +139,26 @@ export function App() {
   };
 
   const projects = [
+    {
+      id: "pulseapi",
+      title: "PulseAPI",
+      description:
+        "A real-time API monitoring dashboard. Built with a responsive frosted glass UI and comprehensive system metrics to track endpoint uptime.",
+      tech: ["Bun", "TypeScript", "React", "Postgres", "Prisma"],
+      roles: [{ name: "Fullstack", type: "dev" }] as const,
+      githubUrl: "https://github.com/Quantapar/PulseApi",
+      image: pulseapiImage,
+    },
+    {
+      id: "100xmobile",
+      title: "100xMobile",
+      description:
+        "Building a mobile-first experience. Focused on smooth interactions and great UI design.",
+      tech: ["React", "TypeScript", "Tailwind CSS"],
+      roles: [{ name: "Frontend", type: "dev" }] as const,
+      liveUrl: "https://100xmobile.com/",
+      githubUrl: "https://github.com/bluntbrain/100xmobile/pull/1",
+    },
     {
       id: "100xdevs",
       title: "100xDevs Frontend Revamp",
@@ -379,14 +400,14 @@ export function App() {
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
                 I am currently building{" "}
                 <a
-                  href="https://cypherarena.vercel.app/"
+                  href="https://github.com/Quantapar/PulseApi"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="font-medium wavy-link"
                 >
-                  Cypher
+                  PulseAPI
                 </a>
-                , a full-stack contest hosting platform.
+                , an API monitoring app.
                 <br />
                 <br />I craft interactive web experiences using{" "}
                 <span className="font-medium text-(--text-primary)">
