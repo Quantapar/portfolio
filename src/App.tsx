@@ -3,9 +3,8 @@ import "./index.css";
 import devsImage from "./assets/100xDevsFrontend.png";
 import cypherImage from "./assets/Cypher.png";
 import mayhemImage from "./assets/Mayhem.png";
-import contactImage from "./assets/contact.png";
-import pulseapiImage from "./assets/pulse-api.png";
 
+import pulseapiImage from "./assets/pulse-api.png";
 
 import {
   SunIcon,
@@ -17,7 +16,7 @@ import {
   ExternalLinkIcon,
   TwitterIcon,
   LinkedInIcon,
-  MailIcon,
+
   CopyIcon,
   CheckIcon,
   DiscordIcon,
@@ -326,46 +325,46 @@ export function App() {
             </SectionMinimal>
 
             <div className="mt-16" id="oss-section">
-            <SectionMinimal title="Open Source Contributions">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {contributions.map((contrib) => (
-                  <a
-                    key={contrib.title}
-                    href={contrib.prUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                  >
-                    <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                      <GitHubIcon />
-                    </div>
-                    <div className="p-6 flex flex-col grow">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
-                          {contrib.title}
-                        </h3>
-                        <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200 shrink-0 ml-2">
-                          <ExternalLinkIcon />
-                        </span>
+              <SectionMinimal title="Open Source Contributions">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                  {contributions.map((contrib) => (
+                    <a
+                      key={contrib.title}
+                      href={contrib.prUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+                    >
+                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
+                        <GitHubIcon />
                       </div>
-                      <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                        {contrib.description}
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 mt-auto">
-                        {contrib.tech.map((t) => (
-                          <span
-                            key={t}
-                            className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                          >
-                            {t}
+                      <div className="p-6 flex flex-col grow">
+                        <div className="flex items-center justify-between mb-2">
+                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                            {contrib.title}
+                          </h3>
+                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200 shrink-0 ml-2">
+                            <ExternalLinkIcon />
                           </span>
-                        ))}
+                        </div>
+                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                          {contrib.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5 mt-auto">
+                          {contrib.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </SectionMinimal>
+                    </a>
+                  ))}
+                </div>
+              </SectionMinimal>
             </div>
           </div>
         </main>
@@ -470,7 +469,10 @@ export function App() {
 
               <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
                 <span className="text-(--text-secondary)">Get in touch:</span>
-                <span className="font-medium text-(--text-primary)">
+                <span
+                  onClick={copyEmail}
+                  className="font-medium text-(--text-primary) cursor-pointer hover:text-(--text-highlight) transition-colors duration-200"
+                >
                   quantapar@gmail.com
                 </span>
                 <button
@@ -481,15 +483,6 @@ export function App() {
                   {copied ? <CheckIcon /> : <CopyIcon />}
                 </button>
                 <div className="flex flex-wrap gap-x-4 gap-y-3 mt-4">
-                  <a
-                    href="mailto:quantapar@gmail.com"
-                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                  >
-                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                      <MailIcon />
-                    </span>
-                    <span>Email</span>
-                  </a>
                   <a
                     href="https://x.com/quantapar"
                     target="_blank"
