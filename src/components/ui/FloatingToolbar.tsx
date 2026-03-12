@@ -52,7 +52,7 @@ export const FloatingToolbar = ({
 
   return (
     <div
-      className="relative flex items-center gap-2 px-3 py-2 rounded-2xl bg-(--bg-secondary)/80 backdrop-blur-xl border border-(--border-color) shadow-lg"
+      className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-(--bg-secondary)/80 backdrop-blur-xl border border-(--border-color) shadow-lg"
       onMouseLeave={() => setHoveredId(null)}
     >
       <AnimatePresence>

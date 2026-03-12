@@ -32,7 +32,7 @@ export const ProjectRow = ({
           {roles.map((role, idx) => (
             <span
               key={idx}
-              className={`text-[11px] font-medium tracking-wide px-2 py-0.5 rounded border transition-colors duration-200 ease-out cursor-default ${roleStyle}`}
+              className={`text-[10px] font-medium font-mono tracking-wide px-2 py-0.5 rounded border transition-colors duration-200 ease-out cursor-default ${roleStyle}`}
             >
               {role.name}
             </span>

@@ -76,7 +76,7 @@ export const ProjectCard = ({
         {tech.map((t) => (
           <span
             key={t}
-            className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+            className="text-[10px] font-medium font-mono text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
           >
             {t}
           </span>

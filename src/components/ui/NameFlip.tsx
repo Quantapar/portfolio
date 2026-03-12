@@ -1,7 +1,7 @@
 import React from "react";
 export const NameFlip = () => (
   <div className="h-12.5 overflow-hidden inline-flex flex-col relative top-1">
-    <div className="animate-flip text-(--text-primary) font-bold text-4xl tracking-tight leading-12.5">
+    <div className="animate-flip text-(--text-primary) font-semibold text-4xl tracking-[-0.04em] leading-12.5">
       <span className="block h-12.5">Manu Sharma</span>
       <span className="block h-12.5 text-(--text-muted)">Quantapar</span>
       <span className="block h-12.5">Manu Sharma</span>

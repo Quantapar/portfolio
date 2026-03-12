@@ -16,7 +16,6 @@ import {
   ExternalLinkIcon,
   TwitterIcon,
   LinkedInIcon,
-
   CopyIcon,
   CheckIcon,
   DiscordIcon,
@@ -36,6 +35,31 @@ export function App() {
   const [isDark, setIsDark] = useState(true);
   const [copied, setCopied] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [activeTab, setActiveTab] = useState<"projects" | "oss">("projects");
+
+  useEffect(() => {
+    if (currentPath !== "/projects") return;
+    const projectsEl = document.getElementById("projects-section");
+    const ossEl = document.getElementById("oss-section");
+    if (!projectsEl || !ossEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveTab(
+              entry.target.id === "oss-section" ? "oss" : "projects",
+            );
+          }
+        }
+      },
+      { rootMargin: "-40% 0px -40% 0px" },
+    );
+
+    observer.observe(projectsEl);
+    observer.observe(ossEl);
+    return () => observer.disconnect();
+  }, [currentPath]);
 
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname);
@@ -201,17 +225,19 @@ export function App() {
 
   const contributions = [
     {
-      title: "100xMobile.com — UI Revamp",
+      repo: "bluntbrain/100xmobile",
+      repoUrl: "https://github.com/bluntbrain/100xmobile",
+      title: "UI Revamp — #1",
       description:
         "Complete UI overhaul of the 100xMobile website. Redesigned the entire app with a modern, polished interface and improved user experience.",
-      tech: ["React", "TypeScript", "Tailwind CSS"],
       prUrl: "https://github.com/bluntbrain/100xmobile/pull/1",
     },
     {
-      title: "Krane Apps — UI Revamp",
+      repo: "bluntbrain/krane-apps",
+      repoUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
+      title: "GitHub-Style UI Revamp",
       description:
         "Full UI revamp of the Krane Apps website with a GitHub-style design. Rebuilt the interface for a cleaner, more professional look.",
-      tech: ["React", "TypeScript", "Tailwind CSS"],
       prUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
     },
   ];
@@ -293,24 +319,34 @@ export function App() {
       ) : currentPath === "/projects" ? (
         <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
-            <div className="flex items-center gap-2 pl-1 mb-8">
+            <div className="flex items-center gap-6 pl-1 mb-10 border-b border-(--border-color)">
               <button
-                onClick={() =>
+                onClick={() => {
+                  setActiveTab("projects");
                   document
                     .getElementById("projects-section")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="text-[12px] font-medium tracking-wide px-3 py-1.5 rounded-lg border bg-(--bg-secondary) border-(--border-color) text-(--text-secondary) hover:text-(--text-primary) hover:border-(--text-muted) transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none"
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`relative text-[13px] font-medium pb-3 transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none ${
+                  activeTab === "projects"
+                    ? "text-(--text-primary) after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-(--text-primary) after:rounded-full"
+                    : "text-(--text-muted) hover:text-(--text-primary)"
+                }`}
               >
                 Projects
               </button>
               <button
-                onClick={() =>
+                onClick={() => {
+                  setActiveTab("oss");
                   document
                     .getElementById("oss-section")
-                    ?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="text-[12px] font-medium tracking-wide px-3 py-1.5 rounded-lg border bg-(--bg-secondary) border-(--border-color) text-(--text-secondary) hover:text-(--text-primary) hover:border-(--text-muted) transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none"
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className={`relative text-[13px] font-medium pb-3 transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none ${
+                  activeTab === "oss"
+                    ? "text-(--text-primary) after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-(--text-primary) after:rounded-full"
+                    : "text-(--text-muted) hover:text-(--text-primary)"
+                }`}
               >
                 Open Source
               </button>
@@ -325,43 +361,44 @@ export function App() {
             </SectionMinimal>
 
             <div className="mt-16" id="oss-section">
-              <SectionMinimal title="Open Source Contributions">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                  {contributions.map((contrib) => (
-                    <a
-                      key={contrib.title}
-                      href={contrib.prUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
-                    >
-                      <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
-                        <GitHubIcon />
-                      </div>
-                      <div className="p-6 flex flex-col grow">
-                        <div className="flex items-center justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+              <SectionMinimal title="OSS Contributions">
+                <div className="pl-1 space-y-10">
+                  {contributions.map((contrib, i) => (
+                    <div key={contrib.title}>
+                      <a
+                        href={contrib.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-2 mb-3"
+                      >
+                        <span className="text-[15px] font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200">
+                          {contrib.repo}
+                        </span>
+                        <ExternalLinkIcon />
+                      </a>
+
+                      <div className="relative pl-6 mt-2">
+                        <div className="absolute left-[5px] top-[10px] bottom-0 w-px bg-(--border-color)" />
+                        <div className="absolute left-0 top-[6px] w-[11px] h-[11px] rounded-full border-2 border-(--border-color) bg-(--bg-primary)" />
+
+                        <a
+                          href={contrib.prUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="group/pr inline-flex items-center gap-2 mb-1.5"
+                        >
+                          <span className="text-[14px] font-medium text-(--text-secondary) group-hover/pr:text-(--text-primary) transition-colors duration-200">
                             {contrib.title}
-                          </h3>
-                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200 shrink-0 ml-2">
+                          </span>
+                          <span className="text-(--text-muted) group-hover/pr:text-(--text-primary) transition-colors duration-200">
                             <ExternalLinkIcon />
                           </span>
-                        </div>
-                        <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                        </a>
+                        <p className="text-[13px] text-(--text-muted) leading-relaxed max-w-lg">
                           {contrib.description}
                         </p>
-                        <div className="flex flex-wrap gap-1.5 mt-auto">
-                          {contrib.tech.map((t) => (
-                            <span
-                              key={t}
-                              className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
-                            >
-                              {t}
-                            </span>
-                          ))}
-                        </div>
                       </div>
-                    </a>
+                    </div>
                   ))}
                 </div>
               </SectionMinimal>
