@@ -1,18 +1,42 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-const favMovies = [
-  { title: "Fight Club", img: "/fight_club.jpg" },
-  { title: "Interstellar", img: "/interstellar.jpg" },
-  { title: "The Martian", img: "/martian.jpg" },
-  { title: "Inception", img: "/inception.jpg" },
-  { title: "Oppenheimer", img: "/oppenheimer.jpg" },
-  { title: "Tenet", img: "/tenet.jpg" },
+const favSongs = [
+  {
+    title: "Runaway",
+    artist: "Kanye West",
+    img: "https://i.pinimg.com/736x/ad/9b/5b/ad9b5baf2f9eaed6c7a53cce787bbd20.jpg",
+  },
+  {
+    title: "Sunsetz",
+    artist: "Cigarettes After Sex",
+    img: "https://i.pinimg.com/736x/f0/c1/8f/f0c18f383ce20af21ae89f253349726a.jpg",
+  },
+  {
+    title: "No One Noticed",
+    artist: "The Marías",
+    img: "https://i.pinimg.com/736x/7a/7c/6a/7a7c6ad81c5c7315b7255998bf22f383.jpg",
+  },
+  {
+    title: "I Wanna Be Yours",
+    artist: "Arctic Monkeys",
+    img: "https://i.pinimg.com/736x/1b/62/a1/1b62a17c242bc7422ec198f095cbf40b.jpg",
+  },
+  {
+    title: "505",
+    artist: "Arctic Monkeys",
+    img: "https://i.pinimg.com/736x/bf/83/24/bf83249d345133178b9e249cf8274a77.jpg",
+  },
+  {
+    title: "Without Me",
+    artist: "Eminem",
+    img: "https://i.pinimg.com/736x/67/7c/47/677c4748b46a2d97d4903fbbc8337f4a.jpg",
+  },
 ];
 
 const spring = { type: "spring" as const, stiffness: 400, damping: 28 };
 
-export const MovieShelf = () => {
+export const MusicShelf = () => {
   const [hovered, setHovered] = useState<number | null>(null);
   const isAnyHovered = hovered !== null;
 
@@ -22,14 +46,14 @@ export const MovieShelf = () => {
         className="flex isolate"
         onMouseLeave={() => setHovered(null)}
       >
-        {favMovies.map((movie, index) => {
+        {favSongs.map((song, index) => {
           const isHovered = hovered === index;
           const offset = isAnyHovered ? -8 : -32;
 
           return (
             <motion.div
               key={index}
-              className="relative w-28 h-40 sm:w-32 sm:h-48 shrink-0 rounded-lg overflow-hidden border-2 border-(--bg-primary) cursor-pointer focus-visible:outline-none"
+              className="relative w-28 h-48 sm:w-32 sm:h-56 shrink-0 rounded-lg overflow-hidden border-2 border-(--bg-primary) cursor-pointer focus-visible:outline-none"
               style={{
                 zIndex: isHovered ? 50 : 10 + index,
                 transformOrigin: "bottom center",
@@ -38,7 +62,7 @@ export const MovieShelf = () => {
                 marginLeft: index === 0 ? 0 : offset,
                 y: isHovered ? -16 : 0,
                 scale: isHovered ? 1.05 : 1,
-                rotate: isHovered ? 0 : (index - 2.5) * 0.8,
+                rotate: isHovered ? 0 : (index - 1) * 0.8,
               }}
               whileTap={{ scale: 0.97 }}
               transition={spring}
@@ -47,8 +71,8 @@ export const MovieShelf = () => {
               onFocus={() => setHovered(index)}
             >
               <motion.img
-                src={movie.img}
-                alt={movie.title}
+                src={song.img}
+                alt={`${song.title} by ${song.artist}`}
                 className="w-full h-full object-cover"
                 animate={{
                   scale: isHovered ? 1.08 : 1,
@@ -65,8 +89,11 @@ export const MovieShelf = () => {
                 animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 8 }}
                 transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
               >
-                <span className="text-[10px] font-medium text-white/90 tracking-wide">
-                  {movie.title}
+                <span className="text-[10px] font-medium text-white/90 tracking-wide block">
+                  {song.title}
+                </span>
+                <span className="text-[8px] text-white/60 block mt-0.5">
+                  {song.artist}
                 </span>
               </motion.div>
             </motion.div>

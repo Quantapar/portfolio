@@ -28,6 +28,7 @@ import { ProjectRow } from "./components/projects/ProjectRow";
 import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
 import { MovieShelf } from "./components/about/MovieShelf";
+import { MusicShelf } from "./components/about/MusicShelf";
 import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 
@@ -313,6 +314,10 @@ export function App() {
 
             <SectionMinimal title="Movies I'm lovin'">
               <MovieShelf />
+            </SectionMinimal>
+
+            <SectionMinimal title="Music I'm lovin'">
+              <MusicShelf />
             </SectionMinimal>
           </div>
         </main>
