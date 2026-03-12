@@ -6,6 +6,7 @@ import mayhemImage from "./assets/Mayhem.png";
 import contactImage from "./assets/contact.png";
 import pulseapiImage from "./assets/pulse-api.png";
 
+
 import {
   SunIcon,
   MoonIcon,
@@ -30,13 +31,12 @@ import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
 import { MovieShelf } from "./components/about/MovieShelf";
 import { Footer } from "./components/layout/Footer";
+import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
   const [copied, setCopied] = useState(false);
-  const [showAllProjects, setShowAllProjects] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
-  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname);
@@ -150,16 +150,6 @@ export function App() {
       image: pulseapiImage,
     },
     {
-      id: "100xmobile",
-      title: "100xMobile",
-      description:
-        "Building a mobile-first experience. Focused on smooth interactions and great UI design.",
-      tech: ["React", "TypeScript", "Tailwind CSS"],
-      roles: [{ name: "Frontend", type: "dev" }] as const,
-      liveUrl: "https://100xmobile.com/",
-      githubUrl: "https://github.com/bluntbrain/100xmobile/pull/1",
-    },
-    {
       id: "100xdevs",
       title: "100xDevs Frontend Revamp",
       description:
@@ -198,15 +188,32 @@ export function App() {
       liveUrl: "https://joinmayhem.vercel.app/",
       image: mayhemImage,
     },
+    // {
+    //   id: "contact-manager",
+    //   title: "Contact Manager",
+    //   description:
+    //     "Robust REST API design pattern demonstration. Features protected routes, input validation, and secure JWT handling.",
+    //   tech: ["Node.js", "Express", "MongoDB", "Zod"],
+    //   roles: [{ name: "Backend Concept", type: "dev" }] as const,
+    //   githubUrl: "https://github.com/Quantapar/contact-manager-api",
+    //   image: contactImage,
+    // },
+  ];
+
+  const contributions = [
     {
-      id: "contact-manager",
-      title: "Contact Manager",
+      title: "100xMobile.com — UI Revamp",
       description:
-        "Robust REST API design pattern demonstration. Features protected routes, input validation, and secure JWT handling.",
-      tech: ["Node.js", "Express", "MongoDB", "Zod"],
-      roles: [{ name: "Backend Concept", type: "dev" }] as const,
-      githubUrl: "https://github.com/Quantapar/contact-manager-api",
-      image: contactImage,
+        "Complete UI overhaul of the 100xMobile website. Redesigned the entire app with a modern, polished interface and improved user experience.",
+      tech: ["React", "TypeScript", "Tailwind CSS"],
+      prUrl: "https://github.com/bluntbrain/100xmobile/pull/1",
+    },
+    {
+      title: "Krane Apps — UI Revamp",
+      description:
+        "Full UI revamp of the Krane Apps website with a GitHub-style design. Rebuilt the interface for a cleaner, more professional look.",
+      tech: ["React", "TypeScript", "Tailwind CSS"],
+      prUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
     },
   ];
 
@@ -238,69 +245,37 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
-      <nav className="fixed top-0 left-0 h-full w-auto pt-25.5 pl-8 lg:pl-16 z-50 hidden md:flex flex-col items-start gap-3 transition-all">
-        {menuItems.map((item) => {
-          const isMainPage = currentPath === "/" || currentPath === "";
-          let isActive = false;
-          if (item.id === "home" && isMainPage) isActive = true;
-          if (item.id === "projects" && currentPath === "/projects")
-            isActive = true;
-          if (item.id === "about" && currentPath === "/about") isActive = true;
-
-          return (
-            <a
-              key={item.id}
-              href={item.targetPath}
-              onClick={(e) => navigateTo(item.targetPath, e)}
-              className={`group flex items-center h-10 rounded-full border transition-colors duration-200 focus-visible:outline-none ${
-                isActive
-                  ? "bg-(--bg-tertiary) border-(--text-muted)"
-                  : "bg-(--bg-secondary) border-(--border-color) hover:bg-(--bg-tertiary)"
-              }`}
-            >
-              <div
-                className={`w-10 h-10 flex items-center justify-center shrink-0 transition-colors ${
-                  isActive
-                    ? "text-(--text-primary)"
-                    : "text-(--text-secondary) group-hover:text-(--text-primary)"
-                }`}
-              >
-                {item.icon}
-              </div>
-              <div
-                className={`overflow-hidden transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                  isActive
-                    ? "max-w-0 opacity-0"
-                    : "max-w-0 group-hover:max-w-25 opacity-0 group-hover:opacity-100"
-                }`}
-              >
-                <span className="pr-4 text-sm font-medium text-(--text-primary) whitespace-nowrap block">
-                  {item.label}
-                </span>
-              </div>
-            </a>
-          );
-        })}
-        <button
-          onClick={toggleTheme}
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-(--bg-secondary) border border-(--border-color) hover:bg-(--bg-tertiary) text-(--text-secondary) hover:text-(--text-primary) transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] focus-visible:outline-none cursor-pointer active:scale-[0.97]"
-          title={isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        >
-          {isDark ? <SunIcon /> : <MoonIcon />}
-        </button>
-      </nav>
-
-      <nav className="fixed top-0 right-0 p-6 z-50 md:hidden">
-        <button
-          onClick={toggleTheme}
-          className="p-3 rounded-full bg-(--bg-secondary) border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-transform duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] hover:scale-110 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) shadow-sm cursor-pointer"
-        >
-          {isDark ? <SunIcon /> : <MoonIcon />}
-        </button>
+      <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <FloatingToolbar
+          items={[
+            ...menuItems.map((item) => ({
+              id: item.id,
+              label: item.label,
+              icon: item.icon,
+              onClick: (e: React.MouseEvent) => navigateTo(item.targetPath, e),
+            })),
+            {
+              id: "theme",
+              label: isDark ? "Light Mode" : "Dark Mode",
+              icon: isDark ? <SunIcon /> : <MoonIcon />,
+              onClick: toggleTheme,
+            },
+          ]}
+          activeId={
+            currentPath === "/" || currentPath === ""
+              ? "home"
+              : currentPath === "/projects"
+                ? "projects"
+                : currentPath === "/about"
+                  ? "about"
+                  : undefined
+          }
+          separator={2}
+        />
       </nav>
 
       {currentPath === "/about" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all md:pl-24 lg:pl-6 min-h-[80vh]">
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
             <AboutSection />
             <SectionMinimal title="Technologies">
@@ -317,22 +292,88 @@ export function App() {
           </div>
         </main>
       ) : currentPath === "/projects" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all md:pl-24 lg:pl-6 min-h-[80vh]">
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
-            <SectionMinimal title="Projects">
+            <div className="flex items-center gap-2 pl-1 mb-8">
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("projects-section")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="text-[12px] font-medium tracking-wide px-3 py-1.5 rounded-lg border bg-(--bg-secondary) border-(--border-color) text-(--text-secondary) hover:text-(--text-primary) hover:border-(--text-muted) transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none"
+              >
+                Projects
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("oss-section")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="text-[12px] font-medium tracking-wide px-3 py-1.5 rounded-lg border bg-(--bg-secondary) border-(--border-color) text-(--text-secondary) hover:text-(--text-primary) hover:border-(--text-muted) transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none"
+              >
+                Open Source
+              </button>
+            </div>
+
+            <SectionMinimal title="Projects" id="projects-section">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
                 {projects.map((project) => (
                   <ProjectCard key={project.id} {...project} />
                 ))}
               </div>
             </SectionMinimal>
+
+            <div className="mt-16" id="oss-section">
+            <SectionMinimal title="Open Source Contributions">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
+                {contributions.map((contrib) => (
+                  <a
+                    key={contrib.title}
+                    href={contrib.prUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer"
+                  >
+                    <div className="w-full h-32 bg-(--bg-tertiary) border-b border-(--border-color) flex items-center justify-center">
+                      <GitHubIcon />
+                    </div>
+                    <div className="p-6 flex flex-col grow">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-lg font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200 ease-out">
+                          {contrib.title}
+                        </h3>
+                        <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors duration-200 shrink-0 ml-2">
+                          <ExternalLinkIcon />
+                        </span>
+                      </div>
+                      <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                        {contrib.description}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5 mt-auto">
+                        {contrib.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="text-[11px] font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded border border-(--border-color)"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </SectionMinimal>
+            </div>
           </div>
         </main>
       ) : currentPath !== "/" &&
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all md:pl-24 lg:pl-6 min-h-[80vh]">
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -340,6 +381,16 @@ export function App() {
             return (
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                 <SectionMinimal title="Project Details">
+                  {project.image && (
+                    <div className="w-full rounded-2xl overflow-hidden border border-(--border-color) shadow-sm bg-(--bg-tertiary) pl-1 ml-1 mb-10 pt-4">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  )}
+
                   <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-6 pl-1">
                     {project.title}
                   </h1>
@@ -354,7 +405,7 @@ export function App() {
                     {project.description}
                   </p>
 
-                  <div className="flex gap-4 mb-16 pl-1">
+                  <div className="flex gap-4 pl-1">
                     {project.liveUrl && (
                       <a
                         href={project.liveUrl}
@@ -376,23 +427,13 @@ export function App() {
                       </a>
                     )}
                   </div>
-
-                  {project.image && (
-                    <div className="w-full rounded-2xl overflow-hidden border border-(--border-color) shadow-sm bg-(--bg-tertiary) pl-1 ml-1">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full h-auto"
-                      />
-                    </div>
-                  )}
                 </SectionMinimal>
               </div>
             );
           })()}
         </main>
       ) : (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 md:pl-24 lg:pl-6 transition-all min-h-[80vh]">
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12  transition-all min-h-[80vh] pb-24">
           <header id="home" className="flex flex-col pl-1 scroll-mt-24">
             <NameFlip />
 
@@ -558,48 +599,40 @@ export function App() {
           </SectionMinimal>
           <SectionMinimal title="Work" id="projects">
             <div className="flex flex-col gap-1">
-              {(showAllProjects ? projects : projects.slice(0, 3)).map(
-                (project) => (
-                  <ProjectRow
-                    key={project.id}
-                    id={project.id}
-                    title={project.title}
-                    roles={project.roles as any}
-                    onClick={(id, e) => navigateTo(`/${id}`, e)}
-                  />
-                ),
-              )}
+              {projects.slice(0, 3).map((project) => (
+                <ProjectRow
+                  key={project.id}
+                  id={project.id}
+                  title={project.title}
+                  roles={project.roles as any}
+                  onClick={(id, e) => navigateTo(`/${id}`, e)}
+                />
+              ))}
             </div>
-            {projects.length > 3 && (
-              <div className="mt-8 pl-1">
-                <button
-                  onClick={() => setShowAllProjects(!showAllProjects)}
-                  className="group flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md cursor-pointer"
+            <div className="mt-6 pl-1">
+              <a
+                href="/projects"
+                onClick={(e) => navigateTo("/projects", e)}
+                className="group inline-flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none cursor-pointer"
+              >
+                <span>All projects</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="transition-transform duration-200 ease-out group-hover:translate-x-0.5"
                 >
-                  <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97] flex items-center justify-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={`transition-transform duration-300 ease-out ${showAllProjects ? "rotate-180" : ""}`}
-                    >
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  </span>
-                  <span>
-                    {showAllProjects
-                      ? "Show fewer projects"
-                      : "Show more projects"}
-                  </span>
-                </button>
-              </div>
-            )}
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </a>
+            </div>
           </SectionMinimal>
         </main>
       )}
