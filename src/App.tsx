@@ -184,7 +184,7 @@ export function App() {
         { name: "Dev", type: "dev" },
       ] as const,
       githubUrl: "https://github.com/Quantapar/100xDevs-Frontend",
-      liveUrl: "https://100xdevslanding.vercel.app/",
+      liveUrl: "https://100xdevs.quantapar.com/",
       image: devsImage,
     },
     {
@@ -195,7 +195,7 @@ export function App() {
       tech: ["React", "Bun", "Postgres", "Prisma", "Docker"],
       roles: [{ name: "Fullstack", type: "dev" }] as const,
       githubUrl: "https://github.com/Quantapar/contest-platform",
-      liveUrl: "https://cypherarena.vercel.app/",
+      liveUrl: "https://cypherarena.quantapar.com/",
       image: cypherImage,
     },
     {
@@ -209,7 +209,7 @@ export function App() {
         { name: "Interactions", type: "prototype" },
       ] as const,
       githubUrl: "https://github.com/Quantapar/Tailwind/tree/main/tailwind01",
-      liveUrl: "https://joinmayhem.vercel.app/",
+      liveUrl: "https://joinmayhem.quantapar.com/",
       image: mayhemImage,
     },
     // {
