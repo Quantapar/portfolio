@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import "./index.css";
 import devsImage from "./assets/100xDevsFrontend.png";
 import cypherImage from "./assets/Cypher.png";
@@ -12,6 +13,9 @@ import {
   HomeIcon,
   UserIcon,
   LayersIcon,
+  ComponentsIcon,
+  ArrowLeftIcon,
+  TerminalIcon,
   GitHubIcon,
   ExternalLinkIcon,
   TwitterIcon,
@@ -30,12 +34,17 @@ import { AboutSection } from "./components/about/AboutSection";
 import { MovieShelf } from "./components/about/MovieShelf";
 import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
+import { ComponentPreviewCard } from "./components/ui/ComponentPreviewCard";
+import { CodeBlock } from "./components/ui/CodeBlock";
+import { uiComponents } from "./data/components";
 
 export function App() {
   const [isDark, setIsDark] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [copiedNpm, setCopiedNpm] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [activeTab, setActiveTab] = useState<"projects" | "oss">("projects");
+  const [compTab, setCompTab] = useState<"preview" | "code">("preview");
 
   useEffect(() => {
     if (currentPath !== "/projects") return;
@@ -257,6 +266,7 @@ export function App() {
     { name: "Tailwind", colorClass: "badge-tailwind" },
   ];
 
+  // Components data is now in src/data/components/
   const menuItems = [
     { id: "home", icon: <HomeIcon />, label: "Home", targetPath: "/" },
     {
@@ -264,6 +274,12 @@ export function App() {
       icon: <LayersIcon />,
       label: "Projects",
       targetPath: "/projects",
+    },
+    {
+      id: "components",
+      icon: <ComponentsIcon />,
+      label: "Components",
+      targetPath: "/components",
     },
     { id: "about", icon: <UserIcon />, label: "About", targetPath: "/about" },
   ];
@@ -291,16 +307,203 @@ export function App() {
               ? "home"
               : currentPath === "/projects"
                 ? "projects"
-                : currentPath === "/about"
-                  ? "about"
-                  : undefined
+                : currentPath.startsWith("/components")
+                  ? "components"
+                  : currentPath === "/about"
+                    ? "about"
+                    : undefined
           }
-          separator={2}
+          separator={3}
         />
       </nav>
 
-      {currentPath === "/about" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+      {currentPath.startsWith("/components/") &&
+      uiComponents.find((c) => c.id === currentPath.split("/")[2]) ? (
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all min-h-screen pb-24">
+          {(() => {
+            const comp = uiComponents.find(
+              (c) => c.id === currentPath.split("/")[2],
+            )!;
+            return (
+              <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
+                <button
+                  onClick={(e) => navigateTo("/components", e)}
+                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
+                >
+                  <ArrowLeftIcon /> Back to Components
+                </button>
+
+                <div>
+                  <h1 className="text-2xl font-bold text-(--text-primary) tracking-tight mb-2">
+                    {comp.name}
+                  </h1>
+                  <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl">
+                    {comp.description}
+                  </p>
+                </div>
+
+                <SectionMinimal title="Preview">
+                  <div className="rounded-xl border border-(--border-color) overflow-hidden">
+                    <div className="flex items-center gap-4 px-4 border-b border-(--border-color) bg-(--bg-secondary)">
+                      <button
+                        onClick={() => setCompTab("preview")}
+                        className={`relative text-[13px] font-medium py-3 transition-colors duration-200 cursor-pointer ${
+                          compTab === "preview"
+                            ? "text-(--text-primary)"
+                            : "text-(--text-muted) hover:text-(--text-primary)"
+                        }`}
+                      >
+                        Preview
+                        {compTab === "preview" && (
+                          <motion.div
+                            layoutId="comp-tab-indicator"
+                            className="absolute bottom-0 left-0 w-full h-0.5 bg-(--text-primary) rounded-full"
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                          />
+                        )}
+                      </button>
+                      <button
+                        onClick={() => setCompTab("code")}
+                        className={`relative text-[13px] font-medium py-3 transition-colors duration-200 cursor-pointer ${
+                          compTab === "code"
+                            ? "text-(--text-primary)"
+                            : "text-(--text-muted) hover:text-(--text-primary)"
+                        }`}
+                      >
+                        Code
+                        {compTab === "code" && (
+                          <motion.div
+                            layoutId="comp-tab-indicator"
+                            className="absolute bottom-0 left-0 w-full h-0.5 bg-(--text-primary) rounded-full"
+                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                          />
+                        )}
+                      </button>
+                    </div>
+                    <div className="relative overflow-hidden">
+                      <AnimatePresence mode="popLayout" initial={false}>
+                        {compTab === "preview" ? (
+                          <motion.div
+                            key="preview"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: 20 }}
+                            transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+                            className="bg-(--bg-tertiary)/50 p-10 flex items-center justify-center min-h-[28rem]"
+                          >
+                            {comp.preview}
+                          </motion.div>
+                        ) : (
+                          <motion.div
+                            key="code"
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+                            className="max-h-96 overflow-y-auto"
+                          >
+                            <CodeBlock code={comp.code} />
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </SectionMinimal>
+
+                {comp.npmCommand && (
+                  <SectionMinimal title="Install">
+                    <div className="flex items-center gap-3 rounded-xl border border-(--border-color) bg-(--bg-secondary) px-4 py-3">
+                      <TerminalIcon />
+                      <code className="text-[13px] font-mono text-(--text-secondary) flex-1">
+                        {comp.npmCommand}
+                      </code>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(comp.npmCommand!);
+                          setCopiedNpm(true);
+                          setTimeout(() => setCopiedNpm(false), 2000);
+                        }}
+                        className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
+                        title="Copy command"
+                      >
+                        {copiedNpm ? <CheckIcon /> : <CopyIcon />}
+                      </button>
+                    </div>
+                  </SectionMinimal>
+                )}
+
+                {comp.props && comp.props.length > 0 && (
+                  <SectionMinimal title="Props">
+                    <div className="rounded-xl border border-(--border-color) overflow-hidden">
+                      <table className="w-full text-[13px]">
+                        <thead>
+                          <tr className="bg-(--bg-tertiary)/50 text-left text-(--text-muted)">
+                            <th className="px-4 py-2.5 font-medium">Prop</th>
+                            <th className="px-4 py-2.5 font-medium">Type</th>
+                            <th className="px-4 py-2.5 font-medium hidden sm:table-cell">Required</th>
+                            <th className="px-4 py-2.5 font-medium">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {comp.props.map((prop) => (
+                            <tr
+                              key={prop.name}
+                              className="border-t border-(--border-color) text-(--text-secondary)"
+                            >
+                              <td className="px-4 py-2.5 font-mono text-(--text-primary) font-medium">
+                                {prop.name}
+                              </td>
+                              <td className="px-4 py-2.5 font-mono text-(--text-muted)">
+                                {prop.type}
+                              </td>
+                              <td className="px-4 py-2.5 hidden sm:table-cell">
+                                {prop.required ? (
+                                  <span className="text-[11px] font-medium bg-(--text-primary) text-(--bg-primary) px-1.5 py-0.5 rounded">
+                                    Required
+                                  </span>
+                                ) : (
+                                  <span className="text-(--text-muted)">Optional</span>
+                                )}
+                              </td>
+                              <td className="px-4 py-2.5">{prop.description}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </SectionMinimal>
+                )}
+              </div>
+            );
+          })()}
+        </main>
+      ) : currentPath === "/components" ? (
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all min-h-screen pb-24">
+          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
+            <div>
+              <h1 className="text-[10px] font-bold tracking-[0.12em] text-(--text-secondary) uppercase mb-3 pl-1" style={{ fontFamily: "'Press Start 2P', cursive" }}>
+                Components
+              </h1>
+              <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl pl-1">
+                A collection of reusable UI components with code and previews.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {uiComponents.map((comp) => (
+                <ComponentPreviewCard
+                  key={comp.id}
+                  id={comp.id}
+                  name={comp.name}
+                  description={comp.description}
+                  preview={comp.preview}
+                  onClick={(id, e) => navigateTo(`/components/${id}`, e)}
+                />
+              ))}
+            </div>
+          </div>
+        </main>
+      ) : currentPath === "/about" ? (
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-screen pb-24">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
             <AboutSection />
             <SectionMinimal title="Technologies">
@@ -317,7 +520,7 @@ export function App() {
           </div>
         </main>
       ) : currentPath === "/projects" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-screen pb-24">
           <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
             <div className="flex items-center gap-6 pl-1 mb-10 border-b border-(--border-color)">
               <button
@@ -409,7 +612,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-[80vh] pb-24">
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-screen pb-24">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -469,7 +672,7 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12  transition-all min-h-[80vh] pb-24">
+        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12  transition-all min-h-screen pb-24">
           <header id="home" className="flex flex-col pl-1 scroll-mt-24">
             <NameFlip />
 
