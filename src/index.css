@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+button,
+a,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+summary {
+  cursor: pointer;
+}
+
 @theme {
   --font-sans: "Inter Variable", "Inter", sans-serif;
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono", monospace;

@@ -1,12 +1,10 @@
 import React from "react";
 
 export const ExperienceRow = ({
-  role,
   company,
   duration,
   description,
 }: {
-  role: string;
   company: React.ReactNode;
   duration: string;
   description?: string;
@@ -16,9 +14,6 @@ export const ExperienceRow = ({
       <div className="flex items-center gap-3">
         <div className="font-medium text-(--text-primary)">
           {company}
-        </div>
-        <div className="text-xs font-medium text-(--text-secondary) bg-(--bg-tertiary) px-2.5 py-1 rounded-md border border-(--border-color) transition-colors duration-200 ease-out">
-          {role}
         </div>
       </div>
       <div className="text-xs text-(--text-muted) font-mono mt-1 sm:mt-0 opacity-60 transition-colors hover:opacity-100 hover:text-(--text-primary) cursor-default">

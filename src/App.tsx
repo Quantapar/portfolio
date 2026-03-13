@@ -28,7 +28,6 @@ import { ProjectRow } from "./components/projects/ProjectRow";
 import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
 import { MovieShelf } from "./components/about/MovieShelf";
-import { MusicShelf } from "./components/about/MusicShelf";
 import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 
@@ -315,10 +314,6 @@ export function App() {
             <SectionMinimal title="Movies I'm lovin'">
               <MovieShelf />
             </SectionMinimal>
-
-            <SectionMinimal title="Music I'm lovin'">
-              <MusicShelf />
-            </SectionMinimal>
           </div>
         </main>
       ) : currentPath === "/projects" ? (
@@ -577,16 +572,26 @@ export function App() {
           <SectionMinimal title="Experience" id="experience">
             <div className="flex flex-col gap-6">
               <ExperienceRow
-                role="Developer"
                 company={
-                  <span className="text-[15px] font-medium text-(--text-primary)">
-                    Freelancer
-                  </span>
+                  <a
+                    href="https://www.kraneapps.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm"
+                  >
+                    <img
+                      src="https://www.kraneapps.com/images/logo.png"
+                      alt="Krane Apps"
+                      className="w-5 h-5 rounded-sm"
+                    />
+                    <span className="text-[15px] font-bold tracking-wide uppercase text-(--text-primary)">
+                      Krane Apps
+                    </span>
+                  </a>
                 }
                 duration="Nov 2025 — Present"
               />
               <ExperienceRow
-                role="Fullstack Intern"
                 company={
                   <span className="flex items-center gap-3">
                     <a

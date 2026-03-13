@@ -2,6 +2,7 @@ import { serve, file } from "bun";
 import index from "./index.html";
 
 const server = serve({
+  port: 3002,
   routes: {
     // Serve static assets from src/assets
     "/me-bw.jpeg": file("src/assets/me-bw.jpeg"),
