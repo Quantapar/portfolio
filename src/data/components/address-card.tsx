@@ -26,15 +26,17 @@ interface AddressCardProps {
   defaultNickname?: string;
   defaultRole?: string;
   defaultColor?: string;
+  defaultLocation?: string;
   colors?: string[];
   socialLinks?: SocialLink[];
-  onSave?: (data: { nickname: string; role: string; color: string }) => void;
+  onSave?: (data: { nickname: string; role: string; color: string; location: string }) => void;
 }
 
 export default function AddressCard({
   defaultNickname = "Quantapar",
-  defaultRole = "Frontend Developer & Designer",
-  defaultColor = "#F97316",
+  defaultRole = "Design Engineer",
+  defaultColor = "#3B82F6",
+  defaultLocation = "New Delhi, IN",
   socialLinks = [],
   colors = DEFAULT_COLORS,
   onSave,
@@ -42,6 +44,7 @@ export default function AddressCard({
   const [selectedColor, setSelectedColor] = useState(defaultColor);
   const [nickname, setNickname] = useState(defaultNickname);
   const [role, setRole] = useState(defaultRole);
+  const [location, setLocation] = useState(defaultLocation);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -98,6 +101,18 @@ export default function AddressCard({
             className="bg-transparent text-white/80 font-medium outline-none placeholder:text-white/50 w-full mt-1"
             placeholder="Role"
           />
+          <div className="flex items-center gap-1 mt-1.5 opacity-70">
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="bg-transparent text-sm outline-none w-full placeholder:text-white/50"
+              placeholder="Location"
+            />
+          </div>
         </div>
       </motion.div>
 
@@ -132,7 +147,7 @@ export default function AddressCard({
         transition={{ duration: 0.5, ease: "easeInOut" }}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        onClick={() => onSave?.({ nickname, role, color: selectedColor })}
+        onClick={() => onSave?.({ nickname, role, color: selectedColor, location })}
       >
         Save
       </motion.button>
@@ -144,6 +159,7 @@ export default function AddressCard({
     { name: "defaultNickname", type: "string", required: false, description: "Initial nickname. Default: 'Quantapar'" },
     { name: "defaultRole", type: "string", required: false, description: "Initial role text. Default: 'Frontend Developer & Designer'" },
     { name: "defaultColor", type: "string", required: false, description: "Initial card color. Default: '#F97316'" },
+    { name: "defaultLocation", type: "string", required: false, description: "Initial location text. Default: 'San Francisco, CA'" },
     { name: "colors", type: "string[]", required: false, description: "Array of hex colors for the picker" },
     { name: "socialLinks", type: "{ icon: ReactNode; url: string }[]", required: false, description: "Array of social link objects with icon and URL" },
     { name: "onSave", type: "(data) => void", required: false, description: "Callback when Save is clicked with current state" },

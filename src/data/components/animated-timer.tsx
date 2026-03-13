@@ -24,8 +24,8 @@ const AnimatedDigit = ({
   fontSize = "2.5rem",
 }: AnimatedDigitProps) => (
   <motion.div
-    className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden relative flex justify-center shadow-sm cursor-default"
-    style={{ height, width: height * 0.8 }}
+    className="rounded-xl overflow-hidden relative flex justify-center shadow-sm cursor-default border"
+    style={{ height, width: height * 0.8, backgroundColor: "#424242", borderColor: "#525252" }}
     initial={{ opacity: 0, y: 20, scale: 0.9 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
     transition={{
@@ -35,7 +35,7 @@ const AnimatedDigit = ({
     whileHover={{
       scale: 1.1,
       y: -4,
-      borderColor: "#71717a",
+      borderColor: "#ffffff",
       transition: { type: "spring", stiffness: 400, damping: 25 },
     }}
   >
@@ -128,10 +128,35 @@ export default function AnimatedTimer({
 }`,
   npmCommand: "npm install framer-motion",
   props: [
-    { name: "showSeconds", type: "boolean", required: false, description: "Show seconds digits. Default: true" },
-    { name: "use24Hour", type: "boolean", required: false, description: "Use 24-hour format. Default: true" },
-    { name: "digitHeight", type: "number", required: false, description: "Height of each digit cell in px. Default: 80" },
-    { name: "fontSize", type: "string", required: false, description: "Font size for digits. Default: '2.5rem'" },
-    { name: "gap", type: "string", required: false, description: "Gap between hour/min/sec groups. Default: '1.5rem'" },
+    {
+      name: "showSeconds",
+      type: "boolean",
+      required: false,
+      description: "Show seconds digits. Default: true",
+    },
+    {
+      name: "use24Hour",
+      type: "boolean",
+      required: false,
+      description: "Use 24-hour format. Default: true",
+    },
+    {
+      name: "digitHeight",
+      type: "number",
+      required: false,
+      description: "Height of each digit cell in px. Default: 80",
+    },
+    {
+      name: "fontSize",
+      type: "string",
+      required: false,
+      description: "Font size for digits. Default: '2.5rem'",
+    },
+    {
+      name: "gap",
+      type: "string",
+      required: false,
+      description: "Gap between hour/min/sec groups. Default: '1.5rem'",
+    },
   ],
 };

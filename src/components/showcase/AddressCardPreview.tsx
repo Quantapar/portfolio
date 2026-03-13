@@ -4,15 +4,16 @@ import { motion, AnimatePresence } from "framer-motion";
 const COLORS = ["#F43F5E", "#EC4899", "#D946EF", "#A855F7", "#3B82F6", "#06B6D4", "#10B981", "#EAB308", "#F97316"];
 
 export const AddressCardPreview = () => {
-  const [color, setColor] = useState(COLORS[8]);
+  const [color, setColor] = useState(COLORS[4]);
   const [name, setName] = useState("Quantapar");
-  const [role, setRole] = useState("Frontend Developer & Designer");
+  const [role, setRole] = useState("Design Engineer");
+  const [location, setLocation] = useState("New Delhi, IN");
   const [bellRing, setBellRing] = useState(false);
 
   return (
     <div className="flex flex-col items-center gap-5 w-full max-w-sm">
       <motion.div
-        className="w-full aspect-[1.7] rounded-2xl p-5 flex flex-col justify-between text-white shadow-lg"
+        className="w-full aspect-[1.7] rounded-2xl p-5 flex flex-col justify-between text-white shadow-lg relative overflow-hidden"
         animate={{ backgroundColor: color }}
         transition={{ duration: 0.4 }}
       >
@@ -85,6 +86,18 @@ export const AddressCardPreview = () => {
             className="bg-transparent text-sm opacity-70 outline-none w-full placeholder:text-white/50"
             placeholder="Role"
           />
+          <div className="flex items-center gap-1 mt-1 opacity-60">
+            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="bg-transparent text-[11px] outline-none w-full placeholder:text-white/50"
+              placeholder="Location"
+            />
+          </div>
         </div>
       </motion.div>
       <div className="flex gap-2.5">
@@ -98,7 +111,7 @@ export const AddressCardPreview = () => {
               {color === c && (
                 <motion.div
                   layoutId="ring"
-                  className="absolute inset-[-4px] rounded-full border-2"
+                  className="absolute -inset-1 rounded-full border-2"
                   style={{ borderColor: c }}
                   transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                 />

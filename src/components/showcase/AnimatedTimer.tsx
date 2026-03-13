@@ -5,7 +5,7 @@ const DIGIT_HEIGHT = 72;
 
 const AnimatedDigit = ({ digit = "0", index }: { digit?: string; index: number }) => (
   <motion.div
-    className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden relative flex justify-center shadow-sm cursor-default"
+    className="rounded-xl overflow-hidden relative flex justify-center shadow-sm cursor-default border bg-(--bg-secondary) border-(--border-color)"
     style={{ height: DIGIT_HEIGHT, width: DIGIT_HEIGHT * 0.75 }}
     initial={{ opacity: 0, y: 10, scale: 0.9 }}
     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -13,7 +13,7 @@ const AnimatedDigit = ({ digit = "0", index }: { digit?: string; index: number }
     whileHover={{
       scale: 1.1,
       y: -3,
-      borderColor: "#71717a",
+      borderColor: "#ffffff",
       transition: { type: "spring", stiffness: 400, damping: 25 },
     }}
   >
@@ -25,7 +25,7 @@ const AnimatedDigit = ({ digit = "0", index }: { digit?: string; index: number }
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
         <div
           key={num}
-          className="shrink-0 w-full flex items-center justify-center text-[2rem] font-medium text-zinc-100"
+          className="shrink-0 w-full flex items-center justify-center text-[2rem] font-medium text-(--text-primary)"
           style={{ height: DIGIT_HEIGHT }}
         >
           {num}
@@ -37,7 +37,7 @@ const AnimatedDigit = ({ digit = "0", index }: { digit?: string; index: number }
 
 const Colon = ({ index }: { index: number }) => (
   <motion.div
-    className="text-[2rem] font-medium text-zinc-500 animate-pulse"
+    className="text-[2rem] font-medium text-(--text-muted) animate-pulse"
     initial={{ opacity: 0, scale: 0.5 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.4, delay: index * 0.08 }}
