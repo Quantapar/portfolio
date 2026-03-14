@@ -176,17 +176,8 @@ export const SwapPreview = () => {
             style={{ order: isSwapped ? 2 : 0 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
           >
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-xs text-(--text-muted)">From</span>
-            </div>
+            <span className="text-xs text-(--text-muted) mb-2 block">From</span>
             <div className="flex items-center justify-between gap-3">
-              <input
-                type="text"
-                value={fromAmount}
-                onChange={(e) => setFromAmount(e.target.value)}
-                className="bg-transparent text-2xl font-semibold text-(--text-primary) outline-none w-full min-w-0"
-                placeholder="0.00"
-              />
               <div className="relative">
                 <motion.button
                   onClick={() => {
@@ -216,13 +207,13 @@ export const SwapPreview = () => {
                 <AnimatePresence>
                   {showFromDropdown && (
                     <motion.div
-                      className="absolute right-0 top-full mt-1 bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-lg z-30 overflow-hidden min-w-[140px]"
+                      className="absolute left-0 top-full mt-1 bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-lg z-30 overflow-hidden min-w-[140px]"
                       variants={dropdownVariants}
                       initial="hidden"
                       animate="visible"
                       exit="exit"
                       transition={springTransition}
-                      style={{ transformOrigin: "top right" }}
+                      style={{ transformOrigin: "top left" }}
                     >
                       {TOKENS.map((t, i) => (
                         <motion.button
@@ -243,6 +234,13 @@ export const SwapPreview = () => {
                   )}
                 </AnimatePresence>
               </div>
+              <input
+                type="text"
+                value={fromAmount}
+                onChange={(e) => setFromAmount(e.target.value)}
+                className="bg-transparent text-2xl font-semibold text-(--text-primary) outline-none w-full min-w-0 text-right"
+                placeholder="0.00"
+              />
             </div>
           </motion.div>
 
@@ -266,10 +264,10 @@ export const SwapPreview = () => {
                 animate={{ rotate: rotation }}
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
               >
-                <path d="M7 4l-4 4 4 4" />
-                <path d="M3 8h14" />
-                <path d="M17 20l4-4-4-4" />
-                <path d="M21 16H7" />
+                <path d="M4 7l4-4 4 4" />
+                <path d="M8 3v14" />
+                <path d="M20 17l-4 4-4-4" />
+                <path d="M16 21V7" />
               </motion.svg>
             </motion.button>
           </div>
@@ -281,26 +279,8 @@ export const SwapPreview = () => {
             style={{ order: isSwapped ? 0 : 2 }}
             transition={{ type: "spring", stiffness: 300, damping: 28 }}
           >
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-xs text-(--text-muted)">To</span>
-            </div>
+            <span className="text-xs text-(--text-muted) mb-2 block">To</span>
             <div className="flex items-center justify-between gap-3">
-              <AnimatePresence mode="popLayout">
-                <motion.div
-                  key={toAmount}
-                  className="text-2xl font-semibold text-(--text-primary) min-w-0 truncate"
-                  initial={{ opacity: 0, filter: "blur(4px)", y: 4 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                  exit={{ opacity: 0, filter: "blur(4px)", y: -4 }}
-                  transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
-                >
-                  {loading ? (
-                    <span className="text-(--text-muted) text-lg">Loading...</span>
-                  ) : (
-                    toAmount || "0.00"
-                  )}
-                </motion.div>
-              </AnimatePresence>
               <div className="relative">
                 <motion.button
                   onClick={() => {
@@ -330,13 +310,13 @@ export const SwapPreview = () => {
                 <AnimatePresence>
                   {showToDropdown && (
                     <motion.div
-                      className="absolute right-0 top-full mt-1 bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-lg z-30 overflow-hidden min-w-[140px]"
+                      className="absolute left-0 top-full mt-1 bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-lg z-30 overflow-hidden min-w-[140px]"
                       variants={dropdownVariants}
                       initial="hidden"
                       animate="visible"
                       exit="exit"
                       transition={springTransition}
-                      style={{ transformOrigin: "top right" }}
+                      style={{ transformOrigin: "top left" }}
                     >
                       {TOKENS.map((t, i) => (
                         <motion.button
@@ -357,6 +337,22 @@ export const SwapPreview = () => {
                   )}
                 </AnimatePresence>
               </div>
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={toAmount}
+                  className="text-2xl font-semibold text-(--text-primary) min-w-0 truncate text-right"
+                  initial={{ opacity: 0, filter: "blur(4px)", y: 4 }}
+                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                  exit={{ opacity: 0, filter: "blur(4px)", y: -4 }}
+                  transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
+                >
+                  {loading ? (
+                    <span className="text-(--text-muted) text-lg">Loading...</span>
+                  ) : (
+                    toAmount || "0.00"
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </motion.div>
         </div>
