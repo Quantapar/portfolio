@@ -678,33 +678,13 @@ export function App() {
 
             <div className="flex flex-col gap-6 mt-4">
               <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
-                I am currently building{" "}
-                <a
-                  href="https://github.com/Quantapar/PulseApi"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium wavy-link"
-                >
-                  PulseAPI
-                </a>
-                , an API monitoring app.
-                <br />
-                <br />I craft interactive web experiences using{" "}
-                <span className="font-medium text-(--text-primary)">
-                  TypeScript
-                </span>
-                ,{" "}
-                <span className="font-medium text-(--text-primary)">React</span>
-                ,{" "}
-                <span className="font-medium text-(--text-primary)">
-                  Next.js
-                </span>
-                , and{" "}
-                <span className="font-medium text-(--text-primary)">
-                  PostgreSQL
-                </span>
-                . Driven by a passion for UI design and seamless user
-                interactions.
+                Design Engineer focused on crafting polished, interactive interfaces. I obsess over{" "}
+                <span className="font-medium text-(--text-primary)">motion</span>,{" "}
+                <span className="font-medium text-(--text-primary)">micro-interactions</span>, and{" "}
+                <span className="font-medium text-(--text-primary)">UI detail</span> — building with{" "}
+                <span className="font-medium text-(--text-primary)">React</span>,{" "}
+                <span className="font-medium text-(--text-primary)">TypeScript</span>, and{" "}
+                <span className="font-medium text-(--text-primary)">Framer Motion</span>.
               </p>
 
               <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
@@ -836,7 +816,7 @@ export function App() {
                     </a>
                   </span>
                 }
-                duration="Feb 2026 — Mar 2026"
+                duration="Jan 2026 — Mar 2026"
               />
             </div>
           </SectionMinimal>

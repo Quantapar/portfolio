@@ -29,15 +29,14 @@ export const AboutSection = () => (
           <span className="opacity-40">•</span>
           <div className="h-4.5 overflow-hidden inline-flex flex-col relative top-[0.5px]">
             <div className="animate-flip leading-4.5">
-              <span className="block h-4.5">Fullstack Engineer</span>
-              <span className="block h-4.5">Freelancer</span>
-              <span className="block h-4.5">Fullstack Engineer</span>
+              <span className="block h-4.5">Design Engineer</span>
+              <span className="block h-4.5">UI Craftsman</span>
+              <span className="block h-4.5">Design Engineer</span>
             </div>
           </div>
         </div>
         <p className="text-(--text-secondary) text-[15px] leading-relaxed mb-4 max-w-lg">
-          I'm a Full Stack web developer. I love building products to solve
-          real-world problems and creates MVPs efficiently.
+          I'm a Design Engineer who cares deeply about how things look, feel, and move. I build polished interfaces with attention to every pixel and interaction.
         </p>
       </div>
     </div>
