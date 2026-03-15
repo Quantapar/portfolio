@@ -46,6 +46,7 @@ export function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [activeTab, setActiveTab] = useState<"projects" | "oss">("projects");
   const [compTab, setCompTab] = useState<"preview" | "code">("preview");
+  const [ringHovered, setRingHovered] = useState(false);
 
   useEffect(() => {
     if (currentPath !== "/projects") return;
@@ -834,8 +835,11 @@ export function App() {
               </div>
             </div>
 
-            {/* Photo card (spans 4 cols) */}
-            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) overflow-hidden relative min-h-60 bg-black">
+            <div
+              className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) overflow-hidden relative min-h-60 bg-black cursor-pointer"
+              onMouseEnter={() => setRingHovered(true)}
+              onMouseLeave={() => setRingHovered(false)}
+            >
               <video
                 autoPlay
                 loop
@@ -844,6 +848,30 @@ export function App() {
                 className="absolute inset-0 w-full h-full object-cover"
                 src={ringVideo}
               />
+              <AnimatePresence>
+                {ringHovered && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    className="absolute inset-4 rounded-2xl border border-white/15 p-4 flex flex-col justify-between z-10 backdrop-blur-xl"
+                    style={{ background: "rgba(0,0,0,0.55)" }}
+                  >
+                    <div>
+                      <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/50 mb-2">
+                        Voyager Golden Record
+                      </p>
+                      <p className="text-xs leading-[1.6] text-white/80">
+                        Launched in 1977 by NASA aboard Voyager 1 & 2, this gold-plated copper disc carries sounds and images of life on Earth — greetings in 55 languages, music from Mozart to Chuck Berry, and 115 encoded photographs.
+                      </p>
+                    </div>
+                    <p className="text-[10px] leading-normal text-white/40">
+                      Now over 15 billion miles away, it's humanity's farthest message in a bottle — meant for any intelligent life that might find it.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* Work/Projects card (spans 4 cols) — blue accent */}
