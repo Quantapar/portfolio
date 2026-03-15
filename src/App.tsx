@@ -6,6 +6,7 @@ import cypherImage from "./assets/Cypher.png";
 import mayhemImage from "./assets/Mayhem.png";
 
 import pulseapiImage from "./assets/pulse-api.png";
+import ringVideo from "./assets/ring-loop.mp4";
 
 import {
   SunIcon,
@@ -23,9 +24,9 @@ import {
   CopyIcon,
   CheckIcon,
   DiscordIcon,
+  MailIcon,
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
-import { NameFlip } from "./components/ui/NameFlip";
 import { ExperienceRow } from "./components/ui/ExperienceRow";
 import { TechBadge } from "./components/ui/TechBadge";
 import { ProjectRow } from "./components/projects/ProjectRow";
@@ -179,6 +180,7 @@ export function App() {
       tech: ["Bun", "TypeScript", "React", "Postgres", "Prisma"],
       roles: [{ name: "Fullstack", type: "dev" }] as const,
       githubUrl: "https://github.com/Quantapar/PulseApi",
+      liveUrl: "https://pulseapi.quantapar.com/",
       image: pulseapiImage,
     },
     {
@@ -286,7 +288,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-(--bg-primary) text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
-      <nav className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+      <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-10">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
@@ -319,22 +321,97 @@ export function App() {
 
       {currentPath.startsWith("/components/") &&
       uiComponents.find((c) => c.id === currentPath.split("/")[2]) ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all min-h-screen pb-24">
+        <main className="max-w-2xl mx-auto px-6 pt-4 pb-32 space-y-8 transition-all min-h-screen">
           {(() => {
             const comp = uiComponents.find(
               (c) => c.id === currentPath.split("/")[2],
             )!;
             return (
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
-                <button
-                  onClick={(e) => navigateTo("/components", e)}
-                  className="inline-flex items-center gap-1.5 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
-                >
-                  <ArrowLeftIcon /> Back to Components
-                </button>
+                {/* Preview — same style as project image */}
+                <div className="rounded-2xl border-2 border-(--border-color) overflow-hidden">
+                  <div className="flex items-center gap-4 px-4 border-b-2 border-(--border-color) bg-(--bg-secondary)">
+                    <button
+                      onClick={() => setCompTab("preview")}
+                      className={`relative text-[13px] font-medium py-3 transition-colors duration-200 cursor-pointer ${
+                        compTab === "preview"
+                          ? "text-(--text-primary)"
+                          : "text-(--text-muted) hover:text-(--text-primary)"
+                      }`}
+                    >
+                      Preview
+                      {compTab === "preview" && (
+                        <motion.div
+                          layoutId="comp-tab-indicator"
+                          className="absolute bottom-0 left-0 w-full h-0.5 bg-(--accent) rounded-full"
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => setCompTab("code")}
+                      className={`relative text-[13px] font-medium py-3 transition-colors duration-200 cursor-pointer ${
+                        compTab === "code"
+                          ? "text-(--text-primary)"
+                          : "text-(--text-muted) hover:text-(--text-primary)"
+                      }`}
+                    >
+                      Code
+                      {compTab === "code" && (
+                        <motion.div
+                          layoutId="comp-tab-indicator"
+                          className="absolute bottom-0 left-0 w-full h-0.5 bg-(--accent) rounded-full"
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 30,
+                          }}
+                        />
+                      )}
+                    </button>
+                  </div>
+                  <div className="relative overflow-hidden">
+                    <AnimatePresence mode="popLayout" initial={false}>
+                      {compTab === "preview" ? (
+                        <motion.div
+                          key="preview"
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: 20 }}
+                          transition={{
+                            duration: 0.25,
+                            ease: [0.32, 0.72, 0, 1],
+                          }}
+                          className="bg-(--bg-tertiary)/50 p-10 flex items-center justify-center min-h-[28rem]"
+                        >
+                          {comp.preview}
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="code"
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -20 }}
+                          transition={{
+                            duration: 0.25,
+                            ease: [0.32, 0.72, 0, 1],
+                          }}
+                          className="max-h-96 overflow-y-auto"
+                        >
+                          <CodeBlock code={comp.code} />
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
 
+                {/* Title + description below preview, like project detail */}
                 <div>
-                  <h1 className="text-2xl font-bold text-(--text-primary) tracking-tight mb-2">
+                  <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-2">
                     {comp.name}
                   </h1>
                   <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl">
@@ -342,106 +419,46 @@ export function App() {
                   </p>
                 </div>
 
-                <SectionMinimal title="Preview">
-                  <div className="rounded-xl border border-(--border-color) overflow-hidden">
-                    <div className="flex items-center gap-4 px-4 border-b border-(--border-color) bg-(--bg-secondary)">
-                      <button
-                        onClick={() => setCompTab("preview")}
-                        className={`relative text-[13px] font-medium py-3 transition-colors duration-200 cursor-pointer ${
-                          compTab === "preview"
-                            ? "text-(--text-primary)"
-                            : "text-(--text-muted) hover:text-(--text-primary)"
-                        }`}
-                      >
-                        Preview
-                        {compTab === "preview" && (
-                          <motion.div
-                            layoutId="comp-tab-indicator"
-                            className="absolute bottom-0 left-0 w-full h-0.5 bg-(--text-primary) rounded-full"
-                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                          />
-                        )}
-                      </button>
-                      <button
-                        onClick={() => setCompTab("code")}
-                        className={`relative text-[13px] font-medium py-3 transition-colors duration-200 cursor-pointer ${
-                          compTab === "code"
-                            ? "text-(--text-primary)"
-                            : "text-(--text-muted) hover:text-(--text-primary)"
-                        }`}
-                      >
-                        Code
-                        {compTab === "code" && (
-                          <motion.div
-                            layoutId="comp-tab-indicator"
-                            className="absolute bottom-0 left-0 w-full h-0.5 bg-(--text-primary) rounded-full"
-                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                          />
-                        )}
-                      </button>
-                    </div>
-                    <div className="relative overflow-hidden">
-                      <AnimatePresence mode="popLayout" initial={false}>
-                        {compTab === "preview" ? (
-                          <motion.div
-                            key="preview"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: 20 }}
-                            transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                            className="bg-(--bg-tertiary)/50 p-10 flex items-center justify-center min-h-[28rem]"
-                          >
-                            {comp.preview}
-                          </motion.div>
-                        ) : (
-                          <motion.div
-                            key="code"
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -20 }}
-                            transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                            className="max-h-96 overflow-y-auto"
-                          >
-                            <CodeBlock code={comp.code} />
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </div>
-                </SectionMinimal>
-
                 {comp.npmCommand && (
-                  <SectionMinimal title="Install">
-                    <div className="flex items-center gap-3 rounded-xl border border-(--border-color) bg-(--bg-secondary) px-4 py-3">
-                      <TerminalIcon />
-                      <code className="text-[13px] font-mono text-(--text-secondary) flex-1">
-                        {comp.npmCommand}
-                      </code>
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText(comp.npmCommand!);
-                          setCopiedNpm(true);
-                          setTimeout(() => setCopiedNpm(false), 2000);
-                        }}
-                        className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
-                        title="Copy command"
-                      >
-                        {copiedNpm ? <CheckIcon /> : <CopyIcon />}
-                      </button>
-                    </div>
-                  </SectionMinimal>
+                  <div className="flex items-center gap-3 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) px-4 py-3">
+                    <TerminalIcon />
+                    <code className="text-[13px] font-mono text-(--text-secondary) flex-1">
+                      {comp.npmCommand}
+                    </code>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(comp.npmCommand!);
+                        setCopiedNpm(true);
+                        setTimeout(() => setCopiedNpm(false), 2000);
+                      }}
+                      className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
+                      title="Copy command"
+                    >
+                      {copiedNpm ? <CheckIcon /> : <CopyIcon />}
+                    </button>
+                  </div>
                 )}
 
                 {comp.props && comp.props.length > 0 && (
-                  <SectionMinimal title="Props">
-                    <div className="rounded-xl border border-(--border-color) overflow-hidden">
+                  <div>
+                    <p
+                      className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
+                      style={{ fontFamily: "'Press Start 2P', cursive" }}
+                    >
+                      Props
+                    </p>
+                    <div className="rounded-2xl border-2 border-(--border-color) overflow-hidden">
                       <table className="w-full text-[13px]">
                         <thead>
                           <tr className="bg-(--bg-tertiary)/50 text-left text-(--text-muted)">
                             <th className="px-4 py-2.5 font-medium">Prop</th>
                             <th className="px-4 py-2.5 font-medium">Type</th>
-                            <th className="px-4 py-2.5 font-medium hidden sm:table-cell">Required</th>
-                            <th className="px-4 py-2.5 font-medium">Description</th>
+                            <th className="px-4 py-2.5 font-medium hidden sm:table-cell">
+                              Required
+                            </th>
+                            <th className="px-4 py-2.5 font-medium">
+                              Description
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -458,153 +475,257 @@ export function App() {
                               </td>
                               <td className="px-4 py-2.5 hidden sm:table-cell">
                                 {prop.required ? (
-                                  <span className="text-[11px] font-medium bg-(--text-primary) text-(--bg-primary) px-1.5 py-0.5 rounded">
+                                  <span className="text-[11px] font-medium bg-(--accent) text-white px-1.5 py-0.5 rounded">
                                     Required
                                   </span>
                                 ) : (
-                                  <span className="text-(--text-muted)">Optional</span>
+                                  <span className="text-(--text-muted)">
+                                    Optional
+                                  </span>
                                 )}
                               </td>
-                              <td className="px-4 py-2.5">{prop.description}</td>
+                              <td className="px-4 py-2.5">
+                                {prop.description}
+                              </td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
                     </div>
-                  </SectionMinimal>
+                  </div>
                 )}
               </div>
             );
           })()}
         </main>
       ) : currentPath === "/components" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all min-h-screen pb-24">
-          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
-            <div>
-              <h1 className="text-[10px] font-bold tracking-[0.12em] text-(--text-secondary) uppercase mb-3 pl-1" style={{ fontFamily: "'Press Start 2P', cursive" }}>
-                Components
+        <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
+          <div className="grid grid-cols-12 gap-4">
+            {/* Header */}
+            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
+              <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
+                Components<span className="text-(--accent)">.</span>
               </h1>
-              <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl pl-1">
-                A collection of reusable UI components with code and previews.
+              <p className="text-(--text-secondary) text-[17px] mt-3 max-w-lg">
+                Interactive UI components with live previews and copy-paste
+                code.
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {uiComponents.map((comp) => (
-                <ComponentPreviewCard
-                  key={comp.id}
-                  id={comp.id}
-                  name={comp.name}
-                  description={comp.description}
-                  preview={comp.preview}
-                  onClick={(id, e) => navigateTo(`/components/${id}`, e)}
-                />
-              ))}
-            </div>
+
+            {/* Component cards */}
+            {uiComponents.map((comp) => (
+              <div
+                key={comp.id}
+                className="col-span-12 md:col-span-6 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 cursor-pointer group flex flex-col"
+                onClick={(e) => navigateTo(`/components/${comp.id}`, e)}
+              >
+                <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) p-6 flex items-center justify-center flex-1">
+                  <div className="pointer-events-none scale-90">
+                    {comp.preview}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-(--text-primary) tracking-tight mb-1">
+                    {comp.name}
+                  </h3>
+                  <p className="text-(--text-muted) text-sm leading-relaxed">
+                    {comp.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </main>
       ) : currentPath === "/about" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-screen pb-24">
-          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
-            <AboutSection />
-            <SectionMinimal title="Technologies">
-              <div className="flex flex-wrap gap-x-2 gap-y-2 pl-1 mb-8">
+        <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
+          <div className="grid grid-cols-12 gap-4">
+            {/* About card with photo */}
+            <div className="col-span-12 md:col-span-8 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
+              <p
+                className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
+              >
+                About me
+              </p>
+              <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] leading-[1.05] text-(--text-primary) mb-4">
+                Manu Sharma<span className="text-(--accent)">.</span>
+              </h1>
+              <div className="flex items-center gap-1.5 text-[14px] text-(--text-secondary) font-medium mb-5">
+                <span>20</span>
+                <span className="opacity-40">•</span>
+                <div className="h-4.5 overflow-hidden inline-flex flex-col relative top-[0.5px]">
+                  <div className="animate-flip leading-4.5">
+                    <span className="block h-4.5">Design Engineer</span>
+                    <span className="block h-4.5">UI Craftsman</span>
+                    <span className="block h-4.5">Design Engineer</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-(--text-secondary) text-[17px] leading-[1.7] max-w-lg">
+                I'm a Design Engineer who cares deeply about how things look,
+                feel, and move. I build polished interfaces with attention to
+                every pixel and interaction.
+              </p>
+            </div>
+
+            {/* Photo */}
+            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--accent) overflow-hidden relative min-h-[280px] group">
+              <img
+                src="/me-color.jpeg"
+                alt="Manu Sharma Color"
+                className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out z-10"
+              />
+              <img
+                src="/me-bw.jpeg"
+                alt="Manu Sharma"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+              />
+            </div>
+
+            {/* Tech stack */}
+            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
+              <p
+                className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
+              >
+                Technologies
+              </p>
+              <div className="flex flex-wrap gap-2">
                 {techStack.map((tech) => (
                   <TechBadge key={tech.name} {...tech} />
                 ))}
               </div>
-            </SectionMinimal>
+            </div>
 
-            <SectionMinimal title="Movies I'm lovin'">
+            {/* Movies */}
+            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 overflow-hidden">
+              <p
+                className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
+              >
+                Movies I'm lovin'
+              </p>
               <MovieShelf />
-            </SectionMinimal>
+            </div>
           </div>
         </main>
       ) : currentPath === "/projects" ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-screen pb-24">
-          <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
-            <div className="flex items-center gap-6 pl-1 mb-10 border-b border-(--border-color)">
+        <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
+          <div className="grid grid-cols-12 gap-4">
+            {/* Header card */}
+            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex items-end justify-between">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
+                  Work<span className="text-(--accent)">.</span>
+                </h1>
+                <p className="text-(--text-secondary) text-[17px] mt-3 max-w-lg">
+                  Projects I've built and open source I've contributed to.
+                </p>
+              </div>
               <button
-                onClick={() => {
-                  setActiveTab("projects");
-                  document
-                    .getElementById("projects-section")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className={`relative text-[13px] font-medium pb-3 transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none ${
-                  activeTab === "projects"
-                    ? "text-(--text-primary) after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-(--text-primary) after:rounded-full"
-                    : "text-(--text-muted) hover:text-(--text-primary)"
-                }`}
-              >
-                Projects
-              </button>
-              <button
-                onClick={() => {
-                  setActiveTab("oss");
+                onClick={() =>
                   document
                     .getElementById("oss-section")
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className={`relative text-[13px] font-medium pb-3 transition-colors duration-200 ease-out cursor-pointer focus-visible:outline-none ${
-                  activeTab === "oss"
-                    ? "text-(--text-primary) after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-(--text-primary) after:rounded-full"
-                    : "text-(--text-muted) hover:text-(--text-primary)"
-                }`}
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-(--border-color) bg-(--accent) text-white text-sm font-bold hover:opacity-90 transition-opacity cursor-pointer shrink-0"
               >
-                Open Source
+                Open Source ↓
               </button>
             </div>
 
-            <SectionMinimal title="Projects" id="projects-section">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pl-1">
-                {projects.map((project) => (
-                  <ProjectCard key={project.id} {...project} />
-                ))}
-              </div>
-            </SectionMinimal>
-
-            <div className="mt-16" id="oss-section">
-              <SectionMinimal title="OSS Contributions">
-                <div className="pl-1 space-y-10">
-                  {contributions.map((contrib, i) => (
-                    <div key={contrib.title}>
-                      <a
-                        href={contrib.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group inline-flex items-center gap-2 mb-3"
-                      >
-                        <span className="text-[15px] font-semibold text-(--text-primary) tracking-tight group-hover:text-(--text-highlight) transition-colors duration-200">
-                          {contrib.repo}
-                        </span>
-                        <ExternalLinkIcon />
-                      </a>
-
-                      <div className="relative pl-6 mt-2">
-                        <div className="absolute left-[5px] top-[10px] bottom-0 w-px bg-(--border-color)" />
-                        <div className="absolute left-0 top-[6px] w-[11px] h-[11px] rounded-full border-2 border-(--border-color) bg-(--bg-primary)" />
-
-                        <a
-                          href={contrib.prUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group/pr inline-flex items-center gap-2 mb-1.5"
-                        >
-                          <span className="text-[14px] font-medium text-(--text-secondary) group-hover/pr:text-(--text-primary) transition-colors duration-200">
-                            {contrib.title}
+            {/* Project cards */}
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="col-span-12 md:col-span-6 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 group"
+              >
+                <a
+                  href={project.liveUrl || project.githubUrl || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  {project.image && (
+                    <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) overflow-hidden p-4">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full rounded-xl group-hover:scale-[1.03] transition-transform duration-300 ease-out"
+                      />
+                    </div>
+                  )}
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-2">
+                      <h3 className="text-lg font-bold text-(--text-primary) tracking-tight">
+                        {project.title}
+                      </h3>
+                      <div className="flex gap-2 shrink-0">
+                        {project.githubUrl && (
+                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors">
+                            <GitHubIcon />
                           </span>
-                          <span className="text-(--text-muted) group-hover/pr:text-(--text-primary) transition-colors duration-200">
+                        )}
+                        {project.liveUrl && (
+                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors">
                             <ExternalLinkIcon />
                           </span>
-                        </a>
-                        <p className="text-[13px] text-(--text-muted) leading-relaxed max-w-lg">
-                          {contrib.description}
-                        </p>
+                        )}
                       </div>
                     </div>
-                  ))}
-                </div>
-              </SectionMinimal>
+                    <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.tech.map((t) => (
+                        <span
+                          key={t}
+                          className="text-[10px] font-medium font-mono text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded-md border border-(--border-color)"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </a>
+              </div>
+            ))}
+
+            {/* OSS card — accent background */}
+            <div
+              id="oss-section"
+              className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--accent) p-8 text-white scroll-mt-20"
+            >
+              <p
+                className="text-xs font-bold tracking-[0.15em] uppercase text-white/50 mb-6"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
+              >
+                Open Source
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {contributions.map((contrib) => (
+                  <a
+                    key={contrib.title}
+                    href={contrib.prUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-2xl border border-white/20 bg-white/10 p-5 hover:bg-white/15 transition-all duration-200 group/oss block"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <GitHubIcon />
+                      <span className="text-[14px] font-bold text-white/90">
+                        {contrib.repo}
+                      </span>
+                    </div>
+                    <p className="text-[14px] font-medium text-white/80 mb-2">
+                      {contrib.title}
+                    </p>
+                    <p className="text-[13px] text-white/50 leading-relaxed">
+                      {contrib.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </main>
@@ -612,7 +733,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12 transition-all  min-h-screen pb-24">
+        <main className="max-w-2xl mx-auto px-6 pt-4 pb-32 space-y-12 transition-all min-h-screen">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -621,11 +742,11 @@ export function App() {
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
                 <SectionMinimal title="Project Details">
                   {project.image && (
-                    <div className="w-full rounded-2xl overflow-hidden border border-(--border-color) shadow-sm bg-(--bg-tertiary) pl-1 ml-1 mb-10 pt-4">
+                    <div className="w-full rounded-2xl overflow-hidden border-2 border-(--border-color) mb-10">
                       <img
                         src={project.image}
                         alt={project.title}
-                        className="w-full h-auto"
+                        className="w-full h-auto block"
                       />
                     </div>
                   )}
@@ -672,191 +793,233 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="max-w-2xl mx-auto px-6 py-20 space-y-12  transition-all min-h-screen pb-24">
-          <header id="home" className="flex flex-col pl-1 scroll-mt-24">
-            <NameFlip />
-
-            <div className="flex flex-col gap-6 mt-4">
-              <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-lg font-normal">
-                Design Engineer focused on crafting polished, interactive interfaces. I obsess over{" "}
-                <span className="font-medium text-(--text-primary)">motion</span>,{" "}
-                <span className="font-medium text-(--text-primary)">micro-interactions</span>, and{" "}
-                <span className="font-medium text-(--text-primary)">UI detail</span> — building with{" "}
-                <span className="font-medium text-(--text-primary)">React</span>,{" "}
-                <span className="font-medium text-(--text-primary)">TypeScript</span>, and{" "}
-                <span className="font-medium text-(--text-primary)">Framer Motion</span>.
-              </p>
-
-              <div className="inline-flex items-center flex-wrap gap-2 text-[15px]">
-                <span className="text-(--text-secondary)">Get in touch:</span>
-                <span
-                  onClick={copyEmail}
-                  className="font-medium text-(--text-primary) cursor-pointer hover:text-(--text-highlight) transition-colors duration-200"
+        <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
+          {/* ── Bento Grid ── */}
+          <div className="grid grid-cols-12 gap-4 auto-rows-auto" id="home">
+            {/* Hero — About Me card (spans 8 cols) */}
+            <div className="col-span-12 md:col-span-8 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-[240px]">
+              <div>
+                <p
+                  className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
+                  style={{ fontFamily: "'Press Start 2P', cursive" }}
                 >
-                  quantapar@gmail.com
+                  About me
+                </p>
+                <h1 className="text-5xl md:text-6xl font-black tracking-[-0.04em] leading-[1.05] text-(--text-primary)">
+                  Manu
+                  <br />
+                  Sharma<span className="text-(--accent)">.</span>
+                </h1>
+              </div>
+              <div className="mt-6">
+                <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
+                  Design Engineer obsessed with motion, micro-interactions, and
+                  UI detail, building with React, TypeScript & Framer Motion.
+                </p>
+                <span className="inline-flex items-center gap-2">
+                  <span
+                    onClick={copyEmail}
+                    className="text-[14px] text-(--text-muted) hover:text-(--text-primary) cursor-pointer transition-colors duration-200"
+                  >
+                    {copied ? "Copied!" : "quantapar@gmail.com"}
+                  </span>
+                  <button
+                    onClick={copyEmail}
+                    className="p-1 rounded-md text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-tertiary) transition-all duration-200 cursor-pointer active:scale-95"
+                    title="Copy email"
+                  >
+                    {copied ? <CheckIcon /> : <CopyIcon />}
+                  </button>
                 </span>
-                <button
-                  onClick={copyEmail}
-                  className="p-1.5 rounded-md hover:bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) ml-1 cursor-pointer"
-                  title="Copy email"
-                >
-                  {copied ? <CheckIcon /> : <CopyIcon />}
-                </button>
-                <div className="flex flex-wrap gap-x-4 gap-y-3 mt-4">
-                  <a
-                    href="https://x.com/quantapar"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                  >
-                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                      <TwitterIcon />
-                    </span>
-                    <span>Twitter</span>
-                  </a>
-                  <a
-                    href="https://github.com/Quantapar"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                  >
-                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                      <GitHubIcon />
-                    </span>
-                    <span>GitHub</span>
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/manu-sharma-6012bb32a/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                  >
-                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                      <LinkedInIcon />
-                    </span>
-                    <span>LinkedIn</span>
-                  </a>
-                  <a
-                    href="https://discord.com/users/762906412564217857"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-2 text-[13px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-md"
-                  >
-                    <span className="p-1.5 rounded-md bg-(--bg-tertiary) border border-(--border-color) group-hover:border-(--text-muted) transition-colors duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] group-active:scale-[0.97]">
-                      <DiscordIcon />
-                    </span>
-                    <span>Discord</span>
-                  </a>
-                </div>
               </div>
             </div>
-          </header>
 
-          <SectionMinimal title="Experience" id="experience">
-            <div className="flex flex-col gap-6">
-              <ExperienceRow
-                company={
-                  <a
-                    href="https://www.kraneapps.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm"
+            {/* Photo card (spans 4 cols) */}
+            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) overflow-hidden relative min-h-[240px] bg-black">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                src={ringVideo}
+              />
+            </div>
+
+            {/* Work/Projects card (spans 4 cols) — blue accent */}
+            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--accent) p-6 text-white">
+              <p
+                className="text-xs font-bold tracking-[0.15em] uppercase text-white/60 mb-5"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
+              >
+                Work
+              </p>
+              <div className="flex flex-col gap-3">
+                {projects.slice(0, 3).map((project) => (
+                  <button
+                    key={project.id}
+                    onClick={(e) => navigateTo(`/${project.id}`, e)}
+                    className="text-left text-[15px] font-semibold text-white/90 hover:text-white transition-colors cursor-pointer"
                   >
+                    {project.title} →
+                  </button>
+                ))}
+              </div>
+              <div className="mt-5">
+                <a
+                  href="/projects"
+                  onClick={(e) => navigateTo("/projects", e)}
+                  className="text-sm font-medium text-white/50 hover:text-white transition-colors cursor-pointer"
+                >
+                  View all →
+                </a>
+              </div>
+            </div>
+
+            {/* Experience card (spans 4 cols) */}
+            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex flex-col">
+              <p
+                className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
+              >
+                Experience
+              </p>
+              <div className="flex flex-col flex-1">
+                {/* AppX */}
+                <a
+                  href="https://www.appx.co.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3.5 p-3 -mx-3 rounded-xl hover:bg-(--bg-tertiary) transition-colors duration-200 group"
+                >
+                  <div className="w-11 h-11 rounded-xl shrink-0 bg-white border border-(--border-color) flex items-center justify-center p-2 overflow-hidden group-hover:border-(--text-primary) transition-colors">
+                    <img
+                      src="https://cdn.prod.website-files.com/65a21f6c73352e86a33fcd30/65a22140604428bacdfccdce_Placeholder.avif"
+                      alt="AppX"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[14px] font-bold text-(--text-primary) leading-tight">
+                      Fullstack Intern
+                    </p>
+                    <p className="text-[12px] text-(--text-muted) mt-0.5">
+                      AppX · Jan — Mar 2026
+                    </p>
+                  </div>
+                </a>
+                <div className="h-px bg-(--border-color) mx-1 my-1" />
+                {/* Krane Apps */}
+                <a
+                  href="https://www.kraneapps.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3.5 p-3 -mx-3 rounded-xl hover:bg-(--bg-tertiary) transition-colors duration-200 group"
+                >
+                  <div className="w-11 h-11 rounded-xl shrink-0 overflow-hidden border border-(--border-color) group-hover:border-(--text-primary) transition-colors">
                     <img
                       src="https://www.kraneapps.com/images/logo.png"
                       alt="Krane Apps"
-                      className="w-5 h-5 rounded-sm"
+                      className="w-full h-full object-cover"
                     />
-                    <span className="text-[15px] font-bold tracking-wide uppercase text-(--text-primary)">
-                      Krane Apps
-                    </span>
-                  </a>
-                }
-                duration="Nov 2025 — Present"
-              />
-              <ExperienceRow
-                company={
-                  <span className="flex items-center gap-3">
-                    <a
-                      href="https://www.appx.co.in/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="transition-opacity duration-200 ease-out hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color) rounded-sm inline-flex items-center text-[15px]"
-                      aria-label="AppX"
-                    >
-                      <span className="font-black tracking-tighter text-(--text-primary)">
-                        App
-                      </span>
-                      <span className="font-black tracking-tighter text-[#FF3512]">
-                        X
-                      </span>
-                    </a>
-                    <span className="w-px h-4 bg-(--border-color)"></span>
-                    <a
-                      href="https://www.ycombinator.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:opacity-80 transition-opacity flex items-center"
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="rounded-sm"
-                      >
-                        <rect width="24" height="24" fill="#F26522" rx="2" />
-                        <path
-                          d="M7 6L12 14L17 6H15L12 11L9 6H7Z"
-                          fill="white"
-                        />
-                        <rect x="11" y="13" width="2" height="7" fill="white" />
-                      </svg>
-                    </a>
-                  </span>
-                }
-                duration="Jan 2026 — Mar 2026"
-              />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[14px] font-bold text-(--text-primary) leading-tight">
+                      Design Engineer
+                    </p>
+                    <p className="text-[12px] text-(--text-muted) mt-0.5">
+                      Krane Apps · Nov 2025 — Present
+                    </p>
+                  </div>
+                </a>
+              </div>
             </div>
-          </SectionMinimal>
-          <SectionMinimal title="Work" id="projects">
-            <div className="flex flex-col gap-1">
-              {projects.slice(0, 3).map((project) => (
-                <ProjectRow
-                  key={project.id}
-                  id={project.id}
-                  title={project.title}
-                  roles={project.roles as any}
-                  onClick={(id, e) => navigateTo(`/${id}`, e)}
-                />
-              ))}
-            </div>
-            <div className="mt-6 pl-1">
-              <a
-                href="/projects"
-                onClick={(e) => navigateTo("/projects", e)}
-                className="group inline-flex items-center gap-2 text-sm font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out focus-visible:outline-none cursor-pointer"
+
+            {/* Social card (spans 4 cols) */}
+            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
+              <p
+                className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
+                style={{ fontFamily: "'Press Start 2P', cursive" }}
               >
-                <span>All projects</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="transition-transform duration-200 ease-out group-hover:translate-x-0.5"
-                >
-                  <path d="M5 12h14" />
-                  <path d="m12 5 7 7-7 7" />
-                </svg>
-              </a>
+                Social
+              </p>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  {
+                    href: "https://github.com/Quantapar",
+                    icon: <GitHubIcon />,
+                    label: "GitHub",
+                  },
+                  {
+                    href: "https://x.com/quantapar",
+                    icon: <TwitterIcon />,
+                    label: "X",
+                  },
+                  {
+                    href: "https://www.linkedin.com/in/manu-sharma-6012bb32a/",
+                    icon: <LinkedInIcon />,
+                    label: "LinkedIn",
+                  },
+                  {
+                    href: "https://discord.com/users/762906412564217857",
+                    icon: <DiscordIcon />,
+                    label: "Discord",
+                  },
+                  {
+                    href: "mailto:quantapar@gmail.com",
+                    icon: <MailIcon />,
+                    label: "Email",
+                  },
+                ].map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center aspect-square rounded-2xl border-2 border-(--border-color) bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) hover:border-(--text-primary) hover:scale-[1.03] transition-all duration-200 ease-out"
+                    title={link.label}
+                  >
+                    {link.icon}
+                  </a>
+                ))}
+              </div>
             </div>
-          </SectionMinimal>
+
+            {/* Components card (spans full) */}
+            <a
+              href="/components"
+              onClick={(e) => navigateTo("/components", e)}
+              className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-all duration-200 ease-out cursor-pointer group"
+            >
+              <div>
+                <p
+                  className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-3"
+                  style={{ fontFamily: "'Press Start 2P', cursive" }}
+                >
+                  Components
+                </p>
+                <p className="text-2xl font-bold text-(--text-primary) tracking-tight">
+                  Interactive UI components I've crafted
+                  <span className="text-(--accent)">.</span>
+                </p>
+              </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-(--text-muted) group-hover:text-(--accent) group-hover:translate-x-1 transition-all duration-200"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+          </div>
         </main>
       )}
 

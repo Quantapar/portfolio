@@ -17,7 +17,7 @@ export const MovieShelf = () => {
   const isAnyHovered = hovered !== null;
 
   return (
-    <div className="flex justify-center sm:justify-start w-full mt-4 pl-1">
+    <div className="flex justify-center w-full mt-4">
       <div
         className="flex isolate"
         onMouseLeave={() => setHovered(null)}

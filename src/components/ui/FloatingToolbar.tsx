@@ -52,13 +52,13 @@ export const FloatingToolbar = ({
 
   return (
     <div
-      className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-(--bg-secondary)/80 backdrop-blur-xl border border-(--border-color) shadow-lg"
+      className="relative flex items-center gap-2 px-4 py-2 rounded-2xl bg-(--bg-secondary) border-2 border-(--border-color) shadow-sm"
       onMouseLeave={() => setHoveredId(null)}
     >
       <AnimatePresence>
         {hoveredId && (
           <motion.div
-            className="absolute top-1/2 -translate-y-1/2 left-0 rounded-xl bg-(--bg-tertiary)"
+            className="absolute top-1/2 -translate-y-1/2 left-0 rounded-xl bg-(--bg-tertiary) border border-(--border-color)"
             style={{ width: ITEM_SIZE, height: ITEM_SIZE }}
             initial={{ opacity: 0, x: bgX, scale: 0.95 }}
             animate={{ opacity: 1, x: bgX, scale: 1 }}
@@ -71,7 +71,7 @@ export const FloatingToolbar = ({
       {items.map((item, index) => (
         <React.Fragment key={item.id}>
           {separator !== undefined && index === separator + 1 && (
-            <div className="w-px h-5 bg-(--border-color) mx-0.5" />
+            <div className="w-0.5 h-5 bg-(--border-color) mx-0.5 rounded-full" />
           )}
           <button
             onClick={item.onClick}
@@ -86,7 +86,7 @@ export const FloatingToolbar = ({
             {activeId === item.id && (
               <motion.div
                 layoutId="active-dot"
-                className="absolute -bottom-0.5 w-1 h-1 rounded-full bg-(--text-primary)"
+                className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-(--accent)"
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
@@ -98,10 +98,10 @@ export const FloatingToolbar = ({
         {hoveredItem && (
           <motion.div
             key="tooltip"
-            className="absolute -top-10 left-0 px-2.5 py-1 bg-(--bg-secondary) border border-(--border-color) rounded-lg shadow-lg whitespace-nowrap z-50 pointer-events-none"
+            className="absolute -bottom-10 left-0 px-2.5 py-1 bg-(--bg-secondary) border-2 border-(--border-color) rounded-xl shadow-sm whitespace-nowrap z-50 pointer-events-none"
             initial={{
               opacity: 0,
-              y: 6,
+              y: -6,
               scale: 0.95,
               x: tooltipX,
               translateX: "-50%",
@@ -115,7 +115,7 @@ export const FloatingToolbar = ({
             }}
             exit={{
               opacity: 0,
-              y: 6,
+              y: -6,
               scale: 0.95,
               transition: { duration: 0.12 },
             }}

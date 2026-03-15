@@ -118,7 +118,7 @@ export const FloatingToolbarPreview = () => {
               {activeId === item.id && (
                 <motion.div
                   layoutId="preview-active-dot"
-                  className="absolute -bottom-0.5 w-1 h-1 rounded-full bg-(--text-primary)"
+                  className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-(--text-primary)"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -130,10 +130,10 @@ export const FloatingToolbarPreview = () => {
           {hoveredItem && (
             <motion.div
               key="tooltip"
-              className="absolute -top-10 left-0 px-2.5 py-1 bg-(--bg-secondary) border border-(--border-color) rounded-lg shadow-lg whitespace-nowrap z-50 pointer-events-none"
+              className="absolute -bottom-10 left-0 px-2.5 py-1 bg-(--bg-secondary) border-2 border-(--border-color) rounded-xl shadow-sm whitespace-nowrap z-50 pointer-events-none"
               initial={{
                 opacity: 0,
-                y: 6,
+                y: -6,
                 scale: 0.95,
                 x: tooltipX,
                 translateX: "-50%",
@@ -147,7 +147,7 @@ export const FloatingToolbarPreview = () => {
               }}
               exit={{
                 opacity: 0,
-                y: 6,
+                y: -6,
                 scale: 0.95,
                 transition: { duration: 0.12 },
               }}
