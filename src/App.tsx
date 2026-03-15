@@ -40,7 +40,7 @@ import { CodeBlock } from "./components/ui/CodeBlock";
 import { uiComponents } from "./data/components";
 
 export function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [copied, setCopied] = useState(false);
   const [copiedNpm, setCopiedNpm] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -115,15 +115,12 @@ export function App() {
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    if (stored === "light" || (!stored && !prefersDark)) {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    } else {
+    if (stored === "dark") {
       setIsDark(true);
       document.documentElement.classList.add("dark");
+    } else {
+      setIsDark(false);
+      document.documentElement.classList.remove("dark");
     }
   }, []);
 
