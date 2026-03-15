@@ -801,7 +801,7 @@ export function App() {
                   className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                   style={{ fontFamily: "'Press Start 2P', cursive" }}
                 >
-                  About me
+                  Hello there
                 </p>
                 <h1 className="text-5xl md:text-6xl font-black tracking-[-0.04em] leading-[1.05] text-(--text-primary)">
                   Manu
