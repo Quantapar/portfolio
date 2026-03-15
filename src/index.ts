@@ -4,7 +4,6 @@ import index from "./index.html";
 const server = serve({
   port: 3002,
   routes: {
-    // Serve static assets from src/assets
     "/me-bw.jpeg": file("src/assets/me-bw.jpeg"),
     "/me-color.jpeg": file("src/assets/me-color.jpeg"),
     "/og-image.png": file("src/assets/og-image.png"),
@@ -30,16 +29,12 @@ const server = serve({
       return Response.json({ message: `Hello, ${name}!` });
     },
 
-    // Serve index.html for all unmatched routes.
-    // This must be last as it is a catch-all.
     "/*": index,
   },
 
   development: process.env.NODE_ENV !== "production" && {
-    // Enable browser hot reloading in development
     hmr: true,
 
-    // Echo console logs from the browser to the server
     console: true,
   },
 });

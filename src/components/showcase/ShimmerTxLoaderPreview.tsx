@@ -36,7 +36,7 @@ export const ShimmerTxLoaderPreview = () => {
   return (
     <div className="w-full max-w-sm mx-auto">
       <div className="rounded-2xl bg-(--bg-secondary) border border-(--border-color) p-5 space-y-4">
-        {/* Header */}
+
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-(--text-primary)">Transaction</span>
           <AnimatePresence mode="wait">
@@ -66,7 +66,7 @@ export const ShimmerTxLoaderPreview = () => {
           </AnimatePresence>
         </div>
 
-        {/* Progress bar */}
+
         <div className="relative h-3 rounded-full overflow-hidden bg-(--bg-tertiary)">
           <motion.div
             className="absolute inset-y-0 left-0 rounded-full"
@@ -95,7 +95,7 @@ export const ShimmerTxLoaderPreview = () => {
           )}
         </div>
 
-        {/* Checkmark bloom */}
+
         <div className="flex items-center justify-center h-16">
           <AnimatePresence mode="wait">
             {state === "confirmed" ? (
@@ -154,14 +154,14 @@ export const ShimmerTxLoaderPreview = () => {
           </AnimatePresence>
         </div>
 
-        {/* Tx hash */}
+
         <div className="text-xs text-(--text-muted) font-mono text-center truncate">
           {state !== "idle"
             ? "5KtPn1...vGx7Rp9dEHjkF3Q"
             : "\u00A0"}
         </div>
 
-        {/* Button */}
+
         <motion.button
           className="w-full py-3 rounded-xl text-sm font-medium text-white cursor-pointer"
           style={{

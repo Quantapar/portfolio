@@ -63,7 +63,7 @@ export const ChainSwitcherPreview = () => {
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="rounded-2xl bg-(--bg-secondary) border border-(--border-color) p-5 space-y-4">
-        {/* Header */}
+
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-(--text-primary)">Network</span>
           <div className="flex items-center gap-1.5">
@@ -77,7 +77,7 @@ export const ChainSwitcherPreview = () => {
           </div>
         </div>
 
-        {/* Chain selector row */}
+
         <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-(--bg-tertiary)">
           {CHAINS.map((chain) => {
             const isActive = activeChain.id === chain.id;
@@ -124,7 +124,7 @@ export const ChainSwitcherPreview = () => {
           })}
         </div>
 
-        {/* Active chain info */}
+
         <AnimatePresence mode="wait">
           <motion.div
             key={activeChain.id}

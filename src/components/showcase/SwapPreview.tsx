@@ -68,7 +68,6 @@ const TOKENS = [
 type Token = typeof TOKENS[number];
 type Prices = Record<string, { usd: number }>;
 
-// Dropdown animation — origin-aware, scale from top
 const dropdownVariants = {
   hidden: { opacity: 0, scale: 0.95, y: -4 },
   visible: { opacity: 1, scale: 1, y: 0 },
@@ -85,7 +84,6 @@ export const SwapPreview = () => {
   const [rotation, setRotation] = useState(0);
   const [showFromDropdown, setShowFromDropdown] = useState(false);
   const [showToDropdown, setShowToDropdown] = useState(false);
-  // Fallback prices in case API is rate-limited
   const FALLBACK_PRICES: Prices = {
     ethereum: { usd: 2430 },
     "usd-coin": { usd: 1 },
@@ -169,7 +167,6 @@ export const SwapPreview = () => {
       <div className="rounded-2xl bg-(--bg-secondary) border border-(--border-color) p-4 relative">
         <LayoutGroup>
         <div className="flex flex-col gap-1">
-          {/* From */}
           <motion.div
             layout
             className="rounded-xl bg-(--bg-tertiary) p-4"
@@ -244,7 +241,6 @@ export const SwapPreview = () => {
             </div>
           </motion.div>
 
-          {/* Swap button */}
           <div className="flex justify-center -my-4 relative z-10" style={{ order: 1 }}>
             <motion.button
               onClick={handleSwap}
@@ -272,7 +268,6 @@ export const SwapPreview = () => {
             </motion.button>
           </div>
 
-          {/* To */}
           <motion.div
             layout
             className="rounded-xl bg-(--bg-tertiary) p-4"
@@ -358,7 +353,6 @@ export const SwapPreview = () => {
         </div>
         </LayoutGroup>
 
-        {/* Rate */}
         <div className="pt-3 px-1">
           <span className="text-xs text-(--text-muted)">
             {loading ? "Fetching prices..." : `1 ${fromToken.symbol} ≈ ${rateDisplay} ${toToken.symbol}`}

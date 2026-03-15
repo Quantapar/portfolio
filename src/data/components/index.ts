@@ -13,5 +13,4 @@ import { walletConnect } from "./wallet-connect";
 import { chainSwitcher } from "./chain-switcher";
 import { disconnectModal } from "./disconnect-modal";
 
-// Add new components here — one import + one array entry
 export const uiComponents = [addressCard, floatingToolbar, swap, walletConnect, chainSwitcher, disconnectModal];

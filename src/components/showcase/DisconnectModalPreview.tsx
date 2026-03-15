@@ -44,7 +44,7 @@ export const DisconnectModalPreview = () => {
   return (
     <div className="w-full max-w-sm mx-auto">
       <div className="rounded-2xl bg-(--bg-secondary) border border-(--border-color) p-5 flex flex-col items-center gap-4">
-        {/* Wallet info summary */}
+
         <div className="flex items-center gap-3 w-full p-3 rounded-xl bg-(--bg-tertiary)">
           <div className="w-9 h-9 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -62,7 +62,7 @@ export const DisconnectModalPreview = () => {
           </div>
         </div>
 
-        {/* Connected button */}
+
         <motion.button
           onClick={() => setIsOpen(true)}
           className="w-full py-2.5 rounded-xl bg-(--bg-tertiary) border border-(--border-color) text-sm font-medium text-(--text-primary) cursor-pointer hover:border-(--text-muted) transition-colors"
@@ -73,7 +73,7 @@ export const DisconnectModalPreview = () => {
         </motion.button>
       </div>
 
-      {/* Modal */}
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -84,14 +84,14 @@ export const DisconnectModalPreview = () => {
             exit="hidden"
             transition={{ duration: 0.2 }}
           >
-            {/* Backdrop */}
+
             <motion.div
               className="absolute inset-0"
               style={{ background: "rgba(0,0,0,0.5)", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
               onClick={() => !showCheck && setIsOpen(false)}
             />
 
-            {/* Modal content */}
+
             <motion.div
               className="relative w-full max-w-sm rounded-2xl border overflow-hidden"
               style={{
@@ -103,7 +103,7 @@ export const DisconnectModalPreview = () => {
               animate="visible"
               exit="exit"
             >
-              {/* Header */}
+
               <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: "var(--border-color)" }}>
                 <span className="text-sm font-semibold text-(--text-primary)">Wallet</span>
                 <motion.button
@@ -117,7 +117,7 @@ export const DisconnectModalPreview = () => {
                 </motion.button>
               </div>
 
-              {/* Body */}
+
               <div className="p-5 space-y-5">
                 <AnimatePresence mode="wait">
                   {showCheck && disconnected ? (
@@ -167,7 +167,7 @@ export const DisconnectModalPreview = () => {
                       exit={{ opacity: 0, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
                     >
-                      {/* Avatar + Address */}
+
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-blue-500 flex items-center justify-center shrink-0">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -182,7 +182,7 @@ export const DisconnectModalPreview = () => {
                         </div>
                       </div>
 
-                      {/* Balance */}
+
                       <div className="p-4 rounded-xl bg-(--bg-tertiary) space-y-1">
                         <span className="text-xs text-(--text-muted)">Balance</span>
                         <div className="flex items-baseline gap-2">
@@ -195,7 +195,7 @@ export const DisconnectModalPreview = () => {
                   )}
                 </AnimatePresence>
 
-                {/* Disconnect button */}
+
                 {!disconnected && (
                   <motion.button
                     onClick={handleDisconnect}

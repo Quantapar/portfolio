@@ -45,13 +45,13 @@ export const BatchTxApproverPreview = () => {
   return (
     <div className="w-full max-w-sm mx-auto">
       <div className="rounded-2xl bg-(--bg-secondary) border border-(--border-color) p-4 space-y-3">
-        {/* Header */}
+
         <div className="flex items-center justify-between px-1">
           <span className="text-sm font-medium text-(--text-primary)">Batch Transactions</span>
           <span className="text-xs text-(--text-muted)">{TRANSACTIONS.length} pending</span>
         </div>
 
-        {/* Transaction list */}
+
         <div className="space-y-2">
           {TRANSACTIONS.map((tx) => {
             const isExpanded = expandedId === tx.id && !approving;
@@ -65,7 +65,7 @@ export const BatchTxApproverPreview = () => {
                 transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 onClick={() => !approving && setExpandedId(isExpanded ? null : tx.id)}
               >
-                {/* Row header */}
+
                 <div className="flex items-center gap-3 p-3">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0"
@@ -104,7 +104,7 @@ export const BatchTxApproverPreview = () => {
                   </motion.div>
                 </div>
 
-                {/* Expanded details */}
+
                 <AnimatePresence>
                   {isExpanded && (
                     <motion.div
@@ -142,7 +142,7 @@ export const BatchTxApproverPreview = () => {
           })}
         </div>
 
-        {/* Approve All button */}
+
         <motion.button
           className="w-full py-3 rounded-xl text-sm font-medium text-white cursor-pointer"
           style={{

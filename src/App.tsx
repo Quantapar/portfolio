@@ -220,16 +220,6 @@ export function App() {
       liveUrl: "https://joinmayhem.quantapar.com/",
       image: mayhemImage,
     },
-    // {
-    //   id: "contact-manager",
-    //   title: "Contact Manager",
-    //   description:
-    //     "Robust REST API design pattern demonstration. Features protected routes, input validation, and secure JWT handling.",
-    //   tech: ["Node.js", "Express", "MongoDB", "Zod"],
-    //   roles: [{ name: "Backend Concept", type: "dev" }] as const,
-    //   githubUrl: "https://github.com/Quantapar/contact-manager-api",
-    //   image: contactImage,
-    // },
   ];
 
   const contributions = [
@@ -266,7 +256,6 @@ export function App() {
     { name: "Tailwind", colorClass: "badge-tailwind" },
   ];
 
-  // Components data is now in src/data/components/
   const menuItems = [
     { id: "home", icon: <HomeIcon />, label: "Home", targetPath: "/" },
     {
@@ -326,7 +315,7 @@ export function App() {
             )!;
             return (
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
-                {/* Preview — same style as project image */}
+
                 <div className="rounded-2xl border-2 border-(--border-color) overflow-hidden">
                   <div className="flex items-center gap-4 px-4 border-b-2 border-(--border-color) bg-(--bg-secondary)">
                     <button
@@ -407,7 +396,7 @@ export function App() {
                   </div>
                 </div>
 
-                {/* Title + description below preview, like project detail */}
+
                 <div>
                   <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-2">
                     {comp.name}
@@ -499,8 +488,7 @@ export function App() {
       ) : currentPath === "/components" ? (
         <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
           <div className="grid grid-cols-12 gap-4">
-            {/* Header */}
-            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
+            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
               <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
                 Components<span className="text-(--accent)">.</span>
               </h1>
@@ -510,11 +498,10 @@ export function App() {
               </p>
             </div>
 
-            {/* Component cards */}
             {uiComponents.map((comp) => (
               <div
                 key={comp.id}
-                className="col-span-12 md:col-span-6 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 cursor-pointer group flex flex-col"
+                className="col-span-12 md:col-span-6 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 cursor-pointer group flex flex-col"
                 onClick={(e) => navigateTo(`/components/${comp.id}`, e)}
               >
                 <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) p-6 flex items-center justify-center flex-1">
@@ -537,8 +524,7 @@ export function App() {
       ) : currentPath === "/about" ? (
         <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
           <div className="grid grid-cols-12 gap-4">
-            {/* About card with photo */}
-            <div className="col-span-12 md:col-span-8 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
+            <div className="col-span-12 md:col-span-8 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -566,8 +552,7 @@ export function App() {
               </p>
             </div>
 
-            {/* Photo */}
-            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--accent) overflow-hidden relative min-h-70 group">
+            <div className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--accent) overflow-hidden relative min-h-70 group">
               <img
                 src="/me-color.jpeg"
                 alt="Manu Sharma Color"
@@ -580,8 +565,7 @@ export function App() {
               />
             </div>
 
-            {/* Tech stack */}
-            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
+            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -595,8 +579,7 @@ export function App() {
               </div>
             </div>
 
-            {/* Movies */}
-            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 overflow-hidden">
+            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 overflow-hidden">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -610,8 +593,7 @@ export function App() {
       ) : currentPath === "/projects" ? (
         <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
           <div className="grid grid-cols-12 gap-4">
-            {/* Header card */}
-            <div className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex items-end justify-between">
+            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex items-end justify-between">
               <div>
                 <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
                   Work<span className="text-(--accent)">.</span>
@@ -632,11 +614,10 @@ export function App() {
               </button>
             </div>
 
-            {/* Project cards */}
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="col-span-12 md:col-span-6 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 group"
+                className="col-span-12 md:col-span-6 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 group"
               >
                 <a
                   href={project.liveUrl || project.githubUrl || "#"}
@@ -689,10 +670,9 @@ export function App() {
               </div>
             ))}
 
-            {/* OSS card — accent background */}
             <div
               id="oss-section"
-              className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--accent) p-8 text-white scroll-mt-20"
+              className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--accent) p-8 text-white scroll-mt-20"
             >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-white/50 mb-6"
@@ -792,10 +772,8 @@ export function App() {
         </main>
       ) : (
         <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
-          {/* ── Bento Grid ── */}
-          <div className="grid grid-cols-12 gap-4 auto-rows-auto" id="home">
-            {/* Hero — About Me card (spans 8 cols) */}
-            <div className="col-span-12 md:col-span-8 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
+          <div className="grid grid-cols-12 gap-5 auto-rows-auto" id="home">
+            <div className="col-span-12 md:col-span-8 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
               <div>
                 <p
                   className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
@@ -833,7 +811,7 @@ export function App() {
             </div>
 
             <div
-              className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) overflow-hidden relative min-h-60 bg-black cursor-pointer"
+              className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) overflow-hidden relative min-h-60 bg-black cursor-pointer"
               onMouseEnter={() => setRingHovered(true)}
               onMouseLeave={() => setRingHovered(false)}
             >
@@ -852,18 +830,21 @@ export function App() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    className="absolute inset-4 rounded-2xl border border-white/15 p-4 flex flex-col justify-between z-10 backdrop-blur-xl"
+                    className="absolute inset-4 rounded-2xl border border-white/15 p-5 flex flex-col justify-between z-10 backdrop-blur-xl"
                     style={{ background: "rgba(0,0,0,0.55)" }}
                   >
                     <div>
-                      <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/50 mb-2">
+                      <p
+                        className="text-xs font-bold tracking-[0.15em] uppercase text-white/60 mb-3"
+                        style={{ fontFamily: "'Press Start 2P', cursive" }}
+                      >
                         Voyager Golden Record
                       </p>
-                      <p className="text-xs leading-[1.6] text-white/80">
+                      <p className="text-sm leading-[1.7] text-white/85">
                         Launched in 1977 by NASA aboard Voyager 1 & 2, this gold-plated copper disc carries sounds and images of life on Earth — greetings in 55 languages, music from Mozart to Chuck Berry, and 115 encoded photographs.
                       </p>
                     </div>
-                    <p className="text-[10px] leading-normal text-white/40">
+                    <p className="text-xs leading-relaxed text-white/50">
                       Now over 15 billion miles away, it's humanity's farthest message in a bottle — meant for any intelligent life that might find it.
                     </p>
                   </motion.div>
@@ -871,8 +852,10 @@ export function App() {
               </AnimatePresence>
             </div>
 
-            {/* Work/Projects card (spans 4 cols) — blue accent */}
-            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--accent) p-6 text-white">
+            <div
+              className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--accent) p-6 text-white cursor-pointer"
+              onClick={(e) => navigateTo("/projects", e)}
+            >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-white/60 mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -901,8 +884,7 @@ export function App() {
               </div>
             </div>
 
-            {/* Experience card (spans 4 cols) */}
-            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex flex-col">
+            <div className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex flex-col">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -910,7 +892,6 @@ export function App() {
                 Experience
               </p>
               <div className="flex flex-col flex-1">
-                {/* AppX */}
                 <a
                   href="https://www.appx.co.in/"
                   target="_blank"
@@ -934,7 +915,6 @@ export function App() {
                   </div>
                 </a>
                 <div className="h-px bg-(--border-color) mx-1 my-1" />
-                {/* Krane Apps */}
                 <a
                   href="https://www.kraneapps.com/"
                   target="_blank"
@@ -960,8 +940,7 @@ export function App() {
               </div>
             </div>
 
-            {/* Social card (spans 4 cols) */}
-            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
+            <div className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -1010,11 +989,10 @@ export function App() {
               </div>
             </div>
 
-            {/* Components card (spans full) */}
             <a
               href="/components"
               onClick={(e) => navigateTo("/components", e)}
-              className="col-span-12 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-all duration-200 ease-out cursor-pointer group"
+              className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-all duration-200 ease-out cursor-pointer group"
             >
               <div>
                 <p

@@ -31,7 +31,7 @@ export const ProgressStakeCardPreview = () => {
         whileHover={{ scale: 1.01 }}
         transition={{ type: "spring", stiffness: 400, damping: 30 }}
       >
-        {/* Header */}
+
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div
@@ -55,7 +55,7 @@ export const ProgressStakeCardPreview = () => {
           </div>
         </div>
 
-        {/* Stats row */}
+
         <div className="grid grid-cols-2 gap-3">
           <div className="rounded-xl bg-(--bg-tertiary) p-3">
             <div className="text-[11px] text-(--text-muted) mb-1">Staked</div>
@@ -69,7 +69,7 @@ export const ProgressStakeCardPreview = () => {
           </div>
         </div>
 
-        {/* Progress bar */}
+
         <div className="space-y-2">
           <div className="flex items-center justify-between text-xs">
             <span className="text-(--text-muted)">Staking period</span>
@@ -85,7 +85,7 @@ export const ProgressStakeCardPreview = () => {
               animate={{ width: `${stakingProgress}%` }}
               transition={{ duration: 1.2, ease: "easeOut" }}
             />
-            {/* Glow effect at the end */}
+
             <motion.div
               className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full"
               style={{
@@ -104,7 +104,7 @@ export const ProgressStakeCardPreview = () => {
           </div>
         </div>
 
-        {/* Unstake section */}
+
         <AnimatePresence>
           {showUnstake && (
             <motion.div

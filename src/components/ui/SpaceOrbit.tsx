@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export const SpaceOrbit = () => (
   <div className="w-full h-full bg-[#0a0a0f] relative overflow-hidden flex items-center justify-center">
-    {/* Stars */}
+
     {[...Array(40)].map((_, i) => (
       <div
         key={i}
@@ -17,7 +17,7 @@ export const SpaceOrbit = () => (
       />
     ))}
 
-    {/* Nebula glow */}
+
     <div
       className="absolute w-[300px] h-[300px] rounded-full opacity-20 blur-3xl"
       style={{
@@ -27,27 +27,27 @@ export const SpaceOrbit = () => (
       }}
     />
 
-    {/* Central disk — satellite/station */}
+
     <div className="relative w-24 h-24">
-      {/* Core sphere */}
+
       <div className="absolute inset-2 rounded-full bg-gradient-to-br from-[#2a2a3a] to-[#0e0e1a] border border-[#3a3a5a] shadow-[0_0_30px_rgba(200,162,78,0.15)]" />
 
-      {/* Inner detail ring */}
+
       <div className="absolute inset-4 rounded-full border border-[#c8a24e]/30" />
 
-      {/* Center dot */}
+
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-3 h-3 rounded-full bg-[#c8a24e]/60 shadow-[0_0_12px_rgba(200,162,78,0.5)]" />
       </div>
 
-      {/* Solar panels — left */}
+
       <div className="absolute top-1/2 -left-10 -translate-y-1/2 w-9 h-5 bg-gradient-to-l from-[#1a2a4a] to-[#0a1a3a] border border-[#2a3a5a] rounded-sm opacity-80">
         <div className="w-full h-px bg-[#3a5a8a]/40 absolute top-1/2" />
         <div className="h-full w-px bg-[#3a5a8a]/40 absolute left-1/3" />
         <div className="h-full w-px bg-[#3a5a8a]/40 absolute left-2/3" />
       </div>
 
-      {/* Solar panels — right */}
+
       <div className="absolute top-1/2 -right-10 -translate-y-1/2 w-9 h-5 bg-gradient-to-r from-[#1a2a4a] to-[#0a1a3a] border border-[#2a3a5a] rounded-sm opacity-80">
         <div className="w-full h-px bg-[#3a5a8a]/40 absolute top-1/2" />
         <div className="h-full w-px bg-[#3a5a8a]/40 absolute left-1/3" />
@@ -55,7 +55,7 @@ export const SpaceOrbit = () => (
       </div>
     </div>
 
-    {/* Orbiting ring */}
+
     <motion.div
       className="absolute"
       style={{
@@ -91,7 +91,7 @@ export const SpaceOrbit = () => (
       </svg>
     </motion.div>
 
-    {/* Second ring — counter rotation, thinner */}
+
     <motion.div
       className="absolute"
       style={{
@@ -127,7 +127,7 @@ export const SpaceOrbit = () => (
       </svg>
     </motion.div>
 
-    {/* Orbiting particle on the ring */}
+
     <motion.div
       className="absolute"
       style={{

@@ -163,7 +163,7 @@ export const WalletConnectPreview = () => {
   return (
     <div className="w-full max-w-sm mx-auto">
       <div className="rounded-2xl bg-(--bg-secondary) border border-(--border-color) p-5 space-y-5">
-        {/* Connect Button */}
+
         <div className="flex justify-center">
           <motion.button
             onClick={() => setConnected(!connected)}
