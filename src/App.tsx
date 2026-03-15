@@ -386,7 +386,7 @@ export function App() {
                             duration: 0.25,
                             ease: [0.32, 0.72, 0, 1],
                           }}
-                          className="bg-(--bg-tertiary)/50 p-10 flex items-center justify-center min-h-[28rem]"
+                          className="bg-(--bg-tertiary)/50 p-10 flex items-center justify-center min-h-112"
                         >
                           {comp.preview}
                         </motion.div>
@@ -569,7 +569,7 @@ export function App() {
             </div>
 
             {/* Photo */}
-            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--accent) overflow-hidden relative min-h-[280px] group">
+            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) bg-(--accent) overflow-hidden relative min-h-70 group">
               <img
                 src="/me-color.jpeg"
                 alt="Manu Sharma Color"
@@ -797,7 +797,7 @@ export function App() {
           {/* ── Bento Grid ── */}
           <div className="grid grid-cols-12 gap-4 auto-rows-auto" id="home">
             {/* Hero — About Me card (spans 8 cols) */}
-            <div className="col-span-12 md:col-span-8 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-[240px]">
+            <div className="col-span-12 md:col-span-8 rounded-3xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
               <div>
                 <p
                   className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
@@ -835,7 +835,7 @@ export function App() {
             </div>
 
             {/* Photo card (spans 4 cols) */}
-            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) overflow-hidden relative min-h-[240px] bg-black">
+            <div className="col-span-12 md:col-span-4 rounded-3xl border-2 border-(--border-color) overflow-hidden relative min-h-60 bg-black">
               <video
                 autoPlay
                 loop

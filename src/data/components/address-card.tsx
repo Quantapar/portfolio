@@ -127,7 +127,7 @@ export default function AddressCard({
               {selectedColor === color && (
                 <motion.div
                   layoutId="color-ring"
-                  className="absolute inset-[-4px] rounded-full border-2"
+                  className="absolute -inset-1 rounded-full border-2"
                   style={{ borderColor: color }}
                   transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                 />
@@ -156,12 +156,48 @@ export default function AddressCard({
 }`,
   npmCommand: "npm install framer-motion",
   props: [
-    { name: "defaultNickname", type: "string", required: false, description: "Initial nickname. Default: 'Quantapar'" },
-    { name: "defaultRole", type: "string", required: false, description: "Initial role text. Default: 'Frontend Developer & Designer'" },
-    { name: "defaultColor", type: "string", required: false, description: "Initial card color. Default: '#F97316'" },
-    { name: "defaultLocation", type: "string", required: false, description: "Initial location text. Default: 'San Francisco, CA'" },
-    { name: "colors", type: "string[]", required: false, description: "Array of hex colors for the picker" },
-    { name: "socialLinks", type: "{ icon: ReactNode; url: string }[]", required: false, description: "Array of social link objects with icon and URL" },
-    { name: "onSave", type: "(data) => void", required: false, description: "Callback when Save is clicked with current state" },
+    {
+      name: "defaultNickname",
+      type: "string",
+      required: false,
+      description: "Initial nickname. Default: 'Quantapar'",
+    },
+    {
+      name: "defaultRole",
+      type: "string",
+      required: false,
+      description:
+        "Initial role text. Default: 'Frontend Developer & Designer'",
+    },
+    {
+      name: "defaultColor",
+      type: "string",
+      required: false,
+      description: "Initial card color. Default: '#F97316'",
+    },
+    {
+      name: "defaultLocation",
+      type: "string",
+      required: false,
+      description: "Initial location text. Default: 'San Francisco, CA'",
+    },
+    {
+      name: "colors",
+      type: "string[]",
+      required: false,
+      description: "Array of hex colors for the picker",
+    },
+    {
+      name: "socialLinks",
+      type: "{ icon: ReactNode; url: string }[]",
+      required: false,
+      description: "Array of social link objects with icon and URL",
+    },
+    {
+      name: "onSave",
+      type: "(data) => void",
+      required: false,
+      description: "Callback when Save is clicked with current state",
+    },
   ],
 };

@@ -169,7 +169,7 @@ export const WalletConnectPreview = () => {
             onClick={() => setConnected(!connected)}
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
-            className="relative px-6 py-3 rounded-xl font-semibold text-sm cursor-pointer overflow-hidden min-w-[180px] text-center"
+            className="relative px-6 py-3 rounded-xl font-semibold text-sm cursor-pointer overflow-hidden min-w-45 text-center"
             style={{
               background: connected ? "var(--bg-tertiary)" : "#0E0E0E",
               color: connected ? "var(--text-primary)" : "#fff",
