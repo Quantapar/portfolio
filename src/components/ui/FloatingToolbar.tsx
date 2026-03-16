@@ -121,7 +121,11 @@ export const FloatingToolbar = ({
             }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
-            <AnimatePresence mode="popLayout" initial={false} custom={direction}>
+            <AnimatePresence
+              mode="popLayout"
+              initial={false}
+              custom={direction}
+            >
               <motion.span
                 key={hoveredItem.id}
                 className="text-[11px] font-medium text-(--text-primary) block"

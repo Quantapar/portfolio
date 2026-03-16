@@ -118,9 +118,17 @@ export function App() {
     if (stored === "dark") {
       setIsDark(true);
       document.documentElement.classList.add("dark");
-    } else {
+    } else if (stored === "light") {
       setIsDark(false);
       document.documentElement.classList.remove("dark");
+    } else {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setIsDark(prefersDark);
+      if (prefersDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
     }
   }, []);
 
