@@ -17,8 +17,25 @@ input[type="button"]:active,
 summary:active,
 [onclick]:active,
 .cursor-pointer:active {
-  transform: scale(0.97);
-  transition: transform 0.1s ease-out;
+  scale: 0.97;
+  transition: scale 0.1s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .neo-brutal:hover {
+    transform: none;
+  }
+
+  .animate-flip {
+    animation: none;
+  }
 }
 
 @theme {
@@ -81,6 +98,17 @@ body {
 }
 
 
+.bento-scale {
+  transform-origin: top center;
+  scale: 0.93;
+}
+
+@media (min-width: 768px) {
+  .bento-scale {
+    scale: clamp(0.78, 100svh / 1000px, 0.93);
+  }
+}
+
 .bg-grid {
   background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -89,12 +117,16 @@ body {
 .neo-brutal {
   border: 3px solid var(--border-color);
   box-shadow: var(--shadow);
-  transition: box-shadow 0.15s ease-out, transform 0.15s ease-out;
+  transition: box-shadow 0.15s ease-out, translate 0.15s ease-out, scale 0.1s ease-out;
 }
 
 .neo-brutal:hover {
   box-shadow: 6px 6px 0px var(--border-color);
-  transform: translate(-2px, -2px);
+  translate: -2px -2px;
+}
+
+.neo-brutal:active {
+  scale: 0.97;
 }
 
 @keyframes text-flip {
@@ -142,10 +174,10 @@ body {
 }
 
 .wavy-link {
-  text-decoration: underline wavy #3b82f6; 
+  text-decoration: underline wavy #3b82f6;
   text-underline-offset: 4px;
   text-decoration-thickness: 1.5px;
-  transition: all 0.2s ease-out;
+  transition: color 0.2s ease-out, text-decoration-color 0.2s ease-out;
   color: var(--text-primary);
 }
 

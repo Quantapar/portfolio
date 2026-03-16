@@ -43,7 +43,7 @@ export const CodeBlock = ({ code, lang = "tsx" }: CodeBlockProps) => {
       <div className="sticky top-0 z-20 pointer-events-none flex justify-end">
         <button
           onClick={copyCode}
-          className="pointer-events-auto m-3 p-1.5 rounded-md bg-(--bg-tertiary)/80 backdrop-blur-sm border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-all duration-200 cursor-pointer"
+          className="pointer-events-auto m-3 p-1.5 rounded-md bg-(--bg-tertiary)/80 backdrop-blur-sm border border-(--border-color) text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 ease-out cursor-pointer"
           title="Copy code"
         >
           {copied ? <CheckIcon /> : <CopyIcon />}

@@ -36,7 +36,7 @@ export function InteractiveGridPattern({
             y={y}
             width={width}
             height={height}
-            className={`stroke-(--grid-stroke) transition-all duration-100 ease-in-out ${
+            className={`stroke-(--grid-stroke) transition-[fill] duration-100 ease-out ${
               hoveredSquare === index ? "fill-(--grid-hover)" : "fill-transparent"
             } ${squaresClassName || ""}`}
             style={{ transitionDuration: hoveredSquare === index ? "100ms" : "1000ms" }}

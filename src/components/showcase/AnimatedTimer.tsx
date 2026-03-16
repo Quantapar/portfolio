@@ -38,7 +38,7 @@ const AnimatedDigit = ({ digit = "0", index }: { digit?: string; index: number }
 const Colon = ({ index }: { index: number }) => (
   <motion.div
     className="text-[2rem] font-medium text-(--text-muted) animate-pulse"
-    initial={{ opacity: 0, scale: 0.5 }}
+    initial={{ opacity: 0, scale: 0.9 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.4, delay: index * 0.08 }}
   >

@@ -103,9 +103,9 @@ export const ShimmerTxLoaderPreview = () => {
                 key="check"
                 className="flex items-center justify-center w-12 h-12 rounded-full"
                 style={{ background: "#14F19520", border: "1px solid #14F19540" }}
-                initial={{ scale: 0.5, opacity: 0 }}
+                initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.5, opacity: 0 }}
+                exit={{ scale: 0.9, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <motion.svg

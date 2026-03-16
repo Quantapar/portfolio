@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import "./index.css";
 import devsImage from "./assets/100xDevsFrontend.png";
 import cypherImage from "./assets/Cypher.png";
@@ -41,6 +41,7 @@ export function App() {
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
   const [compTab, setCompTab] = useState<"preview" | "code">("preview");
   const [ringHovered, setRingHovered] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname);
@@ -286,7 +287,7 @@ export function App() {
 
       {currentPath.startsWith("/components/") &&
       uiComponents.find((c) => c.id === currentPath.split("/")[2]) ? (
-        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-8 transition-all min-h-screen origin-top scale-[0.93]">
+        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-8 min-h-screen bento-scale">
           {(() => {
             const comp = uiComponents.find(
               (c) => c.id === currentPath.split("/")[2],
@@ -347,7 +348,7 @@ export function App() {
                           initial={{ opacity: 0, x: -20 }}
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: 20 }}
-                          transition={{
+                          transition={prefersReducedMotion ? { duration: 0 } : {
                             duration: 0.25,
                             ease: [0.32, 0.72, 0, 1],
                           }}
@@ -361,7 +362,7 @@ export function App() {
                           initial={{ opacity: 0, x: 20 }}
                           animate={{ opacity: 1, x: 0 }}
                           exit={{ opacity: 0, x: -20 }}
-                          transition={{
+                          transition={prefersReducedMotion ? { duration: 0 } : {
                             duration: 0.25,
                             ease: [0.32, 0.72, 0, 1],
                           }}
@@ -464,7 +465,7 @@ export function App() {
           })()}
         </main>
       ) : currentPath === "/components" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.93]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
               <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
@@ -479,7 +480,7 @@ export function App() {
             {uiComponents.map((comp) => (
               <div
                 key={comp.id}
-                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 cursor-pointer group flex flex-col"
+                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-colors duration-200 ease-out cursor-pointer group flex flex-col"
                 onClick={(e) => navigateTo(`/components/${comp.id}`, e)}
               >
                 <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) p-6 flex items-center justify-center flex-1">
@@ -500,7 +501,7 @@ export function App() {
           </div>
         </main>
       ) : currentPath === "/about" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.93]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
               <p
@@ -534,12 +535,12 @@ export function App() {
               <img
                 src="/me-color.jpeg"
                 alt="Manu Sharma Color"
-                className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out z-10"
+                className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10"
               />
               <img
                 src="/me-bw.jpeg"
                 alt="Manu Sharma"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
               />
             </div>
 
@@ -569,7 +570,7 @@ export function App() {
           </div>
         </main>
       ) : currentPath === "/projects" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.93]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex items-end justify-between">
               <div>
@@ -595,7 +596,7 @@ export function App() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 group"
+                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-colors duration-200 ease-out group"
               >
                 <a
                   href={project.liveUrl || project.githubUrl || "#"}
@@ -665,7 +666,7 @@ export function App() {
                     href={contrib.prUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rounded-2xl border border-white/20 bg-white/10 p-5 hover:bg-white/15 transition-all duration-200 group/oss block"
+                    className="rounded-2xl border border-white/20 bg-white/10 p-5 hover:bg-white/15 transition-colors duration-200 ease-out group/oss block"
                   >
                     <div className="flex items-center gap-2 mb-2">
                       <GitHubIcon />
@@ -689,7 +690,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-12 transition-all min-h-screen origin-top scale-[0.93]">
+        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-12 min-h-screen bento-scale">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -749,7 +750,7 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="max-w-5xl mx-auto px-6 pt-8 transition-all origin-top scale-[0.93]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 bento-scale">
           <div className="grid grid-cols-12 gap-5 auto-rows-auto" id="home">
             <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
               <div>
@@ -779,7 +780,7 @@ export function App() {
                   </span>
                   <button
                     onClick={copyEmail}
-                    className="p-1 rounded-md text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-tertiary) transition-all duration-200 cursor-pointer active:scale-95"
+                    className="p-1 rounded-md text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-tertiary) transition-colors duration-200 ease-out cursor-pointer"
                     title="Copy email"
                   >
                     {copied ? <CheckIcon /> : <CopyIcon />}
@@ -807,7 +808,7 @@ export function App() {
                     initial={{ opacity: 0, y: "100%" }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: "100%" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    transition={prefersReducedMotion ? { duration: 0 } : { type: "spring", stiffness: 300, damping: 30 }}
                     className="absolute inset-x-0 bottom-0 p-5 flex flex-col gap-3 z-10 backdrop-blur-xl"
                     style={{ background: "rgba(0,0,0,0.65)", margin: -2 , paddingLeft: "calc(1.25rem + 2px)", paddingRight: "calc(1.25rem + 2px)", paddingBottom: "calc(1.25rem + 2px)" }}
                   >
@@ -948,7 +949,7 @@ export function App() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center aspect-square rounded-xl neo-brutal bg-(--bg-tertiary) hover:scale-[1.03] transition-all duration-200 ease-out [&_svg]:w-7 [&_svg]:h-7"
+                    className="flex items-center justify-center aspect-square rounded-xl neo-brutal bg-(--bg-tertiary) transition-colors duration-200 ease-out [&_svg]:w-7 [&_svg]:h-7"
                     style={{ color: isDark ? link.darkColor : link.color }}
                     title={link.label}
                   >
@@ -961,7 +962,7 @@ export function App() {
             <a
               href="/components"
               onClick={(e) => navigateTo("/components", e)}
-              className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-all duration-200 ease-out cursor-pointer group"
+              className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-colors duration-200 ease-out cursor-pointer group"
             >
               <div>
                 <p
@@ -985,7 +986,7 @@ export function App() {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="text-(--text-muted) group-hover:text-(--accent) group-hover:translate-x-1 transition-all duration-200"
+                className="text-(--text-muted) group-hover:text-(--accent) group-hover:translate-x-1 transition-[color,transform] duration-200 ease-out"
               >
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
