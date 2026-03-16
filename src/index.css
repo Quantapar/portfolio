@@ -9,6 +9,18 @@ summary {
   cursor: pointer;
 }
 
+button:active,
+a:active,
+[role="button"]:active,
+input[type="submit"]:active,
+input[type="button"]:active,
+summary:active,
+[onclick]:active,
+.cursor-pointer:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease-out;
+}
+
 @theme {
   --font-sans: "Inter Variable", "Inter", sans-serif;
   --font-mono: "JetBrains Mono Variable", "JetBrains Mono", monospace;
