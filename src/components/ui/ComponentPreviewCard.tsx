@@ -18,7 +18,7 @@ export const ComponentPreviewCard = ({
   <a
     href={`/components/${id}`}
     onClick={(e) => onClick(id, e)}
-    className="group block rounded-2xl border border-(--border-color) bg-(--bg-secondary) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden hover:shadow-lg hover:-translate-y-0.5"
+    className="group block rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden"
   >
     <div className="h-48 flex items-center justify-center bg-(--bg-tertiary)/30 border-b border-(--border-color) overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-(--bg-secondary)/20 pointer-events-none" />

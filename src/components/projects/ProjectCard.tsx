@@ -20,7 +20,7 @@ export const ProjectCard = ({
 }) => {
   const targetUrl = liveUrl || githubUrl || "#";
   const Content = (
-    <div className="group relative bg-(--bg-secondary) rounded-2xl border border-(--border-color) hover:border-(--text-muted) transition-all duration-300 ease-out overflow-hidden shadow-sm hover:shadow-md flex flex-col h-full cursor-pointer">
+    <div className="group relative bg-(--bg-secondary) rounded-xl neo-brutal overflow-hidden flex flex-col h-full cursor-pointer">
     {image && (
       <div className="w-full h-48 bg-(--bg-tertiary) border-b border-(--border-color) overflow-hidden relative p-4 flex items-center justify-center">
         {image ? (
@@ -87,7 +87,7 @@ export const ProjectCard = ({
   );
 
   return targetUrl !== "#" ? (
-    <a href={targetUrl} target="_blank" rel="noopener noreferrer" className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted) rounded-2xl">
+    <a href={targetUrl} target="_blank" rel="noopener noreferrer" className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted) rounded-xl">
       {Content}
     </a>
   ) : (

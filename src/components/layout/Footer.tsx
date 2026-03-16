@@ -2,7 +2,7 @@ import React from "react";
 
 export const Footer = () => (
   <footer className="w-full max-w-2xl mx-auto px-6 pb-32 -mt-20">
-    <div className="rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col items-center gap-6">
+    <div className="rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex flex-col items-center gap-6">
       <div className="flex gap-6 text-sm text-(--text-muted)">
         <a
           href="https://x.com/quantapar"

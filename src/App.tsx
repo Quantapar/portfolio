@@ -33,7 +33,6 @@ import { ProjectRow } from "./components/projects/ProjectRow";
 import { ProjectCard } from "./components/projects/ProjectCard";
 import { AboutSection } from "./components/about/AboutSection";
 import { MovieShelf } from "./components/about/MovieShelf";
-import { Footer } from "./components/layout/Footer";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 import { ComponentPreviewCard } from "./components/ui/ComponentPreviewCard";
 import { CodeBlock } from "./components/ui/CodeBlock";
@@ -282,8 +281,8 @@ export function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
-      <nav className="sticky top-0 z-50 flex justify-center pt-3 pb-8">
+    <div className={`bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden ${currentPath === "/" || currentPath === "" ? "h-screen overflow-hidden" : "min-h-screen"}`}>
+      <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-4 overflow-visible">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
@@ -324,7 +323,7 @@ export function App() {
             return (
               <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
 
-                <div className="rounded-2xl border-2 border-(--border-color) overflow-hidden">
+                <div className="rounded-xl neo-brutal overflow-hidden">
                   <div className="flex items-center gap-4 px-4 border-b-2 border-(--border-color) bg-(--bg-secondary)">
                     <button
                       onClick={() => setCompTab("preview")}
@@ -415,7 +414,7 @@ export function App() {
                 </div>
 
                 {comp.npmCommand && (
-                  <div className="flex items-center gap-3 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) px-4 py-3">
+                  <div className="flex items-center gap-3 rounded-xl neo-brutal bg-(--bg-secondary) px-4 py-3">
                     <TerminalIcon />
                     <code className="text-[13px] font-mono text-(--text-secondary) flex-1">
                       {comp.npmCommand}
@@ -442,7 +441,7 @@ export function App() {
                     >
                       Props
                     </p>
-                    <div className="rounded-2xl border-2 border-(--border-color) overflow-hidden">
+                    <div className="rounded-xl neo-brutal overflow-hidden">
                       <table className="w-full text-[13px]">
                         <thead>
                           <tr className="bg-(--bg-tertiary)/50 text-left text-(--text-muted)">
@@ -496,7 +495,7 @@ export function App() {
       ) : currentPath === "/components" ? (
         <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
           <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
+            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
               <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
                 Components<span className="text-(--accent)">.</span>
               </h1>
@@ -509,7 +508,7 @@ export function App() {
             {uiComponents.map((comp) => (
               <div
                 key={comp.id}
-                className="col-span-12 md:col-span-6 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 cursor-pointer group flex flex-col"
+                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 cursor-pointer group flex flex-col"
                 onClick={(e) => navigateTo(`/components/${comp.id}`, e)}
               >
                 <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) p-6 flex items-center justify-center flex-1">
@@ -532,7 +531,7 @@ export function App() {
       ) : currentPath === "/about" ? (
         <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
           <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 md:col-span-8 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8">
+            <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -560,7 +559,7 @@ export function App() {
               </p>
             </div>
 
-            <div className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--accent) overflow-hidden relative min-h-70 group">
+            <div className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--accent) overflow-hidden relative min-h-70 group">
               <img
                 src="/me-color.jpeg"
                 alt="Manu Sharma Color"
@@ -573,7 +572,7 @@ export function App() {
               />
             </div>
 
-            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
+            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -587,7 +586,7 @@ export function App() {
               </div>
             </div>
 
-            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 overflow-hidden">
+            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 overflow-hidden">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -601,7 +600,7 @@ export function App() {
       ) : currentPath === "/projects" ? (
         <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
           <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex items-end justify-between">
+            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex items-end justify-between">
               <div>
                 <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
                   Work<span className="text-(--accent)">.</span>
@@ -625,7 +624,7 @@ export function App() {
             {projects.map((project) => (
               <div
                 key={project.id}
-                className="col-span-12 md:col-span-6 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 group"
+                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-all duration-200 group"
               >
                 <a
                   href={project.liveUrl || project.githubUrl || "#"}
@@ -680,7 +679,7 @@ export function App() {
 
             <div
               id="oss-section"
-              className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--accent) p-8 text-white scroll-mt-20"
+              className="col-span-12 rounded-xl neo-brutal bg-(--accent) p-8 text-white scroll-mt-20"
             >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-white/50 mb-6"
@@ -779,9 +778,9 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="max-w-5xl mx-auto px-6 pt-4 pb-24 transition-all min-h-screen">
+        <main className="max-w-5xl mx-auto px-6 pt-8 transition-all origin-top scale-[0.95]">
           <div className="grid grid-cols-12 gap-5 auto-rows-auto" id="home">
-            <div className="col-span-12 md:col-span-8 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
+            <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
               <div>
                 <p
                   className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
@@ -819,7 +818,7 @@ export function App() {
             </div>
 
             <div
-              className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) overflow-hidden relative min-h-60 bg-black cursor-pointer"
+              className="col-span-12 md:col-span-4 rounded-xl neo-brutal overflow-hidden relative min-h-60 bg-black cursor-pointer"
               onMouseEnter={() => setRingHovered(true)}
               onMouseLeave={() => setRingHovered(false)}
             >
@@ -838,7 +837,7 @@ export function App() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: "100%" }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="absolute inset-x-0 bottom-0 rounded-b-2xl border-t border-white/15 p-5 flex flex-col gap-3 z-10 backdrop-blur-xl"
+                    className="absolute inset-x-0 bottom-0 rounded-b-xl border-t border-white/15 p-5 flex flex-col gap-3 z-10 backdrop-blur-xl"
                     style={{ background: "rgba(0,0,0,0.65)" }}
                   >
                     <p
@@ -864,7 +863,7 @@ export function App() {
             </div>
 
             <div
-              className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--accent) p-6 text-white cursor-pointer"
+              className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--accent) p-6 text-white cursor-pointer"
               onClick={(e) => navigateTo("/projects", e)}
             >
               <p
@@ -895,7 +894,7 @@ export function App() {
               </div>
             </div>
 
-            <div className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex flex-col">
+            <div className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex flex-col">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -928,7 +927,7 @@ export function App() {
               </div>
             </div>
 
-            <div className="col-span-12 md:col-span-4 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6">
+            <div className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--bg-secondary) p-6">
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -941,26 +940,36 @@ export function App() {
                     href: "https://github.com/Quantapar",
                     icon: <GitHubIcon />,
                     label: "GitHub",
+                    color: "#181717",
+                    darkColor: "#f0f0f0",
                   },
                   {
                     href: "https://x.com/quantapar",
                     icon: <TwitterIcon />,
                     label: "X",
+                    color: "#000000",
+                    darkColor: "#f0f0f0",
                   },
                   {
                     href: "https://www.linkedin.com/in/manu-sharma-6012bb32a/",
                     icon: <LinkedInIcon />,
                     label: "LinkedIn",
+                    color: "#0A66C2",
+                    darkColor: "#5B9BD5",
                   },
                   {
                     href: "https://discord.com/users/762906412564217857",
                     icon: <DiscordIcon />,
                     label: "Discord",
+                    color: "#5865F2",
+                    darkColor: "#7983F5",
                   },
                   {
                     href: "mailto:quantapar@gmail.com",
                     icon: <MailIcon />,
                     label: "Email",
+                    color: "#EA4335",
+                    darkColor: "#F87171",
                   },
                 ].map((link) => (
                   <a
@@ -968,7 +977,8 @@ export function App() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center aspect-square rounded-2xl border-2 border-(--border-color) bg-(--bg-tertiary) text-(--text-muted) hover:text-(--text-primary) hover:border-(--text-primary) hover:scale-[1.03] transition-all duration-200 ease-out"
+                    className="flex items-center justify-center aspect-square rounded-xl neo-brutal bg-(--bg-tertiary) hover:scale-[1.03] transition-all duration-200 ease-out [&_svg]:w-7 [&_svg]:h-7"
+                    style={{ color: isDark ? link.darkColor : link.color }}
                     title={link.label}
                   >
                     {link.icon}
@@ -980,7 +990,7 @@ export function App() {
             <a
               href="/components"
               onClick={(e) => navigateTo("/components", e)}
-              className="col-span-12 rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-all duration-200 ease-out cursor-pointer group"
+              className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-all duration-200 ease-out cursor-pointer group"
             >
               <div>
                 <p
@@ -1014,7 +1024,6 @@ export function App() {
         </main>
       )}
 
-      <Footer />
     </div>
   );
 }

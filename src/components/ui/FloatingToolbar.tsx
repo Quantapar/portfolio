@@ -52,7 +52,7 @@ export const FloatingToolbar = ({
 
   return (
     <div
-      className="relative flex items-center gap-2 px-4 py-2 rounded-2xl bg-(--bg-secondary) border-2 border-(--border-color) shadow-sm"
+      className="relative flex items-center gap-2 px-4 py-2 rounded-xl bg-(--bg-secondary) neo-brutal"
       onMouseLeave={() => setHoveredId(null)}
     >
       <AnimatePresence>
@@ -98,7 +98,7 @@ export const FloatingToolbar = ({
         {hoveredItem && (
           <motion.div
             key="tooltip"
-            className="absolute -bottom-10 left-0 px-2.5 py-1 bg-(--bg-secondary) border-2 border-(--border-color) rounded-xl shadow-sm whitespace-nowrap z-50 pointer-events-none"
+            className="absolute -bottom-10 left-0 px-2.5 py-1 bg-(--bg-secondary) border-3 border-(--border-color) rounded-lg shadow-(--shadow) whitespace-nowrap z-[100] pointer-events-none"
             initial={{
               opacity: 0,
               y: -6,
