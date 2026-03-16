@@ -1,9 +1,9 @@
 import React from "react";
 
 export const Footer = () => (
-  <footer className="w-full max-w-2xl mx-auto px-6 pb-52">
-    <div className="pt-12 flex flex-col items-center gap-6 border-t border-(--border-color)">
-      <div className="flex gap-6 text-xs text-(--text-muted)">
+  <footer className="w-full max-w-2xl mx-auto px-6 pb-32 -mt-20">
+    <div className="rounded-2xl border-2 border-(--border-color) bg-(--bg-secondary) p-8 flex flex-col items-center gap-6">
+      <div className="flex gap-6 text-sm text-(--text-muted)">
         <a
           href="https://x.com/quantapar"
           target="_blank"
@@ -37,7 +37,7 @@ export const Footer = () => (
           Discord
         </a>
       </div>
-      <div className="flex flex-col items-center text-[11px] text-(--text-muted) gap-1">
+      <div className="flex flex-col items-center text-xs text-(--text-muted) gap-1">
         <span className="flex items-center gap-1">
           Design & Developed by{" "}
           <span className="font-medium text-(--text-primary)">Manu Sharma</span>

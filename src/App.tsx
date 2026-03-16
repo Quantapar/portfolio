@@ -275,7 +275,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
-      <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-10">
+      <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-4">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
@@ -826,27 +826,30 @@ export function App() {
               <AnimatePresence>
                 {ringHovered && (
                   <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    className="absolute inset-4 rounded-2xl border border-white/15 p-5 flex flex-col justify-between z-10 backdrop-blur-xl"
-                    style={{ background: "rgba(0,0,0,0.55)" }}
+                    initial={{ opacity: 0, y: "100%" }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: "100%" }}
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="absolute inset-x-0 bottom-0 rounded-b-2xl border-t border-white/15 p-5 flex flex-col gap-3 z-10 backdrop-blur-xl"
+                    style={{ background: "rgba(0,0,0,0.65)" }}
                   >
-                    <div>
-                      <p
-                        className="text-xs font-bold tracking-[0.15em] uppercase text-white/60 mb-3"
-                        style={{ fontFamily: "'Press Start 2P', cursive" }}
-                      >
-                        Voyager Golden Record
-                      </p>
-                      <p className="text-sm leading-[1.7] text-white/85">
-                        Launched in 1977 by NASA aboard Voyager 1 & 2, this gold-plated copper disc carries sounds and images of life on Earth — greetings in 55 languages, music from Mozart to Chuck Berry, and 115 encoded photographs.
-                      </p>
-                    </div>
-                    <p className="text-xs leading-relaxed text-white/50">
-                      Now over 15 billion miles away, it's humanity's farthest message in a bottle — meant for any intelligent life that might find it.
+                    <p
+                      className="text-xs font-bold tracking-[0.15em] uppercase text-white/60"
+                      style={{ fontFamily: "'Press Start 2P', cursive" }}
+                    >
+                      Voyager Golden Record
                     </p>
+                    <p className="text-sm leading-[1.7] text-white/85">
+                      A gold-plated copper disc carrying sounds and images of life on Earth — greetings in 55 languages, music from Mozart to Chuck Berry, and 115 encoded photographs.
+                    </p>
+                    <a
+                      href="https://en.wikipedia.org/wiki/Voyager_Golden_Record"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-white/70 hover:text-white transition-colors w-fit"
+                    >
+                      Read on Wikipedia <ExternalLinkIcon />
+                    </a>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -892,29 +895,6 @@ export function App() {
                 Experience
               </p>
               <div className="flex flex-col flex-1">
-                <a
-                  href="https://www.appx.co.in/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3.5 p-3 -mx-3 rounded-xl hover:bg-(--bg-tertiary) transition-colors duration-200 group"
-                >
-                  <div className="w-11 h-11 rounded-xl shrink-0 bg-white border border-(--border-color) flex items-center justify-center p-2 overflow-hidden group-hover:border-(--text-primary) transition-colors">
-                    <img
-                      src="https://cdn.prod.website-files.com/65a21f6c73352e86a33fcd30/65a22140604428bacdfccdce_Placeholder.avif"
-                      alt="AppX"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-[14px] font-bold text-(--text-primary) leading-tight">
-                      Fullstack Intern
-                    </p>
-                    <p className="text-[12px] text-(--text-muted) mt-0.5">
-                      AppX · Jan — Mar 2026
-                    </p>
-                  </div>
-                </a>
-                <div className="h-px bg-(--border-color) mx-1 my-1" />
                 <a
                   href="https://www.kraneapps.com/"
                   target="_blank"
