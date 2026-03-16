@@ -286,7 +286,7 @@ export function App() {
 
       {currentPath.startsWith("/components/") &&
       uiComponents.find((c) => c.id === currentPath.split("/")[2]) ? (
-        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-8 transition-all min-h-screen origin-top scale-[0.97]">
+        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-8 transition-all min-h-screen origin-top scale-[0.93]">
           {(() => {
             const comp = uiComponents.find(
               (c) => c.id === currentPath.split("/")[2],
@@ -464,7 +464,7 @@ export function App() {
           })()}
         </main>
       ) : currentPath === "/components" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.97]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.93]">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
               <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
@@ -500,7 +500,7 @@ export function App() {
           </div>
         </main>
       ) : currentPath === "/about" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.97]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.93]">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
               <p
@@ -569,7 +569,7 @@ export function App() {
           </div>
         </main>
       ) : currentPath === "/projects" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.97]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 transition-all min-h-screen origin-top scale-[0.93]">
           <div className="grid grid-cols-12 gap-4">
             <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex items-end justify-between">
               <div>
@@ -689,7 +689,7 @@ export function App() {
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-12 transition-all min-h-screen origin-top scale-[0.97]">
+        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-12 transition-all min-h-screen origin-top scale-[0.93]">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -749,7 +749,7 @@ export function App() {
           })()}
         </main>
       ) : (
-        <main className="max-w-5xl mx-auto px-6 pt-8 transition-all origin-top scale-[0.97]">
+        <main className="max-w-5xl mx-auto px-6 pt-8 transition-all origin-top scale-[0.93]">
           <div className="grid grid-cols-12 gap-5 auto-rows-auto" id="home">
             <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
               <div>
