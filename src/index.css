@@ -80,6 +80,7 @@ body {
   line-height: 1.5;
 }
 
+
 .bg-grid {
   background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
   background-size: 24px 24px;

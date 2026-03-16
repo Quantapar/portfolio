@@ -27,14 +27,10 @@ import {
   MailIcon,
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
-import { ExperienceRow } from "./components/ui/ExperienceRow";
 import { TechBadge } from "./components/ui/TechBadge";
-import { ProjectRow } from "./components/projects/ProjectRow";
 import { ProjectCard } from "./components/projects/ProjectCard";
-import { AboutSection } from "./components/about/AboutSection";
 import { MovieShelf } from "./components/about/MovieShelf";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
-import { ComponentPreviewCard } from "./components/ui/ComponentPreviewCard";
 import { CodeBlock } from "./components/ui/CodeBlock";
 import { uiComponents } from "./data/components";
 
@@ -43,33 +39,8 @@ export function App() {
   const [copied, setCopied] = useState(false);
   const [copiedNpm, setCopiedNpm] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
-  const [activeTab, setActiveTab] = useState<"projects" | "oss">("projects");
   const [compTab, setCompTab] = useState<"preview" | "code">("preview");
   const [ringHovered, setRingHovered] = useState(false);
-
-  useEffect(() => {
-    if (currentPath !== "/projects") return;
-    const projectsEl = document.getElementById("projects-section");
-    const ossEl = document.getElementById("oss-section");
-    if (!projectsEl || !ossEl) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveTab(
-              entry.target.id === "oss-section" ? "oss" : "projects",
-            );
-          }
-        }
-      },
-      { rootMargin: "-40% 0px -40% 0px" },
-    );
-
-    observer.observe(projectsEl);
-    observer.observe(ossEl);
-    return () => observer.disconnect();
-  }, [currentPath]);
 
   useEffect(() => {
     const handlePopState = () => setCurrentPath(window.location.pathname);
