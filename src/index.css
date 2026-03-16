@@ -15,15 +15,16 @@ summary {
 }
 
 :root {
-  --bg-primary: #F0EBE3;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #E8E2D8;
+  --bg-primary: #E6E0D6;
+  --bg-secondary: #f5f3f0;
+  --bg-tertiary: #DDD7CC;
   --text-primary: #0A0A0A;
   --text-secondary: #3D3D3D;
   --text-muted: #8A8A8A;
   --border-color: #1A1A1A;
   --accent: #0038FF;
   --text-highlight: #0A0A0A;
+  --grid-color: rgba(0, 0, 0, 0.06);
 
   --contrib-0: #e5e7eb;
   --contrib-1: #bbf7d0;
@@ -42,6 +43,7 @@ summary {
   --border-color: #2A2A2A;
   --accent: #4D6FFF;
   --text-highlight: #F0EBE3;
+  --grid-color: rgba(255, 255, 255, 0.04);
 
   --contrib-0: #1f1f1f;
   --contrib-1: #064e3b;
@@ -58,6 +60,13 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.5;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
 @keyframes text-flip {

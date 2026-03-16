@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 
 export const SpaceOrbit = () => (
   <div className="w-full h-full bg-[#0a0a0f] relative overflow-hidden flex items-center justify-center">
-
     {[...Array(40)].map((_, i) => (
       <div
         key={i}
@@ -17,44 +16,37 @@ export const SpaceOrbit = () => (
       />
     ))}
 
-
     <div
-      className="absolute w-[300px] h-[300px] rounded-full opacity-20 blur-3xl"
+      className="absolute w-75 h-75 rounded-full opacity-20 blur-3xl"
       style={{
-        background: "radial-gradient(circle, #c8a24e 0%, #1a0f3a 40%, transparent 70%)",
+        background:
+          "radial-gradient(circle, #c8a24e 0%, #1a0f3a 40%, transparent 70%)",
         top: "30%",
         left: "30%",
       }}
     />
 
-
     <div className="relative w-24 h-24">
-
-      <div className="absolute inset-2 rounded-full bg-gradient-to-br from-[#2a2a3a] to-[#0e0e1a] border border-[#3a3a5a] shadow-[0_0_30px_rgba(200,162,78,0.15)]" />
-
+      <div className="absolute inset-2 rounded-full bg-linear-to-br from-[#2a2a3a] to-[#0e0e1a] border border-[#3a3a5a] shadow-[0_0_30px_rgba(200,162,78,0.15)]" />
 
       <div className="absolute inset-4 rounded-full border border-[#c8a24e]/30" />
-
 
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-3 h-3 rounded-full bg-[#c8a24e]/60 shadow-[0_0_12px_rgba(200,162,78,0.5)]" />
       </div>
 
-
-      <div className="absolute top-1/2 -left-10 -translate-y-1/2 w-9 h-5 bg-gradient-to-l from-[#1a2a4a] to-[#0a1a3a] border border-[#2a3a5a] rounded-sm opacity-80">
+      <div className="absolute top-1/2 -left-10 -translate-y-1/2 w-9 h-5 bg-linear-to-l from-[#1a2a4a] to-[#0a1a3a] border border-[#2a3a5a] rounded-sm opacity-80">
         <div className="w-full h-px bg-[#3a5a8a]/40 absolute top-1/2" />
         <div className="h-full w-px bg-[#3a5a8a]/40 absolute left-1/3" />
         <div className="h-full w-px bg-[#3a5a8a]/40 absolute left-2/3" />
       </div>
 
-
-      <div className="absolute top-1/2 -right-10 -translate-y-1/2 w-9 h-5 bg-gradient-to-r from-[#1a2a4a] to-[#0a1a3a] border border-[#2a3a5a] rounded-sm opacity-80">
+      <div className="absolute top-1/2 -right-10 -translate-y-1/2 w-9 h-5 bg-linear-to-r from-[#1a2a4a] to-[#0a1a3a] border border-[#2a3a5a] rounded-sm opacity-80">
         <div className="w-full h-px bg-[#3a5a8a]/40 absolute top-1/2" />
         <div className="h-full w-px bg-[#3a5a8a]/40 absolute left-1/3" />
         <div className="h-full w-px bg-[#3a5a8a]/40 absolute left-2/3" />
       </div>
     </div>
-
 
     <motion.div
       className="absolute"
@@ -71,7 +63,14 @@ export const SpaceOrbit = () => (
     >
       <svg viewBox="0 0 220 220" fill="none" className="w-full h-full">
         <defs>
-          <linearGradient id="ring-grad" x1="0" y1="0" x2="220" y2="220" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="ring-grad"
+            x1="0"
+            y1="0"
+            x2="220"
+            y2="220"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0%" stopColor="#c8a24e" stopOpacity="0.9" />
             <stop offset="30%" stopColor="#e8c86e" stopOpacity="0.6" />
             <stop offset="60%" stopColor="#c8a24e" stopOpacity="0.1" />
@@ -91,7 +90,6 @@ export const SpaceOrbit = () => (
       </svg>
     </motion.div>
 
-
     <motion.div
       className="absolute"
       style={{
@@ -107,7 +105,14 @@ export const SpaceOrbit = () => (
     >
       <svg viewBox="0 0 260 260" fill="none" className="w-full h-full">
         <defs>
-          <linearGradient id="ring-grad-2" x1="0" y1="0" x2="260" y2="260" gradientUnits="userSpaceOnUse">
+          <linearGradient
+            id="ring-grad-2"
+            x1="0"
+            y1="0"
+            x2="260"
+            y2="260"
+            gradientUnits="userSpaceOnUse"
+          >
             <stop offset="0%" stopColor="#c8a24e" stopOpacity="0" />
             <stop offset="40%" stopColor="#c8a24e" stopOpacity="0.3" />
             <stop offset="70%" stopColor="#e8c86e" stopOpacity="0.5" />
@@ -126,7 +131,6 @@ export const SpaceOrbit = () => (
         />
       </svg>
     </motion.div>
-
 
     <motion.div
       className="absolute"
