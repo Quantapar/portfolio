@@ -281,7 +281,7 @@ export function App() {
   ];
 
   return (
-    <div className={`bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden ${currentPath === "/" || currentPath === "" ? "h-screen overflow-hidden" : "min-h-screen"}`}>
+    <div className={`bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden min-h-screen`}>
       <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-4 overflow-visible">
         <FloatingToolbar
           items={[
