@@ -283,7 +283,7 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden">
-      <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-4">
+      <nav className="sticky top-0 z-50 flex justify-center pt-3 pb-8">
         <FloatingToolbar
           items={[
             ...menuItems.map((item) => ({
