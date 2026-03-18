@@ -59,7 +59,7 @@ summary:active,
   --grid-hover: rgba(0, 0, 0, 0.06);
   --blob-1: #d4c9a8;
   --blob-2: #b8cce0;
-  --blob-3: #c9d6b8;
+  --blob-3: #d4cbb0;
 
   --contrib-0: #e5e7eb;
   --contrib-1: #bbf7d0;
@@ -84,7 +84,7 @@ summary:active,
   --grid-hover: rgba(255, 255, 255, 0.05);
   --blob-1: #2a2414;
   --blob-2: #14202a;
-  --blob-3: #1a2a1a;
+  --blob-3: #2a2414;
 
   --contrib-0: #1f1f1f;
   --contrib-1: #064e3b;
@@ -136,27 +136,19 @@ body {
 }
 
 .blob-1 {
-  width: 600px;
-  height: 600px;
+  width: 550px;
+  height: 550px;
   background: var(--blob-1);
-  top: -10%;
-  left: -5%;
+  top: -8%;
+  left: -8%;
 }
 
 .blob-2 {
-  width: 500px;
-  height: 500px;
+  width: 550px;
+  height: 550px;
   background: var(--blob-2);
-  top: 40%;
-  right: -10%;
-}
-
-.blob-3 {
-  width: 450px;
-  height: 450px;
-  background: var(--blob-3);
-  bottom: -5%;
-  left: 30%;
+  bottom: -8%;
+  right: -8%;
 }
 
 .neo-brutal {

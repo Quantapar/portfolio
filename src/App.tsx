@@ -273,7 +273,6 @@ export function App() {
       <div className="gradient-bg" aria-hidden="true">
         <div className="gradient-blob blob-1" />
         <div className="gradient-blob blob-2" />
-        <div className="gradient-blob blob-3" />
       </div>
       <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-4 overflow-visible">
         <FloatingToolbar
