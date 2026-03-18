@@ -28,7 +28,6 @@ import {
 } from "./components/Icons";
 import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { TechBadge } from "./components/ui/TechBadge";
-import { ProjectCard } from "./components/projects/ProjectCard";
 import { MovieShelf } from "./components/about/MovieShelf";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 import { CodeBlock } from "./components/ui/CodeBlock";
@@ -48,6 +47,24 @@ export function App() {
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
+
+  useEffect(() => {
+    if (currentPath === "/" || currentPath === "") {
+      document.title = "Quantapar | Design Engineer";
+    } else if (currentPath === "/projects") {
+      document.title = "Projects";
+    } else if (currentPath === "/about") {
+      document.title = "About";
+    } else if (currentPath === "/components") {
+      document.title = "Components";
+    } else if (currentPath.startsWith("/components/")) {
+      const comp = uiComponents.find((c) => c.id === currentPath.split("/")[2]);
+      document.title = comp ? comp.name : "Component";
+    } else {
+      const project = projects.find((p) => p.id === currentPath.slice(1));
+      document.title = project ? project.title : "Manu Sharma";
+    }
+  }, [currentPath]);
 
   const navigateTo = (path: string, event?: React.MouseEvent) => {
     if (event) event.preventDefault();
@@ -887,16 +904,16 @@ export function App() {
                   Design Engineer obsessed with motion, micro-interactions, and
                   UI detail, building with React, TypeScript & Framer Motion.
                 </p>
-                <span className="inline-flex items-center gap-2">
-                  <span
-                    onClick={copyEmail}
-                    className="text-[14px] text-(--text-muted) hover:text-(--text-primary) cursor-pointer transition-colors duration-200"
-                  >
-                    {copied ? "Copied!" : "quantapar@gmail.com"}
-                  </span>
+                <span className="inline-flex items-center gap-2 mt-2">
                   <button
                     onClick={copyEmail}
-                    className="p-1 rounded-md text-(--text-muted) hover:text-(--text-primary) hover:bg-(--bg-tertiary) transition-colors duration-200 ease-out cursor-pointer"
+                    className="text-[14px] text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
+                  >
+                    quantapar@gmail.com
+                  </button>
+                  <button
+                    onClick={copyEmail}
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[12px] font-bold text-(--text-muted) hover:text-(--text-primary) bg-(--bg-tertiary) border border-(--border-color) rounded-md hover:border-(--text-muted) transition-colors duration-200 ease-out cursor-pointer"
                     title="Copy email"
                   >
                     {copied ? <CheckIcon /> : <CopyIcon />}
