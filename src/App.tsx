@@ -253,7 +253,12 @@ export function App() {
   ];
 
   return (
-    <div className={`bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden min-h-screen`}>
+    <div className={`bg-(--bg-primary) bg-grid text-(--text-primary) selection:bg-(--text-primary) selection:text-(--bg-primary) font-sans overflow-x-hidden min-h-screen relative`}>
+      <div className="gradient-bg" aria-hidden="true">
+        <div className="gradient-blob blob-1" />
+        <div className="gradient-blob blob-2" />
+        <div className="gradient-blob blob-3" />
+      </div>
       <nav className="sticky top-0 z-50 flex justify-center pt-4 pb-4 overflow-visible">
         <FloatingToolbar
           items={[
@@ -285,18 +290,37 @@ export function App() {
         />
       </nav>
 
+      <AnimatePresence mode="popLayout">
       {currentPath.startsWith("/components/") &&
       uiComponents.find((c) => c.id === currentPath.split("/")[2]) ? (
-        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-8 min-h-screen bento-scale">
+        <motion.main
+          key={currentPath}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+          className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-8 min-h-screen bento-scale">
           {(() => {
             const comp = uiComponents.find(
               (c) => c.id === currentPath.split("/")[2],
             )!;
             return (
-              <div className="animate-in fade-in duration-300 slide-in-from-bottom-4 space-y-8">
+              <div className="space-y-8">
 
-                <div className="rounded-xl neo-brutal overflow-hidden">
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: -50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                  className="rounded-xl neo-brutal overflow-hidden"
+                >
                   <div className="flex items-center gap-4 px-4 border-b-2 border-(--border-color) bg-(--bg-secondary)">
+                    <button
+                      onClick={(e) => navigateTo("/components", e)}
+                      className="inline-flex items-center gap-1.5 pr-3 mr-1 text-[13px] font-bold text-(--text-muted) hover:text-(--text-primary) transition-colors cursor-pointer py-3"
+                    >
+                      <ArrowLeftIcon />
+                    </button>
+                    <div className="w-0.5 h-5 bg-(--border-color) rounded-full mr-1" />
                     <button
                       onClick={() => setCompTab("preview")}
                       className={`relative text-[13px] font-medium py-3 transition-colors duration-200 cursor-pointer ${
@@ -366,27 +390,35 @@ export function App() {
                             duration: 0.25,
                             ease: [0.32, 0.72, 0, 1],
                           }}
-                          className="max-h-96 overflow-y-auto"
+                          className="min-h-112 max-h-112 overflow-y-auto"
                         >
                           <CodeBlock code={comp.code} />
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
-                </div>
+                </motion.div>
 
-
-                <div>
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                >
                   <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-2">
                     {comp.name}
                   </h1>
                   <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl">
                     {comp.description}
                   </p>
-                </div>
+                </motion.div>
 
                 {comp.npmCommand && (
-                  <div className="flex items-center gap-3 rounded-xl neo-brutal bg-(--bg-secondary) px-4 py-3">
+                  <motion.div
+                    initial={prefersReducedMotion ? false : { opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                    className="flex items-center gap-3 rounded-xl neo-brutal bg-(--bg-secondary) px-4 py-3"
+                  >
                     <TerminalIcon />
                     <code className="text-[13px] font-mono text-(--text-secondary) flex-1">
                       {comp.npmCommand}
@@ -402,11 +434,15 @@ export function App() {
                     >
                       {copiedNpm ? <CheckIcon /> : <CopyIcon />}
                     </button>
-                  </div>
+                  </motion.div>
                 )}
 
                 {comp.props && comp.props.length > 0 && (
-                  <div>
+                  <motion.div
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                  >
                     <p
                       className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                       style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -458,16 +494,27 @@ export function App() {
                         </tbody>
                       </table>
                     </div>
-                  </div>
+                  </motion.div>
                 )}
               </div>
             );
           })()}
-        </main>
+        </motion.main>
       ) : currentPath === "/components" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
+        <motion.main
+          key="components"
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+          className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
           <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8"
+            >
               <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
                 Components<span className="text-(--accent)">.</span>
               </h1>
@@ -475,11 +522,14 @@ export function App() {
                 Interactive UI components with live previews and copy-paste
                 code.
               </p>
-            </div>
+            </motion.div>
 
-            {uiComponents.map((comp) => (
-              <div
+            {uiComponents.map((comp, i) => (
+              <motion.div
                 key={comp.id}
+                initial={prefersReducedMotion ? false : { opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
                 className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-colors duration-200 ease-out cursor-pointer group flex flex-col"
                 onClick={(e) => navigateTo(`/components/${comp.id}`, e)}
               >
@@ -496,14 +546,25 @@ export function App() {
                     {comp.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </main>
+        </motion.main>
       ) : currentPath === "/about" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
+        <motion.main
+          key="about"
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+          className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
           <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8"
+            >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -529,9 +590,14 @@ export function App() {
                 feel, and move. I build polished interfaces with attention to
                 every pixel and interaction.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--accent) overflow-hidden relative min-h-70 group">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--accent) overflow-hidden relative min-h-70 group"
+            >
               <img
                 src="/me-color.jpeg"
                 alt="Manu Sharma Color"
@@ -542,9 +608,14 @@ export function App() {
                 alt="Manu Sharma"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
               />
-            </div>
+            </motion.div>
 
-            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6"
+            >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -556,9 +627,14 @@ export function App() {
                   <TechBadge key={tech.name} {...tech} />
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 overflow-hidden">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 overflow-hidden"
+            >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -566,13 +642,24 @@ export function App() {
                 Movies I'm lovin'
               </p>
               <MovieShelf />
-            </div>
+            </motion.div>
           </div>
-        </main>
+        </motion.main>
       ) : currentPath === "/projects" ? (
-        <main className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
+        <motion.main
+          key="projects"
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+          className="max-w-5xl mx-auto px-6 pt-8 pb-24 min-h-screen bento-scale">
           <div className="grid grid-cols-12 gap-4">
-            <div className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex items-end justify-between">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex items-end justify-between"
+            >
               <div>
                 <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
                   Work<span className="text-(--accent)">.</span>
@@ -591,65 +678,77 @@ export function App() {
               >
                 Open Source ↓
               </button>
-            </div>
+            </motion.div>
 
-            {projects.map((project) => (
-              <div
+            {projects.map((project, i) => (
+              <motion.div
                 key={project.id}
+                initial={prefersReducedMotion ? false : { opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
                 className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-colors duration-200 ease-out group"
               >
-                <a
-                  href={project.liveUrl || project.githubUrl || "#"}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  {project.image && (
-                    <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) overflow-hidden p-4">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-full rounded-xl group-hover:scale-[1.03] transition-transform duration-300 ease-out"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <div className="flex items-start justify-between mb-2">
-                      <h3 className="text-lg font-bold text-(--text-primary) tracking-tight">
-                        {project.title}
-                      </h3>
-                      <div className="flex gap-2 shrink-0">
-                        {project.githubUrl && (
-                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors">
-                            <GitHubIcon />
-                          </span>
-                        )}
-                        {project.liveUrl && (
-                          <span className="text-(--text-muted) group-hover:text-(--text-primary) transition-colors">
-                            <ExternalLinkIcon />
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="text-[10px] font-medium font-mono text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded-md border border-(--border-color)"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                {project.image && (
+                  <a
+                    href={project.liveUrl || project.githubUrl || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) overflow-hidden p-4"
+                  >
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full rounded-xl group-hover:scale-[1.03] transition-transform duration-300 ease-out"
+                    />
+                  </a>
+                )}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="text-lg font-bold text-(--text-primary) tracking-tight mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {project.tech.map((t) => (
+                      <span
+                        key={t}
+                        className="text-[10px] font-medium font-mono text-(--text-secondary) bg-(--bg-tertiary) px-2 py-0.5 rounded-md border border-(--border-color)"
+                      >
+                        {t}
+                      </span>
+                    ))}
                   </div>
-                </a>
-              </div>
+                  <div className="flex gap-3 mt-auto">
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-bold bg-(--text-primary) text-(--bg-primary) rounded-lg hover:opacity-85 transition-opacity"
+                      >
+                        Live Demo <ExternalLinkIcon />
+                      </a>
+                    )}
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-bold border-2 border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--bg-tertiary) transition-colors"
+                      >
+                        <GitHubIcon /> Source
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
             ))}
 
-            <div
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
               id="oss-section"
               className="col-span-12 rounded-xl neo-brutal bg-(--accent) p-8 text-white scroll-mt-20"
             >
@@ -683,14 +782,20 @@ export function App() {
                   </a>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
-        </main>
+        </motion.main>
       ) : currentPath !== "/" &&
         currentPath !== "" &&
         !currentPath.includes("#") &&
         projects.find((p) => p.id === currentPath.slice(1)) ? (
-        <main className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-12 min-h-screen bento-scale">
+        <motion.main
+          key={currentPath}
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+          className="max-w-2xl mx-auto px-6 pt-8 pb-32 space-y-12 min-h-screen bento-scale">
           {(() => {
             const project = projects.find(
               (p) => p.id === currentPath.slice(1),
@@ -748,11 +853,22 @@ export function App() {
               </div>
             );
           })()}
-        </main>
+        </motion.main>
       ) : (
-        <main className="max-w-5xl mx-auto px-6 pt-8 bento-scale">
+        <motion.main
+          key="home"
+          initial={prefersReducedMotion ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
+          className="max-w-5xl mx-auto px-6 pt-8 bento-scale">
           <div className="grid grid-cols-12 gap-5 auto-rows-auto" id="home">
-            <div className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 md:col-span-8 rounded-xl neo-brutal bg-(--bg-secondary) p-8 flex flex-col justify-between min-h-60"
+            >
               <div>
                 <p
                   className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
@@ -787,9 +903,12 @@ export function App() {
                   </button>
                 </span>
               </div>
-            </div>
+            </motion.div>
 
-            <div
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
               className="col-span-12 md:col-span-4 rounded-xl neo-brutal overflow-hidden relative min-h-60 bg-black cursor-pointer"
               onMouseEnter={() => setRingHovered(true)}
               onMouseLeave={() => setRingHovered(false)}
@@ -832,9 +951,12 @@ export function App() {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </motion.div>
 
-            <div
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
               className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--accent) p-6 text-white cursor-pointer"
               onClick={(e) => navigateTo("/projects", e)}
             >
@@ -864,9 +986,14 @@ export function App() {
                   View all →
                 </a>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex flex-col">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex flex-col"
+            >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-4"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -897,9 +1024,14 @@ export function App() {
                   </div>
                 </a>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--bg-secondary) p-6">
+            <motion.div
+              initial={prefersReducedMotion ? false : { opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+              className="col-span-12 md:col-span-4 rounded-xl neo-brutal bg-(--bg-secondary) p-6"
+            >
               <p
                 className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-5"
                 style={{ fontFamily: "'Press Start 2P', cursive" }}
@@ -923,7 +1055,7 @@ export function App() {
                     darkColor: "#f0f0f0",
                   },
                   {
-                    href: "https://www.linkedin.com/in/manu-sharma-6012bb32a/",
+                    href: "https://www.linkedin.com/in/quantapar/",
                     icon: <LinkedInIcon />,
                     label: "LinkedIn",
                     color: "#0A66C2",
@@ -957,9 +1089,12 @@ export function App() {
                   </a>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            <a
+            <motion.a
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
               href="/components"
               onClick={(e) => navigateTo("/components", e)}
               className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-colors duration-200 ease-out cursor-pointer group"
@@ -991,10 +1126,11 @@ export function App() {
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
-            </a>
+            </motion.a>
           </div>
-        </main>
+        </motion.main>
       )}
+      </AnimatePresence>
 
     </div>
   );

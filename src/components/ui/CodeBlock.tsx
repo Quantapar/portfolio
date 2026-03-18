@@ -39,7 +39,7 @@ export const CodeBlock = ({ code, lang = "tsx" }: CodeBlockProps) => {
   };
 
   return (
-    <div className="relative group">
+    <div className="relative group bg-(--bg-secondary)">
       <div className="sticky top-0 z-20 pointer-events-none flex justify-end">
         <button
           onClick={copyCode}

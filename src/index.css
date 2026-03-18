@@ -57,6 +57,9 @@ summary:active,
   --shadow: 4px 4px 0px #000000;
   --grid-stroke: rgba(0, 0, 0, 0.08);
   --grid-hover: rgba(0, 0, 0, 0.06);
+  --blob-1: #d4c9a8;
+  --blob-2: #b8cce0;
+  --blob-3: #c9d6b8;
 
   --contrib-0: #e5e7eb;
   --contrib-1: #bbf7d0;
@@ -79,6 +82,9 @@ summary:active,
   --shadow: 4px 4px 0px #F0EBE3;
   --grid-stroke: rgba(255, 255, 255, 0.06);
   --grid-hover: rgba(255, 255, 255, 0.05);
+  --blob-1: #2a2414;
+  --blob-2: #14202a;
+  --blob-3: #1a2a1a;
 
   --contrib-0: #1f1f1f;
   --contrib-1: #064e3b;
@@ -114,6 +120,45 @@ body {
   background-size: 24px 24px;
 }
 
+.gradient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.gradient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.4;
+}
+
+.blob-1 {
+  width: 600px;
+  height: 600px;
+  background: var(--blob-1);
+  top: -10%;
+  left: -5%;
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: var(--blob-2);
+  top: 40%;
+  right: -10%;
+}
+
+.blob-3 {
+  width: 450px;
+  height: 450px;
+  background: var(--blob-3);
+  bottom: -5%;
+  left: 30%;
+}
+
 .neo-brutal {
   border: 3px solid var(--border-color);
   box-shadow: var(--shadow);
@@ -142,16 +187,33 @@ body {
 .fade-mask {
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
-.badge-react { color: #61dafb; }
-.badge-typescript { color: #3178c6; }
-.badge-bun { color: #fbf0df; }
-.badge-nodejs { color: #339933; }
-.badge-mongodb { color: #47a248; }
-.badge-postgresql { color: #336791; }
-.badge-prisma { color: #5a67d8; }
-.badge-docker { color: #2496ed; }
-.badge-tailwind { color: #38bdf8; }
-.badge-nextjs { color: var(--text-primary); } 
+.badge-react { color: #2ba5cf; }
+.badge-typescript { color: #24578a; }
+.badge-bun { color: #8a7230; }
+.badge-nodejs { color: #267326; }
+.badge-mongodb { color: #357a38; }
+.badge-postgresql { color: #2a5274; }
+.badge-prisma { color: #4550a5; }
+.badge-docker { color: #1a73bd; }
+.badge-tailwind { color: #1a8fc2; }
+.badge-nextjs { color: var(--text-primary); }
+.badge-framermotion { color: #b030cc; }
+.badge-figma { color: #c23c14; }
+.badge-express { color: var(--text-secondary); }
+
+.dark .badge-react { color: #61dafb; }
+.dark .badge-typescript { color: #5a9fd4; }
+.dark .badge-bun { color: #d4b85a; }
+.dark .badge-nodejs { color: #4abf4a; }
+.dark .badge-mongodb { color: #5cbf60; }
+.dark .badge-postgresql { color: #5a8fb5; }
+.dark .badge-prisma { color: #7b85e0; }
+.dark .badge-docker { color: #4aafed; }
+.dark .badge-tailwind { color: #38bdf8; }
+.dark .badge-nextjs { color: var(--text-primary); }
+.dark .badge-framermotion { color: #e070f5; }
+.dark .badge-figma { color: #f06040; }
+.dark .badge-express { color: var(--text-secondary); }
 
 .contrib-0 { background-color: var(--contrib-0); }
 .contrib-1 { background-color: var(--contrib-1); }
