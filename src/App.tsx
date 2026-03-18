@@ -907,7 +907,7 @@ export function App() {
                 <span className="inline-flex items-center gap-2 mt-2">
                   <button
                     onClick={copyEmail}
-                    className="text-[14px] text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
+                    className="text-[15px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
                   >
                     quantapar@gmail.com
                   </button>
@@ -1098,7 +1098,7 @@ export function App() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center aspect-square rounded-xl neo-brutal bg-(--bg-tertiary) transition-colors duration-200 ease-out [&_svg]:w-7 [&_svg]:h-7"
+                    className="flex items-center justify-center aspect-square rounded-xl neo-brutal bg-(--bg-tertiary) transition-all duration-200 ease-out [&_svg]:w-7 [&_svg]:h-7 [&_svg]:transition-transform [&_svg]:duration-200 [&_svg]:ease-out hover:[&_svg]:scale-125"
                     style={{ color: isDark ? link.darkColor : link.color }}
                     title={link.label}
                   >
