@@ -26,7 +26,6 @@ import {
   DiscordIcon,
   MailIcon,
 } from "./components/Icons";
-import { SectionMinimal } from "./components/ui/SectionMinimal";
 import { TechBadge } from "./components/ui/TechBadge";
 import { MovieShelf } from "./components/about/MovieShelf";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
@@ -703,7 +702,7 @@ export function App() {
                 initial={prefersReducedMotion ? false : { opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-colors duration-200 ease-out group"
+                className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-colors duration-200 ease-out group flex flex-col"
               >
                 {project.image && (
                   <a
@@ -818,10 +817,14 @@ export function App() {
               (p) => p.id === currentPath.slice(1),
             )!;
             return (
-              <div className="animate-in fade-in duration-300 slide-in-from-bottom-4">
-                <SectionMinimal title="Project Details">
+              <div className="space-y-10">
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: -50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                >
                   {project.image && (
-                    <div className="w-full rounded-2xl overflow-hidden border-2 border-(--border-color) mb-10">
+                    <div className="w-full rounded-2xl overflow-hidden neo-brutal">
                       <img
                         src={project.image}
                         alt={project.title}
@@ -829,44 +832,59 @@ export function App() {
                       />
                     </div>
                   )}
+                </motion.div>
 
-                  <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-6 pl-1">
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                >
+                  <h1 className="text-3xl font-bold text-(--text-primary) tracking-tight mb-4">
                     {project.title}
                   </h1>
-
-                  <div className="flex flex-wrap gap-2 mb-8 pl-1">
-                    {project.tech.map((t) => (
-                      <TechBadge key={t} name={t} colorClass="" />
-                    ))}
-                  </div>
-
-                  <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl mb-10 pl-1">
+                  <p className="text-(--text-secondary) text-[15px] leading-relaxed max-w-xl">
                     {project.description}
                   </p>
+                </motion.div>
 
-                  <div className="flex gap-4 pl-1">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--text-primary) text-(--bg-primary) rounded-lg hover:bg-(--text-secondary) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--text-muted)"
-                      >
-                        Visit Website <ExternalLinkIcon />
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center gap-2 px-4 py-2 text-[13px] font-medium bg-(--bg-tertiary) border border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--border-color) transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--border-color)"
-                      >
-                        <GitHubIcon /> View Source
-                      </a>
-                    )}
-                  </div>
-                </SectionMinimal>
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                  className="flex flex-wrap gap-2"
+                >
+                  {project.tech.map((t) => (
+                    <TechBadge key={t} name={t} colorClass="" />
+                  ))}
+                </motion.div>
+
+                <motion.div
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                  className="flex gap-3"
+                >
+                  {project.liveUrl && (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-bold bg-(--text-primary) text-(--bg-primary) rounded-lg hover:opacity-85 transition-opacity"
+                    >
+                      Live Demo <ExternalLinkIcon />
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 text-[13px] font-bold border-2 border-(--border-color) text-(--text-primary) rounded-lg hover:bg-(--bg-tertiary) transition-colors"
+                    >
+                      <GitHubIcon /> Source
+                    </a>
+                  )}
+                </motion.div>
               </div>
             );
           })()}
