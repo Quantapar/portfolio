@@ -391,7 +391,7 @@ export function App() {
                             duration: 0.25,
                             ease: [0.32, 0.72, 0, 1],
                           }}
-                          className="bg-(--bg-tertiary)/50 p-10 flex items-center justify-center min-h-112"
+                          className="bg-(--bg-primary) p-10 flex items-center justify-center min-h-112"
                         >
                           {comp.preview}
                         </motion.div>
