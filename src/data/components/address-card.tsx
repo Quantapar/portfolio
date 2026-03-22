@@ -167,19 +167,19 @@ export default function AddressCard({
       type: "string",
       required: false,
       description:
-        "Initial role text. Default: 'Frontend Developer & Designer'",
+        "Initial role text. Default: 'Design Engineer'",
     },
     {
       name: "defaultColor",
       type: "string",
       required: false,
-      description: "Initial card color. Default: '#F97316'",
+      description: "Initial card color. Default: '#3B82F6'",
     },
     {
       name: "defaultLocation",
       type: "string",
       required: false,
-      description: "Initial location text. Default: 'San Francisco, CA'",
+      description: "Initial location text. Default: 'New Delhi, IN'",
     },
     {
       name: "colors",
