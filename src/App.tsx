@@ -63,6 +63,7 @@ export function App() {
       const project = projects.find((p) => p.id === currentPath.slice(1));
       document.title = project ? project.title : "Manu Sharma";
     }
+    window.scrollTo(0, 0);
   }, [currentPath]);
 
   const navigateTo = (path: string, event?: React.MouseEvent) => {
@@ -90,7 +91,6 @@ export function App() {
     } else {
       window.history.pushState({}, "", path);
       setCurrentPath(path);
-      window.scrollTo(0, 0);
     }
   };
 
