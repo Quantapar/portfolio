@@ -145,10 +145,12 @@ export const WalletBalancePreview = () => {
                     marginLeft: i > 0 ? -10 : 0,
                     zIndex: COINS.length - i,
                   }}
+                  initial={{ opacity: 0, y: 12, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
                   whileHover={{ y: -8, scale: 1.12, zIndex: 10 }}
                   whileTap={{ scale: 0.92 }}
                   onClick={() => setActiveIndex(i)}
-                  transition={{ type: "spring", stiffness: 300, damping: 15, bounce: 0.25 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15, bounce: 0.25, delay: i * 0.06 }}
                 >
                   {coin.icon}
                 </motion.div>
@@ -195,7 +197,7 @@ export const WalletBalancePreview = () => {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.1 }}
               >
-                1 {activeCoin.name}
+                1 {activeCoin.id.toUpperCase()}
               </motion.p>
             </AnimatePresence>
           </div>
