@@ -464,16 +464,16 @@ export function App() {
                     >
                       Props
                     </p>
-                    <div className="rounded-xl neo-brutal overflow-hidden">
-                      <table className="w-full text-[13px]">
+                    <div className="rounded-xl overflow-hidden bg-(--bg-primary) border border-(--border-color)">
+                      <table className="w-full text-sm">
                         <thead>
-                          <tr className="bg-(--bg-tertiary)/50 text-left text-(--text-muted)">
-                            <th className="px-4 py-2.5 font-medium">Prop</th>
-                            <th className="px-4 py-2.5 font-medium">Type</th>
-                            <th className="px-4 py-2.5 font-medium hidden sm:table-cell">
+                          <tr className="bg-(--bg-tertiary) text-left text-(--text-muted)">
+                            <th className="px-4 py-3 font-medium">Prop</th>
+                            <th className="px-4 py-3 font-medium">Type</th>
+                            <th className="px-4 py-3 font-medium hidden sm:table-cell">
                               Required
                             </th>
-                            <th className="px-4 py-2.5 font-medium">
+                            <th className="px-4 py-3 font-medium">
                               Description
                             </th>
                           </tr>
@@ -484,24 +484,24 @@ export function App() {
                               key={prop.name}
                               className="border-t border-(--border-color) text-(--text-secondary)"
                             >
-                              <td className="px-4 py-2.5 font-mono text-(--text-primary) font-medium">
+                              <td className="px-4 py-3 font-mono text-(--text-primary) font-medium text-[13px]">
                                 {prop.name}
                               </td>
-                              <td className="px-4 py-2.5 font-mono text-(--text-muted)">
+                              <td className="px-4 py-3 font-mono text-(--text-muted) text-[13px]">
                                 {prop.type}
                               </td>
-                              <td className="px-4 py-2.5 hidden sm:table-cell">
+                              <td className="px-4 py-3 hidden sm:table-cell">
                                 {prop.required ? (
                                   <span className="text-[11px] font-medium bg-(--accent) text-white px-1.5 py-0.5 rounded">
                                     Required
                                   </span>
                                 ) : (
-                                  <span className="text-(--text-muted)">
+                                  <span className="text-(--text-muted) text-[13px]">
                                     Optional
                                   </span>
                                 )}
                               </td>
-                              <td className="px-4 py-2.5">
+                              <td className="px-4 py-3 text-[13px]">
                                 {prop.description}
                               </td>
                             </tr>
@@ -549,7 +549,7 @@ export function App() {
                 onClick={(e) => navigateTo(`/components/${comp.id}`, e)}
               >
                 <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) p-6 flex items-center justify-center flex-1">
-                  <div className="pointer-events-none scale-90">
+                  <div className="pointer-events-none">
                     {comp.preview}
                   </div>
                 </div>
