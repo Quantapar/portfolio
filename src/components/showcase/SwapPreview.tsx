@@ -6,6 +6,7 @@ const TOKENS = [
     symbol: "ETH",
     name: "Ethereum",
     coingeckoId: "ethereum",
+    balance: 0,
     icon: (
       <svg width="18" height="18" viewBox="0 0 784.37 1277.39">
         <polygon fill="#343434" fillRule="nonzero" points="392.07,0 383.5,29.11 383.5,873.74 392.07,882.29 784.13,650.54" />
@@ -21,6 +22,7 @@ const TOKENS = [
     symbol: "USDC",
     name: "USD Coin",
     coingeckoId: "usd-coin",
+    balance: 4537.5,
     icon: (
       <svg width="18" height="18" viewBox="0 0 2000 2000">
         <path d="M1000 2000c554.17 0 1000-445.83 1000-1000S1554.17 0 1000 0 0 445.83 0 1000s445.83 1000 1000 1000z" fill="#2775ca" />
@@ -33,6 +35,7 @@ const TOKENS = [
     symbol: "SOL",
     name: "Solana",
     coingeckoId: "solana",
+    balance: 12.8,
     icon: (
       <svg width="18" height="18" viewBox="0 0 397.7 311.7" fill="none">
         <defs>
@@ -56,6 +59,7 @@ const TOKENS = [
     symbol: "BTC",
     name: "Bitcoin",
     coingeckoId: "bitcoin",
+    balance: 0.025,
     icon: (
       <svg width="18" height="18" viewBox="0 0 4091.27 4091.73">
         <path fill="#F7931A" fillRule="nonzero" d="M4030.06 2540.77c-273.24 1096.01-1383.32 1763.02-2479.46 1489.71-1095.68-273.24-1762.69-1383.39-1489.33-2479.31 273.12-1096.13 1383.2-1763.19 2479-1489.95 1096.06 273.24 1763.03 1383.51 1489.76 2479.57l.02-.02z" />
@@ -65,7 +69,7 @@ const TOKENS = [
   },
 ];
 
-type Token = typeof TOKENS[number];
+type Token = (typeof TOKENS)[number];
 type Prices = Record<string, { usd: number }>;
 
 const dropdownVariants = {
@@ -76,10 +80,52 @@ const dropdownVariants = {
 
 const springTransition = { type: "spring" as const, stiffness: 400, damping: 30 };
 
+const TokenDropdown = ({
+  tokens,
+  selectedToken,
+  show,
+  onSelect,
+}: {
+  tokens: Token[];
+  selectedToken: Token;
+  show: boolean;
+  onSelect: (t: Token) => void;
+}) => (
+  <AnimatePresence>
+    {show && (
+      <motion.div
+        className="absolute left-0 top-full mt-1 bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-lg z-30 overflow-hidden min-w-[140px]"
+        variants={dropdownVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        transition={springTransition}
+        style={{ transformOrigin: "top left" }}
+      >
+        {tokens.map((t, i) => (
+          <motion.button
+            key={t.symbol}
+            onClick={() => onSelect(t)}
+            className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-(--bg-tertiary) transition-colors cursor-pointer ${
+              t.symbol === selectedToken.symbol ? "text-(--text-primary) font-medium" : "text-(--text-muted)"
+            }`}
+            initial={{ opacity: 0, x: -8 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.03, duration: 0.15, ease: [0.32, 0.72, 0, 1] }}
+          >
+            {t.icon}
+            {t.symbol}
+          </motion.button>
+        ))}
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+
 export const SwapPreview = () => {
-  const [fromToken, setFromToken] = useState(TOKENS[1]); // USDC
-  const [toToken, setToToken] = useState(TOKENS[2]); // SOL
-  const [fromAmount, setFromAmount] = useState("1");
+  const [fromToken, setFromToken] = useState(TOKENS[1]!);
+  const [toToken, setToToken] = useState(TOKENS[0]!);
+  const [fromAmount, setFromAmount] = useState("164.23");
   const [toAmount, setToAmount] = useState("");
   const [rotation, setRotation] = useState(0);
   const [showFromDropdown, setShowFromDropdown] = useState(false);
@@ -92,7 +138,6 @@ export const SwapPreview = () => {
   };
 
   const [prices, setPrices] = useState<Prices>(FALLBACK_PRICES);
-  const [loading, setLoading] = useState(false);
   const [isSwapped, setIsSwapped] = useState(false);
 
   useEffect(() => {
@@ -118,12 +163,22 @@ export const SwapPreview = () => {
     [prices]
   );
 
+  const getUsdValue = useCallback(
+    (token: Token, amount: string) => {
+      const price = prices[token.coingeckoId]?.usd;
+      const parsed = parseFloat(amount.replace(/,/g, ""));
+      if (!price || isNaN(parsed)) return null;
+      return parsed * price;
+    },
+    [prices]
+  );
+
   useEffect(() => {
     const rate = getRate(fromToken, toToken);
     const parsed = parseFloat(fromAmount.replace(/,/g, ""));
     if (rate && !isNaN(parsed)) {
       const result = parsed * rate;
-      setToAmount(result < 0.01 ? result.toFixed(6) : result.toLocaleString("en-US", { maximumFractionDigits: 2 }));
+      setToAmount(result < 0.01 ? result.toFixed(6) : result.toLocaleString("en-US", { maximumFractionDigits: 4 }));
     } else {
       setToAmount("");
     }
@@ -155,208 +210,218 @@ export const SwapPreview = () => {
     setShowToDropdown(false);
   };
 
+  const handleMax = () => {
+    setFromAmount(fromToken.balance.toLocaleString("en-US", { maximumFractionDigits: 6 }));
+  };
+
   const rate = getRate(fromToken, toToken);
   const rateDisplay = rate
     ? rate < 0.01
-      ? rate.toFixed(6)
-      : rate.toLocaleString("en-US", { maximumFractionDigits: 2 })
+      ? rate.toFixed(8)
+      : rate.toLocaleString("en-US", { maximumFractionDigits: 6 })
     : "—";
 
+  const fromUsd = getUsdValue(fromToken, fromAmount);
+  const fromUsdDisplay = fromUsd ? `$${fromUsd.toLocaleString("en-US", { maximumFractionDigits: 2 })}` : "";
+
   return (
-    <div className="w-full max-w-sm mx-auto">
+    <div className="w-full max-w-sm mx-auto swap-preview">
       <div className="rounded-2xl bg-(--bg-secondary) border border-(--border-color) p-4 relative">
         <LayoutGroup>
-        <div className="flex flex-col gap-1">
-          <motion.div
-            layout
-            className="rounded-xl bg-(--bg-tertiary) p-4"
-            style={{ order: isSwapped ? 2 : 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 28 }}
-          >
-            <span className="text-xs text-(--text-muted) mb-2 block">From</span>
-            <div className="flex items-center justify-between gap-3">
-              <div className="relative">
-                <motion.button
-                  onClick={() => {
-                    setShowFromDropdown(!showFromDropdown);
-                    setShowToDropdown(false);
-                  }}
-                  className="flex items-center gap-1.5 bg-(--bg-secondary) border border-(--border-color) rounded-full px-3 py-1.5 text-sm font-medium text-(--text-primary) hover:border-(--text-muted) transition-colors cursor-pointer shrink-0"
-                  whileTap={{ scale: 0.97 }}
-                >
-                  {fromToken.icon}
-                  <span className="w-10 text-center">{fromToken.symbol}</span>
-                  <motion.svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    animate={{ rotate: showFromDropdown ? 180 : 0 }}
-                    transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
-                  >
-                    <polyline points="6 9 12 15 18 9" />
-                  </motion.svg>
-                </motion.button>
-                <AnimatePresence>
-                  {showFromDropdown && (
-                    <motion.div
-                      className="absolute left-0 top-full mt-1 bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-lg z-30 overflow-hidden min-w-[140px]"
-                      variants={dropdownVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      transition={springTransition}
-                      style={{ transformOrigin: "top left" }}
-                    >
-                      {TOKENS.map((t, i) => (
-                        <motion.button
-                          key={t.symbol}
-                          onClick={() => selectFrom(t)}
-                          className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-(--bg-tertiary) transition-colors cursor-pointer ${
-                            t.symbol === fromToken.symbol ? "text-(--text-primary) font-medium" : "text-(--text-muted)"
-                          }`}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.03, duration: 0.15, ease: [0.32, 0.72, 0, 1] }}
-                        >
-                          {t.icon}
-                          {t.symbol}
-                        </motion.button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              <input
-                type="text"
-                value={fromAmount}
-                onChange={(e) => setFromAmount(e.target.value)}
-                className="bg-transparent text-2xl font-semibold text-(--text-primary) outline-none w-full min-w-0 text-right"
-                placeholder="0.00"
-              />
-            </div>
-          </motion.div>
-
-          <div className="flex justify-center -my-4 relative z-10" style={{ order: 1 }}>
-            <motion.button
-              onClick={handleSwap}
-              className="w-9 h-9 rounded-xl bg-(--bg-secondary) border border-(--border-color) flex items-center justify-center text-(--text-muted) hover:text-(--text-primary) hover:border-(--text-muted) transition-colors cursor-pointer"
-              whileTap={{ scale: 0.97 }}
-              whileHover={{ scale: 1.05 }}
+          <div className="flex flex-col gap-1">
+            <motion.div
+              layout
+              className="rounded-xl bg-(--bg-tertiary) p-4"
+              style={{ order: isSwapped ? 2 : 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
             >
-              <motion.svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                animate={{ rotate: rotation }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              >
-                <path d="M4 7l4-4 4 4" />
-                <path d="M8 3v14" />
-                <path d="M20 17l-4 4-4-4" />
-                <path d="M16 21V7" />
-              </motion.svg>
-            </motion.button>
-          </div>
+              <span className="text-xs text-(--text-muted) mb-2 block">Pay</span>
+              <div className="flex items-center justify-between gap-3">
+                <input
+                  type="text"
+                  value={fromAmount}
+                  onChange={(e) => setFromAmount(e.target.value)}
+                  className="bg-transparent text-2xl font-semibold text-(--text-primary) outline-none w-full min-w-0"
+                  placeholder="0.00"
+                />
+                <div className="relative">
+                  <motion.button
+                    onClick={() => {
+                      setShowFromDropdown(!showFromDropdown);
+                      setShowToDropdown(false);
+                    }}
+                    className="flex items-center gap-1.5 bg-(--bg-secondary) border border-(--border-color) rounded-full px-3 py-1.5 text-sm font-medium text-(--text-primary) hover:border-(--text-muted) transition-colors cursor-pointer shrink-0"
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    {fromToken.icon}
+                    <span className="w-10 text-center">{fromToken.symbol}</span>
+                    <motion.svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      animate={{ rotate: showFromDropdown ? 180 : 0 }}
+                      transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </motion.svg>
+                  </motion.button>
+                  <TokenDropdown tokens={TOKENS} selectedToken={fromToken} show={showFromDropdown} onSelect={selectFrom} />
+                </div>
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs text-(--text-muted)">
+                  {fromUsdDisplay}
+                </span>
+                <span className="text-xs text-(--text-muted) flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
+                    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+                  </svg>
+                  {fromToken.balance > 0
+                    ? fromToken.balance.toLocaleString("en-US", { maximumFractionDigits: 4 })
+                    : <span className="opacity-50">0</span>
+                  }
+                </span>
+              </div>
+            </motion.div>
 
-          <motion.div
-            layout
-            className="rounded-xl bg-(--bg-tertiary) p-4"
-            style={{ order: isSwapped ? 0 : 2 }}
-            transition={{ type: "spring", stiffness: 300, damping: 28 }}
-          >
-            <span className="text-xs text-(--text-muted) mb-2 block">To</span>
-            <div className="flex items-center justify-between gap-3">
-              <div className="relative">
-                <motion.button
-                  onClick={() => {
-                    setShowToDropdown(!showToDropdown);
-                    setShowFromDropdown(false);
-                  }}
-                  className="flex items-center gap-1.5 bg-(--bg-secondary) border border-(--border-color) rounded-full px-3 py-1.5 text-sm font-medium text-(--text-primary) hover:border-(--text-muted) transition-colors cursor-pointer shrink-0"
-                  whileTap={{ scale: 0.97 }}
+            <div className="flex justify-center -my-4 relative z-10" style={{ order: 1 }}>
+              <motion.button
+                onClick={handleSwap}
+                className="w-9 h-9 rounded-full bg-(--bg-secondary) border border-(--border-color) flex items-center justify-center text-(--text-muted) hover:text-(--text-primary) hover:border-(--text-muted) transition-colors cursor-pointer"
+                whileTap={{ scale: 0.9 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  animate={{ rotate: rotation }}
+                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 >
-                  {toToken.icon}
-                  <span className="w-10 text-center">{toToken.symbol}</span>
-                  <motion.svg
-                    width="10"
-                    height="10"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    animate={{ rotate: showToDropdown ? 180 : 0 }}
+                  <path d="M4 7l4-4 4 4" />
+                  <path d="M8 3v14" />
+                  <path d="M20 17l-4 4-4-4" />
+                  <path d="M16 21V7" />
+                </motion.svg>
+              </motion.button>
+            </div>
+
+            <motion.div
+              layout
+              className="rounded-xl bg-(--bg-tertiary) p-4"
+              style={{ order: isSwapped ? 0 : 2 }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+            >
+              <span className="text-xs text-(--text-muted) mb-2 block">Receive</span>
+              <div className="flex items-center justify-between gap-3">
+                <AnimatePresence mode="popLayout">
+                  <motion.div
+                    key={toAmount}
+                    className="text-2xl font-semibold text-(--text-primary) min-w-0 truncate"
+                    initial={{ opacity: 0, filter: "blur(4px)", y: 4 }}
+                    animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+                    exit={{ opacity: 0, filter: "blur(4px)", y: -4 }}
                     transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
                   >
-                    <polyline points="6 9 12 15 18 9" />
-                  </motion.svg>
-                </motion.button>
-                <AnimatePresence>
-                  {showToDropdown && (
-                    <motion.div
-                      className="absolute left-0 top-full mt-1 bg-(--bg-secondary) border border-(--border-color) rounded-xl shadow-lg z-30 overflow-hidden min-w-[140px]"
-                      variants={dropdownVariants}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      transition={springTransition}
-                      style={{ transformOrigin: "top left" }}
-                    >
-                      {TOKENS.map((t, i) => (
-                        <motion.button
-                          key={t.symbol}
-                          onClick={() => selectTo(t)}
-                          className={`w-full flex items-center gap-2 px-3 py-2 text-sm hover:bg-(--bg-tertiary) transition-colors cursor-pointer ${
-                            t.symbol === toToken.symbol ? "text-(--text-primary) font-medium" : "text-(--text-muted)"
-                          }`}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.03, duration: 0.15, ease: [0.32, 0.72, 0, 1] }}
-                        >
-                          {t.icon}
-                          {t.symbol}
-                        </motion.button>
-                      ))}
-                    </motion.div>
-                  )}
+                    {toAmount ? `~${toAmount}` : "0.00"}
+                  </motion.div>
                 </AnimatePresence>
+                <div className="relative">
+                  <motion.button
+                    onClick={() => {
+                      setShowToDropdown(!showToDropdown);
+                      setShowFromDropdown(false);
+                    }}
+                    className="flex items-center gap-1.5 bg-(--bg-secondary) border border-(--border-color) rounded-full px-3 py-1.5 text-sm font-medium text-(--text-primary) hover:border-(--text-muted) transition-colors cursor-pointer shrink-0"
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    {toToken.icon}
+                    <span className="w-10 text-center">{toToken.symbol}</span>
+                    <motion.svg
+                      width="10"
+                      height="10"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      animate={{ rotate: showToDropdown ? 180 : 0 }}
+                      transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
+                    >
+                      <polyline points="6 9 12 15 18 9" />
+                    </motion.svg>
+                  </motion.button>
+                  <TokenDropdown tokens={TOKENS} selectedToken={toToken} show={showToDropdown} onSelect={selectTo} />
+                </div>
               </div>
-              <AnimatePresence mode="popLayout">
-                <motion.div
-                  key={toAmount}
-                  className="text-2xl font-semibold text-(--text-primary) min-w-0 truncate text-right"
-                  initial={{ opacity: 0, filter: "blur(4px)", y: 4 }}
-                  animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
-                  exit={{ opacity: 0, filter: "blur(4px)", y: -4 }}
-                  transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
-                >
-                  {loading ? (
-                    <span className="text-(--text-muted) text-lg">Loading...</span>
+              <div className="flex items-center justify-between mt-2">
+                <span className="text-xs text-(--text-muted)">
+                  {fromUsdDisplay}
+                </span>
+                <span className="text-xs text-(--text-muted) flex items-center gap-1">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-50">
+                    <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4" /><path d="M3 5v14a2 2 0 0 0 2 2h16v-5" /><path d="M18 12a2 2 0 0 0 0 4h4v-4Z" />
+                  </svg>
+                  {toToken.balance > 0 ? (
+                    toToken.balance.toLocaleString("en-US", { maximumFractionDigits: 4 })
                   ) : (
-                    toAmount || "0.00"
+                    <span className="opacity-50">0</span>
                   )}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        </div>
+                </span>
+              </div>
+            </motion.div>
+          </div>
         </LayoutGroup>
 
         <div className="pt-3 px-1">
-          <span className="text-xs text-(--text-muted)">
-            {loading ? "Fetching prices..." : `1 ${fromToken.symbol} ≈ ${rateDisplay} ${toToken.symbol}`}
+          <span className="text-[11px] text-(--text-muted)" style={{ fontFamily: "'JetBrains Mono Variable', monospace" }}>
+            1 {fromToken.symbol} = {rateDisplay} {toToken.symbol}
           </span>
+        </div>
+
+        <div className="flex gap-2 mt-3">
+          <motion.button
+            onClick={handleSwap}
+            className="flex-1 py-3 rounded-xl text-white font-semibold text-sm cursor-pointer relative overflow-hidden"
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            style={{
+              background: "linear-gradient(135deg, #3b82f6 0%, #6366f1 50%, #3b82f6 100%)",
+              backgroundSize: "200% 200%",
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 opacity-40"
+              style={{
+                background: "linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%)",
+                backgroundSize: "200% 200%",
+              }}
+              animate={{ backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+            <span className="relative z-10">Swap</span>
+          </motion.button>
+          <motion.button
+            className="flex-1 py-3 rounded-xl text-black font-semibold text-sm cursor-pointer"
+            style={{ background: "#9AFE82" }}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          >
+            Pay
+          </motion.button>
         </div>
       </div>
     </div>

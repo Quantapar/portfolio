@@ -68,6 +68,11 @@ summary:active,
   --contrib-4: #22c55e;
 }
 
+:root:not(.dark) .swap-preview {
+  --bg-tertiary: #FAFAF8;
+  --border-color: #EBECEF;
+}
+
 .dark {
   --bg-primary: #0E0E0E;
   --bg-secondary: #161616;

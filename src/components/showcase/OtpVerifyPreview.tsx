@@ -12,8 +12,13 @@ export const OtpVerifyPreview = () => {
   const [shaking, setShaking] = useState(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    inputRefs.current[0]?.focus();
+    const el = containerRef.current;
+    if (el && getComputedStyle(el).pointerEvents !== "none" && !el.closest("[style*='pointer-events: none']") && !el.closest(".pointer-events-none")) {
+      inputRefs.current[0]?.focus();
+    }
   }, []);
 
   const handleChange = (index: number, value: string) => {
@@ -93,7 +98,7 @@ export const OtpVerifyPreview = () => {
   };
 
   return (
-    <div className="w-full max-w-xs mx-auto">
+    <div ref={containerRef} className="w-full max-w-xs mx-auto">
       <div className="rounded-2xl px-6 pt-8 pb-10 flex flex-col items-center gap-6" style={{ background: "#000000", border: "1px solid #1a1a1a", height: 460 }}>
         <div className="relative rounded-full" style={{ width: 180, height: 180 }}>
           <img
