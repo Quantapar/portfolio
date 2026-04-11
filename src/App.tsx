@@ -6,6 +6,8 @@ import cypherImage from "./assets/Cypher.png";
 import mayhemImage from "./assets/Mayhem.png";
 
 import pulseapiImage from "./assets/pulse-api.png";
+import dashboardUiImage from "./assets/dashboard-ui.png";
+import onchainUiImage from "./assets/onchain-ui.png";
 import ringVideo from "./assets/ring-loop.mp4";
 
 import {
@@ -166,6 +168,21 @@ export function App() {
 
   const projects = [
     {
+      id: "onchain-ui",
+      title: "OnChain UI",
+      description:
+        "Currently building — a Web3 component library and UI marketplace. Production-ready React components for wallets, tokens, chains, and transactions — copy, paste, and ship.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "npm"],
+      roles: [
+        { name: "Design", type: "design" },
+        { name: "Dev", type: "dev" },
+        { name: "In Progress", type: "prototype" },
+      ] as const,
+      githubUrl: "https://github.com/Quantapar/OnChainUI",
+      liveUrl: "https://onchainui.quantapar.com/",
+      image: onchainUiImage,
+    },
+    {
       id: "pulseapi",
       title: "PulseAPI",
       description:
@@ -177,8 +194,22 @@ export function App() {
       image: pulseapiImage,
     },
     {
+      id: "dashboard-ui",
+      title: "Dashboard UI",
+      description:
+        "A SaaS analytics dashboard built as an assignment. Features KPI metric cards with sparkline charts, filterable order tables with status tabs, sortable columns, and a collapsible sidebar — all in a clean dark interface.",
+      tech: ["React", "TypeScript", "Tailwind CSS"],
+      roles: [
+        { name: "Design", type: "design" },
+        { name: "Frontend", type: "dev" },
+      ] as const,
+      githubUrl: "https://github.com/Quantapar/dashboard-ui",
+      liveUrl: "https://dashboard-ui.quantapar.com/",
+      image: dashboardUiImage,
+    },
+    {
       id: "100xdevs",
-      title: "100xDevs Frontend Revamp",
+      title: "100xDevs Frontend",
       description:
         "A complete frontend revamp for the 100xDevs platform. Features immersive web animations, modern UI components, and a robust design system.",
       tech: ["React", "Tailwind CSS", "Framer Motion"],
