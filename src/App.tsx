@@ -958,7 +958,7 @@ export function App() {
                 <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
                   Design Engineer obsessed with motion, micro-interactions, and
                   UI detail, building with React, TypeScript & Framer Motion.
-                  Currently building a Web3 component library.
+                  {" "}Currently building <a href="https://onchainui.quantapar.com/" target="_blank" rel="noopener noreferrer" className="underline decoration-wavy decoration-blue-400 underline-offset-4 text-(--text-primary) hover:opacity-80 transition-opacity" style={{ fontFamily: '"Geist Pixel Square"' }}>OnChain UI</a>.
                 </p>
                 <span className="inline-flex items-center gap-2 mt-2">
                   <button
