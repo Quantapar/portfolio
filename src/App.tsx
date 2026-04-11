@@ -171,12 +171,12 @@ export function App() {
       id: "onchain-ui",
       title: "OnChain UI",
       description:
-        "Currently building — a Web3 component library and UI marketplace. Production-ready React components for wallets, tokens, chains, and transactions — copy, paste, and ship.",
+        "A Web3 component library and UI marketplace. Production-ready React components for wallets, tokens, chains, and transactions — copy, paste, and ship.",
+      status: "Currently building",
       tech: ["React", "TypeScript", "Tailwind CSS", "npm"],
       roles: [
         { name: "Design", type: "design" },
         { name: "Dev", type: "dev" },
-        { name: "In Progress", type: "prototype" },
       ] as const,
       githubUrl: "https://github.com/Quantapar/OnChainUI",
       liveUrl: "https://onchainui.quantapar.com/",
@@ -749,9 +749,16 @@ export function App() {
                   </a>
                 )}
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-lg font-bold text-(--text-primary) tracking-tight mb-2">
-                    {project.title}
-                  </h3>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="text-lg font-bold text-(--text-primary) tracking-tight">
+                      {project.title}
+                    </h3>
+                    {"status" in project && project.status && (
+                      <span className="text-lg font-bold text-(--text-primary) tracking-tight">
+                        ( <span className="underline decoration-wavy decoration-blue-400 underline-offset-4" style={{ fontFamily: '"Geist Pixel Square"' }}>{project.status}</span> )
+                      </span>
+                    )}
+                  </div>
                   <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
                     {project.description}
                   </p>
@@ -951,6 +958,7 @@ export function App() {
                 <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
                   Design Engineer obsessed with motion, micro-interactions, and
                   UI detail, building with React, TypeScript & Framer Motion.
+                  Currently building a Web3 component library.
                 </p>
                 <span className="inline-flex items-center gap-2 mt-2">
                   <button
