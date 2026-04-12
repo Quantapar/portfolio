@@ -336,7 +336,7 @@ export function App() {
         />
       </nav>
 
-      <AnimatePresence mode="popLayout">
+      <AnimatePresence mode="wait">
       {currentPath.startsWith("/components/") &&
       uiComponents.find((c) => c.id === currentPath.split("/")[2]) ? (
         <motion.main
