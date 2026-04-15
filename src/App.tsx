@@ -749,16 +749,16 @@ export function App() {
                   </a>
                 )}
                 <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-lg font-bold text-(--text-primary) tracking-tight">
-                      {project.title}
-                    </h3>
+                  <h3 className="text-lg font-bold text-(--text-primary) tracking-tight mb-2">
+                    {project.title}
                     {"status" in project && project.status && (
-                      <span className="text-lg font-bold text-(--text-primary) tracking-tight">
-                        ( <span className="underline decoration-wavy decoration-blue-400 underline-offset-4" style={{ fontFamily: '"Geist Pixel Square"' }}>{project.status}</span> )
-                      </span>
+                      <>
+                        {" ("}
+                        <span className="underline decoration-wavy decoration-blue-400 underline-offset-4 whitespace-nowrap" style={{ fontFamily: '"Geist Pixel Square"' }}>{project.status}</span>
+                        {")"}
+                      </>
                     )}
-                  </div>
+                  </h3>
                   <p className="text-(--text-secondary) text-sm leading-relaxed mb-4">
                     {project.description}
                   </p>
