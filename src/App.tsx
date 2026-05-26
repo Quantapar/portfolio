@@ -34,6 +34,74 @@ import { MovieShelf } from "./components/about/MovieShelf";
 import { FloatingToolbar } from "./components/ui/FloatingToolbar";
 import { CodeBlock } from "./components/ui/CodeBlock";
 import { uiComponents } from "./data/components";
+import {
+  authorEmail,
+  getCanonicalUrl,
+  getJsonLd,
+  getSeoRoute,
+  ogImageUrl,
+  siteName,
+} from "./seo";
+
+function setMeta(selector: string, attribute: "name" | "property", value: string, content: string) {
+  let element = document.head.querySelector<HTMLMetaElement>(selector);
+
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute(attribute, value);
+    document.head.appendChild(element);
+  }
+
+  element.content = content;
+}
+
+function updateDocumentSeo(pathname: string) {
+  const route = getSeoRoute(pathname);
+  const canonicalUrl = getCanonicalUrl(pathname);
+
+  document.title = route.title;
+  setMeta('meta[name="description"]', "name", "description", route.description);
+  setMeta('meta[name="author"]', "name", "author", "Manu Sharma");
+  setMeta('meta[name="robots"]', "name", "robots", "index, follow");
+  setMeta('meta[property="og:title"]', "property", "og:title", route.title);
+  setMeta(
+    'meta[property="og:description"]',
+    "property",
+    "og:description",
+    route.description,
+  );
+  setMeta('meta[property="og:url"]', "property", "og:url", canonicalUrl);
+  setMeta('meta[property="og:site_name"]', "property", "og:site_name", siteName);
+  setMeta('meta[property="og:type"]', "property", "og:type", "website");
+  setMeta('meta[property="og:image"]', "property", "og:image", ogImageUrl);
+  setMeta('meta[name="twitter:title"]', "name", "twitter:title", route.title);
+  setMeta(
+    'meta[name="twitter:description"]',
+    "name",
+    "twitter:description",
+    route.description,
+  );
+  setMeta('meta[name="twitter:image"]', "name", "twitter:image", ogImageUrl);
+
+  let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement("link");
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
+  canonical.href = canonicalUrl;
+
+  let jsonLd = document.head.querySelector<HTMLScriptElement>(
+    'script[type="application/ld+json"][data-seo="route"]',
+  );
+  if (!jsonLd) {
+    jsonLd = document.createElement("script");
+    jsonLd.type = "application/ld+json";
+    jsonLd.dataset.seo = "route";
+    document.head.appendChild(jsonLd);
+  }
+  jsonLd.textContent = JSON.stringify(getJsonLd(pathname));
+}
 
 export function App() {
   const [isDark, setIsDark] = useState(false);
@@ -51,21 +119,7 @@ export function App() {
   }, []);
 
   useEffect(() => {
-    if (currentPath === "/" || currentPath === "") {
-      document.title = "Quantapar | Design Engineer";
-    } else if (currentPath === "/projects") {
-      document.title = "Projects";
-    } else if (currentPath === "/about") {
-      document.title = "About";
-    } else if (currentPath === "/components") {
-      document.title = "Components";
-    } else if (currentPath.startsWith("/components/")) {
-      const comp = uiComponents.find((c) => c.id === currentPath.split("/")[2]);
-      document.title = comp ? comp.name : "Component";
-    } else {
-      const project = projects.find((p) => p.id === currentPath.slice(1));
-      document.title = project ? project.title : "Manu Sharma";
-    }
+    updateDocumentSeo(currentPath);
     window.scrollTo(0, 0);
   }, [currentPath]);
 
@@ -98,7 +152,7 @@ export function App() {
   };
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("quantapar@gmail.com");
+    navigator.clipboard.writeText(authorEmail);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -657,9 +711,10 @@ export function App() {
                   </div>
                 </div>
                 <p className="text-(--text-secondary) text-[17px] leading-[1.7] max-w-lg">
-                  I'm a Design Engineer who cares deeply about how things look,
-                  feel, and move. I build polished interfaces with attention to
-                  every pixel and interaction.
+                  I'm Manu Sharma, also known online as Quantapar. I'm a Design
+                  Engineer who cares deeply about how things look, feel, and
+                  move. I build polished interfaces with attention to every
+                  pixel and interaction.
                 </p>
               </motion.div>
 
@@ -671,12 +726,12 @@ export function App() {
               >
                 <img
                   src="/me-color.jpeg"
-                  alt="Manu Sharma Color"
+                  alt="Color portrait of Manu Sharma, also known as Quantapar"
                   className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out z-10"
                 />
                 <img
                   src="/me-bw.jpeg"
-                  alt="Manu Sharma"
+                  alt="Black and white portrait of Manu Sharma, also known as Quantapar"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
                 />
               </motion.div>
@@ -1001,9 +1056,10 @@ export function App() {
                 </div>
                 <div className="mt-6">
                   <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
-                    Design Engineer obsessed with motion, micro-interactions,
-                    and UI detail, building with React, TypeScript & Framer
-                    Motion. Currently building{" "}
+                    I'm Manu Sharma, also known as Quantapar, a Design Engineer
+                    obsessed with motion, micro-interactions, and UI detail,
+                    building with React, TypeScript & Framer Motion. Currently
+                    building{" "}
                     <a
                       href="https://onchainui.quantapar.com/"
                       target="_blank"
@@ -1020,7 +1076,7 @@ export function App() {
                       onClick={copyEmail}
                       className="text-[15px] font-medium text-(--text-muted) hover:text-(--text-primary) transition-colors duration-200 cursor-pointer"
                     >
-                      quantapar@gmail.com
+                      {authorEmail}
                     </button>
                     <button
                       onClick={copyEmail}

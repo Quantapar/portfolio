@@ -1,8 +1,17 @@
 #!/usr/bin/env bun
 import plugin from "bun-plugin-tailwind";
 import { existsSync } from "fs";
-import { rm } from "fs/promises";
+import { mkdir, readFile, rm, writeFile } from "fs/promises";
 import path from "path";
+import {
+  getCanonicalUrl,
+  getJsonLd,
+  ogImageUrl,
+  seoRoutes,
+  siteName,
+  siteUrl,
+  type SeoRoute,
+} from "./src/seo";
 
 if (process.argv.includes("--help") || process.argv.includes("-h")) {
   console.log(`
@@ -109,6 +118,212 @@ const formatFileSize = (bytes: number): string => {
   return `${size.toFixed(2)} ${units[unitIndex]}`;
 };
 
+const escapeHtml = (value: string): string =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+
+const escapeJsonForHtml = (value: unknown): string =>
+  JSON.stringify(value, null, 2).replace(/</g, "\\u003c");
+
+const replaceOrInsertHeadTag = (
+  html: string,
+  pattern: RegExp,
+  replacement: string,
+): string => {
+  if (pattern.test(html)) {
+    return html.replace(pattern, replacement);
+  }
+
+  return html.replace("</head>", `${replacement}\n  </head>`);
+};
+
+const renderStaticFallback = (route: SeoRoute): string => {
+  const primaryRoutes = seoRoutes.filter((item) =>
+    ["/", "/projects", "/about", "/components"].includes(item.path),
+  );
+  const projectRoutes = seoRoutes.filter(
+    (item) =>
+      !["/", "/projects", "/about", "/components"].includes(item.path) &&
+      !item.path.startsWith("/components/"),
+  );
+
+  return `<div id="root"><main data-static-seo="true" style="max-width:760px;margin:0 auto;padding:48px 24px;font-family:Inter,system-ui,sans-serif;line-height:1.6">
+  <p style="margin:0 0 12px;color:#666">Manu Sharma, also known as Quantapar</p>
+  <h1 style="margin:0 0 16px;font-size:40px;line-height:1.1">${escapeHtml(route.title)}</h1>
+  <p style="margin:0 0 28px;font-size:18px;color:#444">${escapeHtml(route.description)}</p>
+  <nav aria-label="Primary pages" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px">
+    ${primaryRoutes
+      .map(
+        (item) =>
+          `<a href="${item.path}" style="color:#111">${escapeHtml(item.title)}</a>`,
+      )
+      .join("")}
+  </nav>
+  <section aria-label="Featured projects">
+    <h2 style="font-size:20px;margin:0 0 12px">Featured projects by Quantapar</h2>
+    <ul style="margin:0;padding-left:20px">
+      ${projectRoutes
+        .map(
+          (item) =>
+            `<li><a href="${item.path}" style="color:#111">${escapeHtml(item.title)}</a></li>`,
+        )
+        .join("")}
+    </ul>
+  </section>
+</main></div>`;
+};
+
+const applySeoToHtml = (html: string, route: SeoRoute): string => {
+  const canonicalUrl = getCanonicalUrl(route.path);
+  const description = escapeHtml(route.description);
+  const title = escapeHtml(route.title);
+  const imageAlt = "Portfolio preview for Manu Sharma, also known as Quantapar";
+
+  const replacements: Array<[RegExp, string]> = [
+    [/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`],
+    [
+      /<meta name="description" content="[^"]*"\s*\/>/,
+      `<meta name="description" content="${description}" />`,
+    ],
+    [
+      /<meta name="author" content="[^"]*"\s*\/>/,
+      '<meta name="author" content="Manu Sharma" />',
+    ],
+    [
+      /<meta name="robots" content="[^"]*"\s*\/>/,
+      '<meta name="robots" content="index, follow" />',
+    ],
+    [
+      /<meta name="googlebot" content="[^"]*"\s*\/>/,
+      '<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />',
+    ],
+    [
+      /<link rel="canonical" href="[^"]*"\s*\/>/,
+      `<link rel="canonical" href="${canonicalUrl}" />`,
+    ],
+    [
+      /<meta property="og:title" content="[^"]*"\s*\/>/,
+      `<meta property="og:title" content="${title}" />`,
+    ],
+    [
+      /<meta property="og:description" content="[^"]*"\s*\/>/,
+      `<meta property="og:description" content="${description}" />`,
+    ],
+    [
+      /<meta property="og:url" content="[^"]*"\s*\/>/,
+      `<meta property="og:url" content="${canonicalUrl}" />`,
+    ],
+    [
+      /<meta property="og:site_name" content="[^"]*"\s*\/>/,
+      `<meta property="og:site_name" content="${siteName}" />`,
+    ],
+    [
+      /<meta property="og:image" content="[^"]*"\s*\/>/,
+      `<meta property="og:image" content="${ogImageUrl}" />`,
+    ],
+    [
+      /<meta property="og:image:alt" content="[^"]*"\s*\/>/,
+      `<meta property="og:image:alt" content="${imageAlt}" />`,
+    ],
+    [
+      /<meta name="twitter:title" content="[^"]*"\s*\/>/,
+      `<meta name="twitter:title" content="${title}" />`,
+    ],
+    [
+      /<meta name="twitter:description" content="[^"]*"\s*\/>/,
+      `<meta name="twitter:description" content="${description}" />`,
+    ],
+    [
+      /<meta name="twitter:image" content="[^"]*"\s*\/>/,
+      `<meta name="twitter:image" content="${ogImageUrl}" />`,
+    ],
+    [
+      /<meta name="twitter:image:alt" content="[^"]*"\s*\/>/,
+      `<meta name="twitter:image:alt" content="${imageAlt}" />`,
+    ],
+    [
+      /<script type="application\/ld\+json" data-seo="route">[\s\S]*?<\/script>/,
+      `<script type="application/ld+json" data-seo="route">${escapeJsonForHtml(
+        getJsonLd(route.path),
+      )}</script>`,
+    ],
+  ];
+
+  return replacements.reduce(
+    (nextHtml, [pattern, replacement]) =>
+      replaceOrInsertHeadTag(nextHtml, pattern, replacement),
+    html,
+  ).replace('<div id="root"></div>', renderStaticFallback(route));
+};
+
+const getRouteHtmlPath = (outdir: string, routePath: string): string => {
+  if (routePath === "/") {
+    return path.join(outdir, "index.html");
+  }
+
+  return path.join(outdir, routePath.slice(1), "index.html");
+};
+
+const writeStaticRouteHtml = async (outdir: string): Promise<void> => {
+  const indexPath = path.join(outdir, "index.html");
+  const baseHtml = await readFile(indexPath, "utf8");
+
+  for (const route of seoRoutes) {
+    const routeHtml = applySeoToHtml(baseHtml, route);
+    const routePath = getRouteHtmlPath(outdir, route.path);
+    await mkdir(path.dirname(routePath), { recursive: true });
+    await writeFile(routePath, routeHtml);
+  }
+};
+
+const writeSitemap = async (outdir: string): Promise<void> => {
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const urls = seoRoutes
+    .map(
+      (route) => `  <url>
+    <loc>${getCanonicalUrl(route.path)}</loc>
+    <lastmod>${lastmod}</lastmod>
+    <changefreq>${route.changeFrequency}</changefreq>
+    <priority>${route.priority.toFixed(2)}</priority>
+  </url>`,
+    )
+    .join("\n");
+
+  await writeFile(
+    path.join(outdir, "sitemap.xml"),
+    `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`,
+  );
+};
+
+const writeRobots = async (outdir: string): Promise<void> => {
+  await writeFile(
+    path.join(outdir, "robots.txt"),
+    `User-agent: *
+Allow: /
+
+Sitemap: ${siteUrl}/sitemap.xml
+`,
+  );
+};
+
+const copyDirectory = async (from: string, to: string): Promise<void> => {
+  if (!existsSync(from)) return;
+
+  for (const asset of new Bun.Glob("**/*").scanSync(from)) {
+    const srcPath = path.join(from, asset);
+    const destPath = path.join(to, asset);
+    await mkdir(path.dirname(destPath), { recursive: true });
+    await Bun.write(destPath, Bun.file(srcPath));
+  }
+};
+
 console.log("\n🚀 Starting build process...\n");
 
 const cliConfig = parseArgs();
@@ -146,17 +361,19 @@ const result = await Bun.build({
 const assetsSrc = path.join(process.cwd(), "src", "assets");
 if (existsSync(assetsSrc)) {
   console.log(`📂 Copying assets from ${assetsSrc} to ${outdir}`);
-  const assets = new Bun.Glob("**/*").scanSync(assetsSrc);
-  for (const asset of assets) {
-    const srcPath = path.join(assetsSrc, asset);
-    const destPath = path.join(outdir, asset);
-    const destDir = path.dirname(destPath);
-    if (!existsSync(destDir)) {
-      await Bun.write(path.join(destDir, ".keep"), ""); // ensure dir exists
-    }
-    await Bun.write(destPath, Bun.file(srcPath));
-  }
+  await copyDirectory(assetsSrc, outdir);
 }
+
+const publicSrc = path.join(process.cwd(), "public");
+if (existsSync(publicSrc)) {
+  console.log(`📂 Copying public assets from ${publicSrc} to ${outdir}`);
+  await copyDirectory(publicSrc, outdir);
+}
+
+console.log("🔎 Writing SEO route HTML, sitemap, and robots.txt");
+await writeStaticRouteHtml(outdir);
+await writeSitemap(outdir);
+await writeRobots(outdir);
 
 const end = performance.now();
 
