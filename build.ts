@@ -140,42 +140,6 @@ const replaceOrInsertHeadTag = (
   return html.replace("</head>", `${replacement}\n  </head>`);
 };
 
-const renderStaticFallback = (route: SeoRoute): string => {
-  const primaryRoutes = seoRoutes.filter((item) =>
-    ["/", "/projects", "/about", "/components"].includes(item.path),
-  );
-  const projectRoutes = seoRoutes.filter(
-    (item) =>
-      !["/", "/projects", "/about", "/components"].includes(item.path) &&
-      !item.path.startsWith("/components/"),
-  );
-
-  return `<div id="root"><main data-static-seo="true" style="max-width:760px;margin:0 auto;padding:48px 24px;font-family:Inter,system-ui,sans-serif;line-height:1.6">
-  <p style="margin:0 0 12px;color:#666">Manu Sharma, also known as Quantapar</p>
-  <h1 style="margin:0 0 16px;font-size:40px;line-height:1.1">${escapeHtml(route.title)}</h1>
-  <p style="margin:0 0 28px;font-size:18px;color:#444">${escapeHtml(route.description)}</p>
-  <nav aria-label="Primary pages" style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px">
-    ${primaryRoutes
-      .map(
-        (item) =>
-          `<a href="${item.path}" style="color:#111">${escapeHtml(item.title)}</a>`,
-      )
-      .join("")}
-  </nav>
-  <section aria-label="Featured projects">
-    <h2 style="font-size:20px;margin:0 0 12px">Featured projects by Quantapar</h2>
-    <ul style="margin:0;padding-left:20px">
-      ${projectRoutes
-        .map(
-          (item) =>
-            `<li><a href="${item.path}" style="color:#111">${escapeHtml(item.title)}</a></li>`,
-        )
-        .join("")}
-    </ul>
-  </section>
-</main></div>`;
-};
-
 const applySeoToHtml = (html: string, route: SeoRoute): string => {
   const canonicalUrl = getCanonicalUrl(route.path);
   const description = escapeHtml(route.description);
@@ -256,7 +220,7 @@ const applySeoToHtml = (html: string, route: SeoRoute): string => {
     (nextHtml, [pattern, replacement]) =>
       replaceOrInsertHeadTag(nextHtml, pattern, replacement),
     html,
-  ).replace('<div id="root"></div>', renderStaticFallback(route));
+  );
 };
 
 const getRouteHtmlPath = (outdir: string, routePath: string): string => {
