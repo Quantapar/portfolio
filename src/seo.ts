@@ -24,7 +24,7 @@ export const socialLinks = [
 export const seoRoutes: SeoRoute[] = [
   {
     path: "/",
-    title: "Quantapar | Design Engineer",
+    title: "Quantapar — Design Engineer",
     description:
       "Manu Sharma, also known as Quantapar, is a design engineer building polished React, TypeScript, Web3, and motion-heavy interfaces.",
     priority: 1,
@@ -42,7 +42,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/projects",
-    title: "Projects by Manu Sharma (Quantapar) | React, Web3, UI",
+    title: "Projects · Quantapar",
     description:
       "Explore projects by Manu Sharma (Quantapar), including OnChain UI, PulseAPI, Cypher, dashboards, and polished frontend experiments.",
     priority: 0.9,
@@ -50,7 +50,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/about",
-    title: "About Manu Sharma (Quantapar) | Design Engineer",
+    title: "About · Quantapar",
     description:
       "Learn about Manu Sharma, also known as Quantapar: a design engineer focused on UI detail, interaction design, React, TypeScript, and Framer Motion.",
     priority: 0.8,
@@ -58,7 +58,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components",
-    title: "UI Components by Quantapar | React Components",
+    title: "Components · Quantapar",
     description:
       "Interactive React UI components by Quantapar with live previews, copy-paste code, and polished motion details.",
     priority: 0.75,
@@ -66,7 +66,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/onchain-ui",
-    title: "OnChain UI by Quantapar | Web3 React Component Library",
+    title: "OnChain UI · Quantapar",
     description:
       "OnChain UI is a Web3 component library by Manu Sharma (Quantapar) with production-ready React components for wallets, tokens, chains, and transactions.",
     priority: 0.75,
@@ -74,7 +74,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/pulseapi",
-    title: "PulseAPI by Quantapar | API Monitoring Dashboard",
+    title: "PulseAPI · Quantapar",
     description:
       "PulseAPI is a real-time API monitoring dashboard by Manu Sharma (Quantapar), built with Bun, TypeScript, React, Postgres, and Prisma.",
     priority: 0.7,
@@ -82,7 +82,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/dashboard-ui",
-    title: "Dashboard UI by Quantapar | SaaS Analytics Interface",
+    title: "Dashboard UI · Quantapar",
     description:
       "Dashboard UI is a SaaS analytics dashboard by Manu Sharma (Quantapar) with KPI cards, order tables, filters, and a clean dark interface.",
     priority: 0.65,
@@ -90,7 +90,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/100xdevs",
-    title: "100xDevs Frontend Revamp by Quantapar",
+    title: "100xDevs · Quantapar",
     description:
       "A frontend revamp for the 100xDevs platform by Manu Sharma (Quantapar), featuring modern UI components, animation, and design system work.",
     priority: 0.65,
@@ -98,23 +98,15 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/cypher",
-    title: "Cypher by Quantapar | Contest Hosting Platform",
+    title: "Cypher · Quantapar",
     description:
       "Cypher is a full-stack contest hosting platform by Manu Sharma (Quantapar), built with React, Bun, Postgres, Prisma, and Docker.",
     priority: 0.65,
     changeFrequency: "monthly",
   },
   {
-    path: "/mayhem",
-    title: "Mayhem by Quantapar | Experimental Landing Page",
-    description:
-      "Mayhem is an experimental landing page by Manu Sharma (Quantapar), focused on micro-interactions, smooth scrolling, and cinematic typography.",
-    priority: 0.6,
-    changeFrequency: "monthly",
-  },
-  {
     path: "/components/address-card",
-    title: "Address Card Component by Quantapar",
+    title: "Address Card · Quantapar",
     description:
       "A compact address card React component by Quantapar for displaying wallet, account, and identity details in polished Web3 interfaces.",
     priority: 0.55,
@@ -122,7 +114,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components/floating-toolbar",
-    title: "Floating Toolbar Component by Quantapar",
+    title: "Floating Toolbar · Quantapar",
     description:
       "A floating toolbar React component by Quantapar for compact navigation, tools, actions, and polished interface controls.",
     priority: 0.55,
@@ -130,7 +122,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components/otp-verify",
-    title: "OTP Verify Component by Quantapar",
+    title: "OTP Verify · Quantapar",
     description:
       "An OTP verification React component by Quantapar with polished input states and interaction details.",
     priority: 0.55,
@@ -138,7 +130,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components/wallet-balance",
-    title: "Wallet Balance Component by Quantapar",
+    title: "Wallet Balance · Quantapar",
     description:
       "A wallet balance React component by Quantapar for clean Web3 portfolio and token balance interfaces.",
     priority: 0.55,
@@ -146,7 +138,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components/swap",
-    title: "Swap Component by Quantapar",
+    title: "Swap · Quantapar",
     description:
       "A token swap React component by Quantapar with focused Web3 UI states, token controls, and polished motion.",
     priority: 0.55,
@@ -154,7 +146,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components/wallet-connect",
-    title: "Wallet Connect Component by Quantapar",
+    title: "Wallet Connect · Quantapar",
     description:
       "A wallet connect React component by Quantapar for polished Web3 onboarding and connection flows.",
     priority: 0.55,
@@ -162,7 +154,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components/chain-switcher",
-    title: "Chain Switcher Component by Quantapar",
+    title: "Chain Switcher · Quantapar",
     description:
       "A chain switcher React component by Quantapar for selecting blockchain networks in Web3 apps.",
     priority: 0.55,
@@ -170,7 +162,7 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/components/disconnect-modal",
-    title: "Disconnect Modal Component by Quantapar",
+    title: "Disconnect Modal · Quantapar",
     description:
       "A disconnect modal React component by Quantapar for clear, polished wallet session management.",
     priority: 0.55,
@@ -261,7 +253,6 @@ export function getJsonLd(pathname: string) {
         "Dashboard UI",
         "100xDevs Frontend",
         "Cypher",
-        "Mayhem",
       ].map((name, index) => ({
         "@type": "ListItem",
         position: index + 1,

@@ -3,12 +3,12 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import "./index.css";
 import devsImage from "./assets/100xDevsFrontend.png";
 import cypherImage from "./assets/Cypher.png";
-import mayhemImage from "./assets/Mayhem.png";
 
 import pulseapiImage from "./assets/pulse-api.png";
 import dashboardUiImage from "./assets/dashboard-ui.png";
 import onchainUiImage from "./assets/onchain-ui.png";
 import neatlogsImage from "./assets/neatlogs.png";
+import jaipurImage from "./assets/jaipur.png";
 import ringVideo from "./assets/ring-loop.mp4";
 
 import {
@@ -43,7 +43,12 @@ import {
   siteName,
 } from "./seo";
 
-function setMeta(selector: string, attribute: "name" | "property", value: string, content: string) {
+function setMeta(
+  selector: string,
+  attribute: "name" | "property",
+  value: string,
+  content: string,
+) {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
 
   if (!element) {
@@ -71,7 +76,12 @@ function updateDocumentSeo(pathname: string) {
     route.description,
   );
   setMeta('meta[property="og:url"]', "property", "og:url", canonicalUrl);
-  setMeta('meta[property="og:site_name"]', "property", "og:site_name", siteName);
+  setMeta(
+    'meta[property="og:site_name"]',
+    "property",
+    "og:site_name",
+    siteName,
+  );
   setMeta('meta[property="og:type"]', "property", "og:type", "website");
   setMeta('meta[property="og:image"]', "property", "og:image", ogImageUrl);
   setMeta('meta[name="twitter:title"]', "name", "twitter:title", route.title);
@@ -83,7 +93,9 @@ function updateDocumentSeo(pathname: string) {
   );
   setMeta('meta[name="twitter:image"]', "name", "twitter:image", ogImageUrl);
 
-  let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+  let canonical = document.head.querySelector<HTMLLinkElement>(
+    'link[rel="canonical"]',
+  );
   if (!canonical) {
     canonical = document.createElement("link");
     canonical.rel = "canonical";
@@ -225,6 +237,20 @@ export function App() {
 
   const projects = [
     {
+      id: "jagruk-jaipur",
+      title: "Jagruk Jaipur",
+      description:
+        "A full revamp of Jaipur's event guide. Discover concerts, comedy, food fests, art, and workshops across the city — all curated in one modern interface.",
+      status: "Currently building",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      roles: [
+        { name: "Design", type: "design" },
+        { name: "Dev", type: "dev" },
+      ] as const,
+      liveUrl: "https://jagrukjaipur.quantapar.com/",
+      image: jaipurImage,
+    },
+    {
       id: "onchain-ui",
       title: "OnChain UI",
       description:
@@ -288,20 +314,6 @@ export function App() {
       githubUrl: "https://github.com/Quantapar/contest-platform",
       liveUrl: "https://cypherarena.quantapar.com/",
       image: cypherImage,
-    },
-    {
-      id: "mayhem",
-      title: "Mayhem",
-      description:
-        "Experimental landing page design. Focusing on micro-interactions, smooth scrolling, and cinematic typography.",
-      tech: ["HTML", "Tailwind", "Motion"],
-      roles: [
-        { name: "Design", type: "design" },
-        { name: "Interactions", type: "prototype" },
-      ] as const,
-      githubUrl: "https://github.com/Quantapar/Tailwind/tree/main/tailwind01",
-      liveUrl: "https://joinmayhem.quantapar.com/",
-      image: mayhemImage,
     },
   ];
 
@@ -1212,10 +1224,10 @@ export function App() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[14px] font-bold text-(--text-primary) leading-tight">
-                        Design Engineer
+                        Design Engineer Intern
                       </p>
                       <p className="text-[12px] text-(--text-muted) mt-0.5">
-                        Neatlogs · Apr 2026 — Present
+                        Neatlogs (Apr 2026 — Jun 2026)
                       </p>
                     </div>
                   </a>
@@ -1234,10 +1246,10 @@ export function App() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[14px] font-bold text-(--text-primary) leading-tight">
-                        Design Engineer
+                        Design Engineer Intern
                       </p>
                       <p className="text-[12px] text-(--text-muted) mt-0.5">
-                        Krane Apps · Nov 2025 — Apr 2026
+                        Krane Apps (Nov 2025 — Apr 2026)
                       </p>
                     </div>
                   </a>
