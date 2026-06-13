@@ -1227,7 +1227,7 @@ export function App() {
                         Design Engineer Intern
                       </p>
                       <p className="text-[12px] text-(--text-muted) mt-0.5">
-                        Neatlogs (Apr 2026 — Jun 2026)
+                        Neatlogs (Apr 2026 — May 2026)
                       </p>
                     </div>
                   </a>
