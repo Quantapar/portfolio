@@ -237,20 +237,6 @@ export function App() {
 
   const projects = [
     {
-      id: "jagruk-jaipur",
-      title: "Jagruk Jaipur",
-      description:
-        "A full revamp of Jaipur's event guide. Discover concerts, comedy, food fests, art, and workshops across the city — all curated in one modern interface.",
-      status: "Currently building",
-      tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
-      roles: [
-        { name: "Design", type: "design" },
-        { name: "Dev", type: "dev" },
-      ] as const,
-      liveUrl: "https://jagrukjaipur.quantapar.com/",
-      image: jaipurImage,
-    },
-    {
       id: "onchain-ui",
       title: "OnChain UI",
       description:
@@ -264,6 +250,19 @@ export function App() {
       githubUrl: "https://github.com/Quantapar/OnChainUI",
       liveUrl: "https://onchainui.quantapar.com/",
       image: onchainUiImage,
+    },
+    {
+      id: "jagruk-jaipur",
+      title: "Jagruk Jaipur",
+      description:
+        "A full revamp of Jaipur's event guide. Discover concerts, comedy, food fests, art, and workshops across the city — all curated in one modern interface.",
+      tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+      roles: [
+        { name: "Design", type: "design" },
+        { name: "Dev", type: "dev" },
+      ] as const,
+      liveUrl: "https://jagrukjaipur.quantapar.com/",
+      image: jaipurImage,
     },
     {
       id: "pulseapi",
@@ -713,20 +712,13 @@ export function App() {
                 </h1>
                 <div className="flex items-center gap-1.5 text-[14px] text-(--text-secondary) font-medium mb-5">
                   <span>20</span>
-                  <span className="opacity-40">•</span>
-                  <div className="h-4.5 overflow-hidden inline-flex flex-col relative top-[0.5px]">
-                    <div className="animate-flip leading-4.5">
-                      <span className="block h-4.5">Design Engineer</span>
-                      <span className="block h-4.5">UI Craftsman</span>
-                      <span className="block h-4.5">Design Engineer</span>
-                    </div>
-                  </div>
+                  <span>Design Engineer</span>
                 </div>
                 <p className="text-(--text-secondary) text-[17px] leading-[1.7] max-w-lg">
-                  I'm Manu Sharma, also known online as Quantapar. I'm a Design
-                  Engineer who cares deeply about how things look, feel, and
-                  move. I build polished interfaces with attention to every
-                  pixel and interaction.
+                  I'm Manu, also known online as Quantapar. I'm a design
+                  engineer who likes building interfaces that look good and feel
+                  right to use. I care about the small details most people never
+                  notice.
                 </p>
               </motion.div>
 
@@ -1068,10 +1060,9 @@ export function App() {
                 </div>
                 <div className="mt-6">
                   <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
-                    I'm Manu Sharma, also known as Quantapar, a Design Engineer
-                    obsessed with motion, micro-interactions, and UI detail,
-                    building with React, TypeScript & Framer Motion. Currently
-                    building{" "}
+                    I'm Manu, a design engineer who likes making interfaces
+                    feel good to use. I build with React, TypeScript and Framer
+                    Motion. Right now I'm working on{" "}
                     <a
                       href="https://onchainui.quantapar.com/"
                       target="_blank"
