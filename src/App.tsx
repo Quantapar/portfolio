@@ -4,11 +4,12 @@ import "./index.css";
 import devsImage from "./assets/100xDevsFrontend.png";
 import cypherImage from "./assets/Cypher.png";
 
-import pulseapiImage from "./assets/pulse-api.png";
+// import pulseapiImage from "./assets/pulse-api.png";
 import dashboardUiImage from "./assets/dashboard-ui.png";
 import onchainUiImage from "./assets/onchain-ui.png";
 import neatlogsImage from "./assets/neatlogs.png";
 import jaipurImage from "./assets/jaipur.png";
+import gooeyTextImage from "./assets/gooey-text.png";
 import ringVideo from "./assets/ring-loop.mp4";
 
 import {
@@ -252,6 +253,20 @@ export function App() {
       image: onchainUiImage,
     },
     {
+      id: "gooey-text",
+      title: "Gooey Text",
+      description:
+        "Type any letter and watch it melt into a gooey blob. A keyboard-driven morph effect built with SVG filters and Framer Motion — circles flow along each glyph's skeleton and fuse into one liquid shape.",
+      tech: ["React", "TypeScript", "Framer Motion", "SVG Filters"],
+      roles: [
+        { name: "Design", type: "design" },
+        { name: "Dev", type: "dev" },
+      ] as const,
+      githubUrl: "https://github.com/Quantapar/Gooey-Text",
+      liveUrl: "https://gooey-text.quantapar.com/",
+      image: gooeyTextImage,
+    },
+    {
       id: "jagruk-jaipur",
       title: "Jagruk Jaipur",
       description:
@@ -264,17 +279,17 @@ export function App() {
       liveUrl: "https://jagrukjaipur.quantapar.com/",
       image: jaipurImage,
     },
-    {
-      id: "pulseapi",
-      title: "PulseAPI",
-      description:
-        "A real-time API monitoring dashboard. Built with a responsive frosted glass UI and comprehensive system metrics to track endpoint uptime.",
-      tech: ["Bun", "TypeScript", "React", "Postgres", "Prisma"],
-      roles: [{ name: "Fullstack", type: "dev" }] as const,
-      githubUrl: "https://github.com/Quantapar/PulseApi",
-      liveUrl: "https://pulseapi.quantapar.com/",
-      image: pulseapiImage,
-    },
+    // {
+    //   id: "pulseapi",
+    //   title: "PulseAPI",
+    //   description:
+    //     "A real-time API monitoring dashboard. Built with a responsive frosted glass UI and comprehensive system metrics to track endpoint uptime.",
+    //   tech: ["Bun", "TypeScript", "React", "Postgres", "Prisma"],
+    //   roles: [{ name: "Fullstack", type: "dev" }] as const,
+    //   githubUrl: "https://github.com/Quantapar/PulseApi",
+    //   liveUrl: "https://pulseapi.quantapar.com/",
+    //   image: pulseapiImage,
+    // },
     {
       id: "dashboard-ui",
       title: "Dashboard UI",

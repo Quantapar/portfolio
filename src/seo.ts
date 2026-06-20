@@ -44,7 +44,7 @@ export const seoRoutes: SeoRoute[] = [
     path: "/projects",
     title: "Projects",
     description:
-      "Explore projects by Manu Sharma (Quantapar), including OnChain UI, PulseAPI, Cypher, dashboards, and polished frontend experiments.",
+      "Explore projects by Manu Sharma (Quantapar), including OnChain UI, Gooey Text, Cypher, dashboards, and polished frontend experiments.",
     priority: 0.9,
     changeFrequency: "weekly",
   },
@@ -73,10 +73,10 @@ export const seoRoutes: SeoRoute[] = [
     changeFrequency: "weekly",
   },
   {
-    path: "/pulseapi",
-    title: "PulseAPI",
+    path: "/gooey-text",
+    title: "Gooey Text",
     description:
-      "PulseAPI is a real-time API monitoring dashboard by Manu Sharma (Quantapar), built with Bun, TypeScript, React, Postgres, and Prisma.",
+      "Gooey Text is a keyboard-driven text morph effect by Manu Sharma (Quantapar), built with SVG filters and Framer Motion — type any letter and watch it melt into a gooey blob.",
     priority: 0.7,
     changeFrequency: "monthly",
   },
@@ -217,7 +217,7 @@ export function getJsonLd(pathname: string) {
       name: "Projects by Manu Sharma",
       itemListElement: [
         "OnChain UI",
-        "PulseAPI",
+        "Gooey Text",
         "Dashboard UI",
         "100xDevs Frontend",
         "Cypher",
