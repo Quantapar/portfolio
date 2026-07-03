@@ -1233,7 +1233,7 @@ export function App() {
                         Design Engineer Intern
                       </p>
                       <p className="text-[12px] text-(--text-muted) mt-0.5">
-                        Neatlogs (Apr 2026 — May 2026)
+                        Neatlogs (Apr 2026 — June 2026)
                       </p>
                     </div>
                   </a>
@@ -1255,7 +1255,7 @@ export function App() {
                         Design Engineer Intern
                       </p>
                       <p className="text-[12px] text-(--text-muted) mt-0.5">
-                        Krane Apps (Nov 2025 — Apr 2026)
+                        Krane Apps (Aug 2025 — Apr 2026)
                       </p>
                     </div>
                   </a>
