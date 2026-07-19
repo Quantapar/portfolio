@@ -34,7 +34,7 @@ interface AddressCardProps {
 
 export default function AddressCard({
   defaultNickname = "Quantapar",
-  defaultRole = "Design Engineer",
+  defaultRole = "Fullstack Developer",
   defaultColor = "#3B82F6",
   defaultLocation = "New Delhi, IN",
   socialLinks = [],
@@ -167,7 +167,7 @@ export default function AddressCard({
       type: "string",
       required: false,
       description:
-        "Initial role text. Default: 'Design Engineer'",
+        "Initial role text. Default: 'Fullstack Developer'",
     },
     {
       name: "defaultColor",

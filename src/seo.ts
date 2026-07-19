@@ -26,7 +26,7 @@ export const seoRoutes: SeoRoute[] = [
     path: "/",
     title: "Quantapar",
     description:
-      "Manu Sharma, also known as Quantapar, is a design engineer building polished React, TypeScript, Web3, and motion-heavy interfaces.",
+      "Manu Sharma, also known as Quantapar, builds full-stack web products end-to-end with a UI-focused approach — React, TypeScript, Web3, and polished interfaces.",
     priority: 1,
     changeFrequency: "weekly",
     keywords: [
@@ -34,7 +34,7 @@ export const seoRoutes: SeoRoute[] = [
       "Quantapar",
       "Manu Sharma portfolio",
       "Quantapar portfolio",
-      "Design Engineer",
+      "Fullstack Developer",
       "React developer",
       "UI engineer",
       "Web3 UI",
@@ -52,7 +52,7 @@ export const seoRoutes: SeoRoute[] = [
     path: "/about",
     title: "About",
     description:
-      "Learn about Manu Sharma, also known as Quantapar: a design engineer focused on UI detail, interaction design, React, TypeScript, and Framer Motion.",
+      "Learn about Manu Sharma, also known as Quantapar: a fullstack developer who builds web products end-to-end with a UI-focused approach — React, TypeScript, and Framer Motion.",
     priority: 0.8,
     changeFrequency: "monthly",
   },
@@ -171,10 +171,10 @@ export function getJsonLd(pathname: string) {
       url: siteUrl,
       image: `${siteUrl}/me-color.jpeg`,
       email: `mailto:${authorEmail}`,
-      jobTitle: "Design Engineer",
+      jobTitle: "Fullstack Developer",
       sameAs: socialLinks,
       knowsAbout: [
-        "Design Engineering",
+        "Full-Stack Development",
         "React",
         "TypeScript",
         "Framer Motion",

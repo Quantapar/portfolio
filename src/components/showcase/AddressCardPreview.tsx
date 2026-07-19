@@ -16,7 +16,7 @@ const COLORS = [
 export const AddressCardPreview = () => {
   const [color, setColor] = useState(COLORS[4]);
   const [name, setName] = useState("Quantapar");
-  const [role, setRole] = useState("Design Engineer");
+  const [role, setRole] = useState("Fullstack Developer");
   const [location, setLocation] = useState("New Delhi, IN");
   const [bellRing, setBellRing] = useState(false);
 

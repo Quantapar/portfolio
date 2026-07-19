@@ -727,13 +727,12 @@ export function App() {
                 </h1>
                 <div className="flex items-center gap-1.5 text-[14px] text-(--text-secondary) font-medium mb-5">
                   <span>20</span>
-                  <span>Design Engineer</span>
+                  <span>Fullstack Developer</span>
                 </div>
                 <p className="text-(--text-secondary) text-[17px] leading-[1.7] max-w-lg">
-                  I'm Manu, also known online as Quantapar. I'm a design
-                  engineer who likes building interfaces that look good and feel
-                  right to use. I care about the small details most people never
-                  notice.
+                  I am a fullstack developer who likes building interfaces that
+                  look good and feel right to use. I care about the small
+                  details most people never notice.
                 </p>
               </motion.div>
 
@@ -1075,7 +1074,7 @@ export function App() {
                 </div>
                 <div className="mt-6">
                   <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
-                    I'm Manu, a design engineer who likes making interfaces
+                    I'm Manu, a fullstack developer who likes making interfaces
                     feel good to use. I build with React, TypeScript and Framer
                     Motion. Right now I'm working on{" "}
                     <a
