@@ -1252,7 +1252,7 @@ export function App() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[14px] font-bold text-(--text-primary) leading-tight">
-                        Design Engineer Intern
+                        Fullstack Intern
                       </p>
                       <p className="text-[12px] text-(--text-muted) mt-0.5">
                         Krane Apps (Aug 2025 — Apr 2026)
