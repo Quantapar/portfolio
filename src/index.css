@@ -192,6 +192,9 @@ body {
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
 }
 .badge-react { color: #2ba5cf; }
+.badge-reactnative { color: #2ba5cf; }
+.badge-expo { color: #1a1a1a; }
+.badge-nativewind { color: #1a8fc2; }
 .badge-typescript { color: #24578a; }
 .badge-bun { color: #8a7230; }
 .badge-nodejs { color: #267326; }
@@ -206,6 +209,9 @@ body {
 .badge-express { color: var(--text-secondary); }
 
 .dark .badge-react { color: #61dafb; }
+.dark .badge-reactnative { color: #61dafb; }
+.dark .badge-expo { color: #a3a3a3; }
+.dark .badge-nativewind { color: #38bdf8; }
 .dark .badge-typescript { color: #5a9fd4; }
 .dark .badge-bun { color: #d4b85a; }
 .dark .badge-nodejs { color: #4abf4a; }
