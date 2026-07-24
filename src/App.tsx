@@ -730,10 +730,10 @@ export function App() {
                 </h1>
                 <div className="flex items-center gap-1.5 text-[14px] text-(--text-secondary) font-medium mb-5">
                   <span>20</span>
-                  <span>Fullstack Developer</span>
+                  <span>Design Engineer</span>
                 </div>
                 <p className="text-(--text-secondary) text-[17px] leading-[1.7] max-w-lg">
-                  I am a fullstack developer who likes building interfaces that
+                  I am a design engineer who likes building interfaces that
                   look good and feel right to use. I care about the small
                   details most people never notice.
                 </p>
@@ -1077,7 +1077,7 @@ export function App() {
                 </div>
                 <div className="mt-6">
                   <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
-                    I'm Manu, a fullstack developer who likes making interfaces
+                    I'm Manu, a design engineer who likes making interfaces
                     feel good to use. I build with React, TypeScript and Framer
                     Motion. Right now I'm working on{" "}
                     <a
@@ -1254,7 +1254,7 @@ export function App() {
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-[14px] font-bold text-(--text-primary) leading-tight">
-                        Fullstack Intern
+                        Design Engineer Intern
                       </p>
                       <p className="text-[12px] text-(--text-muted) mt-0.5">
                         Krane Apps (Oct 2025 — Apr 2026)
