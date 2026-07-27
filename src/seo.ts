@@ -57,10 +57,10 @@ export const seoRoutes: SeoRoute[] = [
     changeFrequency: "monthly",
   },
   {
-    path: "/components",
-    title: "Components",
+    path: "/vault",
+    title: "Vault",
     description:
-      "Interactive React UI components by Quantapar with live previews, copy-paste code, and polished motion details.",
+      "A curated vault of product screens and interactive React UI components by Quantapar, with live previews and polished motion details.",
     priority: 0.75,
     changeFrequency: "weekly",
   },
@@ -105,7 +105,7 @@ export const seoRoutes: SeoRoute[] = [
     changeFrequency: "monthly",
   },
   {
-    path: "/components/address-card",
+    path: "/vault/address-card",
     title: "Address Card",
     description:
       "A compact address card React component by Quantapar for displaying wallet, account, and identity details in polished Web3 interfaces.",
@@ -113,7 +113,7 @@ export const seoRoutes: SeoRoute[] = [
     changeFrequency: "monthly",
   },
   {
-    path: "/components/floating-toolbar",
+    path: "/vault/floating-toolbar",
     title: "Floating Toolbar",
     description:
       "A floating toolbar React component by Quantapar for compact navigation, tools, actions, and polished interface controls.",
@@ -121,7 +121,7 @@ export const seoRoutes: SeoRoute[] = [
     changeFrequency: "monthly",
   },
   {
-    path: "/components/otp-verify",
+    path: "/vault/otp-verify",
     title: "OTP Verify",
     description:
       "An OTP verification React component by Quantapar with polished input states and interaction details.",
@@ -129,7 +129,7 @@ export const seoRoutes: SeoRoute[] = [
     changeFrequency: "monthly",
   },
   {
-    path: "/components/wallet-balance",
+    path: "/vault/wallet-balance",
     title: "Wallet Balance",
     description:
       "A wallet balance React component by Quantapar for clean Web3 portfolio and token balance interfaces.",

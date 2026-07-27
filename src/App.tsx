@@ -11,6 +11,8 @@ import neatlogsImage from "./assets/neatlogs.png";
 import jaipurImage from "./assets/jaipur.png";
 import gooeyTextImage from "./assets/gooey-text.png";
 import ringVideo from "./assets/ring-loop.mp4";
+import torchbaseLandingImage from "./assets/torchbase-landing.png";
+import torchbase404Image from "./assets/torchbase-lms-404.png";
 
 import {
   SunIcon,
@@ -368,6 +370,27 @@ export function App() {
     { name: "Tailwind", colorClass: "badge-tailwind" },
   ];
 
+  const vaultShowcases = [
+    {
+      id: "torchbase-landing",
+      title: "Torchbase",
+      description:
+        "A warm, high-contrast product landing page for an AI reliability workspace.",
+      image: torchbaseLandingImage,
+      alt: "Torchbase landing page with an orange hero and product navigation",
+      href: "https://x.com/quantapar/status/2077693670493769794",
+    },
+    {
+      id: "torchbase-404",
+      title: "Up in smoke",
+      description:
+        "A branded empty state with a pixel-fire 404 treatment and clear recovery actions.",
+      image: torchbase404Image,
+      alt: "Torchbase 404 page with a pixelated orange 404 and recovery buttons",
+      href: "https://x.com/quantapar/status/2077822493302329806",
+    },
+  ];
+
   const menuItems = [
     { id: "home", icon: <HomeIcon />, label: "Home", targetPath: "/" },
     {
@@ -377,10 +400,10 @@ export function App() {
       targetPath: "/projects",
     },
     {
-      id: "components",
+      id: "vault",
       icon: <ComponentsIcon />,
-      label: "Components",
-      targetPath: "/components",
+      label: "Vault",
+      targetPath: "/vault",
     },
     { id: "about", icon: <UserIcon />, label: "About", targetPath: "/about" },
   ];
@@ -414,8 +437,9 @@ export function App() {
               ? "home"
               : currentPath === "/projects"
                 ? "projects"
-                : currentPath.startsWith("/components")
-                  ? "components"
+                : currentPath.startsWith("/vault") ||
+                    currentPath.startsWith("/components")
+                  ? "vault"
                   : currentPath === "/about"
                     ? "about"
                     : undefined
@@ -425,7 +449,8 @@ export function App() {
       </nav>
 
       <AnimatePresence mode="wait">
-        {currentPath.startsWith("/components/") &&
+        {(currentPath.startsWith("/vault/") ||
+          currentPath.startsWith("/components/")) &&
         uiComponents.find((c) => c.id === currentPath.split("/")[2]) ? (
           <motion.main
             key={currentPath}
@@ -451,7 +476,7 @@ export function App() {
                   >
                     <div className="flex items-center gap-4 px-4 border-b-2 border-(--border-color) bg-(--bg-secondary)">
                       <button
-                        onClick={(e) => navigateTo("/components", e)}
+                        onClick={(e) => navigateTo("/vault", e)}
                         className="inline-flex items-center gap-1.5 pr-3 mr-1 text-[13px] font-bold text-(--text-muted) hover:text-(--text-primary) transition-colors cursor-pointer py-3"
                       >
                         <ArrowLeftIcon />
@@ -650,9 +675,9 @@ export function App() {
               );
             })()}
           </motion.main>
-        ) : currentPath === "/components" ? (
+        ) : currentPath === "/vault" || currentPath === "/components" ? (
           <motion.main
-            key="components"
+            key="vault"
             initial={prefersReducedMotion ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -667,13 +692,61 @@ export function App() {
                 className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-8"
               >
                 <h1 className="text-4xl md:text-5xl font-black tracking-[-0.04em] text-(--text-primary)">
-                  Components<span className="text-(--accent)">.</span>
+                  Vault<span className="text-(--accent)">.</span>
                 </h1>
                 <p className="text-(--text-secondary) text-[17px] mt-3 max-w-lg">
-                  Interactive UI components with live previews and copy-paste
-                  code.
+                  A working archive of product screens, interface experiments,
+                  and interactive components.
                 </p>
               </motion.div>
+
+              <div className="col-span-12 pt-2 flex items-center gap-4">
+                <p className="shrink-0 text-[11px] font-bold tracking-[0.16em] uppercase text-(--text-muted) font-mono">
+                  Work shared on X
+                </p>
+                <div className="h-px w-full bg-(--border-color) opacity-30" />
+              </div>
+
+              {vaultShowcases.map((showcase, i) => (
+                <motion.a
+                  key={showcase.id}
+                  href={showcase.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`View ${showcase.title} on X`}
+                  initial={
+                    prefersReducedMotion
+                      ? false
+                      : { opacity: 0, x: i === 0 ? -50 : 50 }
+                  }
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
+                  className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden group cursor-pointer"
+                >
+                  <div className="aspect-[16/10] overflow-hidden border-b-2 border-(--border-color) bg-[#fbf8f5]">
+                    <img
+                      src={showcase.image}
+                      alt={showcase.alt}
+                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <h2 className="text-lg font-bold text-(--text-primary) tracking-tight mb-1">
+                      {showcase.title}
+                    </h2>
+                    <p className="text-(--text-muted) text-sm leading-relaxed">
+                      {showcase.description}
+                    </p>
+                  </div>
+                </motion.a>
+              ))}
+
+              <div className="col-span-12 pt-6 flex items-center gap-4">
+                <p className="shrink-0 text-[11px] font-bold tracking-[0.16em] uppercase text-(--text-muted) font-mono">
+                  Interactive components
+                </p>
+                <div className="h-px w-full bg-(--border-color) opacity-30" />
+              </div>
 
               {uiComponents.map((comp, i) => (
                 <motion.div
@@ -686,7 +759,7 @@ export function App() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
                   className="col-span-12 md:col-span-6 rounded-xl neo-brutal bg-(--bg-secondary) overflow-hidden hover:border-(--text-primary) transition-colors duration-200 ease-out cursor-pointer group flex flex-col"
-                  onClick={(e) => navigateTo(`/components/${comp.id}`, e)}
+                  onClick={(e) => navigateTo(`/vault/${comp.id}`, e)}
                 >
                   <div className="w-full bg-(--bg-tertiary) border-b-2 border-(--border-color) p-6 flex items-center justify-center flex-1">
                     <div className="pointer-events-none">{comp.preview}</div>
@@ -1333,8 +1406,8 @@ export function App() {
                 initial={prefersReducedMotion ? false : { opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.55, ease: [0.25, 1, 0.5, 1] }}
-                href="/components"
-                onClick={(e) => navigateTo("/components", e)}
+                href="/vault"
+                onClick={(e) => navigateTo("/vault", e)}
                 className="col-span-12 rounded-xl neo-brutal bg-(--bg-secondary) p-6 flex items-center justify-between hover:border-(--text-primary) transition-colors duration-200 ease-out cursor-pointer group"
               >
                 <div>
@@ -1342,10 +1415,10 @@ export function App() {
                     className="text-xs font-bold tracking-[0.15em] uppercase text-(--text-muted) mb-3"
                     style={{ fontFamily: "'Press Start 2P', cursive" }}
                   >
-                    Components
+                    Vault
                   </p>
                   <p className="text-2xl font-bold text-(--text-primary) tracking-tight">
-                    Interactive UI components I've crafted
+                    Screens and interactive UI I've crafted
                     <span className="text-(--accent)">.</span>
                   </p>
                 </div>
