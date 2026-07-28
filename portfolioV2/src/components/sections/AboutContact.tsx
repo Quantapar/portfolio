@@ -20,7 +20,16 @@ export function AboutContact() {
   return (
     <section className="px-6 py-8">
       <div className="border-b border-dotted border-border pb-8">
-        <h2 className="mb-6 text-lg font-medium">About</h2>
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="text-lg font-medium">About</h2>
+          <span className="inline-flex items-center gap-2 border border-dotted border-border px-2 py-0.5 text-xs text-foreground/60">
+            <span
+              aria-hidden="true"
+              className="size-1.5 shrink-0 rounded-full bg-[#26a641]"
+            />
+            Open to work
+          </span>
+        </div>
         <ul className="space-y-4 text-sm leading-relaxed text-foreground/75">
           <li>
             I&apos;m Manu a 20 years old <Highlight>Design Engineer</Highlight>{" "}
