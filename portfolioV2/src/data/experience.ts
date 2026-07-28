@@ -1,7 +1,11 @@
 export type Experience = {
     company: string;
     roleType: string;
-    period: string;
+    period: {
+        start: string;
+        end: string;
+        location: string;
+    };
     bullets: string[];
     tags: string[];
     logo: {
@@ -16,7 +20,11 @@ export const experience: Experience[] = [
     {
         company: "Neatlogs",
         roleType: "Design Engineer Intern",
-        period: "Apr 2026 — May 2026 [Remote]",
+        period: {
+            start: "Apr 2026",
+            end: "May 2026",
+            location: "Remote",
+        },
         bullets: [
             "Designed and developed responsive product interfaces with an emphasis on usability, visual consistency, and polished interactions.", "Collaborated across design and engineering to translate product requirements into reusable, production-ready frontend components.",
         ],
@@ -30,7 +38,11 @@ export const experience: Experience[] = [
     }, {
         company: "Krane Apps",
         roleType: "Design Engineer Intern",
-        period: "Oct 2025 — Apr 2026 [Remote]",
+        period: {
+            start: "Oct 2025",
+            end: "Apr 2026",
+            location: "Remote",
+        },
         bullets: [
             "Built and refined user-facing interfaces using modern frontend technologies while maintaining responsive layouts and consistent design patterns.", "Contributed to product design, prototyping, component development, and the implementation of interactive user experiences.",
         ],

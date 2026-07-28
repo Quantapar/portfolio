@@ -12,7 +12,7 @@ export function ContactLink({ href, label, icon }: ContactLinkProps) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="pressable btn-bevel relative inline-flex items-center gap-2.5 px-3 py-2 text-sm"
+      className="pressable btn-bevel relative inline-flex w-full items-center gap-2.5 px-3 py-2 text-sm sm:w-auto"
     >
       <span className="btn-bevel-frame" aria-hidden="true" />
       <span className="btn-bevel-corner btn-bevel-corner-tl" aria-hidden="true" />

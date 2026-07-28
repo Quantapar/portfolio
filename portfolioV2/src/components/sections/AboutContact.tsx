@@ -32,7 +32,7 @@ export function AboutContact() {
             Open to work
           </span>
         </div>
-        <ul className="space-y-4 text-sm leading-relaxed text-foreground/75">
+        <ul className="space-y-4 text-pretty text-sm leading-relaxed text-foreground/75">
           <li>
             I&apos;m Manu a 20 years old <Highlight>Design Engineer</Highlight>{" "}
             based out of India.
@@ -51,7 +51,7 @@ export function AboutContact() {
 
       <div id="contact" className="scroll-mt-20 pt-8">
         <h2 className="mb-6 text-lg font-medium">Contact</h2>
-        <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
           {contactLinks.map((link) => (
             <ContactLink key={link.label} {...link} />
           ))}

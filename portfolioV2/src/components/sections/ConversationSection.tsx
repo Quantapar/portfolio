@@ -8,18 +8,18 @@ export function ConversationSection() {
     <section className="px-6 py-8 pb-12">
       <h2 className="text-lg font-medium">Start a Conversation</h2>
 
-      <p className="mt-6 max-w-md text-2xl leading-snug font-medium tracking-tight">
+      <p className="mt-6 max-w-md text-balance text-xl leading-snug font-medium tracking-tight sm:text-2xl">
         Designing intuitive interfaces with{" "}
         <Highlight>modern web tech</Highlight>
       </p>
 
       <div className="mt-8">
-        <BevelBox className="inline-block">
+        <BevelBox className="inline-block max-w-full">
           <a
             href={links.cal}
             target="_blank"
             rel="noreferrer"
-            className="pressable block px-4 py-3 text-sm"
+            className="pressable block px-4 py-3 text-sm text-balance"
           >
             Let&apos;s build something amazing together.
           </a>

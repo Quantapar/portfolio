@@ -3,6 +3,7 @@ import { GitHubCalendar } from "react-github-calendar";
 import { BevelBox } from "../ui/BevelBox";
 import { GitHubIcon } from "../ui/ContactLink";
 import { useTheme } from "../../hooks/useTheme";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 import { links, USERNAME } from "../../data/site";
 
@@ -19,10 +20,11 @@ const githubTheme = {
 export function GitHubActivitySection() {
   const { theme } = useTheme();
   const [hovered, setHovered] = useState(false);
+  const isCompact = useMediaQuery("(max-width: 639px)");
 
   return (
     <section id="github" className="scroll-mt-20 px-6 py-8">
-      <div className="mb-6 flex items-center justify-between gap-4">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h2 className="text-lg font-medium">GitHub Activity</h2>
         <a
           href={links.github}
@@ -38,7 +40,7 @@ export function GitHubActivitySection() {
 
       <BevelBox className="github-activity">
         <div
-          className="px-4 py-5"
+          className="px-3 py-4 sm:px-4 sm:py-5"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
@@ -47,10 +49,10 @@ export function GitHubActivitySection() {
             className="w-full"
             colorScheme={theme}
             theme={hovered ? githubTheme : neutralTheme}
-            blockSize={11}
-            blockMargin={3}
+            blockSize={isCompact ? 8 : 11}
+            blockMargin={isCompact ? 2 : 3}
             blockRadius={2}
-            fontSize={12}
+            fontSize={isCompact ? 10 : 12}
             labels={{
               totalCount: "{{count}} contributions in the last year",
               legend: {

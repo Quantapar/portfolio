@@ -280,9 +280,31 @@
     scrollbar-width: none;
   }
 
-  .github-activity
-    .react-activity-calendar__scroll-container::-webkit-scrollbar {
-    display: none;
+  @media (max-width: 639px) {
+    .github-activity .react-activity-calendar__scroll-container {
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+
+    .github-activity
+      .react-activity-calendar__scroll-container::-webkit-scrollbar {
+      display: block;
+      height: 4px;
+    }
+
+    .github-activity
+      .react-activity-calendar__scroll-container::-webkit-scrollbar-thumb {
+      background: color-mix(in srgb, var(--foreground) 20%, transparent);
+      border-radius: 999px;
+    }
+  }
+
+  @media (min-width: 640px) {
+    .github-activity
+      .react-activity-calendar__scroll-container::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .github-activity .react-activity-calendar__calendar {

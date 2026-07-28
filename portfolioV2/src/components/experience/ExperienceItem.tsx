@@ -10,6 +10,22 @@ type ExperienceItemProps = {
   defaultOpen?: boolean;
 };
 
+function ExperiencePeriod({ period }: { period: Experience["period"] }) {
+  return (
+    <>
+      <span className="mt-1 block text-sm text-foreground/50 sm:hidden">
+        <span className="block">
+          {period.start} to {period.end}
+        </span>
+        <span className="block">{period.location}</span>
+      </span>
+      <span className="mt-1 hidden text-sm text-foreground/50 sm:block">
+        {period.start} — {period.end} · {period.location}
+      </span>
+    </>
+  );
+}
+
 function ExpandIcon({ open }: { open: boolean }) {
   const shouldReduceMotion = useReducedMotion();
   const transition = {
@@ -18,7 +34,7 @@ function ExpandIcon({ open }: { open: boolean }) {
   };
 
   return (
-    <span className="relative flex size-5 shrink-0 self-center items-center justify-center">
+    <span className="relative hidden size-5 shrink-0 self-center items-center justify-center sm:flex">
       <motion.span
         aria-hidden="true"
         className="absolute inset-0 flex items-center justify-center text-base font-semibold leading-none text-foreground/65"
@@ -66,7 +82,7 @@ export function ExperienceItem({
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="pressable flex w-full items-start gap-3 px-4 py-4 text-left"
+        className="pressable flex w-full items-start gap-3 px-3 py-4 text-left sm:px-4"
         aria-expanded={open}
       >
         {item.logo.src ? (
@@ -85,15 +101,13 @@ export function ExperienceItem({
         )}
 
         <span className="min-w-0 flex-1">
-          <span className="flex flex-wrap items-center gap-2">
+          <span className="flex flex-col items-start gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
             <span className="text-sm font-medium">{item.company}</span>
-            <span className="border border-dotted border-border px-2 py-0.5 text-xs text-foreground/60">
+            <span className="w-fit border border-dotted border-border px-2 py-0.5 text-xs text-foreground/60">
               {item.roleType}
             </span>
           </span>
-          <span className="mt-1 block text-sm text-foreground/50">
-            {item.period}
-          </span>
+          <ExperiencePeriod period={item.period} />
         </span>
 
         <ExpandIcon open={open} />
@@ -117,7 +131,7 @@ export function ExperienceItem({
         className="overflow-hidden"
         aria-hidden={!open}
       >
-        <div className="border-t border-dotted border-border px-4 pb-4 pt-3">
+        <div className="border-t border-dotted border-border px-3 pb-4 pt-3 sm:px-4">
           <motion.ul
             initial={false}
             animate={{ opacity: open ? 1 : 0 }}
