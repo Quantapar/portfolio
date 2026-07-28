@@ -40,7 +40,7 @@ export const experience: Experience[] = [
         logo: {
             src: "/logos/krane-apps.png",
             label: "Krane Apps",
-            className: "size-12",
+            className: "size-12"
         }
     },
 ];
