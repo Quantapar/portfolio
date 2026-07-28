@@ -45,10 +45,22 @@ export function ThemeToggle() {
       className="pressable btn-bevel relative flex size-10 shrink-0 items-center justify-center text-foreground"
     >
       <span className="btn-bevel-frame" aria-hidden="true" />
-      <span className="btn-bevel-corner btn-bevel-corner-tl" aria-hidden="true" />
-      <span className="btn-bevel-corner btn-bevel-corner-tr" aria-hidden="true" />
-      <span className="btn-bevel-corner btn-bevel-corner-bl" aria-hidden="true" />
-      <span className="btn-bevel-corner btn-bevel-corner-br" aria-hidden="true" />
+      <span
+        className="btn-bevel-corner btn-bevel-corner-tl"
+        aria-hidden="true"
+      />
+      <span
+        className="btn-bevel-corner btn-bevel-corner-tr"
+        aria-hidden="true"
+      />
+      <span
+        className="btn-bevel-corner btn-bevel-corner-bl"
+        aria-hidden="true"
+      />
+      <span
+        className="btn-bevel-corner btn-bevel-corner-br"
+        aria-hidden="true"
+      />
       <span className="relative size-4">
         <span
           className="absolute inset-0 flex items-center justify-center icon-morph"

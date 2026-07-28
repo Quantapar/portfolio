@@ -7,6 +7,7 @@ import { Hero } from "./components/sections/Hero";
 import { AboutContact } from "./components/sections/AboutContact";
 import { ExperienceSection } from "./components/sections/ExperienceSection";
 import { GitHubActivitySection } from "./components/sections/GitHubActivitySection";
+import { ConversationSection } from "./components/sections/ConversationSection";
 import { WorkGallery } from "./components/sections/WorkGallery";
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
         <ExperienceSection />
         <GridDivider />
         <GitHubActivitySection />
+        <GridDivider />
+        <ConversationSection />
       </PageShell>
       {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
     </div>

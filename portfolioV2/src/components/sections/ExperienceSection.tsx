@@ -6,12 +6,8 @@ export function ExperienceSection() {
     <section id="experience" className="scroll-mt-20 px-6 py-8">
       <h2 className="mb-6 text-lg font-medium">Experience</h2>
       <div className="space-y-4">
-        {experience.map((item, index) => (
-          <ExperienceItem
-            key={item.company}
-            item={item}
-            defaultOpen={index === 0}
-          />
+        {experience.map((item) => (
+          <ExperienceItem key={item.company} item={item} defaultOpen />
         ))}
       </div>
     </section>
