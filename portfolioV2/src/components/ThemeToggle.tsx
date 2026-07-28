@@ -10,7 +10,7 @@ function SunIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
-      className="size-5"
+      className="size-4"
       aria-hidden="true"
     >
       <circle cx="12" cy="12" r="4" />
@@ -26,7 +26,7 @@ function MoonIcon() {
       fill="none"
       stroke="currentColor"
       strokeWidth="1.5"
-      className="size-5"
+      className="size-4"
       aria-hidden="true"
     >
       <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a6.5 6.5 0 0 0 11.5 11.5z" />
@@ -42,9 +42,14 @@ export function ThemeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="pressable fixed top-5 right-5 z-[300] flex size-10 items-center justify-center rounded-full text-foreground"
+      className="pressable btn-bevel relative flex size-10 shrink-0 items-center justify-center text-foreground"
     >
-      <span className="relative size-5">
+      <span className="btn-bevel-frame" aria-hidden="true" />
+      <span className="btn-bevel-corner btn-bevel-corner-tl" aria-hidden="true" />
+      <span className="btn-bevel-corner btn-bevel-corner-tr" aria-hidden="true" />
+      <span className="btn-bevel-corner btn-bevel-corner-bl" aria-hidden="true" />
+      <span className="btn-bevel-corner btn-bevel-corner-br" aria-hidden="true" />
+      <span className="relative size-4">
         <span
           className="absolute inset-0 flex items-center justify-center icon-morph"
           style={{

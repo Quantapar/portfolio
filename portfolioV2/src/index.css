@@ -25,6 +25,7 @@
 @layer base {
   html {
     view-transition-name: root;
+    scroll-behavior: smooth;
   }
 
   html,
@@ -251,6 +252,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
     .pressable,
     .icon-morph {
       transition: none;

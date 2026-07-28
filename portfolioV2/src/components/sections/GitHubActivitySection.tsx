@@ -22,7 +22,7 @@ export function GitHubActivitySection() {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <section className="px-6 py-8">
+    <section id="github" className="scroll-mt-20 px-6 py-8">
       <div className="mb-6 flex items-center justify-between gap-4">
         <h2 className="text-lg font-medium">GitHub Activity</h2>
         <a

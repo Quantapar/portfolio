@@ -4,7 +4,7 @@ import { Project } from "../work/Project";
 
 export function WorkGallery() {
   return (
-    <section className="px-6 py-8">
+    <section id="work" className="scroll-mt-20 px-6 py-8">
       <h2 className="mb-6 text-lg font-medium">Work</h2>
       <BevelBox>
         {projects.map((project) => (
