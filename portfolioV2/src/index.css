@@ -275,7 +275,8 @@
     scrollbar-width: none;
   }
 
-  .github-activity .react-activity-calendar__scroll-container::-webkit-scrollbar {
+  .github-activity
+    .react-activity-calendar__scroll-container::-webkit-scrollbar {
     display: none;
   }
 
@@ -297,8 +298,9 @@
     color: color-mix(in srgb, var(--foreground) 45%, transparent);
   }
 
+  .github-activity .react-activity-calendar__calendar rect,
   .github-activity .react-activity-calendar__legend-colors rect {
-    border-radius: 2px;
+    transition: fill 220ms var(--ease-out);
   }
 }
 
@@ -316,7 +318,7 @@
 ::view-transition-new(root) {
   z-index: 2;
   clip-path: inset(0 0 100% 0);
-  animation: theme-reveal-down 580ms var(--ease-out) forwards;
+  animation: theme-reveal-down 600ms var(--ease-out) forwards;
 }
 
 @keyframes theme-reveal-down {

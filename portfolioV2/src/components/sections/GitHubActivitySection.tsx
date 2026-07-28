@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 import { BevelBox } from "../ui/BevelBox";
 import { GitHubIcon } from "../ui/ContactLink";
@@ -6,13 +7,19 @@ import { useTheme } from "../../hooks/useTheme";
 const GITHUB_USERNAME = "quantapar";
 const GITHUB_PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
 
-const calendarTheme = {
+const neutralTheme = {
   light: ["#ebe9e9", "#cfcfcf", "#a8a8a8", "#707070", "#000000"],
   dark: ["#141414", "#333333", "#555555", "#888888", "#f9f8f8"],
 };
 
+const githubTheme = {
+  light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
+  dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
+};
+
 export function GitHubActivitySection() {
   const { theme } = useTheme();
+  const [hovered, setHovered] = useState(false);
 
   return (
     <section className="px-6 py-8">
@@ -31,12 +38,16 @@ export function GitHubActivitySection() {
       </div>
 
       <BevelBox className="github-activity">
-        <div className="px-4 py-5">
+        <div
+          className="px-4 py-5"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
           <GitHubCalendar
             username={GITHUB_USERNAME}
             className="w-full"
             colorScheme={theme}
-            theme={calendarTheme}
+            theme={hovered ? githubTheme : neutralTheme}
             blockSize={11}
             blockMargin={3}
             blockRadius={2}
