@@ -1,7 +1,7 @@
 import { BevelBox } from "../ui/BevelBox";
 import { Highlight } from "../ui/Highlight";
 
-import { EMAIL } from "../../data/site";
+import { links } from "../../data/site";
 
 export function ConversationSection() {
   return (
@@ -16,7 +16,9 @@ export function ConversationSection() {
       <div className="mt-8">
         <BevelBox className="inline-block">
           <a
-            href={`mailto:${EMAIL}`}
+            href={links.cal}
+            target="_blank"
+            rel="noreferrer"
             className="pressable block px-4 py-3 text-sm"
           >
             Let&apos;s build something amazing together.

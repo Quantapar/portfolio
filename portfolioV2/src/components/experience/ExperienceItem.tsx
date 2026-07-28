@@ -73,7 +73,7 @@ export function ExperienceItem({
           <img
             src={item.logo.src}
             alt={item.logo.label}
-            className="size-10 shrink-0 rounded-sm object-cover"
+            className={`shrink-0 rounded-sm object-cover ${item.logo.className ?? "size-10"}`}
           />
         ) : (
           <span
@@ -110,9 +110,7 @@ export function ExperienceItem({
             : {
                 height: open ? "auto" : 0,
                 opacity: open ? 1 : 0,
-                clipPath: open
-                  ? "inset(0 0 0 0)"
-                  : "inset(0 0 100% 0)",
+                clipPath: open ? "inset(0 0 0 0)" : "inset(0 0 100% 0)",
               }
         }
         transition={panelTransition}
