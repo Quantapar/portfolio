@@ -35,11 +35,4 @@ export const projects: Project[] = [
     liveUrl: "#",
     sourceUrl: "#",
   },
-  {
-    title1: "Mambo",
-    title2: "Mambo",
-    src: "https://picsum.photos/seed/mambo/480/320",
-    liveUrl: "#",
-    sourceUrl: "#",
-  },
 ];

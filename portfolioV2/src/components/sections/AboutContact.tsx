@@ -1,3 +1,4 @@
+import { links } from "../../data/site";
 import { Highlight } from "../ui/Highlight";
 import { ReachOutSuffix } from "../ui/ReachOutLine";
 import {
@@ -10,11 +11,11 @@ import {
 } from "../ui/ContactLink";
 
 const contactLinks = [
-  { href: "https://github.com/", label: "GitHub", icon: <GitHubIcon /> },
-  { href: "https://linkedin.com/", label: "LinkedIn", icon: <LinkedInIcon /> },
-  { href: "https://x.com/", label: "Twitter", icon: <XIcon /> },
-  { href: "mailto:hello@example.com", label: "Mail", icon: <MailIcon /> },
-  { href: "#", label: "Resume", icon: <ResumeIcon /> },
+  { href: links.github, label: "GitHub", icon: <GitHubIcon /> },
+  { href: links.linkedin, label: "LinkedIn", icon: <LinkedInIcon /> },
+  { href: links.x, label: "Twitter", icon: <XIcon /> },
+  { href: links.mail, label: "Mail", icon: <MailIcon /> },
+  { href: links.resume, label: "Resume", icon: <ResumeIcon /> },
 ];
 
 export function AboutContact() {

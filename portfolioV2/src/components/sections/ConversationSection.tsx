@@ -1,7 +1,7 @@
 import { BevelBox } from "../ui/BevelBox";
 import { Highlight } from "../ui/Highlight";
 
-const EMAIL = "quantapar@gmail.com";
+import { EMAIL } from "../../data/site";
 
 export function ConversationSection() {
   return (

@@ -69,12 +69,20 @@ export function ExperienceItem({
         className="pressable flex w-full items-start gap-3 px-4 py-4 text-left"
         aria-expanded={open}
       >
-        <span
-          className="flex size-10 shrink-0 items-center justify-center text-xs font-medium text-white"
-          style={{ backgroundColor: item.logo.color }}
-        >
-          {item.logo.label}
-        </span>
+        {item.logo.src ? (
+          <img
+            src={item.logo.src}
+            alt={item.logo.label}
+            className="size-10 shrink-0 rounded-sm object-cover"
+          />
+        ) : (
+          <span
+            className="flex size-10 shrink-0 items-center justify-center text-xs font-medium text-white"
+            style={{ backgroundColor: item.logo.color }}
+          >
+            {item.logo.label}
+          </span>
+        )}
 
         <span className="min-w-0 flex-1">
           <span className="flex flex-wrap items-center gap-2">

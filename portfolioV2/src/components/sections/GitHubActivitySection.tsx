@@ -4,8 +4,7 @@ import { BevelBox } from "../ui/BevelBox";
 import { GitHubIcon } from "../ui/ContactLink";
 import { useTheme } from "../../hooks/useTheme";
 
-const GITHUB_USERNAME = "quantapar";
-const GITHUB_PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
+import { links, USERNAME } from "../../data/site";
 
 const neutralTheme = {
   light: ["#ebe9e9", "#cfcfcf", "#a8a8a8", "#707070", "#000000"],
@@ -26,7 +25,7 @@ export function GitHubActivitySection() {
       <div className="mb-6 flex items-center justify-between gap-4">
         <h2 className="text-lg font-medium">GitHub Activity</h2>
         <a
-          href={GITHUB_PROFILE_URL}
+          href={links.github}
           target="_blank"
           rel="noreferrer"
           className="pressable inline-flex items-center gap-2 text-sm text-foreground/60"
@@ -44,7 +43,7 @@ export function GitHubActivitySection() {
           onMouseLeave={() => setHovered(false)}
         >
           <GitHubCalendar
-            username={GITHUB_USERNAME}
+            username={USERNAME}
             className="w-full"
             colorScheme={theme}
             theme={hovered ? githubTheme : neutralTheme}

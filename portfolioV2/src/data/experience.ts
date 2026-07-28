@@ -5,47 +5,39 @@ export type Experience = {
   bullets: string[];
   tags: string[];
   logo: {
+    src?: string;
     label: string;
-    color: string;
+    color?: string;
   };
 };
 
 export const experience: Experience[] = [
   {
-    company: "Conduit Commerce",
-    roleType: "Intern",
-    period: "Aug 2025 — Present",
+    company: "Neatlogs",
+    roleType: "Design Engineer Intern",
+    period: "Apr 2026 — May 2026 · Remote",
     bullets: [
-      "Contributing to the development of enterprise-grade frontend systems powering modern wholesale e-commerce.",
-      "Collaborating with the engineering team to build scalable, responsive UI components and optimize performance across the platform.",
+      "Designed and developed responsive product interfaces with an emphasis on usability, visual consistency, and polished interactions.",
+      "Collaborated across design and engineering to translate product requirements into reusable, production-ready frontend components.",
     ],
-    tags: [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Redux",
-      "Python",
-      "FastAPI",
-      "Docker",
-    ],
+    tags: ["React", "TypeScript", "Tailwind CSS", "UI/UX"],
     logo: {
-      label: "C",
-      color: "#2563eb",
+      src: "/logos/neatlogs.png",
+      label: "Neatlogs",
     },
   },
   {
-    company: "Mach5 Software",
-    roleType: "Freelance",
-    period: "Mar 2025 — May 2025",
+    company: "Krane Apps",
+    roleType: "Design Engineer Intern",
+    period: "Oct 2025 — Apr 2026 · Remote",
     bullets: [
-      "Worked as a Frontend Developer, transforming Figma design into fully responsive, high-performance website.",
-      "Implemented core SEO features: lazy loading, WebP images, clean URLs, meta tags, Open Graph, and accessibility.",
-      "Set up essential SEO infrastructure that includes robots.txt, dynamic sitemap.xml, and crawlable internal links.",
+      "Built and refined user-facing interfaces using modern frontend technologies while maintaining responsive layouts and consistent design patterns.",
+      "Contributed to product design, prototyping, component development, and the implementation of interactive user experiences.",
     ],
-    tags: ["HTML", "Tailwind CSS", "SEO"],
+    tags: ["React", "TypeScript", "Prototyping", "Motion"],
     logo: {
-      label: "M5",
-      color: "#ea580c",
+      src: "/logos/krane-apps.png",
+      label: "Krane Apps",
     },
   },
 ];

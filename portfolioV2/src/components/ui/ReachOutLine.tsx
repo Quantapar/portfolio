@@ -1,6 +1,6 @@
 import { CopyButton } from "../modern-ui/copy-button";
 
-const EMAIL = "quantapar@gmail.com";
+import { EMAIL } from "../../data/site";
 
 export function ReachOutSuffix() {
   return (
