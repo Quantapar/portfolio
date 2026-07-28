@@ -6,6 +6,7 @@ import { PageShell } from "./components/layout/PageShell";
 import { Hero } from "./components/sections/Hero";
 import { AboutContact } from "./components/sections/AboutContact";
 import { ExperienceSection } from "./components/sections/ExperienceSection";
+import { GitHubActivitySection } from "./components/sections/GitHubActivitySection";
 import { WorkGallery } from "./components/sections/WorkGallery";
 import { ThemeToggle } from "./components/ThemeToggle";
 
@@ -23,10 +24,10 @@ function App() {
         <WorkGallery />
         <GridDivider />
         <ExperienceSection />
+        <GridDivider />
+        <GitHubActivitySection />
       </PageShell>
-      {import.meta.env.DEV && (
-        <Agentation endpoint="http://localhost:4747" />
-      )}
+      {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
     </div>
   );
 }

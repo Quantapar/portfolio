@@ -18,10 +18,10 @@ function ExpandIcon({ open }: { open: boolean }) {
   };
 
   return (
-    <span className="relative mt-0.5 flex size-4 shrink-0 items-center justify-center">
+    <span className="relative flex size-5 shrink-0 self-center items-center justify-center">
       <motion.span
         aria-hidden="true"
-        className="absolute text-sm text-foreground/50"
+        className="absolute inset-0 flex items-center justify-center text-base font-semibold leading-none text-foreground/65"
         initial={false}
         animate={{
           opacity: open ? 0 : 1,
@@ -34,7 +34,7 @@ function ExpandIcon({ open }: { open: boolean }) {
       </motion.span>
       <motion.span
         aria-hidden="true"
-        className="absolute text-sm text-foreground/50"
+        className="absolute inset-0 flex items-center justify-center text-base font-semibold leading-none text-foreground/65"
         initial={false}
         animate={{
           opacity: open ? 1 : 0,

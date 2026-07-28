@@ -114,17 +114,9 @@
     pointer-events: none;
     border: none;
     background:
-      repeating-linear-gradient(
-          90deg,
-          var(--border) 0 1px,
-          transparent 1px 4px
-        )
+      repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 4px)
         top / 100% 1px no-repeat,
-      repeating-linear-gradient(
-          90deg,
-          var(--border) 0 1px,
-          transparent 1px 4px
-        )
+      repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 4px)
         bottom / 100% 1px no-repeat,
       repeating-linear-gradient(
           180deg,
@@ -267,6 +259,46 @@
     .pressable:active {
       transform: none;
     }
+  }
+
+  .github-activity .react-activity-calendar {
+    width: 100% !important;
+    max-width: 100%;
+    color: color-mix(in srgb, var(--foreground) 55%, transparent);
+    font-family: var(--font-sans);
+  }
+
+  .github-activity .react-activity-calendar__scroll-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden !important;
+    scrollbar-width: none;
+  }
+
+  .github-activity .react-activity-calendar__scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .github-activity .react-activity-calendar__calendar {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .github-activity .react-activity-calendar__footer {
+    width: 100%;
+  }
+
+  .github-activity .react-activity-calendar__count {
+    color: color-mix(in srgb, var(--foreground) 50%, transparent);
+  }
+
+  .github-activity .react-activity-calendar__legend-colors {
+    color: color-mix(in srgb, var(--foreground) 45%, transparent);
+  }
+
+  .github-activity .react-activity-calendar__legend-colors rect {
+    border-radius: 2px;
   }
 }
 
