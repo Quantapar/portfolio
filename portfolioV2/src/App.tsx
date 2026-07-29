@@ -1,35 +1,20 @@
-import { Agentation } from "agentation";
-import { FullBleedDoubleDivider } from "./components/layout/FullBleedDoubleDivider";
-import { GridDivider } from "./components/layout/GridDivider";
-import { SiteHeader } from "./components/layout/SiteHeader";
-import { PageShell } from "./components/layout/PageShell";
-import { Hero } from "./components/sections/Hero";
-import { AboutContact } from "./components/sections/AboutContact";
-import { ExperienceSection } from "./components/sections/ExperienceSection";
-import { GitHubActivitySection } from "./components/sections/GitHubActivitySection";
-import { ConversationSection } from "./components/sections/ConversationSection";
-import { WorkGallery } from "./components/sections/WorkGallery";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { SiteLayout } from "./components/layout/SiteLayout";
+import { HomePage } from "./pages/HomePage";
+import { ProjectPage } from "./pages/ProjectPage";
+import { WorkIndexPage } from "./pages/WorkIndexPage";
 
 function App() {
   return (
-    <div className="min-h-dvh w-full overflow-x-clip">
-      <PageShell>
-        <SiteHeader />
-        <FullBleedDoubleDivider />
-        <Hero />
-        <GridDivider />
-        <AboutContact />
-        <GridDivider />
-        <WorkGallery />
-        <GridDivider />
-        <ExperienceSection />
-        <GridDivider />
-        <GitHubActivitySection />
-        <GridDivider />
-        <ConversationSection />
-      </PageShell>
-      {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<SiteLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="work" element={<WorkIndexPage />} />
+          <Route path="work/:slug" element={<ProjectPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
