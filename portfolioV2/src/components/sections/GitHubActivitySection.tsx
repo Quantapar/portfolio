@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GitHubCalendar, type Activity } from "react-github-calendar";
+import { GitHubCalendar } from "react-github-calendar";
 import { BevelBox } from "../ui/BevelBox";
 import { GitHubIcon } from "../ui/ContactLink";
 import { useTheme } from "../../hooks/useTheme";
@@ -22,7 +22,7 @@ function formatActivityDate(isoDate: string) {
   return `${day}.${month}.${year}`;
 }
 
-function activityTooltipText(activity: Activity) {
+function activityTooltipText(activity: { count: number; date: string }) {
   const noun = activity.count === 1 ? "contribution" : "contributions";
   return `${activity.count} ${noun} on ${formatActivityDate(activity.date)}`;
 }
