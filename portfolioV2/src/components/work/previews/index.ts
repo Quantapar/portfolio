@@ -1,7 +1,7 @@
 import type { ComponentType } from "react";
 import { AddressCardPreview } from "./AddressCardPreview";
-import { AnimatedCounterPreview } from "./AnimatedCounterPreview";
 import { AnimatedTimerPreview } from "./AnimatedTimer";
+import { Dithered404Preview } from "./Dithered404Preview";
 import { FloatingToolbarPreview } from "./FloatingToolbarPreview";
 import { OtpVerifyPreview } from "./OtpVerifyPreview";
 import { WalletBalancePreview } from "./WalletBalancePreview";
@@ -12,7 +12,7 @@ export const projectPreviews: Record<string, ComponentType> = {
   "otp-verify": OtpVerifyPreview,
   "wallet-balance": WalletBalancePreview,
   "animated-timer": AnimatedTimerPreview,
-  "animated-counter": AnimatedCounterPreview,
+  "dithered-404": Dithered404Preview,
 };
 
 export function getProjectPreview(slug: string) {

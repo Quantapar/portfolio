@@ -170,18 +170,6 @@ export const projects: Project[] = [
         liveUrl: "https://x.com/quantapar/status/2077693670493769794",
         tech: ["Landing page", "Product design"]
     }, {
-        slug: "torchbase-404",
-        title1: "Up in",
-        title2: "Smoke",
-        type: "product",
-        featured: false,
-        year: 2025,
-        summary: "A branded empty state with a pixel-fire 404 treatment and clear recovery actions.",
-        useCase: "404 page design with personality — pixel art fire motif and actionable recovery paths for a lost user.",
-        src: "/work/torchbase-lms-404.png",
-        liveUrl: "https://x.com/quantapar/status/2077822493302329806",
-        tech: ["Empty state", "404", "Product design"]
-    }, {
         slug: "floating-toolbar",
         title1: "Floating",
         title2: "Toolbar",
@@ -237,16 +225,19 @@ export const projects: Project[] = [
         src: "",
         tech: ["React", "Framer Motion"]
     }, {
-        slug: "animated-counter",
-        title1: "Animated",
-        title2: "Counter",
+        slug: "dithered-404",
+        title1: "Dithered",
+        title2: "404",
         type: "component",
         featured: false,
         year: 2025,
-        summary: "A spring-driven digit counter with the same flip animation language as the timer, each digit rolls independently.",
-        useCase: "Metric or streak counters where numbers should feel physical as they tick up.",
+        summary:
+          "An interactive dithered 404 — particle dots dissolve under the cursor and ripple on click. Ported from Torchbase.",
+        useCase:
+          "Branded empty state with motion personality: “This page went up in smoke.”",
         src: "",
-        tech: ["React", "Framer Motion"]
+        liveUrl: "https://x.com/quantapar/status/2077822493302329806",
+        tech: ["React", "Canvas", "Dithering"],
     },
 ];
 

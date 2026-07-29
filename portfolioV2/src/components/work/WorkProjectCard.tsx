@@ -39,7 +39,7 @@ export function WorkProjectCard({ project }: WorkProjectCardProps) {
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
           <h3 className="text-sm font-medium text-foreground">{title}</h3>
           {project.status ? (
-            <span className="text-xs font-medium text-foreground underline decoration-wavy decoration-black underline-offset-[4px] dark:decoration-white">
+            <span className="text-xs font-medium text-foreground underline decoration-wavy decoration-foreground underline-offset-[4px]">
               {project.status}
             </span>
           ) : null}
@@ -85,15 +85,16 @@ export function WorkProjectGrid({ projects }: WorkProjectGridProps) {
         {projects.map((project, index) => {
           const isLast = index === projects.length - 1;
           const isOddCount = projects.length % 2 === 1;
-          const isLastRow =
-            index >= projects.length - (isOddCount ? 1 : 2);
+          const isLastRow = index >= projects.length - (isOddCount ? 1 : 2);
 
           return (
             <div
               key={project.slug}
               className={[
                 !isLast ? "border-b border-dotted border-border" : "",
-                !isLastRow ? "sm:border-b sm:border-dotted sm:border-border" : "sm:border-b-0",
+                !isLastRow
+                  ? "sm:border-b sm:border-dotted sm:border-border"
+                  : "sm:border-b-0",
                 index % 2 === 0
                   ? "sm:border-r sm:border-dotted sm:border-border"
                   : "",
