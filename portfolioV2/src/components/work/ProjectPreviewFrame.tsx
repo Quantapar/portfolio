@@ -18,13 +18,27 @@ export function ProjectPreviewFrame({
     return null;
   }
 
+  if (compact) {
+    // Scale visually while keeping the layout box = parent size
+    // (plain transform scale alone leaves the unscaled footprint and clips).
+    return (
+      <div
+        className={`relative h-full w-full max-w-full overflow-hidden ${className}`.trim()}
+      >
+        <div className="pointer-events-none absolute left-0 top-0 flex h-[138.89%] w-[138.89%] origin-top-left scale-[0.72] items-center justify-center p-3 sm:h-full sm:w-full sm:scale-100 sm:p-4">
+          <div className="w-full max-w-full">
+            <Preview />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
-      className={`flex w-full max-w-full items-center justify-center overflow-hidden ${
-        compact ? "px-2 py-3" : "px-4 py-8 sm:px-6 sm:py-10"
-      } ${className}`.trim()}
+      className={`flex w-full max-w-full items-center justify-center overflow-x-auto px-3 py-6 sm:overflow-hidden sm:px-6 sm:py-10 ${className}`.trim()}
     >
-      <div className={compact ? "pointer-events-none scale-[0.72] sm:scale-100" : "w-full max-w-full"}>
+      <div className="w-full min-w-0 max-w-full">
         <Preview />
       </div>
     </div>

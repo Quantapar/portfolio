@@ -376,7 +376,7 @@
 ::view-transition-new(root) {
   z-index: 2;
   clip-path: inset(0 0 100% 0);
-  animation: theme-reveal-down 600ms var(--ease-out) forwards;
+  animation: theme-reveal-down 580ms var(--ease-out) forwards;
 }
 
 @keyframes theme-reveal-down {

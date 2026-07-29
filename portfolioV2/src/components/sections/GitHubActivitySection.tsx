@@ -23,7 +23,7 @@ export function GitHubActivitySection() {
   const isCompact = useMediaQuery("(max-width: 639px)");
 
   return (
-    <section id="github" className="scroll-mt-20 px-6 py-8">
+    <section id="github" className="scroll-mt-20 px-4 py-8 sm:px-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h2 className="text-lg font-medium">GitHub Activity</h2>
         <a

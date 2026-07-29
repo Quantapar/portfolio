@@ -20,7 +20,7 @@ const contactLinks = [
 
 export function AboutContact() {
   return (
-    <section id="about" className="scroll-mt-20 px-6 py-8">
+    <section id="about" className="scroll-mt-20 px-4 py-8 sm:px-6">
       <div className="border-b border-dotted border-border pb-8">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-lg font-medium">About</h2>

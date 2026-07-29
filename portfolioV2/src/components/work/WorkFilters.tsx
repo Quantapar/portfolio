@@ -16,7 +16,7 @@ const FILTER_OPTIONS: { value: WorkFilter; label: string }[] = [
 
 export function WorkFilters({ value, onChange }: WorkFiltersProps) {
   return (
-    <div className="-mx-6 mb-6 overflow-x-auto px-6 pb-1">
+    <div className="-mx-4 mb-6 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6">
       <div className="flex min-w-max gap-2 sm:min-w-0 sm:flex-wrap">
         {FILTER_OPTIONS.map((option) => {
           const isActive = value === option.value;

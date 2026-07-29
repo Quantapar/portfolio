@@ -98,15 +98,17 @@ export const OtpVerifyPreview = () => {
   };
 
   return (
-    <div ref={containerRef} className="w-full max-w-xs mx-auto">
-      <div className="rounded-2xl px-6 pt-8 pb-10 flex flex-col items-center gap-6" style={{ background: "#000000", border: "1px solid #1a1a1a", height: 460 }}>
-        <div className="relative rounded-full" style={{ width: 180, height: 180 }}>
+    <div ref={containerRef} className="mx-auto w-full max-w-xs min-w-0">
+      <div
+        className="flex min-h-[420px] flex-col items-center gap-5 rounded-2xl px-4 pb-8 pt-6 sm:min-h-[460px] sm:gap-6 sm:px-6 sm:pb-10 sm:pt-8"
+        style={{ background: "#000000", border: "1px solid #1a1a1a" }}
+      >
+        <div className="relative aspect-square w-[min(100%,180px)] shrink-0 rounded-full">
           <img
             src={SPHERE_GIF}
             alt=""
-            className="absolute inset-0 rounded-full pointer-events-none select-none"
+            className="absolute inset-0 h-full w-full rounded-full object-cover pointer-events-none select-none"
             style={{
-              width: 180, height: 180, objectFit: "cover",
               opacity: (loading || verified) ? 0 : 1,
               transition: "opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
@@ -114,15 +116,14 @@ export const OtpVerifyPreview = () => {
           <img
             src={VERIFIED_IMG}
             alt=""
-            className="absolute inset-0 rounded-full pointer-events-none select-none"
+            className="absolute inset-0 h-full w-full rounded-full object-cover pointer-events-none select-none"
             style={{
-              width: 180, height: 180, objectFit: "cover",
               opacity: (loading || verified) ? 1 : 0,
               transition: "opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
             }}
           />
           <div
-            className="absolute inset-0 rounded-full flex items-center justify-center"
+            className="absolute inset-0 flex items-center justify-center rounded-full"
             style={{
               opacity: verified ? 1 : 0,
               transition: "opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -136,7 +137,7 @@ export const OtpVerifyPreview = () => {
           {loading ? (
             <motion.div
               key="loading"
-              className="flex flex-col items-center justify-center w-full"
+              className="flex w-full flex-col items-center justify-center"
               style={{ minHeight: 148 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -148,21 +149,21 @@ export const OtpVerifyPreview = () => {
           ) : !verified ? (
             <motion.div
               key="input"
-              className="flex flex-col items-center gap-4 w-full"
+              className="flex w-full min-w-0 flex-col items-center gap-4"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
             >
               <div className="text-center">
-                <h3 className="text-2xl font-medium mb-1" style={{ fontFamily: "Georgia, 'Times New Roman', serif", color: "#fff" }}>Enter the code</h3>
+                <h3 className="mb-1 text-xl font-medium sm:text-2xl" style={{ fontFamily: "Georgia, 'Times New Roman', serif", color: "#fff" }}>Enter the code</h3>
                 <p className="text-xs leading-relaxed" style={{ color: "#888" }}>
                   We sent you a code to your email, please<br />enter to verify your address.
                 </p>
               </div>
 
               <motion.div
-                className="flex gap-2"
+                className="flex w-full max-w-[280px] gap-1.5 sm:gap-2"
                 onPaste={handlePaste}
                 animate={shaking ? { x: [0, -8, 8, -6, 6, -3, 3, 0] } : { x: 0 }}
                 transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
@@ -177,10 +178,8 @@ export const OtpVerifyPreview = () => {
                     value={val}
                     onChange={(e) => handleChange(i, e.target.value)}
                     onKeyDown={(e) => handleKeyDown(i, e)}
-                    className="rounded-lg text-center text-lg font-semibold outline-none"
+                    className="h-11 min-w-0 flex-1 rounded-lg text-center text-base font-semibold outline-none sm:h-[52px] sm:text-lg"
                     style={{
-                      width: 44,
-                      height: 52,
                       background: "transparent",
                       color: "#fff",
                       border: `1.5px solid ${shaking ? "#ef4444" : "#444"}`,
@@ -202,7 +201,7 @@ export const OtpVerifyPreview = () => {
           ) : (
             <motion.div
               key="success"
-              className="flex flex-col items-center justify-center gap-5 w-full"
+              className="flex w-full flex-col items-center justify-center gap-5"
               style={{ minHeight: 148 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -211,9 +210,9 @@ export const OtpVerifyPreview = () => {
             >
               <div className="text-center">
                 <p className="text-2xl font-medium" style={{ fontFamily: "Georgia, 'Times New Roman', serif", color: "#fff" }}>Verified</p>
-                <p className="text-sm mt-2" style={{ color: "#888" }}>Your email has been confirmed</p>
+                <p className="mt-2 text-sm" style={{ color: "#888" }}>Your email has been confirmed</p>
               </div>
-              <p className="text-xs mt-4" style={{ color: "#888" }}>
+              <p className="mt-4 text-xs" style={{ color: "#888" }}>
                 Not working?{" "}
                 <span className="underline cursor-pointer" style={{ color: "#fff" }} onClick={reset}>Try again</span>
               </p>

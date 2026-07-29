@@ -15,7 +15,7 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
   const heroSrc = project.hero ?? project.src;
 
   return (
-    <article className="px-6 py-8">
+    <article className="px-4 py-8 sm:px-6">
       <Link
         to="/work"
         className="pressable btn-bevel relative mb-8 inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"

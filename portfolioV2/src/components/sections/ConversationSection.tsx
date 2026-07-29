@@ -5,7 +5,7 @@ import { links } from "../../data/site";
 
 export function ConversationSection() {
   return (
-    <section className="px-6 py-8 pb-12">
+    <section className="px-4 py-8 pb-12 sm:px-6">
       <h2 className="text-lg font-medium">Start a Conversation</h2>
 
       <p className="mt-6 max-w-md text-balance text-xl leading-snug font-medium tracking-tight sm:text-2xl">

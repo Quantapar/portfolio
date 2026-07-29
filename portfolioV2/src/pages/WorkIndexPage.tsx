@@ -23,7 +23,7 @@ export function WorkIndexPage() {
   );
 
   return (
-    <main className="px-6 py-8">
+    <main className="px-4 py-8 sm:px-6">
       <LinkBack />
       <header className="mb-6 border-b border-dotted border-border pb-6">
         <h1 className="text-lg font-medium">Work</h1>

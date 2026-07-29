@@ -6,7 +6,7 @@ export function WorkGallery() {
   const featured = getFeaturedProjects();
 
   return (
-    <section id="work" className="scroll-mt-20 px-6 py-8">
+    <section id="work" className="scroll-mt-20 px-4 py-8 sm:px-6">
       <h2 className="mb-6 text-lg font-medium">Work</h2>
       <WorkProjectGrid projects={featured} />
       <div className="mt-8">

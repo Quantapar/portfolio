@@ -34,7 +34,7 @@ function ExpandIcon({ open }: { open: boolean }) {
   };
 
   return (
-    <span className="relative hidden size-5 shrink-0 self-center items-center justify-center sm:flex">
+    <span className="relative flex size-5 shrink-0 self-center items-center justify-center">
       <motion.span
         aria-hidden="true"
         className="absolute inset-0 flex items-center justify-center text-base font-semibold leading-none text-foreground/65"

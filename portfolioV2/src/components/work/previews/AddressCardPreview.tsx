@@ -21,7 +21,7 @@ export const AddressCardPreview = () => {
   const [bellRing, setBellRing] = useState(false);
 
   return (
-    <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-5">
+    <div className="mx-auto flex w-full min-w-0 max-w-sm flex-col items-center gap-5">
       <motion.div
         className="w-full aspect-[1.7] rounded-2xl p-5 flex flex-col justify-between text-white shadow-lg relative overflow-hidden"
         animate={{ backgroundColor: color }}
@@ -164,12 +164,14 @@ export const AddressCardPreview = () => {
           </div>
         </div>
       </motion.div>
-      <div className="flex gap-2.5">
+      <div className="flex w-full max-w-full flex-wrap items-center justify-center gap-2 sm:gap-2.5">
         {COLORS.map((c) => (
           <button
             key={c}
+            type="button"
             onClick={() => setColor(c)}
-            className="relative w-6 h-6 rounded-full"
+            className="relative size-7 shrink-0 rounded-full sm:size-6"
+            aria-label={`Set color ${c}`}
           >
             <AnimatePresence>
               {color === c && (
@@ -182,7 +184,7 @@ export const AddressCardPreview = () => {
               )}
             </AnimatePresence>
             <div
-              className="w-full h-full rounded-full"
+              className="h-full w-full rounded-full"
               style={{ backgroundColor: c }}
             />
           </button>

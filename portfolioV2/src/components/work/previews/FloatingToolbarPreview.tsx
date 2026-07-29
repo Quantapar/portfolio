@@ -1,35 +1,36 @@
 import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "../../../hooks/useMediaQuery";
 
-const HomeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+const HomeIcon = ({ size }: { size: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
     <polyline points="9 22 9 12 15 12 15 22" />
   </svg>
 );
-const LayersIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+const LayersIcon = ({ size }: { size: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <polygon points="12 2 2 7 12 12 22 7 12 2" />
     <polyline points="2 17 12 22 22 17" />
     <polyline points="2 12 12 17 22 12" />
   </svg>
 );
-const GridIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+const GridIcon = ({ size }: { size: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <rect x="3" y="3" width="7" height="7" rx="1" />
     <rect x="14" y="3" width="7" height="7" rx="1" />
     <rect x="3" y="14" width="7" height="7" rx="1" />
     <rect x="14" y="14" width="7" height="7" rx="1" />
   </svg>
 );
-const UserIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+const UserIcon = ({ size }: { size: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
     <circle cx="12" cy="7" r="4" />
   </svg>
 );
-const MoonIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+const MoonIcon = ({ size }: { size: number }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
   </svg>
 );
@@ -37,30 +38,34 @@ const MoonIcon = () => (
 interface ToolbarItem {
   id: string;
   label: string;
-  icon: React.ReactNode;
+  icon: (size: number) => React.ReactNode;
 }
 
 const ITEMS: ToolbarItem[] = [
-  { id: "home", label: "Home", icon: <HomeIcon /> },
-  { id: "projects", label: "Projects", icon: <LayersIcon /> },
-  { id: "components", label: "Components", icon: <GridIcon /> },
-  { id: "about", label: "About", icon: <UserIcon /> },
-  { id: "theme", label: "Dark Mode", icon: <MoonIcon /> },
+  { id: "home", label: "Home", icon: (size) => <HomeIcon size={size} /> },
+  { id: "projects", label: "Projects", icon: (size) => <LayersIcon size={size} /> },
+  { id: "components", label: "Components", icon: (size) => <GridIcon size={size} /> },
+  { id: "about", label: "About", icon: (size) => <UserIcon size={size} /> },
+  { id: "theme", label: "Dark Mode", icon: (size) => <MoonIcon size={size} /> },
 ];
 
 const SEPARATOR_AFTER = 3;
-const ITEM_SIZE = 44;
-const GAP = 8;
-const PADDING = 16;
-const SEPARATOR_WIDTH = 13;
-
-const getItemX = (index: number) => {
-  let x = PADDING + index * (ITEM_SIZE + GAP);
-  if (index > SEPARATOR_AFTER) x += SEPARATOR_WIDTH;
-  return x;
-};
 
 export const FloatingToolbarPreview = () => {
+  const isNarrow = useMediaQuery("(max-width: 639px)");
+  const canHover = useMediaQuery("(hover: hover) and (pointer: fine)");
+  const itemSize = isNarrow ? 36 : 44;
+  const gap = isNarrow ? 4 : 8;
+  const padding = isNarrow ? 10 : 16;
+  const separatorWidth = isNarrow ? 9 : 13;
+  const iconSize = isNarrow ? 15 : 18;
+
+  const getItemX = (index: number) => {
+    let x = padding + index * (itemSize + gap);
+    if (index > SEPARATOR_AFTER) x += separatorWidth;
+    return x;
+  };
+
   const [activeId, setActiveId] = useState("home");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [direction, setDirection] = useState(0);
@@ -79,24 +84,32 @@ export const FloatingToolbarPreview = () => {
     setHoveredId(id);
   };
 
+  const handleSelect = (id: string) => {
+    setActiveId(id);
+    if (!canHover) {
+      handleHover(id);
+    }
+  };
+
   const hoveredItem = ITEMS.find((item) => item.id === hoveredId);
   const hoveredIndex = ITEMS.findIndex((item) => item.id === hoveredId);
   const instantTooltip = hadTooltipRef.current;
 
   const bgX = hoveredItem ? getItemX(hoveredIndex) : 0;
-  const tooltipX = hoveredItem ? getItemX(hoveredIndex) + ITEM_SIZE / 2 : 0;
+  const tooltipX = hoveredItem ? getItemX(hoveredIndex) + itemSize / 2 : 0;
 
   return (
-    <div className="flex items-center justify-center py-8">
+    <div className="flex w-full max-w-full items-center justify-center overflow-x-auto py-6 sm:py-8">
       <div
-        className="relative flex items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 shadow-lg backdrop-blur-xl"
-        onMouseLeave={() => handleHover(null)}
+        className="relative flex max-w-full shrink-0 items-center rounded-full border border-border bg-background/80 shadow-lg backdrop-blur-xl"
+        style={{ gap, paddingLeft: padding, paddingRight: padding, paddingTop: 8, paddingBottom: 8 }}
+        onMouseLeave={() => canHover && handleHover(null)}
       >
         <AnimatePresence>
           {hoveredId && (
             <motion.div
               className="absolute top-1/2 left-0 -translate-y-1/2 rounded-xl bg-foreground/5"
-              style={{ width: ITEM_SIZE, height: ITEM_SIZE }}
+              style={{ width: itemSize, height: itemSize }}
               initial={{ opacity: 0, x: bgX, scale: 0.95 }}
               animate={{ opacity: 1, x: bgX, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -108,19 +121,24 @@ export const FloatingToolbarPreview = () => {
         {ITEMS.map((item, index) => (
           <React.Fragment key={item.id}>
             {index === SEPARATOR_AFTER + 1 && (
-              <div className="mx-0.5 h-5 w-px bg-border" />
+              <div
+                className="bg-border"
+                style={{ width: 1, height: isNarrow ? 16 : 20, marginLeft: 2, marginRight: 2 }}
+              />
             )}
             <button
               type="button"
-              onClick={() => setActiveId(item.id)}
-              onMouseEnter={() => handleHover(item.id)}
-              className={`relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl outline-none transition-colors duration-200 active:scale-[0.97] ${
+              onClick={() => handleSelect(item.id)}
+              onMouseEnter={() => canHover && handleHover(item.id)}
+              aria-label={item.label}
+              className={`relative flex shrink-0 cursor-pointer items-center justify-center rounded-xl outline-none transition-colors duration-200 active:scale-[0.97] ${
                 activeId === item.id
                   ? "text-foreground"
                   : "text-foreground/50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground"
               }`}
+              style={{ width: itemSize, height: itemSize }}
             >
-              <span className="relative z-10">{item.icon}</span>
+              <span className="relative z-10">{item.icon(iconSize)}</span>
               {activeId === item.id && (
                 <motion.div
                   layoutId="preview-active-dot"
