@@ -130,8 +130,7 @@ export function ExperienceItem({
               style={{
                 opacity: open ? 1 : 0,
                 transitionDuration: shouldReduceMotion ? "120ms" : "180ms",
-                transitionDelay:
-                  open && !shouldReduceMotion ? "40ms" : "0ms",
+                transitionDelay: open && !shouldReduceMotion ? "40ms" : "0ms",
               }}
             >
               {item.bullets.map((bullet) => (
@@ -149,8 +148,7 @@ export function ExperienceItem({
               style={{
                 opacity: open ? 1 : 0,
                 transitionDuration: shouldReduceMotion ? "120ms" : "180ms",
-                transitionDelay:
-                  open && !shouldReduceMotion ? "60ms" : "0ms",
+                transitionDelay: open && !shouldReduceMotion ? "60ms" : "0ms",
               }}
             >
               {item.tags.map((tag) => (

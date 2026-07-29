@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GitHubCalendar } from "react-github-calendar";
+import { GitHubCalendar, type Activity } from "react-github-calendar";
 import { BevelBox } from "../ui/BevelBox";
 import { GitHubIcon } from "../ui/ContactLink";
 import { useTheme } from "../../hooks/useTheme";
@@ -16,6 +16,16 @@ const githubTheme = {
   light: ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
   dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
 };
+
+function formatActivityDate(isoDate: string) {
+  const [year, month, day] = isoDate.split("-");
+  return `${day}.${month}.${year}`;
+}
+
+function activityTooltipText(activity: Activity) {
+  const noun = activity.count === 1 ? "contribution" : "contributions";
+  return `${activity.count} ${noun} on ${formatActivityDate(activity.date)}`;
+}
 
 export function GitHubActivitySection() {
   const { theme } = useTheme();
@@ -58,6 +68,14 @@ export function GitHubActivitySection() {
               legend: {
                 less: "Less",
                 more: "More",
+              },
+            }}
+            tooltips={{
+              activity: {
+                text: activityTooltipText,
+                withArrow: true,
+                placement: "top",
+                offset: 8,
               },
             }}
             errorMessage="Could not load GitHub activity."

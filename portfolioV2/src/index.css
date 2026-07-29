@@ -362,6 +362,28 @@
   }
 }
 
+/* Portaled outside .github-activity — must stay global */
+.react-activity-calendar__tooltip {
+  z-index: 50;
+  width: max-content;
+  max-width: calc(100vw - 20px);
+  padding: 0.35em 0.65em;
+  border: 1px dotted color-mix(in srgb, var(--background) 28%, transparent);
+  border-radius: 2px;
+  background-color: var(--foreground);
+  color: var(--background);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.react-activity-calendar__tooltip-arrow {
+  fill: var(--foreground);
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
