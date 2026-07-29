@@ -440,56 +440,56 @@
   4% {
     filter: hue-rotate(320deg) saturate(2.2) brightness(1.15) sepia(0.2);
     clip-path: inset(0);
-    transform: translate(-2px, 1px) scale(1.01);
+    transform: translate(-1px, 0.5px) scale(1.005);
   }
   8% {
     filter: hue-rotate(-240deg) saturate(2.3) contrast(1.25);
     clip-path: inset(42% 0 56% 0);
-    transform: translate(2px, -1px);
+    transform: translate(1px, -0.5px);
   }
   10% {
     filter: hue-rotate(180deg) saturate(1.8) brightness(0.9);
     clip-path: inset(0);
-    transform: translate(-1px, 1px);
+    transform: translate(-0.5px, 0.5px);
   }
   18% {
     filter: hue-rotate(-90deg) saturate(2.2) contrast(1.2) sepia(0.15);
     clip-path: inset(0);
-    transform: translate(1px, -1px);
+    transform: translate(0.5px, -0.5px);
   }
   28% {
     filter: hue-rotate(60deg) saturate(2) brightness(1.1);
     clip-path: inset(18% 0 80% 0);
-    transform: translate(-1px, -1px);
+    transform: translate(-0.5px, -0.5px);
   }
   30% {
     filter: hue-rotate(-60deg) saturate(2.1) contrast(1.15);
     clip-path: inset(0);
-    transform: translate(1px, 1px);
+    transform: translate(0.5px, 0.5px);
   }
   42% {
     filter: hue-rotate(210deg) saturate(2) brightness(0.92) sepia(0.2);
     clip-path: inset(0);
-    transform: translate(-1px, 1px);
+    transform: translate(-0.5px, 0.5px);
   }
   55% {
     filter: hue-rotate(-280deg) saturate(2.2) contrast(1.15);
     clip-path: inset(68% 0 30% 0);
-    transform: translate(1px, -1px);
+    transform: translate(0.5px, -0.5px);
   }
   57% {
     filter: hue-rotate(45deg) saturate(2) brightness(1.05);
     clip-path: inset(0);
-    transform: translate(-1px, 1px);
+    transform: translate(-0.5px, 0.5px);
   }
   72% {
     filter: hue-rotate(270deg) saturate(2.1) sepia(0.2);
     clip-path: inset(0);
-    transform: translate(1px, -1px);
+    transform: translate(0.5px, -0.5px);
   }
   88% {
     filter: hue-rotate(-135deg) saturate(1.8) contrast(1.1);
     clip-path: inset(0);
-    transform: translate(-1px, 0);
+    transform: translate(-0.5px, 0);
   }
 }
