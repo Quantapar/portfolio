@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { getFeaturedProjects } from "../../data/projects";
-import { BevelBox } from "../ui/BevelBox";
-import { Project } from "../work/Project";
+import { WorkProjectGrid } from "../work/WorkProjectCard";
 
 export function WorkGallery() {
   const featured = getFeaturedProjects();
@@ -9,11 +8,7 @@ export function WorkGallery() {
   return (
     <section id="work" className="scroll-mt-20 px-6 py-8">
       <h2 className="mb-6 text-lg font-medium">Work</h2>
-      <BevelBox>
-        {featured.map((project) => (
-          <Project key={project.slug} project={project} showMeta />
-        ))}
-      </BevelBox>
+      <WorkProjectGrid projects={featured} />
       <div className="mt-8">
         <Link
           to="/work"

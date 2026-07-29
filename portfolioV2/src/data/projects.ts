@@ -26,20 +26,6 @@ export const PROJECT_TYPE_LABELS: Record < ProjectType,
 
 export const projects: Project[] = [
     {
-        slug: "gooey-text",
-        title1: "Gooey",
-        title2: "Text",
-        type: "product",
-        featured: true,
-        year: 2025,
-        summary: "Type any letter and watch it melt into a gooey blob. SVG filters and Framer Motion drive the morph effect.",
-        useCase: "Keyboard-driven morph animation where circles flow along each glyph's skeleton and fuse into one liquid shape.",
-        src: "/work/gooey-text.png",
-        liveUrl: "https://gooey-text.quantapar.com/",
-        sourceUrl: "https://github.com/Quantapar/Gooey-Text",
-        tech: ["React", "TypeScript", "Framer Motion", "SVG Filters"]
-    },
-    {
         slug: "onchain-ui",
         title1: "OnChain",
         title2: "UI",
@@ -53,6 +39,20 @@ export const projects: Project[] = [
         liveUrl: "https://onchainui.quantapar.com/",
         sourceUrl: "https://github.com/Quantapar/OnChainUI",
         tech: ["React", "TypeScript", "Tailwind CSS", "npm"]
+    },
+    {
+        slug: "gooey-text",
+        title1: "Gooey",
+        title2: "Text",
+        type: "product",
+        featured: true,
+        year: 2025,
+        summary: "Type any letter and watch it melt into a gooey blob. SVG filters and Framer Motion drive the morph effect.",
+        useCase: "Keyboard-driven morph animation where circles flow along each glyph's skeleton and fuse into one liquid shape.",
+        src: "/work/gooey-text.png",
+        liveUrl: "https://gooey-text.quantapar.com/",
+        sourceUrl: "https://github.com/Quantapar/Gooey-Text",
+        tech: ["React", "TypeScript", "Framer Motion", "SVG Filters"]
     },
     {
         slug: "pulse-api",
@@ -132,19 +132,23 @@ export const projects: Project[] = [
             "Docker"
         ]
     }, {
-    slug: "morn-morn",
-    title1: "Morn",
-    title2: "Morn",
-    type: "mobile",
-    featured: false,
-    year: 2025,
-    summary:
-      "Bet on yourself, not prediction markets. A Solana Mobile habit app where morning tasks are backed by a small $SOL or $SKR stake.",
-    useCase:
-      "Finish the task — stake returns. Miss it — your stake rewards people who actually showed up. Accountability with skin in the game.",
-    src: "/work/morn-morn.png",
-    tech: ["Expo", "React Native", "Reanimated", "Solana", "NativeWind"],
-  }, {
+        slug: "morn-morn",
+        title1: "Morn",
+        title2: "Morn",
+        type: "mobile",
+        featured: false,
+        year: 2025,
+        summary: "Bet on yourself, not prediction markets. A Solana Mobile habit app where morning tasks are backed by a small $SOL or $SKR stake.",
+        useCase: "Finish the task — stake returns. Miss it — your stake rewards people who actually showed up. Accountability with skin in the game.",
+        src: "/work/morn-morn.png",
+        tech: [
+            "Expo",
+            "React Native",
+            "Reanimated",
+            "Solana",
+            "NativeWind"
+        ]
+    }, {
         slug: "krane-apps-revamp",
         title1: "Krane Apps",
         title2: "Revamp",
@@ -153,9 +157,9 @@ export const projects: Project[] = [
         year: 2025,
         summary: "Full UI revamp of the Krane Apps website with a GitHub-style design. Rebuilt for a cleaner, more professional look.",
         useCase: "Open-source contribution — GitHub-inspired layout and component patterns for a developer tools company site.",
-    src: "/work/krane-apps.png",
-    liveUrl: "https://krane-apps-github-style-website.vercel.app/",
-    sourceUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
+        src: "/work/krane-apps.png",
+        liveUrl: "https://krane-apps-github-style-website.vercel.app/",
+        sourceUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
         tech: ["React", "UI Design", "Open Source"]
     }, {
         slug: "torchbase-landing",
@@ -231,13 +235,11 @@ export const projects: Project[] = [
         type: "component",
         featured: false,
         year: 2025,
-        summary:
-          "An interactive dithered 404 — particle dots dissolve under the cursor and ripple on click. Ported from Torchbase.",
-        useCase:
-          "Branded empty state with motion personality: “This page went up in smoke.”",
+        summary: "An interactive dithered 404 — particle dots dissolve under the cursor and ripple on click. Ported from Torchbase.",
+        useCase: "Branded empty state with motion personality: “This page went up in smoke.”",
         src: "",
         liveUrl: "https://x.com/quantapar/status/2077822493302329806",
-        tech: ["React", "Canvas", "Dithering"],
+        tech: ["React", "Canvas", "Dithering"]
     },
 ];
 

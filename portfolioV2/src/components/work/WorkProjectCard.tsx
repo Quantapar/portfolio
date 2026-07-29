@@ -36,11 +36,11 @@ export function WorkProjectCard({ project }: WorkProjectCardProps) {
       </div>
 
       <div className="min-w-0">
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
           <h3 className="text-sm font-medium text-foreground">{title}</h3>
           {project.status ? (
             <span className="text-xs font-medium text-foreground underline decoration-wavy decoration-foreground underline-offset-[4px]">
-              {project.status}
+              ({project.status})
             </span>
           ) : null}
         </div>
