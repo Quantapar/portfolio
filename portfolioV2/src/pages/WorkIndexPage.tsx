@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
 import { useMemo, useState } from "react";
 import { getProjectsByType, projects, sortProjects } from "../data/projects";
+import { BackHeading } from "../components/ui/BackHeading";
 import { WorkComponentDirectory } from "../components/work/WorkComponentDirectory";
 import { WorkFilters, type WorkFilter } from "../components/work/WorkFilters";
 import { WorkProjectGrid } from "../components/work/WorkProjectCard";
@@ -24,12 +24,8 @@ export function WorkIndexPage() {
 
   return (
     <main className="px-4 py-8 sm:px-6">
-      <LinkBack />
       <header className="mb-6 border-b border-dotted border-border pb-6">
-        <h1 className="text-lg font-medium">Work</h1>
-        <p className="mt-2 max-w-md text-sm leading-relaxed text-foreground/75">
-          Products, components, and mobile work i have worked on.
-        </p>
+        <BackHeading to="/">Work</BackHeading>
       </header>
 
       <WorkFilters value={filter} onChange={setFilter} />
@@ -57,36 +53,5 @@ export function WorkIndexPage() {
         <WorkComponentDirectory projects={componentProjects} />
       ) : null}
     </main>
-  );
-}
-
-function LinkBack() {
-  return (
-    <Link
-      to="/"
-      className="pressable btn-bevel relative mb-8 inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"
-    >
-      <span className="btn-bevel-frame" aria-hidden="true" />
-      <span
-        className="btn-bevel-corner btn-bevel-corner-tl"
-        aria-hidden="true"
-      />
-      <span
-        className="btn-bevel-corner btn-bevel-corner-tr"
-        aria-hidden="true"
-      />
-      <span
-        className="btn-bevel-corner btn-bevel-corner-bl"
-        aria-hidden="true"
-      />
-      <span
-        className="btn-bevel-corner btn-bevel-corner-br"
-        aria-hidden="true"
-      />
-      <span aria-hidden="true" className="text-foreground/50">
-        ←
-      </span>
-      Home
-    </Link>
   );
 }

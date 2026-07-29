@@ -2,6 +2,23 @@ import { Link } from "react-router-dom";
 import { getFeaturedProjects } from "../../data/projects";
 import { WorkProjectGrid } from "../work/WorkProjectCard";
 
+function ChevronRightIcon() {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="size-3.5 text-foreground/50"
+      aria-hidden="true"
+    >
+      <path d="M6 3l5 5-5 5" />
+    </svg>
+  );
+}
+
 export function WorkGallery() {
   const featured = getFeaturedProjects();
 
@@ -32,9 +49,7 @@ export function WorkGallery() {
             aria-hidden="true"
           />
           View all work
-          <span aria-hidden="true" className="text-foreground/50">
-            →
-          </span>
+          <ChevronRightIcon />
         </Link>
       </div>
     </section>

@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import {
   PROJECT_TYPE_LABELS,
   type Project,
 } from "../../data/projects";
+import { BackHeading } from "../ui/BackHeading";
 import { WorkLink } from "./WorkLink";
 import { ProjectPreviewOrImage } from "./ProjectPreviewFrame";
 
@@ -16,36 +16,11 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
 
   return (
     <article className="px-4 py-8 sm:px-6">
-      <Link
-        to="/work"
-        className="pressable btn-bevel relative mb-8 inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"
-      >
-        <span className="btn-bevel-frame" aria-hidden="true" />
-        <span
-          className="btn-bevel-corner btn-bevel-corner-tl"
-          aria-hidden="true"
-        />
-        <span
-          className="btn-bevel-corner btn-bevel-corner-tr"
-          aria-hidden="true"
-        />
-        <span
-          className="btn-bevel-corner btn-bevel-corner-bl"
-          aria-hidden="true"
-        />
-        <span
-          className="btn-bevel-corner btn-bevel-corner-br"
-          aria-hidden="true"
-        />
-        <span aria-hidden="true" className="text-foreground/50">
-          ←
-        </span>
-        Work
-      </Link>
-
       <header className="mb-6 border-b border-dotted border-border pb-6">
         <div className="flex items-center justify-between gap-4">
-          <h1 className="min-w-0 text-lg font-medium">{project.title1} {project.title2}</h1>
+          <BackHeading to="/work" className="min-w-0">
+            {project.title1} {project.title2}
+          </BackHeading>
           <div className="flex shrink-0 flex-col items-end gap-1 text-xs text-foreground/50">
             {project.type !== "product" ? (
               <span className="inline-flex items-center border border-dotted border-border px-2 py-0.5">
