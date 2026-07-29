@@ -1,4 +1,5 @@
 import { links } from "../../data/site";
+import { FightClubAvatar } from "../ui/FightClubAvatar";
 import { Highlight } from "../ui/Highlight";
 import { ReachOutSuffix } from "../ui/ReachOutLine";
 import {
@@ -34,11 +35,7 @@ export function AboutContact() {
         </div>
 
         <div className="mb-6 flex items-center gap-3">
-          <img
-            src="/avatar.jpg"
-            alt=""
-            className="size-11 shrink-0 border border-dotted border-border object-cover"
-          />
+          <FightClubAvatar />
           <div className="min-w-0">
             <p className="font-heading text-base font-medium tracking-tight text-foreground">
               Manu Sharma

@@ -18,8 +18,17 @@ type ThemeContextValue = {
 };
 
 const STORAGE_KEY = "theme";
+/** Flip to false later if we decide to drop the theme woosh. */
+const ENABLE_THEME_SOUND = true;
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
+
+function playThemeSound() {
+  if (!ENABLE_THEME_SOUND) return;
+  const audio = new Audio("/audio/woosh.mp3");
+  audio.volume = 0.35;
+  void audio.play().catch(() => {});
+}
 
 function getPreferredTheme(): Theme {
   const stored = localStorage.getItem(STORAGE_KEY);
@@ -58,6 +67,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+
+    playThemeSound();
 
     if (prefersReducedMotion || !document.startViewTransition) {
       setTheme(nextTheme);

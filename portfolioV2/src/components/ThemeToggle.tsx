@@ -1,8 +1,5 @@
 import { useTheme } from "../context/ThemeProvider";
 
-const ICON_CLIP_HIDDEN = "circle(8% at 50% 50%)";
-const ICON_CLIP_VISIBLE = "circle(100% at 50% 50%)";
-
 function SunIcon() {
   return (
     <svg
@@ -29,7 +26,7 @@ function MoonIcon() {
       className="size-4"
       aria-hidden="true"
     >
-      <path d="M21 14.5A8.5 8.5 0 1 1 9.5 3a6.5 6.5 0 0 0 11.5 11.5z" />
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
   );
 }
@@ -61,24 +58,7 @@ export function ThemeToggle() {
         className="btn-bevel-corner btn-bevel-corner-br"
         aria-hidden="true"
       />
-      <span className="relative size-4">
-        <span
-          className="absolute inset-0 flex items-center justify-center icon-morph"
-          style={{
-            clipPath: isDark ? ICON_CLIP_HIDDEN : ICON_CLIP_VISIBLE,
-          }}
-        >
-          <SunIcon />
-        </span>
-        <span
-          className="absolute inset-0 flex items-center justify-center icon-morph"
-          style={{
-            clipPath: isDark ? ICON_CLIP_VISIBLE : ICON_CLIP_HIDDEN,
-          }}
-        >
-          <MoonIcon />
-        </span>
-      </span>
+      {isDark ? <SunIcon /> : <MoonIcon />}
     </button>
   );
 }

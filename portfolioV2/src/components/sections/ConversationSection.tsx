@@ -1,11 +1,12 @@
 import { BevelBox } from "../ui/BevelBox";
 import { Highlight } from "../ui/Highlight";
+import { Signature } from "../ui/Signature";
 
 import { links } from "../../data/site";
 
 export function ConversationSection() {
   return (
-    <section className="px-4 py-8 pb-12 sm:px-6">
+    <section className="px-4 py-8 pb-3 sm:px-6">
       <h2 className="text-lg font-medium">Start a Conversation</h2>
 
       <p className="mt-6 max-w-md text-balance text-xl leading-snug font-medium tracking-tight sm:text-2xl">
@@ -26,12 +27,18 @@ export function ConversationSection() {
         </BevelBox>
       </div>
 
-      <div className="mt-16 border-t border-dotted border-border pt-8 text-center text-sm text-foreground/50">
-        <p>
-          Designed &amp; Developed by{" "}
-          <span className="font-medium text-foreground">Manu Sharma</span>
-        </p>
-        <p className="mt-1">© 2026 All rights reserved.</p>
+      <div className="mt-16 overflow-visible border-t border-dotted border-border pt-8 pb-0">
+        <div className="flex justify-center overflow-visible leading-none">
+          <Signature
+            text="Manu Sharma"
+            fontSize={23}
+            duration={1.5}
+            delay={0.1}
+            inView
+            once
+            className="max-w-full text-foreground/90"
+          />
+        </div>
       </div>
     </section>
   );
