@@ -237,7 +237,6 @@ export const projects: Project[] = [
         summary: "An interactive dithered 404 — particle dots dissolve under the cursor and ripple on click. Ported from Torchbase.",
         useCase: "Branded empty state with motion personality: “This page went up in smoke.”",
         src: "",
-        liveUrl: "https://x.com/quantapar/status/2077822493302329806",
         tech: ["React", "Canvas", "Dithering"]
     },
 ];

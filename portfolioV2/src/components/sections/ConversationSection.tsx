@@ -9,8 +9,8 @@ export function ConversationSection() {
       <h2 className="text-lg font-medium">Start a Conversation</h2>
 
       <p className="mt-6 max-w-md text-balance text-xl leading-snug font-medium tracking-tight sm:text-2xl">
-        Designing intuitive interfaces with{" "}
-        <Highlight>modern web tech</Highlight>
+        Building clean interfaces with{" "}
+        <Highlight>React, Tailwind, and Motion</Highlight>
       </p>
 
       <div className="mt-8">
@@ -21,7 +21,7 @@ export function ConversationSection() {
             rel="noreferrer"
             className="pressable block px-4 py-3 text-sm text-balance"
           >
-            Let&apos;s build something amazing together.
+            Say hello if you&apos;re building something cool.
           </a>
         </BevelBox>
       </div>

@@ -28,8 +28,7 @@ export function WorkIndexPage() {
       <header className="mb-6 border-b border-dotted border-border pb-6">
         <h1 className="text-lg font-medium">Work</h1>
         <p className="mt-2 max-w-md text-sm leading-relaxed text-foreground/75">
-          Products, components, and mobile work — shown directly, no deep dive
-          required.
+          Products, components, and mobile work i have worked on.
         </p>
       </header>
 

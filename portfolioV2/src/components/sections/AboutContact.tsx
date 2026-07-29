@@ -32,21 +32,47 @@ export function AboutContact() {
             Open to work
           </span>
         </div>
-        <ul className="space-y-4 text-pretty text-sm leading-relaxed text-foreground/75">
-          <li>
-            I&apos;m Manu a 20 years old <Highlight>Design Engineer</Highlight>{" "}
-            based out of India.
-            <br />I build clean, interactive web and mobile UI components that
-            scale across platforms and users.
-          </li>
-          <li>
-            I design and code user interfaces with{" "}
-            <Highlight>React, Tailwind, and Motion</Highlight>, with a focus on
-            usability, performance, and the little details that make products
-            feel polished
+
+        <div className="mb-6 flex items-center gap-3">
+          <img
+            src="/avatar.jpg"
+            alt=""
+            className="size-11 shrink-0 border border-dotted border-border object-cover"
+          />
+          <div className="min-w-0">
+            <p className="font-heading text-base font-medium tracking-tight text-foreground">
+              Manu Sharma
+            </p>
+            <p className="text-sm text-foreground/50">
+              aka <span className="italic">quantapar</span>
+            </p>
+          </div>
+        </div>
+
+        <div className="max-w-xl space-y-3 text-pretty text-sm leading-relaxed text-foreground/75">
+          <p>
+            I&apos;m a{" "}
+            <Highlight href="https://vercel.com/blog/design-engineering-at-vercel">
+              Design Engineer
+            </Highlight>{" "}
+            based in India, building clean, interactive web and mobile UI
+            components that scale across platforms and users
+          </p>
+          <p>
+            I work with <Highlight>React, Tailwind, and Motion</Highlight>, and
+            I&apos;m usually on{" "}
+            <a
+              href={links.x}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-foreground underline decoration-dotted decoration-foreground/40 underline-offset-[3px]"
+            >
+              X / Twitter
+            </a>{" "}
+            sharing what I&apos;m making
             <ReachOutSuffix />
-          </li>
-        </ul>
+          </p>
+        </div>
       </div>
 
       <div id="contact" className="scroll-mt-20 pt-8">
