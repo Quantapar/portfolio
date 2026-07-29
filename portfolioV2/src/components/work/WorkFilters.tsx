@@ -1,5 +1,4 @@
 import type { ProjectType } from "../../data/projects";
-import { PROJECT_TYPE_LABELS } from "../../data/projects";
 
 export type WorkFilter = "all" | ProjectType;
 
@@ -10,11 +9,9 @@ type WorkFiltersProps = {
 
 const FILTER_OPTIONS: { value: WorkFilter; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "product", label: PROJECT_TYPE_LABELS.product },
+  { value: "product", label: "Product" },
   { value: "component", label: "Components" },
-  { value: "landing", label: "Landing" },
-  { value: "interaction", label: "Interactions" },
-  { value: "tweak", label: "Tweaks" },
+  { value: "mobile", label: "Mobile" },
 ];
 
 export function WorkFilters({ value, onChange }: WorkFiltersProps) {

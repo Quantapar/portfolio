@@ -55,7 +55,7 @@ export function Project({ project, showMeta = false }: ProjectProps) {
     return (
       <Link
         to={`/work/${slug}`}
-        className="pressable flex flex-col items-center gap-3 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
+        className="flex flex-col items-center gap-3 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
       >
         <div className="flex w-full items-center justify-between gap-3">
           <p className="min-w-0 text-sm">{title}</p>
@@ -78,7 +78,7 @@ export function Project({ project, showMeta = false }: ProjectProps) {
     return (
       <Link
         to={`/work/${slug}`}
-        className="pressable grid cursor-pointer grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
+        className="grid cursor-pointer grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
         onMouseEnter={() => canHover && setIsActive(true)}
         onMouseLeave={() => canHover && setIsActive(false)}
       >
@@ -103,7 +103,7 @@ export function Project({ project, showMeta = false }: ProjectProps) {
   return (
     <Link
       to={`/work/${slug}`}
-      className="pressable flex cursor-pointer items-center justify-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
+      className="flex cursor-pointer items-center justify-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
       onMouseEnter={() => canHover && setIsActive(true)}
       onMouseLeave={() => canHover && setIsActive(false)}
     >

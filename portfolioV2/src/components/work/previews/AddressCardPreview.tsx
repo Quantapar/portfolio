@@ -21,7 +21,7 @@ export const AddressCardPreview = () => {
   const [bellRing, setBellRing] = useState(false);
 
   return (
-    <div className="flex flex-col items-center gap-5 w-full max-w-sm">
+    <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-5">
       <motion.div
         className="w-full aspect-[1.7] rounded-2xl p-5 flex flex-col justify-between text-white shadow-lg relative overflow-hidden"
         animate={{ backgroundColor: color }}

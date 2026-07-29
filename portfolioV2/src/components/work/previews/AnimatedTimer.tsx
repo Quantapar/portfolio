@@ -59,7 +59,7 @@ export const AnimatedTimerPreview = () => {
   const s = time.getSeconds().toString().padStart(2, "0");
 
   return (
-    <div className="flex items-center gap-4 tabular-nums">
+    <div className="flex w-full items-center justify-center gap-4 tabular-nums">
       <div className="flex gap-1.5">
         <AnimatedDigit digit={h[0]} index={0} />
         <AnimatedDigit digit={h[1]} index={1} />

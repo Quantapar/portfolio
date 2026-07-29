@@ -1,4 +1,3 @@
-import { Agentation } from "agentation";
 import { FullBleedDoubleDivider } from "../components/layout/FullBleedDoubleDivider";
 import { GridDivider } from "../components/layout/GridDivider";
 import { Hero } from "../components/sections/Hero";
@@ -23,7 +22,6 @@ export function HomePage() {
       <GitHubActivitySection />
       <GridDivider />
       <ConversationSection />
-      {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
     </>
   );
 }

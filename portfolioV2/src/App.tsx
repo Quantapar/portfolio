@@ -1,3 +1,4 @@
+import { Agentation } from "agentation";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { SiteLayout } from "./components/layout/SiteLayout";
 import { HomePage } from "./pages/HomePage";
@@ -14,6 +15,7 @@ function App() {
           <Route path="work/:slug" element={<ProjectPage />} />
         </Route>
       </Routes>
+      {import.meta.env.DEV && <Agentation endpoint="http://localhost:4747" />}
     </BrowserRouter>
   );
 }

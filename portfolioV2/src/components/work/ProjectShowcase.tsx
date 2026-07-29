@@ -18,9 +18,29 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
     <article className="px-6 py-8">
       <Link
         to="/work"
-        className="pressable mb-8 inline-flex min-h-11 items-center text-sm text-foreground/50"
+        className="pressable btn-bevel relative mb-8 inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"
       >
-        ← Work
+        <span className="btn-bevel-frame" aria-hidden="true" />
+        <span
+          className="btn-bevel-corner btn-bevel-corner-tl"
+          aria-hidden="true"
+        />
+        <span
+          className="btn-bevel-corner btn-bevel-corner-tr"
+          aria-hidden="true"
+        />
+        <span
+          className="btn-bevel-corner btn-bevel-corner-bl"
+          aria-hidden="true"
+        />
+        <span
+          className="btn-bevel-corner btn-bevel-corner-br"
+          aria-hidden="true"
+        />
+        <span aria-hidden="true" className="text-foreground/50">
+          ←
+        </span>
+        Work
       </Link>
 
       <header className="mb-6 border-b border-dotted border-border pb-6">
