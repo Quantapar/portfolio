@@ -3,7 +3,9 @@ import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
 
-const siteUrl = process.env.VITE_SITE_URL?.replace(/\/$/, '') ?? ''
+const siteUrl = (
+    process.env.VITE_SITE_URL?.replace(/\/$/, '') || 'https://www.quantapar.com'
+)
 
 // https://vite.dev/config/
 export default defineConfig({

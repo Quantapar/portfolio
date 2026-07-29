@@ -23,7 +23,7 @@ export const experience: Experience[] = [
         period: {
             start: "Apr 2026",
             end: "May 2026",
-            location: "Remote",
+            location: "Remote"
         },
         bullets: [
             "Designed and developed responsive product interfaces with an emphasis on usability, visual consistency, and polished interactions.", "Collaborated across design and engineering to translate product requirements into reusable, production-ready frontend components.",
@@ -41,7 +41,7 @@ export const experience: Experience[] = [
         period: {
             start: "Oct 2025",
             end: "Apr 2026",
-            location: "Remote",
+            location: "Remote"
         },
         bullets: [
             "Built and refined user-facing interfaces using modern frontend technologies while maintaining responsive layouts and consistent design patterns.", "Contributed to product design, prototyping, component development, and the implementation of interactive user experiences.",
