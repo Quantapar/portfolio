@@ -7,7 +7,7 @@ import { links } from "../../data/site";
 export function ConversationSection() {
   return (
     <section className="px-4 py-8 pb-3 sm:px-6">
-      <h2 className="text-lg font-medium">Start a Conversation</h2>
+      <h2 className="text-lg font-medium">Get in touch</h2>
 
       <p className="mt-6 max-w-md text-balance text-xl leading-snug font-medium tracking-tight sm:text-2xl">
         Building clean interfaces with{" "}
@@ -25,6 +25,17 @@ export function ConversationSection() {
             Say hello if you&apos;re building something cool.
           </a>
         </BevelBox>
+        <p className="mt-3 text-sm text-foreground/50">
+          or{" "}
+          <a
+            href={links.x}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium text-foreground/70 underline decoration-dotted decoration-foreground/35 underline-offset-[3px] transition-colors duration-[160ms] ease-[var(--ease-out)] hover:text-foreground"
+          >
+            shoot a dm on X
+          </a>
+        </p>
       </div>
 
       <div className="mt-16 overflow-visible border-t border-dotted border-border pt-8 pb-0">
