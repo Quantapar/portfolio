@@ -62,7 +62,7 @@ export const projects: Project[] = [
         featured: false,
         year: 2025,
         summary: "A real-time API monitoring dashboard. Track endpoint uptime, response times, and system health with a responsive frosted-glass UI.",
-        useCase: "Add an endpoint, set a check interval, and get email alerts the moment something goes down — plus shareable public status pages.",
+        useCase: "Add an endpoint, set a check interval, and get email alerts the moment something goes down, plus shareable public status pages.",
         src: "/work/pulse-api.png",
         liveUrl: "https://pulseapi.quantapar.com/",
         sourceUrl: "https://github.com/Quantapar/PulseApi",
@@ -82,7 +82,7 @@ export const projects: Project[] = [
         featured: false,
         year: 2025,
         summary: "A full revamp of Jaipur's event guide. Discover concerts, comedy, food fests, art, and workshops across the city.",
-        useCase: "Curated city events in one modern interface — built for locals looking for what's happening this week.",
+        useCase: "Curated city events in one modern interface, built for locals looking for what's happening this week.",
         src: "/work/jaipur.png",
         liveUrl: "https://jagrukjaipur.quantapar.com/",
         tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"]
@@ -139,7 +139,7 @@ export const projects: Project[] = [
         featured: false,
         year: 2025,
         summary: "Bet on yourself, not prediction markets. A Solana Mobile habit app where morning tasks are backed by a small $SOL or $SKR stake.",
-        useCase: "Finish the task — stake returns. Miss it — your stake rewards people who actually showed up. Accountability with skin in the game.",
+        useCase: "Finish the task, stake returns. Miss it, your stake rewards people who actually showed up. Accountability with skin in the game.",
         src: "/work/morn-morn.png",
         tech: [
             "Expo",
@@ -156,7 +156,7 @@ export const projects: Project[] = [
         featured: false,
         year: 2025,
         summary: "Full UI revamp of the Krane Apps website with a GitHub-style design. Rebuilt for a cleaner, more professional look.",
-        useCase: "Open-source contribution — GitHub-inspired layout and component patterns for a developer tools company site.",
+        useCase: "Open-source contribution. GitHub-inspired layout and component patterns for a developer tools company site.",
         src: "/work/krane-apps.png",
         liveUrl: "https://krane-apps-github-style-website.vercel.app/",
         sourceUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
@@ -169,7 +169,7 @@ export const projects: Project[] = [
         featured: false,
         year: 2025,
         summary: "A warm, high-contrast product landing page for an AI reliability workspace.",
-        useCase: "Product marketing screen with bold hero typography and clear navigation — shared as a design study on X.",
+        useCase: "Product marketing screen with bold hero typography and clear navigation, shared as a design study on X.",
         src: "/work/torchbase-landing.png",
         tech: ["Landing page", "Product design"]
     }, {
@@ -180,7 +180,7 @@ export const projects: Project[] = [
         featured: false,
         year: 2025,
         summary: "A dock-style floating navigation bar with spring-animated hover highlights, directional tooltips, and an active indicator dot.",
-        useCase: "Compact navigation for dashboards or portfolios — hover reveals labels with spring physics and active state tracking.",
+        useCase: "Compact navigation for dashboards or portfolios. Hover reveals labels with spring physics and active state tracking.",
         src: "",
         tech: ["React", "Framer Motion", "Navigation"]
     }, {
@@ -234,7 +234,7 @@ export const projects: Project[] = [
         type: "component",
         featured: false,
         year: 2025,
-        summary: "An interactive dithered 404 — particle dots dissolve under the cursor and ripple on click. Ported from Torchbase.",
+        summary: "An interactive dithered 404. Particle dots dissolve under the cursor and ripple on click. Ported from Torchbase.",
         useCase: "Branded empty state with motion personality: “This page went up in smoke.”",
         src: "",
         tech: ["React", "Canvas", "Dithering"]
