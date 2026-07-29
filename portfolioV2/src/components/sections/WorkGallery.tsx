@@ -14,12 +14,32 @@ export function WorkGallery() {
           <Project key={project.slug} project={project} showMeta />
         ))}
       </BevelBox>
-      <div className="mt-4">
+      <div className="mt-8">
         <Link
           to="/work"
-          className="pressable inline-flex min-h-11 items-center text-sm text-foreground/50"
+          className="pressable btn-bevel relative inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"
         >
-          View all work →
+          <span className="btn-bevel-frame" aria-hidden="true" />
+          <span
+            className="btn-bevel-corner btn-bevel-corner-tl"
+            aria-hidden="true"
+          />
+          <span
+            className="btn-bevel-corner btn-bevel-corner-tr"
+            aria-hidden="true"
+          />
+          <span
+            className="btn-bevel-corner btn-bevel-corner-bl"
+            aria-hidden="true"
+          />
+          <span
+            className="btn-bevel-corner btn-bevel-corner-br"
+            aria-hidden="true"
+          />
+          View all work
+          <span aria-hidden="true" className="text-foreground/50">
+            →
+          </span>
         </Link>
       </div>
     </section>
