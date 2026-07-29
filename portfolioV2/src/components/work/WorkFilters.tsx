@@ -16,8 +16,12 @@ const FILTER_OPTIONS: { value: WorkFilter; label: string }[] = [
 
 export function WorkFilters({ value, onChange }: WorkFiltersProps) {
   return (
-    <div className="-mx-4 mb-6 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:px-6">
-      <div className="flex min-w-max gap-2 sm:min-w-0 sm:flex-wrap">
+    <div className="mb-6">
+      <div
+        role="tablist"
+        aria-label="Filter work"
+        className="grid grid-cols-2 gap-2 min-[400px]:grid-cols-4"
+      >
         {FILTER_OPTIONS.map((option) => {
           const isActive = value === option.value;
 
@@ -25,14 +29,16 @@ export function WorkFilters({ value, onChange }: WorkFiltersProps) {
             <button
               key={option.value}
               type="button"
+              role="tab"
+              aria-selected={isActive}
               onClick={() => onChange(option.value)}
-              className={`pressable shrink-0 border border-dotted px-3 py-2 text-xs transition-[color,border-color] duration-[160ms] ease-[var(--ease-out)] ${
+              className={`pressable min-w-0 border border-dotted px-2 py-2 text-center text-xs transition-[color,border-color,background-color] duration-[160ms] ease-[var(--ease-out)] sm:px-3 ${
                 isActive
                   ? "border-foreground/35 text-foreground"
                   : "border-border text-foreground/50"
               }`}
             >
-              {option.label}
+              <span className="block truncate">{option.label}</span>
             </button>
           );
         })}

@@ -79,12 +79,12 @@ export function WorkComponentDirectory({
             >
               <Link
                 to={`/work/${project.slug}`}
-                className="flex items-center gap-3 px-4 py-3.5"
+                className="group flex items-center gap-3 px-4 py-3.5 transition-[background-color,transform] duration-[160ms] ease-[var(--ease-out)] active:scale-[0.98] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-foreground/5"
               >
-                <span className="flex size-9 shrink-0 items-center justify-center border border-dotted border-border bg-foreground/4 text-xs font-medium text-foreground/70">
+                <span className="flex size-9 shrink-0 items-center justify-center border border-dotted border-border bg-foreground/4 text-xs font-medium text-foreground/70 transition-colors duration-[160ms] ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:border-foreground/35 [@media(hover:hover)_and_(pointer:fine)]:group-hover:text-foreground">
                   {monogram(project)}
                 </span>
-                <span className="min-w-0 truncate text-sm">
+                <span className="min-w-0 truncate text-sm text-foreground/80 transition-colors duration-[160ms] ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:text-foreground">
                   {projectTitle(project)}
                 </span>
               </Link>

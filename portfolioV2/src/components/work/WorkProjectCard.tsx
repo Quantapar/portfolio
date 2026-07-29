@@ -19,14 +19,14 @@ export function WorkProjectCard({ project }: WorkProjectCardProps) {
   return (
     <Link
       to={`/work/${project.slug}`}
-      className="group flex h-full cursor-pointer flex-col gap-3 p-4 transition-transform duration-[160ms] [transition-timing-function:var(--ease-out)] active:scale-[0.98] sm:p-5"
+      className="group flex h-full cursor-pointer flex-col gap-3 p-4 transition-[background-color,transform] duration-[160ms] ease-[var(--ease-out)] active:scale-[0.98] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-foreground/5 sm:p-5"
     >
-      <div className="flex aspect-[16/10] w-full items-center justify-center overflow-hidden border border-dotted border-border bg-foreground/3">
+      <div className="flex aspect-[16/10] w-full items-center justify-center overflow-hidden border border-dotted border-border bg-foreground/3 transition-[border-color,opacity] duration-[160ms] ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:border-foreground/35">
         {hasImage ? (
           <img
             src={project.src}
             alt=""
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover transition-opacity duration-[160ms] ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-90"
           />
         ) : hasPreview ? (
           <ProjectPreviewFrame slug={project.slug} compact />
@@ -37,7 +37,9 @@ export function WorkProjectCard({ project }: WorkProjectCardProps) {
 
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
-          <h3 className="text-sm font-medium text-foreground">{title}</h3>
+          <h3 className="text-sm font-medium text-foreground/85 transition-colors duration-[160ms] ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:text-foreground">
+            {title}
+          </h3>
           {project.status ? (
             <span className="text-xs font-medium text-foreground underline decoration-wavy decoration-foreground underline-offset-[4px]">
               ({project.status})
