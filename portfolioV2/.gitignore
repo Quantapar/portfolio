@@ -32,6 +32,9 @@ coverage/
 .vercel
 .netlify
 
+# One-off local tooling / captures
+.capture/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
