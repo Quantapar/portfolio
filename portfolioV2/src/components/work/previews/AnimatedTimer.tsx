@@ -1,31 +1,30 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const DIGIT_HEIGHT = 72;
+const easeOut = [0.23, 1, 0.32, 1] as const;
 
 const AnimatedDigit = ({ digit = "0", index }: { digit?: string; index: number }) => (
   <motion.div
-    className="rounded-xl overflow-hidden relative flex justify-center shadow-sm cursor-default border bg-background border-border"
+    className="relative flex cursor-default justify-center overflow-hidden rounded-xl border border-border bg-background shadow-sm"
     style={{ height: DIGIT_HEIGHT, width: DIGIT_HEIGHT * 0.75 }}
-    initial={{ opacity: 0, y: 10, scale: 0.9 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ duration: 0.1, opacity: { duration: 0.5, delay: index * 0.08 } }}
-    whileHover={{
-      scale: 1.1,
-      y: -3,
-      borderColor: "#ffffff",
-      transition: { type: "spring", stiffness: 400, damping: 25 },
+    initial={{ opacity: 0, transform: "translateY(8px) scale(0.95)" }}
+    animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
+    transition={{
+      duration: 0.2,
+      ease: easeOut,
+      delay: index * 0.04,
     }}
   >
     <motion.div
       className="flex flex-col will-change-transform"
-      animate={{ y: -Number(digit) * DIGIT_HEIGHT }}
+      animate={{ transform: `translateY(${-Number(digit) * DIGIT_HEIGHT}px)` }}
       transition={{ type: "spring", stiffness: 120, damping: 18, mass: 0.8 }}
     >
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
         <div
           key={num}
-          className="shrink-0 w-full flex items-center justify-center text-[2rem] font-medium text-foreground"
+          className="flex w-full shrink-0 items-center justify-center text-[2rem] font-medium text-foreground"
           style={{ height: DIGIT_HEIGHT }}
         >
           {num}
@@ -37,10 +36,10 @@ const AnimatedDigit = ({ digit = "0", index }: { digit?: string; index: number }
 
 const Colon = ({ index }: { index: number }) => (
   <motion.div
-    className="text-[2rem] font-medium text-foreground/50 animate-pulse"
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.4, delay: index * 0.08 }}
+    className="text-[2rem] font-medium text-foreground/50"
+    initial={{ opacity: 0, transform: "scale(0.95)" }}
+    animate={{ opacity: 1, transform: "scale(1)" }}
+    transition={{ duration: 0.2, ease: easeOut, delay: index * 0.04 }}
   >
     :
   </motion.div>
@@ -48,6 +47,7 @@ const Colon = ({ index }: { index: number }) => (
 
 export const AnimatedTimerPreview = () => {
   const [time, setTime] = useState(new Date());
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
@@ -71,8 +71,17 @@ export const AnimatedTimerPreview = () => {
       </div>
       <Colon index={5} />
       <div className="flex gap-1.5">
-        <AnimatedDigit digit={s[0]} index={6} />
-        <AnimatedDigit digit={s[1]} index={7} />
+        {shouldReduceMotion ? (
+          <>
+            <span className="flex items-center justify-center rounded-xl border border-border bg-background text-[2rem] font-medium" style={{ height: DIGIT_HEIGHT, width: DIGIT_HEIGHT * 0.75 }}>{s[0]}</span>
+            <span className="flex items-center justify-center rounded-xl border border-border bg-background text-[2rem] font-medium" style={{ height: DIGIT_HEIGHT, width: DIGIT_HEIGHT * 0.75 }}>{s[1]}</span>
+          </>
+        ) : (
+          <>
+            <AnimatedDigit digit={s[0]} index={6} />
+            <AnimatedDigit digit={s[1]} index={7} />
+          </>
+        )}
       </div>
     </div>
   );

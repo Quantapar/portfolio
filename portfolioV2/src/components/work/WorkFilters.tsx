@@ -9,7 +9,7 @@ type WorkFiltersProps = {
 
 const FILTER_OPTIONS: { value: WorkFilter; label: string }[] = [
   { value: "all", label: "All" },
-  { value: "product", label: "Product" },
+  { value: "product", label: "Projects" },
   { value: "component", label: "Components" },
   { value: "mobile", label: "Mobile" },
 ];
@@ -26,7 +26,7 @@ export function WorkFilters({ value, onChange }: WorkFiltersProps) {
               key={option.value}
               type="button"
               onClick={() => onChange(option.value)}
-              className={`pressable shrink-0 border border-dotted px-3 py-2 text-xs transition-colors ${
+              className={`pressable shrink-0 border border-dotted px-3 py-2 text-xs transition-[color,border-color] duration-[160ms] ease-[var(--ease-out)] ${
                 isActive
                   ? "border-foreground/35 text-foreground"
                   : "border-border text-foreground/50"

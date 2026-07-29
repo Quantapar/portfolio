@@ -1,15 +1,8 @@
 import { Link } from "react-router-dom";
 import { useMemo, useState } from "react";
-import {
-  getProjectsByType,
-  projects,
-  sortProjects,
-} from "../data/projects";
+import { getProjectsByType, projects, sortProjects } from "../data/projects";
 import { WorkComponentDirectory } from "../components/work/WorkComponentDirectory";
-import {
-  WorkFilters,
-  type WorkFilter,
-} from "../components/work/WorkFilters";
+import { WorkFilters, type WorkFilter } from "../components/work/WorkFilters";
 import { WorkProjectGrid } from "../components/work/WorkProjectCard";
 
 export function WorkIndexPage() {

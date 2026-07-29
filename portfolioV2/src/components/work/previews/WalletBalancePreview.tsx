@@ -136,7 +136,7 @@ export const WalletBalancePreview = () => {
               {COINS.map((coin, i) => (
                 <motion.div
                   key={coin.id}
-                  className="rounded-full flex items-center justify-center cursor-pointer"
+                  className="flex cursor-pointer items-center justify-center rounded-full"
                   style={{
                     width: 42,
                     height: 42,
@@ -145,12 +145,17 @@ export const WalletBalancePreview = () => {
                     marginLeft: i > 0 ? -10 : 0,
                     zIndex: COINS.length - i,
                   }}
-                  initial={{ opacity: 0, y: 12, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  whileHover={{ y: -8, scale: 1.12, zIndex: 10 }}
-                  whileTap={{ scale: 0.92 }}
+                  initial={{ opacity: 0, transform: "translateY(12px) scale(0.95)" }}
+                  animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
+                  whileHover={{ transform: "translateY(-6px) scale(1.05)" }}
+                  whileTap={{ transform: "scale(0.97)" }}
                   onClick={() => setActiveIndex(i)}
-                  transition={{ type: "spring", stiffness: 300, damping: 15, bounce: 0.25, delay: i * 0.06 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                    delay: i * 0.06,
+                  }}
                 >
                   {coin.icon}
                 </motion.div>

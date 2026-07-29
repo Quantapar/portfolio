@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const HomeIcon = () => (
@@ -64,18 +64,24 @@ export const FloatingToolbarPreview = () => {
   const [activeId, setActiveId] = useState("home");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [direction, setDirection] = useState(0);
+  const hadTooltipRef = useRef(false);
 
   const handleHover = (id: string | null) => {
     if (hoveredId !== null && id !== null) {
       const prevIndex = ITEMS.findIndex((item) => item.id === hoveredId);
       const nextIndex = ITEMS.findIndex((item) => item.id === id);
       setDirection(nextIndex > prevIndex ? 1 : -1);
+      hadTooltipRef.current = true;
+    }
+    if (id === null) {
+      hadTooltipRef.current = false;
     }
     setHoveredId(id);
   };
 
   const hoveredItem = ITEMS.find((item) => item.id === hoveredId);
   const hoveredIndex = ITEMS.findIndex((item) => item.id === hoveredId);
+  const instantTooltip = hadTooltipRef.current;
 
   const bgX = hoveredItem ? getItemX(hoveredIndex) : 0;
   const tooltipX = hoveredItem ? getItemX(hoveredIndex) + ITEM_SIZE / 2 : 0;
@@ -83,13 +89,13 @@ export const FloatingToolbarPreview = () => {
   return (
     <div className="flex items-center justify-center py-8">
       <div
-        className="relative flex items-center gap-2 px-4 py-2 rounded-full bg-background/80 backdrop-blur-xl border border-border shadow-lg"
-        onMouseLeave={() => setHoveredId(null)}
+        className="relative flex items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 shadow-lg backdrop-blur-xl"
+        onMouseLeave={() => handleHover(null)}
       >
         <AnimatePresence>
           {hoveredId && (
             <motion.div
-              className="absolute top-1/2 -translate-y-1/2 left-0 rounded-xl bg-foreground/5"
+              className="absolute top-1/2 left-0 -translate-y-1/2 rounded-xl bg-foreground/5"
               style={{ width: ITEM_SIZE, height: ITEM_SIZE }}
               initial={{ opacity: 0, x: bgX, scale: 0.95 }}
               animate={{ opacity: 1, x: bgX, scale: 1 }}
@@ -102,22 +108,23 @@ export const FloatingToolbarPreview = () => {
         {ITEMS.map((item, index) => (
           <React.Fragment key={item.id}>
             {index === SEPARATOR_AFTER + 1 && (
-              <div className="w-px h-5 bg-border mx-0.5" />
+              <div className="mx-0.5 h-5 w-px bg-border" />
             )}
             <button
+              type="button"
               onClick={() => setActiveId(item.id)}
               onMouseEnter={() => handleHover(item.id)}
-              className={`relative flex items-center justify-center w-11 h-11 rounded-xl transition-colors duration-200 outline-none cursor-pointer active:scale-[0.95] ${
+              className={`relative flex h-11 w-11 cursor-pointer items-center justify-center rounded-xl outline-none transition-colors duration-200 active:scale-[0.97] ${
                 activeId === item.id
                   ? "text-foreground"
-                  : "text-foreground/50 hover:text-foreground"
+                  : "text-foreground/50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground"
               }`}
             >
               <span className="relative z-10">{item.icon}</span>
               {activeId === item.id && (
                 <motion.div
                   layoutId="preview-active-dot"
-                  className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-foreground"
+                  className="absolute bottom-1 h-1.5 w-1.5 rounded-full bg-foreground"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
@@ -129,14 +136,18 @@ export const FloatingToolbarPreview = () => {
           {hoveredItem && (
             <motion.div
               key="tooltip"
-              className="absolute -bottom-10 left-0 px-2.5 py-1 bg-background border-2 border-border rounded-xl shadow-sm whitespace-nowrap z-50 pointer-events-none"
-              initial={{
-                opacity: 0,
-                y: -6,
-                scale: 0.95,
-                x: tooltipX,
-                translateX: "-50%",
-              }}
+              className="pointer-events-none absolute -bottom-10 left-0 z-50 whitespace-nowrap rounded-xl border-2 border-border bg-background px-2.5 py-1 shadow-sm"
+              initial={
+                instantTooltip
+                  ? false
+                  : {
+                      opacity: 0,
+                      y: -6,
+                      scale: 0.95,
+                      x: tooltipX,
+                      translateX: "-50%",
+                    }
+              }
               animate={{
                 opacity: 1,
                 y: 0,
@@ -150,17 +161,25 @@ export const FloatingToolbarPreview = () => {
                 scale: 0.95,
                 transition: { duration: 0.12 },
               }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              transition={
+                instantTooltip
+                  ? { duration: 0 }
+                  : { type: "spring", stiffness: 300, damping: 25 }
+              }
             >
               <AnimatePresence mode="popLayout" initial={false} custom={direction}>
                 <motion.span
                   key={hoveredItem.id}
-                  className="text-[11px] font-medium text-foreground block"
+                  className="block text-[11px] font-medium text-foreground"
                   custom={direction}
                   initial={{ opacity: 0, y: direction * 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: direction * -8 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  transition={
+                    instantTooltip
+                      ? { duration: 0.12 }
+                      : { type: "spring", stiffness: 300, damping: 25 }
+                  }
                 >
                   {hoveredItem.label}
                 </motion.span>

@@ -142,6 +142,37 @@
     pointer-events: none;
   }
 
+  /* Image / media bevels: no page-colored corner masks (black dots in dark mode).
+     Dotted frame stops short of the L so corners stay clean. */
+  .btn-bevel-media {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .btn-bevel-media .btn-bevel-corner {
+    background: transparent;
+  }
+
+  .btn-bevel-media .btn-bevel-frame {
+    background:
+      repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 4px)
+        top 0 left 12px / calc(100% - 24px) 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--border) 0 1px, transparent 1px 4px)
+        bottom 0 left 12px / calc(100% - 24px) 1px no-repeat,
+      repeating-linear-gradient(
+          180deg,
+          var(--border) 0 1px,
+          transparent 1px 4px
+        )
+        left 0 top 12px / 1px calc(100% - 24px) no-repeat,
+      repeating-linear-gradient(
+          180deg,
+          var(--border) 0 1px,
+          transparent 1px 4px
+        )
+        right 0 top 12px / 1px calc(100% - 24px) no-repeat;
+  }
+
   .btn-bevel-corner::before,
   .btn-bevel-corner::after {
     content: "";

@@ -46,7 +46,10 @@ export function ProjectPreviewOrImage({
 
   if (preview) {
     return (
-      <BevelBox className={compact ? "overflow-hidden" : "mb-6 overflow-hidden"}>
+      <BevelBox
+        media
+        className={compact ? "overflow-hidden" : "mb-6 overflow-hidden"}
+      >
         <ProjectPreviewFrame slug={slug} compact={compact} />
       </BevelBox>
     );
@@ -64,5 +67,9 @@ export function ProjectPreviewOrImage({
     return image;
   }
 
-  return <BevelBox className="mb-6 overflow-hidden">{image}</BevelBox>;
+  return (
+    <BevelBox media className="mb-6 overflow-hidden">
+      {image}
+    </BevelBox>
+  );
 }

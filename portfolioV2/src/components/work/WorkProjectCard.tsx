@@ -19,7 +19,7 @@ export function WorkProjectCard({ project }: WorkProjectCardProps) {
   return (
     <Link
       to={`/work/${project.slug}`}
-      className="group flex h-full flex-col gap-3 p-4 sm:p-5"
+      className="group flex h-full cursor-pointer flex-col gap-3 p-4 transition-transform duration-[160ms] [transition-timing-function:var(--ease-out)] active:scale-[0.98] sm:p-5"
     >
       <div className="flex aspect-[16/10] w-full items-center justify-center overflow-hidden border border-dotted border-border bg-foreground/3">
         {hasImage ? (

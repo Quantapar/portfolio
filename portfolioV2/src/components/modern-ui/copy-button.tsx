@@ -28,16 +28,16 @@ export function CopyButton({ value, className = "" }: CopyButtonProps) {
       type="button"
       onClick={handleCopy}
       aria-label={hasCopied ? "Copied" : "Copy to clipboard"}
-      className={`group relative inline-flex items-center justify-center rounded-sm p-0.5 text-foreground/40 transition-colors duration-150 hover:text-foreground/70 ${className}`}
-      whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
+      className={`group relative inline-flex items-center justify-center rounded-sm p-0.5 text-foreground/40 transition-colors duration-150 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground/70 ${className}`}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
     >
       <AnimatePresence mode="wait" initial={false}>
         {hasCopied ? (
           <motion.span
             key="check"
-            initial={shouldReduceMotion ? false : { scale: 0.8, opacity: 0 }}
+            initial={shouldReduceMotion ? false : { scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={shouldReduceMotion ? undefined : { scale: 0.8, opacity: 0 }}
+            exit={shouldReduceMotion ? undefined : { scale: 0.95, opacity: 0 }}
             transition={transition}
             className="text-[#26a641] dark:text-foreground"
           >
@@ -46,9 +46,9 @@ export function CopyButton({ value, className = "" }: CopyButtonProps) {
         ) : (
           <motion.span
             key="copy"
-            initial={shouldReduceMotion ? false : { scale: 0.8, opacity: 0 }}
+            initial={shouldReduceMotion ? false : { scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={shouldReduceMotion ? undefined : { scale: 0.8, opacity: 0 }}
+            exit={shouldReduceMotion ? undefined : { scale: 0.95, opacity: 0 }}
             transition={transition}
           >
             <Copy className="size-3.5" strokeWidth={1.75} />

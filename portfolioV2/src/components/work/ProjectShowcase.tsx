@@ -47,9 +47,11 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
         <div className="flex items-center justify-between gap-4">
           <h1 className="min-w-0 text-lg font-medium">{project.title1} {project.title2}</h1>
           <div className="flex shrink-0 flex-col items-end gap-1 text-xs text-foreground/50">
-            <span className="inline-flex items-center border border-dotted border-border px-2 py-0.5">
-              {typeLabel}
-            </span>
+            {project.type !== "product" ? (
+              <span className="inline-flex items-center border border-dotted border-border px-2 py-0.5">
+                {typeLabel}
+              </span>
+            ) : null}
             {project.status ? (
               <span className="text-foreground/65">{project.status}</span>
             ) : null}

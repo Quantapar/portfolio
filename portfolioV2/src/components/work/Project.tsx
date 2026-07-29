@@ -8,16 +8,20 @@ import { getProjectPreview } from "./previews";
 import { ProjectPreviewFrame } from "./ProjectPreviewFrame";
 
 const ease = [0.23, 1, 0.32, 1] as const;
+const PREVIEW_WIDTH = 112;
 
 const anim = {
-  initial: { width: 0 },
-  open: {
-    width: "auto",
-    transition: { duration: 0.4, ease },
-  },
   closed: {
-    width: 0,
-    transition: { duration: 0.4, ease },
+    maxWidth: 0,
+    opacity: 0,
+    clipPath: "inset(0 50% 0 50%)",
+    transition: { duration: 0.18, ease },
+  },
+  open: {
+    maxWidth: PREVIEW_WIDTH,
+    opacity: 1,
+    clipPath: "inset(0 0% 0 0%)",
+    transition: { duration: 0.2, ease },
   },
 };
 
@@ -55,7 +59,7 @@ export function Project({ project, showMeta = false }: ProjectProps) {
     return (
       <Link
         to={`/work/${slug}`}
-        className="flex flex-col items-center gap-3 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
+        className="pressable flex flex-col items-center gap-3 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
       >
         <div className="flex w-full items-center justify-between gap-3">
           <p className="min-w-0 text-sm">{title}</p>
@@ -78,7 +82,7 @@ export function Project({ project, showMeta = false }: ProjectProps) {
     return (
       <Link
         to={`/work/${slug}`}
-        className="grid cursor-pointer grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
+        className="pressable grid cursor-pointer grid-cols-[1fr_auto_1fr] items-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
         onMouseEnter={() => canHover && setIsActive(true)}
         onMouseLeave={() => canHover && setIsActive(false)}
       >
@@ -90,7 +94,12 @@ export function Project({ project, showMeta = false }: ProjectProps) {
           animate={isOpen ? "open" : "closed"}
           className="flex h-20 items-center justify-center overflow-hidden"
         >
-          {previewMedia}
+          <div
+            className="flex h-full shrink-0 items-center justify-center"
+            style={{ width: PREVIEW_WIDTH }}
+          >
+            {previewMedia}
+          </div>
         </motion.div>
 
         <p className="min-w-0 text-right text-xs text-foreground/50">
@@ -103,7 +112,7 @@ export function Project({ project, showMeta = false }: ProjectProps) {
   return (
     <Link
       to={`/work/${slug}`}
-      className="flex cursor-pointer items-center justify-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
+      className="pressable flex cursor-pointer items-center justify-center gap-4 border-b border-dotted border-border px-4 py-5 last:border-b-0 sm:px-5"
       onMouseEnter={() => canHover && setIsActive(true)}
       onMouseLeave={() => canHover && setIsActive(false)}
     >
@@ -115,7 +124,16 @@ export function Project({ project, showMeta = false }: ProjectProps) {
         animate={isOpen ? "open" : "closed"}
         className="flex h-20 justify-center overflow-hidden"
       >
-        <img src={src} alt="" className="h-20 w-auto max-w-none object-cover" />
+        <div
+          className="flex h-full shrink-0 justify-center"
+          style={{ width: PREVIEW_WIDTH }}
+        >
+          <img
+            src={src}
+            alt=""
+            className="h-20 w-auto max-w-none object-cover"
+          />
+        </div>
       </motion.div>
 
       <p className="min-w-0 shrink text-sm">{project.title2}</p>

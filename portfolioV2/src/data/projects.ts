@@ -171,7 +171,6 @@ export const projects: Project[] = [
         summary: "A warm, high-contrast product landing page for an AI reliability workspace.",
         useCase: "Product marketing screen with bold hero typography and clear navigation — shared as a design study on X.",
         src: "/work/torchbase-landing.png",
-        liveUrl: "https://x.com/quantapar/status/2077693670493769794",
         tech: ["Landing page", "Product design"]
     }, {
         slug: "floating-toolbar",

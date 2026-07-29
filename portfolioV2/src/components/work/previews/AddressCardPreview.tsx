@@ -33,7 +33,7 @@ export const AddressCardPreview = () => {
               setBellRing(true);
               setTimeout(() => setBellRing(false), 800);
             }}
-            className="relative opacity-80 hover:opacity-100 cursor-pointer"
+            className="relative cursor-pointer opacity-80 [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-100"
           >
             <AnimatePresence>
               {bellRing && (
@@ -83,7 +83,7 @@ export const AddressCardPreview = () => {
               href="https://github.com/Quantapar"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:opacity-60 transition-opacity"
+              className="opacity-80 transition-opacity duration-[160ms] [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-60"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -99,7 +99,7 @@ export const AddressCardPreview = () => {
               href="https://x.com/quantapar"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:opacity-60 transition-opacity"
+              className="opacity-80 transition-opacity duration-[160ms] [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-60"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +115,7 @@ export const AddressCardPreview = () => {
               href="https://www.instagram.com/iknewtyler/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:opacity-60 transition-opacity"
+              className="opacity-80 transition-opacity duration-[160ms] [@media(hover:hover)_and_(pointer:fine)]:hover:opacity-60"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

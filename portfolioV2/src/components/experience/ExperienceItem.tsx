@@ -72,11 +72,6 @@ export function ExperienceItem({
   const [open, setOpen] = useState(defaultOpen);
   const shouldReduceMotion = useReducedMotion();
 
-  const panelTransition = {
-    duration: shouldReduceMotion ? 0.12 : open ? 0.22 : 0.18,
-    ease: easeOut,
-  };
-
   return (
     <BevelBox>
       <button
@@ -113,66 +108,63 @@ export function ExperienceItem({
         <ExpandIcon open={open} />
       </button>
 
-      <motion.div
-        initial={false}
-        animate={
-          shouldReduceMotion
-            ? {
-                height: open ? "auto" : 0,
-                opacity: open ? 1 : 0,
-              }
-            : {
-                height: open ? "auto" : 0,
-                opacity: open ? 1 : 0,
-                clipPath: open ? "inset(0 0 0 0)" : "inset(0 0 100% 0)",
-              }
-        }
-        transition={panelTransition}
-        className="overflow-hidden"
+      <div
+        className="grid overflow-hidden transition-[grid-template-rows,opacity] [transition-timing-function:var(--ease-out)]"
+        style={{
+          gridTemplateRows: open ? "1fr" : "0fr",
+          opacity: open ? 1 : 0,
+          transitionDuration: shouldReduceMotion
+            ? "120ms"
+            : open
+              ? "220ms"
+              : "180ms",
+          clipPath: open ? "inset(0 0 0 0)" : "inset(0 0 100% 0)",
+          transitionProperty: "grid-template-rows, opacity, clip-path",
+        }}
         aria-hidden={!open}
       >
-        <div className="border-t border-dotted border-border px-3 pb-4 pt-3 sm:px-4">
-          <motion.ul
-            initial={false}
-            animate={{ opacity: open ? 1 : 0 }}
-            transition={{
-              duration: shouldReduceMotion ? 0.12 : 0.18,
-              ease: easeOut,
-              delay: open && !shouldReduceMotion ? 0.04 : 0,
-            }}
-            className="space-y-2 text-sm leading-relaxed text-foreground/70"
-          >
-            {item.bullets.map((bullet) => (
-              <li key={bullet} className="flex gap-2">
-                <span aria-hidden="true" className="text-foreground/35">
-                  •
-                </span>
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </motion.ul>
+        <div className="min-h-0 overflow-hidden">
+          <div className="border-t border-dotted border-border px-3 pb-4 pt-3 sm:px-4">
+            <ul
+              className="space-y-2 text-sm leading-relaxed text-foreground/70 transition-opacity [transition-timing-function:var(--ease-out)]"
+              style={{
+                opacity: open ? 1 : 0,
+                transitionDuration: shouldReduceMotion ? "120ms" : "180ms",
+                transitionDelay:
+                  open && !shouldReduceMotion ? "40ms" : "0ms",
+              }}
+            >
+              {item.bullets.map((bullet) => (
+                <li key={bullet} className="flex gap-2">
+                  <span aria-hidden="true" className="text-foreground/35">
+                    •
+                  </span>
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
 
-          <motion.div
-            initial={false}
-            animate={{ opacity: open ? 1 : 0 }}
-            transition={{
-              duration: shouldReduceMotion ? 0.12 : 0.18,
-              ease: easeOut,
-              delay: open && !shouldReduceMotion ? 0.06 : 0,
-            }}
-            className="mt-4 flex flex-wrap gap-2"
-          >
-            {item.tags.map((tag) => (
-              <span
-                key={tag}
-                className="border border-dotted border-border px-2 py-1 text-xs text-foreground/65"
-              >
-                {tag}
-              </span>
-            ))}
-          </motion.div>
+            <div
+              className="mt-4 flex flex-wrap gap-2 transition-opacity [transition-timing-function:var(--ease-out)]"
+              style={{
+                opacity: open ? 1 : 0,
+                transitionDuration: shouldReduceMotion ? "120ms" : "180ms",
+                transitionDelay:
+                  open && !shouldReduceMotion ? "60ms" : "0ms",
+              }}
+            >
+              {item.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-dotted border-border px-2 py-1 text-xs text-foreground/65"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </BevelBox>
   );
 }
