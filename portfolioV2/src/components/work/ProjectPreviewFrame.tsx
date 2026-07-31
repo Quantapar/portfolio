@@ -36,7 +36,7 @@ export function ProjectPreviewFrame({
 
   return (
     <div
-      className={`flex w-full max-w-full items-center justify-center overflow-x-auto px-3 py-6 sm:overflow-hidden sm:px-6 sm:py-10 ${className}`.trim()}
+      className={`flex w-full max-w-full items-center justify-center overflow-visible px-3 py-6 sm:px-6 sm:py-10 ${className}`.trim()}
     >
       <div className="w-full min-w-0 max-w-full">
         <Preview />
@@ -62,7 +62,7 @@ export function ProjectPreviewOrImage({
     return (
       <BevelBox
         media
-        className={compact ? "overflow-hidden" : "mb-6 overflow-hidden"}
+        className={compact ? "overflow-hidden" : "mb-6 overflow-visible"}
       >
         <ProjectPreviewFrame slug={slug} compact={compact} />
       </BevelBox>

@@ -99,56 +99,61 @@ export const FloatingToolbarPreview = () => {
   const tooltipX = hoveredItem ? getItemX(hoveredIndex) + itemSize / 2 : 0;
 
   return (
-    <div className="flex w-full max-w-full items-center justify-center overflow-x-auto py-6 sm:py-8">
+    <div className="flex w-full max-w-full items-center justify-center overflow-visible pt-6 pb-14 sm:pt-8 sm:pb-16">
+      {/* Keep tooltips outside backdrop-blur — it clips overflow in browsers. */}
       <div
-        className="relative flex max-w-full shrink-0 items-center rounded-full border border-border bg-background/80 shadow-lg backdrop-blur-xl"
-        style={{ gap, paddingLeft: padding, paddingRight: padding, paddingTop: 8, paddingBottom: 8 }}
+        className="relative max-w-full shrink-0"
         onMouseLeave={() => canHover && handleHover(null)}
       >
-        <AnimatePresence>
-          {hoveredId && (
-            <motion.div
-              className="absolute top-1/2 left-0 -translate-y-1/2 rounded-xl bg-foreground/5"
-              style={{ width: itemSize, height: itemSize }}
-              initial={{ opacity: 0, x: bgX, scale: 0.95 }}
-              animate={{ opacity: 1, x: bgX, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            />
-          )}
-        </AnimatePresence>
-
-        {ITEMS.map((item, index) => (
-          <React.Fragment key={item.id}>
-            {index === SEPARATOR_AFTER + 1 && (
-              <div
-                className="bg-border"
-                style={{ width: 1, height: isNarrow ? 16 : 20, marginLeft: 2, marginRight: 2 }}
+        <div
+          className="relative flex items-center rounded-full border border-border bg-background/80 shadow-lg backdrop-blur-xl"
+          style={{ gap, paddingLeft: padding, paddingRight: padding, paddingTop: 8, paddingBottom: 8 }}
+        >
+          <AnimatePresence>
+            {hoveredId && (
+              <motion.div
+                className="absolute top-1/2 left-0 -translate-y-1/2 rounded-xl bg-foreground/5"
+                style={{ width: itemSize, height: itemSize }}
+                initial={{ opacity: 0, x: bgX, scale: 0.95 }}
+                animate={{ opacity: 1, x: bgX, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
-            <button
-              type="button"
-              onClick={() => handleSelect(item.id)}
-              onMouseEnter={() => canHover && handleHover(item.id)}
-              aria-label={item.label}
-              className={`relative flex shrink-0 cursor-pointer items-center justify-center rounded-xl outline-none transition-colors duration-200 active:scale-[0.97] ${
-                activeId === item.id
-                  ? "text-foreground"
-                  : "text-foreground/50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground"
-              }`}
-              style={{ width: itemSize, height: itemSize }}
-            >
-              <span className="relative z-10">{item.icon(iconSize)}</span>
-              {activeId === item.id && (
-                <motion.div
-                  layoutId="preview-active-dot"
-                  className="absolute bottom-1 h-1.5 w-1.5 rounded-full bg-foreground"
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          </AnimatePresence>
+
+          {ITEMS.map((item, index) => (
+            <React.Fragment key={item.id}>
+              {index === SEPARATOR_AFTER + 1 && (
+                <div
+                  className="bg-border"
+                  style={{ width: 1, height: isNarrow ? 16 : 20, marginLeft: 2, marginRight: 2 }}
                 />
               )}
-            </button>
-          </React.Fragment>
-        ))}
+              <button
+                type="button"
+                onClick={() => handleSelect(item.id)}
+                onMouseEnter={() => canHover && handleHover(item.id)}
+                aria-label={item.label}
+                className={`relative flex shrink-0 cursor-pointer items-center justify-center rounded-xl outline-none transition-colors duration-200 active:scale-[0.97] ${
+                  activeId === item.id
+                    ? "text-foreground"
+                    : "text-foreground/50 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground"
+                }`}
+                style={{ width: itemSize, height: itemSize }}
+              >
+                <span className="relative z-10">{item.icon(iconSize)}</span>
+                {activeId === item.id && (
+                  <motion.div
+                    layoutId="preview-active-dot"
+                    className="absolute bottom-1 h-1.5 w-1.5 rounded-full bg-foreground"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
+              </button>
+            </React.Fragment>
+          ))}
+        </div>
 
         <AnimatePresence>
           {hoveredItem && (
