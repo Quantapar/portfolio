@@ -22,7 +22,7 @@ export const experience: Experience[] = [
         roleType: "Design Engineer Intern",
         period: {
             start: "Apr 2026",
-            end: "May 2026",
+            end: "June 2026",
             location: "Remote"
         },
         bullets: [
