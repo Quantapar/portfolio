@@ -806,9 +806,9 @@ export function App() {
                   <span>Design Engineer</span>
                 </div>
                 <p className="text-(--text-secondary) text-[17px] leading-[1.7] max-w-lg">
-                  I am a design engineer who likes building interfaces that
-                  look good and feel right to use. I care about the small
-                  details most people never notice.
+                  I am a design engineer who likes building interfaces that look
+                  good and feel right to use. I care about the small details
+                  most people never notice.
                 </p>
               </motion.div>
 
@@ -1150,8 +1150,8 @@ export function App() {
                 </div>
                 <div className="mt-6">
                   <p className="text-[17px] leading-[1.7] text-(--text-secondary) max-w-md">
-                    I'm Manu, a design engineer who likes making interfaces
-                    feel good to use. I build with React, TypeScript and Framer
+                    I'm Manu, a design engineer who likes making interfaces feel
+                    good to use. I build with React, TypeScript and Framer
                     Motion. Right now I'm working on{" "}
                     <a
                       href="https://onchainui.quantapar.com/"
