@@ -61,7 +61,7 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
         </div>
       ) : null}
 
-      {project.liveUrl || project.sourceUrl ? (
+      {project.liveUrl || project.sourceUrl || project.contributionUrl ? (
         <div className="pt-6">
           <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
             {project.liveUrl ? (
@@ -69,6 +69,12 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
             ) : null}
             {project.sourceUrl ? (
               <WorkLink href={project.sourceUrl} label="Source" />
+            ) : null}
+            {project.contributionUrl ? (
+              <WorkLink
+                href={project.contributionUrl}
+                label="My contribution"
+              />
             ) : null}
           </div>
         </div>

@@ -13,6 +13,7 @@ export type Project = {
     hero?: string;
     liveUrl?: string;
     sourceUrl?: string;
+    contributionUrl?: string;
     tech?: string[];
     status?: string;
 };
@@ -55,6 +56,22 @@ export const projects: Project[] = [
         tech: ["React", "TypeScript", "Framer Motion", "SVG Filters"]
     },
     {
+        slug: "screenshot-studio",
+        title1: "Screenshot",
+        title2: "Studio",
+        type: "product",
+        featured: true,
+        year: 2026,
+        status: "OSS contribution",
+        summary: "A comprehensive redesign of a free, open-source screenshot editor, spanning its marketing experience and core browser-based workspace.",
+        useCase: "Refreshed responsive landing pages, editor navigation, canvas states, export controls, and the animation timeline to make a feature-rich creative tool feel clearer and more cohesive.",
+        src: "/work/screenshot-studio.png",
+        liveUrl: "https://www.screenshot-studio.com/landing",
+        sourceUrl: "https://github.com/KartikLabhshetwar/screenshot-studio",
+        contributionUrl: "https://github.com/KartikLabhshetwar/screenshot-studio/commit/0740e087968b82580bff0005fd4dc464d1553775",
+        tech: ["Next.js", "TypeScript", "Tailwind CSS", "Motion"]
+    },
+    {
         slug: "pulse-api",
         title1: "Pulse",
         title2: "API",
@@ -91,7 +108,7 @@ export const projects: Project[] = [
         title1: "Dashboard",
         title2: "UI",
         type: "product",
-        featured: true,
+        featured: false,
         year: 2025,
         summary: "A SaaS analytics dashboard built as an assignment. KPI cards with sparklines, filterable order tables, and a collapsible sidebar.",
         useCase: "Dark analytics interface with sortable columns, status tabs, and metric cards for operational monitoring.",

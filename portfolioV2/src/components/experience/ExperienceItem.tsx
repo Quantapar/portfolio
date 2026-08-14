@@ -14,13 +14,10 @@ function ExperiencePeriod({ period }: { period: Experience["period"] }) {
   return (
     <>
       <span className="mt-1 block text-sm text-foreground/50 sm:hidden">
-        <span className="block">
-          {period.start} to {period.end}
-        </span>
-        <span className="block">{period.location}</span>
+        {period.start} to {period.end}
       </span>
       <span className="mt-1 hidden text-sm text-foreground/50 sm:block">
-        {period.start} — {period.end} · {period.location}
+        {period.start} — {period.end}
       </span>
     </>
   );
@@ -98,9 +95,11 @@ export function ExperienceItem({
         <span className="min-w-0 flex-1">
           <span className="flex flex-col items-start gap-1.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
             <span className="text-sm font-medium">{item.company}</span>
-            <span className="w-fit border border-dotted border-border px-2 py-0.5 text-xs text-foreground/60">
-              {item.roleType}
-            </span>
+            {item.roleType ? (
+              <span className="w-fit border border-dotted border-border px-2 py-0.5 text-xs text-foreground/60">
+                {item.roleType}
+              </span>
+            ) : null}
           </span>
           <ExperiencePeriod period={item.period} />
         </span>
@@ -134,11 +133,35 @@ export function ExperienceItem({
               }}
             >
               {item.bullets.map((bullet) => (
-                <li key={bullet} className="flex gap-2">
+                <li
+                  key={
+                    typeof bullet === "string"
+                      ? bullet
+                      : `${bullet.before}${bullet.link.href}${bullet.after}`
+                  }
+                  className="flex gap-2"
+                >
                   <span aria-hidden="true" className="text-foreground/35">
                     •
                   </span>
-                  <span>{bullet}</span>
+                  <span>
+                    {typeof bullet === "string" ? (
+                      bullet
+                    ) : (
+                      <>
+                        {bullet.before}
+                        <a
+                          href={bullet.link.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground/70"
+                        >
+                          {bullet.link.label}
+                        </a>
+                        {bullet.after}
+                      </>
+                    )}
+                  </span>
                 </li>
               ))}
             </ul>
