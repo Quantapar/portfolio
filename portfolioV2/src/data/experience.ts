@@ -61,12 +61,20 @@ export const experience: Experience[] = [
         },
         bullets: [
             {
-                before: "Designed and developed the responsive landing page for ",
+                before: "Designed and developed the responsive ",
                 link: {
                     label: "Neatlogs",
-                    href: "https://neatlogs.com/"
+                    href: "/work/neatlogs"
                 },
-                after: ", focusing on a clear responsive layout, visual consistency, and polished interactions."
+                after: ", preserved here as a video walkthrough of the version I shipped."
+            },
+            {
+                before: "The work was selected for the ",
+                link: {
+                    label: "Vibrant.design showcase",
+                    href: "https://vibrant.design/website/l4accpy-neatlogs-com"
+                },
+                after: "."
             },
             "Collaborated across design and engineering to translate product requirements into reusable, production-ready frontend components."
         ],

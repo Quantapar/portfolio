@@ -1,6 +1,5 @@
 import type { ComponentType } from "react";
 import { AddressCardPreview } from "./AddressCardPreview";
-import { AnimatedTimerPreview } from "./AnimatedTimer";
 import { Dithered404Preview } from "./Dithered404Preview";
 import { FloatingToolbarPreview } from "./FloatingToolbarPreview";
 import { OtpVerifyPreview } from "./OtpVerifyPreview";
@@ -11,7 +10,6 @@ export const projectPreviews: Record<string, ComponentType> = {
   "floating-toolbar": FloatingToolbarPreview,
   "otp-verify": OtpVerifyPreview,
   "wallet-balance": WalletBalancePreview,
-  "animated-timer": AnimatedTimerPreview,
   "dithered-404": Dithered404Preview,
 };
 

@@ -11,9 +11,12 @@ export type Project = {
     useCase: string;
     src: string;
     hero?: string;
+    videoSrc?: string;
+    archiveNote?: string;
     liveUrl?: string;
     sourceUrl?: string;
     contributionUrl?: string;
+    featureUrl?: string;
     tech?: string[];
     status?: string;
 };
@@ -27,19 +30,19 @@ export const PROJECT_TYPE_LABELS: Record < ProjectType,
 
 export const projects: Project[] = [
     {
-        slug: "onchain-ui",
-        title1: "OnChain",
-        title2: "UI",
+        slug: "neatlogs",
+        title1: "Neatlogs",
+        title2: "",
         type: "product",
         featured: true,
         year: 2026,
-        status: "Currently building",
-        summary: "A Web3 component library and UI marketplace. Production-ready React components for wallets, tokens, chains, and transactions.",
-        useCase: "Copy, paste, and ship Web3 UI without rebuilding wallet flows, token displays, and transaction states from scratch.",
-        src: "/work/onchain-ui.png",
-        liveUrl: "https://onchainui.quantapar.com/",
-        sourceUrl: "https://github.com/Quantapar/OnChainUI",
-        tech: ["React", "TypeScript", "Tailwind CSS", "npm"]
+        summary: "The responsive product site I designed and developed for Neatlogs during my design engineering internship.",
+        useCase: "A polished launch experience that turns an observability workflow into a clear visual story, with responsive layouts, reusable UI, and considered interaction details.",
+        src: "/work/neatlogs.jpg",
+        videoSrc: "/work/neatlogs.mp4",
+        archiveNote: "This recording preserves the version I designed and shipped during my internship, before later changes to neatlogs.com.",
+        featureUrl: "https://vibrant.design/website/l4accpy-neatlogs-com",
+        tech: ["React", "TypeScript", "Tailwind CSS", "UI/UX"]
     },
     {
         slug: "gooey-text",
@@ -155,7 +158,7 @@ export const projects: Project[] = [
         type: "mobile",
         featured: false,
         year: 2025,
-        summary: "Bet on yourself, not prediction markets. A Solana Mobile habit app where morning tasks are backed by a small $SOL or $SKR stake.",
+        summary: "A Solana Mobile habit app published on the Solana dApp Store for Seeker, where morning tasks are backed by a small $SOL or $SKR stake.",
         useCase: "Finish the task, stake returns. Miss it, your stake rewards people who actually showed up. Accountability with skin in the game.",
         src: "/work/morn-morn.png",
         tech: [
@@ -178,17 +181,6 @@ export const projects: Project[] = [
         liveUrl: "https://krane-apps-github-style-website.vercel.app/",
         sourceUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
         tech: ["React", "UI Design", "Open Source"]
-    }, {
-        slug: "torchbase-landing",
-        title1: "Torchbase",
-        title2: "Landing",
-        type: "product",
-        featured: false,
-        year: 2025,
-        summary: "A warm, high-contrast product landing page for an AI reliability workspace.",
-        useCase: "Product marketing screen with bold hero typography and clear navigation, shared as a design study on X.",
-        src: "/work/torchbase-landing.png",
-        tech: ["Landing page", "Product design"]
     }, {
         slug: "floating-toolbar",
         title1: "Floating",
@@ -234,17 +226,6 @@ export const projects: Project[] = [
         src: "",
         tech: ["React", "Framer Motion", "Web3 UI"]
     }, {
-        slug: "animated-timer",
-        title1: "Animated",
-        title2: "Timer",
-        type: "component",
-        featured: false,
-        year: 2025,
-        summary: "An animated digital clock with spring-based digit transitions and interactive hover effects.",
-        useCase: "Live clock display with per-digit spring animations good for dashboards or session timers.",
-        src: "",
-        tech: ["React", "Framer Motion"]
-    }, {
         slug: "dithered-404",
         title1: "Dithered",
         title2: "404",
@@ -255,6 +236,17 @@ export const projects: Project[] = [
         useCase: "Branded empty state with motion personality: “This page went up in smoke.”",
         src: "",
         tech: ["React", "Canvas", "Dithering"]
+    }, {
+        slug: "torchbase-landing",
+        title1: "Torchbase",
+        title2: "Landing",
+        type: "component",
+        featured: false,
+        year: 2025,
+        summary: "A warm, high-contrast product landing page for an AI reliability workspace.",
+        useCase: "Product marketing screen with bold hero typography and clear navigation, shared as a design study on X.",
+        src: "/work/torchbase-landing.png",
+        tech: ["Landing page", "Product design"]
     },
 ];
 

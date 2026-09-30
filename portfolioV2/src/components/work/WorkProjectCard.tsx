@@ -21,7 +21,7 @@ export function WorkProjectCard({ project }: WorkProjectCardProps) {
       to={`/work/${project.slug}`}
       className="group flex h-full cursor-pointer flex-col gap-3 p-4 transition-[background-color,transform] duration-[160ms] ease-[var(--ease-out)] active:scale-[0.98] [@media(hover:hover)_and_(pointer:fine)]:hover:bg-foreground/5 sm:p-5"
     >
-      <div className="flex aspect-[16/10] w-full items-center justify-center overflow-hidden border border-dotted border-border bg-foreground/3 transition-[border-color,opacity] duration-[160ms] ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:border-foreground/35">
+      <div className="relative flex aspect-[16/10] w-full items-center justify-center overflow-hidden border border-dotted border-border bg-foreground/3 transition-[border-color,opacity] duration-[160ms] ease-[var(--ease-out)] [@media(hover:hover)_and_(pointer:fine)]:group-hover:border-foreground/35">
         {hasImage ? (
           <img
             src={project.src}

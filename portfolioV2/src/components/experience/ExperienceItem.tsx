@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import type { Experience } from "../../data/experience";
 import { BevelBox } from "../ui/BevelBox";
 
@@ -150,14 +151,23 @@ export function ExperienceItem({
                     ) : (
                       <>
                         {bullet.before}
-                        <a
-                          href={bullet.link.href}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground/70"
-                        >
-                          {bullet.link.label}
-                        </a>
+                        {bullet.link.href.startsWith("/") ? (
+                          <Link
+                            to={bullet.link.href}
+                            className="text-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground/70"
+                          >
+                            {bullet.link.label}
+                          </Link>
+                        ) : (
+                          <a
+                            href={bullet.link.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground/70"
+                          >
+                            {bullet.link.label}
+                          </a>
+                        )}
                         {bullet.after}
                       </>
                     )}
