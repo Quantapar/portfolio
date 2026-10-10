@@ -26,7 +26,7 @@ function ExperienceGroup({
 
   return (
     <div className={className}>
-      <h2 className="mb-4 text-lg font-medium">{title}</h2>
+      <h2 className="mb-2 font-medium">{title}</h2>
       {/* Rows bleed 8px past the text edge so their hover fill has room around the content. */}
       <ul className="-mx-2 space-y-1">
         {items.map((item) => (
@@ -51,7 +51,7 @@ export function ExperienceSection() {
   }, []);
 
   return (
-    <section id="experience" className="scroll-mt-20 px-4 py-10 sm:px-6">
+    <section id="experience" className="scroll-mt-20">
       <ExperienceGroup title="Currently" items={current} onHover={setHover} />
       <ExperienceGroup
         title="Previously"

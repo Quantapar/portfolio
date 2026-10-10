@@ -18,7 +18,7 @@ type ApiResponse = {
   contributions: ContributionDay[];
 };
 
-// Same public API the activity calendar reads, so the browser can share the response.
+// A community API that reads the public contribution calendar on a GitHub profile.
 const API = "https://github-contributions-api.jogruber.de/v4";
 
 export function useGitHubContributions(username: string) {

@@ -4,19 +4,12 @@ type PageShellProps = {
   children: ReactNode;
 };
 
+/** One narrow column with open space around it; blocks are separated by space, not lines. */
 export function PageShell({ children }: PageShellProps) {
   return (
-    <div className="flex min-h-dvh w-full justify-center px-4 sm:px-6">
-      <div className="flex min-h-dvh w-full max-w-3xl">
-        <div
-          className="grid-frame-gutter-left w-[5px] shrink-0 self-stretch"
-          aria-hidden="true"
-        />
-        <div className="relative min-w-0 flex-1">{children}</div>
-        <div
-          className="grid-frame-gutter-right w-[5px] shrink-0 self-stretch"
-          aria-hidden="true"
-        />
+    <div className="flex min-h-dvh w-full justify-center">
+      <div className="flex w-[640px] max-w-[85%] flex-col gap-16 py-16 text-sm leading-6 sm:py-24">
+        {children}
       </div>
     </div>
   );

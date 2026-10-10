@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { matchPath, Outlet, useLocation } from "react-router-dom";
 import { getProjectBySlug } from "../../data/projects";
+import { getProjectPreview } from "../work/previews";
 import { PageShell } from "./PageShell";
 import { SiteFooter } from "./SiteFooter";
-import { SiteHeader } from "./SiteHeader";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -15,28 +15,40 @@ function ScrollToTop() {
   return null;
 }
 
-function isNotFoundPath(pathname: string) {
-  if (pathname === "/" || pathname === "/work") return false;
+function projectSlug(pathname: string) {
+  return matchPath({ path: "/work/:slug", end: true }, pathname)?.params.slug;
+}
 
-  const workProject = matchPath({ path: "/work/:slug", end: true }, pathname);
-  if (workProject?.params.slug) {
-    return !getProjectBySlug(workProject.params.slug);
-  }
-
-  return true;
+/** Work rebuilt on this site takes the whole screen, with no column, fade or footer around it. */
+function isLiveWorkPath(pathname: string) {
+  const slug = projectSlug(pathname);
+  return Boolean(slug && getProjectBySlug(slug) && getProjectPreview(slug));
 }
 
 export function SiteLayout() {
   const { pathname } = useLocation();
-  const isNotFound = isNotFoundPath(pathname);
+
+  if (isLiveWorkPath(pathname)) {
+    return (
+      <>
+        <ScrollToTop />
+        <Outlet />
+      </>
+    );
+  }
 
   return (
     <div className="min-h-dvh w-full overflow-x-clip">
       <ScrollToTop />
+      {/* Content scrolling up dissolves into the page instead of meeting a hard top edge. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-x-0 top-0 z-10 h-24 bg-linear-to-b from-background to-transparent"
+      />
       <PageShell>
-        <SiteHeader showBrand={!isNotFound} />
         <Outlet />
-        {isNotFound ? null : <SiteFooter signature={pathname === "/"} />}
+        {/* The sign-off belongs to the home page; inner pages end with their content. */}
+        {pathname === "/" ? <SiteFooter /> : null}
       </PageShell>
     </div>
   );

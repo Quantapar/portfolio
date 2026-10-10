@@ -1,0 +1,276 @@
+/* Extracted from the motion-card project. */
+.gooey-toggle-demo {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111111;
+}
+
+.gooey-toggle-demo {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: 88px 44px;
+  background: #070806;
+  color: #f3f3ee;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  isolation: isolate;
+}
+
+.gooey-toggle-demo::after {
+  position: absolute;
+  z-index: -1;
+  width: min(52vw, 720px);
+  aspect-ratio: 1;
+  border: 1px solid rgb(216 255 114 / 8%);
+  border-radius: 50%;
+  content: "";
+  box-shadow:
+    0 0 0 90px rgb(216 255 114 / 2.5%),
+    0 0 0 180px rgb(216 255 114 / 1.5%);
+  transform: translate(42%, 4%);
+}
+
+.gooey-toggle-demo__inner {
+  display: grid;
+  width: min(1100px, 100%);
+  grid-template-columns: minmax(0, 0.9fr) minmax(460px, 1.1fr);
+  align-items: center;
+  gap: clamp(56px, 8vw, 118px);
+}
+
+.gooey-toggle-demo__copy {
+  max-width: 480px;
+}
+
+.gooey-toggle-demo__eyebrow {
+  margin: 0 0 24px;
+  color: #d8ff72;
+  font-size: 12px;
+  font-weight: 680;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.gooey-toggle-demo h2 {
+  margin: 0;
+  color: #f4f4ef;
+  font-size: clamp(58px, 6.8vw, 92px);
+  font-weight: 640;
+  line-height: 0.88;
+  letter-spacing: -0.065em;
+}
+
+.gooey-toggle-demo h2 span {
+  display: block;
+  color: #858881;
+}
+
+.gooey-toggle-demo__description {
+  max-width: 430px;
+  margin: 30px 0 0;
+  color: #8e918a;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.gooey-toggle-demo__playground {
+  width: 100%;
+  padding: 27px 28px 22px;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 30px;
+  background: #0e100d;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    0 26px 70px -38px rgb(0 0 0 / 78%);
+}
+
+.gooey-toggle-demo__label-row {
+  display: flex;
+  min-height: 48px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.gooey-toggle-demo__label-row > div {
+  display: grid;
+  gap: 4px;
+}
+
+.gooey-toggle-demo__label-row span {
+  color: #f2f3ee;
+  font-size: 15px;
+  font-weight: 620;
+  letter-spacing: -0.02em;
+}
+
+.gooey-toggle-demo__label-row small {
+  color: #686b64;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.gooey-toggle-demo__label-row .gooey-toggle-demo__state {
+  display: inline-flex;
+  min-height: 29px;
+  align-items: center;
+  padding: 0 11px;
+  border: 1px solid rgb(255 255 255 / 9%);
+  border-radius: 999px;
+  background: #171916;
+  color: #a7aaa2;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.gooey-toggle {
+  display: block;
+  width: 100%;
+  margin: 20px 0 0;
+  padding: 0;
+  border: 0;
+  border-radius: 26px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transform-origin: center;
+}
+
+.gooey-toggle:focus-visible {
+  outline: 2px solid #d8ff72;
+  outline-offset: 5px;
+}
+
+.gooey-toggle__visual {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.gooey-toggle__track {
+  fill: #171916;
+  stroke: rgb(255 255 255 / 11%);
+  stroke-width: 1.2;
+  transition:
+    fill 180ms ease,
+    stroke 180ms ease;
+}
+
+.gooey-toggle__core {
+  fill: #11130f;
+}
+
+.gooey-toggle[data-state="on"] .gooey-toggle__track {
+  fill: #151812;
+  stroke: rgb(216 255 114 / 18%);
+}
+
+.gooey-toggle-demo__scale {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 23px;
+  color: #5f625b;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.gooey-toggle-demo__hint {
+  margin: 19px 0 0;
+  color: #585b55;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+.gooey-toggle:hover .gooey-toggle__track {
+    stroke: rgb(255 255 255 / 18%);
+  }
+
+.gooey-toggle[data-state="on"]:hover .gooey-toggle__track {
+    stroke: rgb(216 255 114 / 27%);
+  }
+}
+
+@media (max-width: 860px) {
+.gooey-toggle-demo {
+    padding: 92px 24px;
+  }
+
+.gooey-toggle-demo__inner {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+.gooey-toggle-demo__copy {
+    max-width: 620px;
+  }
+
+.gooey-toggle-demo__playground {
+    width: min(100%, 620px);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 560px) {
+.gooey-toggle-demo {
+    padding: 76px 18px;
+  }
+
+.gooey-toggle-demo h2 {
+    font-size: clamp(52px, 16vw, 72px);
+  }
+
+.gooey-toggle-demo__playground {
+    padding: 22px 18px 20px;
+    border-radius: 24px;
+  }
+}
+
+.gooey-toggle-demo {
+  min-height: 100svh;
+  padding: 0;
+  background: #f2f3f6;
+}
+
+.gooey-toggle-demo::after {
+  display: none;
+}
+
+.gooey-toggle {
+  width: min(260px, 68vw);
+  margin: 0;
+  border-radius: 999px;
+  filter: drop-shadow(0 13px 17px rgb(67 73 89 / 13%));
+}
+
+.gooey-toggle:focus-visible {
+  outline-color: #858b99;
+}
+
+.gooey-switch__track {
+  stroke: #c9cdd7;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 3px 3px rgb(74 80 96 / 18%));
+}
+
+.gooey-switch__active-track {
+  fill: #111111;
+}
+
+.gooey-switch__knob {
+  fill: #f8f8f6;
+  stroke: rgb(255 255 255 / 75%);
+  stroke-width: 1;
+  filter: drop-shadow(0 5px 5px rgb(77 82 96 / 22%));
+}

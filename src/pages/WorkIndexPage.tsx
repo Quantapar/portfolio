@@ -1,44 +1,34 @@
-import { useMemo, useState } from "react";
-import { getProjectsByType, projects, sortProjects } from "../data/projects";
-import { BackHeading } from "../components/ui/BackHeading";
-import { WorkFilters, type WorkFilter } from "../components/work/WorkFilters";
-import { WorkProjectGrid } from "../components/work/WorkProjectCard";
+import { experimentItems, projectItems, type WorkItem } from "../data/work";
+import { Breadcrumb } from "../components/ui/Breadcrumb";
+import { WorkGrid } from "../components/work/WorkGrid";
 
-export function WorkIndexPage() {
-  const [filter, setFilter] = useState<WorkFilter>("all");
+const categories = [
+  { title: "Experiments", items: experimentItems },
+  { title: "Projects", items: projectItems },
+];
 
-  const productProjects = useMemo(() => getProjectsByType("product"), []);
-  const mobileProjects = useMemo(() => getProjectsByType("mobile"), []);
-
-  const allVisualProjects = useMemo(
-    () =>
-      sortProjects(
-        projects.filter(
-          (project) => project.type === "product" || project.type === "mobile",
-        ),
-      ),
-    [],
-  );
+function WorkCategory({ title, items }: { title: string; items: WorkItem[] }) {
+  if (items.length === 0) return null;
 
   return (
-    <main className="px-4 py-10 sm:px-6">
-      <header className="mb-6 border-b border-dotted border-border pb-6">
-        <BackHeading to="/">Work</BackHeading>
-      </header>
+    <section className="flex flex-col gap-4">
+      <h2 className="font-medium text-foreground/60">{title}</h2>
+      <WorkGrid items={items} />
+    </section>
+  );
+}
 
-      <WorkFilters value={filter} onChange={setFilter} />
+export function WorkIndexPage() {
+  return (
+    <main>
+      <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "Work" }]} />
+      <h1 className="sr-only">Work</h1>
 
-      {filter === "all" ? (
-        <WorkProjectGrid projects={allVisualProjects} />
-      ) : null}
-
-      {filter === "product" ? (
-        <WorkProjectGrid projects={productProjects} />
-      ) : null}
-
-      {filter === "mobile" ? (
-        <WorkProjectGrid projects={mobileProjects} />
-      ) : null}
+      <div className="mt-8 flex flex-col gap-12">
+        {categories.map((category) => (
+          <WorkCategory key={category.title} {...category} />
+        ))}
+      </div>
     </main>
   );
 }

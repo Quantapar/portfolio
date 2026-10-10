@@ -1,57 +1,35 @@
 import { Link } from "react-router-dom";
-import { getFeaturedProjects } from "../../data/projects";
-import { WorkProjectGrid } from "../work/WorkProjectCard";
-
-function ChevronRightIcon() {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="arrow-nudge-x size-3.5 text-foreground/50"
-      aria-hidden="true"
-    >
-      <path d="M6 3l5 5-5 5" />
-    </svg>
-  );
-}
+import { homeItems } from "../../data/work";
+import { WorkGrid } from "../work/WorkGrid";
 
 export function WorkGallery() {
-  const featured = getFeaturedProjects();
-
   return (
-    <section id="work" className="scroll-mt-20 px-4 py-10 sm:px-6">
-      <h2 className="mb-6 text-lg font-medium">Work</h2>
-      <WorkProjectGrid projects={featured} />
-      <div className="mt-8">
+    <section id="work" className="flex scroll-mt-20 flex-col gap-4">
+      <div className="flex items-baseline justify-between gap-4">
+        <h2 className="font-medium">
+          {/* The heading is one way into the full list; its fill sits 4px/6px outside the text. */}
+          <Link
+            to="/work"
+            className="relative isolate flex w-fit items-center before:absolute before:-inset-x-1.5 before:-inset-y-1 before:-z-10 before:bg-foreground/5 before:opacity-0 before:transition-opacity before:duration-200 [@media(hover:hover)_and_(pointer:fine)]:hover:before:opacity-100"
+          >
+            Work
+          </Link>
+        </h2>
+        {/* The grid shows six pieces; this says plainly that there are more. */}
         <Link
           to="/work"
-          className="group pressable btn-bevel relative inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"
+          className="group inline-flex items-center gap-1 text-[13px] text-foreground/50 transition-colors duration-200 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground"
         >
-          <span className="btn-bevel-frame" aria-hidden="true" />
+          View all
           <span
-            className="btn-bevel-corner btn-bevel-corner-tl"
             aria-hidden="true"
-          />
-          <span
-            className="btn-bevel-corner btn-bevel-corner-tr"
-            aria-hidden="true"
-          />
-          <span
-            className="btn-bevel-corner btn-bevel-corner-bl"
-            aria-hidden="true"
-          />
-          <span
-            className="btn-bevel-corner btn-bevel-corner-br"
-            aria-hidden="true"
-          />
-          View all work
-          <ChevronRightIcon />
+            className="transition-transform duration-200 motion-reduce:transition-none [@media(hover:hover)_and_(pointer:fine)]:group-hover:translate-x-0.5"
+          >
+            →
+          </span>
         </Link>
       </div>
+      <WorkGrid items={homeItems} />
     </section>
   );
 }

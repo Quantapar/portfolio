@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { getProjectBySlug } from "../data/projects";
+import { LiveWork } from "../components/work/LiveWork";
 import { ProjectShowcase } from "../components/work/ProjectShowcase";
+import { getProjectPreview } from "../components/work/previews";
 import { NotFoundPage } from "./NotFoundPage";
 
 export function ProjectPage() {
@@ -9,6 +11,11 @@ export function ProjectPage() {
 
   if (!project) {
     return <NotFoundPage />;
+  }
+
+  // Work that is rebuilt here is shown as itself; everything else gets a short write-up.
+  if (getProjectPreview(project.slug)) {
+    return <LiveWork project={project} />;
   }
 
   return (

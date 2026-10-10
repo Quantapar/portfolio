@@ -12,8 +12,11 @@ export type Tweet = {
     };
     media?: {
         type: "photo" | "video";
+        /** The photo, or the poster frame of a video. */
         src: string;
         alt: string;
+        /** A copy of the post's video served from this site, when it has one. */
+        video?: string;
     };
 };
 

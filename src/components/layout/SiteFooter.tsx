@@ -1,30 +1,23 @@
 import { SITE_NAME } from "../../data/site";
+// Light mode only for now. Restore this import and the block below to bring the toggle back.
+// import { ThemeToggle } from "../ThemeToggle";
 import { Signature } from "../ui/Signature";
-import { GridDivider } from "./GridDivider";
 
-type SiteFooterProps = {
-  /** Signs off with the animated signature above the credits. */
-  signature?: boolean;
-};
-
-export function SiteFooter({ signature = false }: SiteFooterProps) {
+export function SiteFooter() {
   return (
     <footer>
-      <GridDivider />
-      <div className="px-4 pt-8 pb-10 text-center text-sm text-balance text-foreground/60 sm:px-6">
-        {signature ? (
-          <div className="mb-4 flex justify-center overflow-visible leading-none">
-            <Signature
-              text={SITE_NAME}
-              fontSize={23}
-              duration={1.5}
-              delay={0.1}
-              inView
-              once
-              className="max-w-full text-foreground/90"
-            />
-          </div>
-        ) : null}
+      <div className="text-center text-balance text-foreground/60">
+        <div className="mb-4 flex justify-center overflow-visible leading-none">
+          <Signature
+            text={SITE_NAME}
+            fontSize={23}
+            duration={1.5}
+            delay={0.1}
+            inView
+            once
+            className="max-w-full text-foreground/90"
+          />
+        </div>
         <p>Designed and built by {SITE_NAME}.</p>
         <p className="mt-1.5">
           Inspired by{" "}
@@ -47,6 +40,9 @@ export function SiteFooter({ signature = false }: SiteFooterProps) {
           </a>
           .
         </p>
+        {/* <div className="mt-6 flex justify-center">
+          <ThemeToggle />
+        </div> */}
       </div>
     </footer>
   );

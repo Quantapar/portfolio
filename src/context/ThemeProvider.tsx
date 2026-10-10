@@ -31,14 +31,17 @@ function playThemeSound() {
 }
 
 function getPreferredTheme(): Theme {
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "light" || stored === "dark") {
-    return stored;
-  }
+  // Light mode only for now. Restore the lines below to honour a saved or system preference.
+  return "light";
 
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  // const stored = localStorage.getItem(STORAGE_KEY);
+  // if (stored === "light" || stored === "dark") {
+  //   return stored;
+  // }
+  //
+  // return window.matchMedia("(prefers-color-scheme: dark)").matches
+  //   ? "dark"
+  //   : "light";
 }
 
 function applyTheme(theme: Theme) {

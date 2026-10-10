@@ -1,6 +1,5 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
-  useEffect,
   useState,
   type FocusEvent,
   type PointerEvent,
@@ -30,9 +29,7 @@ const reducedCardMotion = {
 
 type LinkPreviewProps = {
   href: string;
-  /** Screenshot of the destination, shown at 200×125. */
-  imageSrc?: string;
-  /** Custom card content, shown instead of a screenshot. It stays open while hovered, so it can hold links. */
+  /** What the card shows. It stays open while hovered, so it can hold links. Omit for a plain link. */
   card?: ReactNode;
   className?: string;
   /** Accessible name, for links whose content is only an icon. */
@@ -42,7 +39,6 @@ type LinkPreviewProps = {
 
 export function LinkPreview({
   href,
-  imageSrc,
   card,
   className = "link-inline",
   label,
@@ -50,26 +46,6 @@ export function LinkPreview({
 }: LinkPreviewProps) {
   const [open, setOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-
-  // Fetch ahead of the first hover so the card never opens empty.
-  useEffect(() => {
-    if (!imageSrc) return;
-    const image = new Image();
-    image.src = imageSrc;
-  }, [imageSrc]);
-
-  const content =
-    card ??
-    (imageSrc ? (
-      <img
-        src={imageSrc}
-        alt=""
-        width={200}
-        height={125}
-        draggable={false}
-        className="block max-w-none"
-      />
-    ) : null);
 
   const handlePointerEnter = (event: PointerEvent<HTMLSpanElement>) => {
     // Touch has no hover: a tap should go straight to the link.
@@ -101,15 +77,14 @@ export function LinkPreview({
       </a>
 
       <AnimatePresence>
-        {open && content ? (
+        {open && card ? (
           <span
             aria-hidden="true"
             // The shadow sits here because the card animates its own filter.
-            className={`absolute bottom-full left-1/2 z-50 block -translate-x-1/2 pb-2.5 drop-shadow-xl ${card ? "" : "pointer-events-none"}`.trim()}
+            className="absolute bottom-full left-1/2 z-50 block -translate-x-1/2 pb-2.5 drop-shadow-xl"
           >
             <motion.span
-              // Screenshots get a thin frame with see-through corners; custom cards keep the padded one.
-              className={`btn-bevel relative block origin-bottom ${card ? "p-3" : "btn-bevel-media p-1"}`}
+              className="btn-bevel relative block origin-bottom p-3"
               style={{ backgroundColor: "var(--background)" }}
               {...(shouldReduceMotion ? reducedCardMotion : cardMotion)}
             >
@@ -118,7 +93,7 @@ export function LinkPreview({
               <span className="btn-bevel-corner btn-bevel-corner-tr" />
               <span className="btn-bevel-corner btn-bevel-corner-bl" />
               <span className="btn-bevel-corner btn-bevel-corner-br" />
-              {content}
+              {card}
             </motion.span>
           </span>
         ) : null}

@@ -7,7 +7,7 @@ export function NotFoundPage() {
   const particleColor = theme === "dark" ? "#f9f8f8" : "#000000";
 
   return (
-    <main className="flex min-h-[calc(100dvh-5rem)] flex-col items-center justify-center px-4 py-16 sm:px-6">
+    <main className="flex min-h-[calc(100dvh-12rem)] flex-col items-center justify-center">
       <div className="relative h-48 w-full max-w-2xl sm:h-64">
         <DitheredLogo
           imageSrc="/work/404-dither.svg"

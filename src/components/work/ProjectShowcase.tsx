@@ -1,117 +1,88 @@
-import {
-  PROJECT_TYPE_LABELS,
-  type Project,
-} from "../../data/projects";
-import { BackHeading } from "../ui/BackHeading";
-import { BevelBox } from "../ui/BevelBox";
-import { WorkLink } from "./WorkLink";
-import { ProjectPreviewOrImage } from "./ProjectPreviewFrame";
+import type { Project } from "../../data/projects";
+import { Breadcrumb } from "../ui/Breadcrumb";
 
 type ProjectShowcaseProps = {
   project: Project;
 };
 
+const mediaClassName =
+  "block w-full border border-dotted border-border bg-foreground/3";
+
 export function ProjectShowcase({ project }: ProjectShowcaseProps) {
-  const typeLabel = PROJECT_TYPE_LABELS[project.type];
-  const heroSrc = project.hero ?? project.src;
+  const title = `${project.title1} ${project.title2}`.trim();
+
+  const links = [
+    { label: "Live demo", href: project.liveUrl },
+    { label: "Source", href: project.sourceUrl },
+    { label: "My contribution", href: project.contributionUrl },
+    { label: "Post on X", href: project.postUrl },
+    { label: "Featured on Vibrant.design", href: project.featureUrl },
+  ].filter((link) => link.href);
 
   return (
-    <article className="px-4 py-10 sm:px-6">
-      <header className="mb-6 border-b border-dotted border-border pb-6">
-        <div className="flex items-center justify-between gap-4">
-          <BackHeading to="/work" className="min-w-0">
-            {project.title1} {project.title2}
-          </BackHeading>
-          <div className="flex shrink-0 flex-col items-end gap-1 text-xs text-foreground/50">
-            {project.type !== "product" ? (
-              <span className="inline-flex items-center border border-dotted border-border px-2 py-0.5">
-                {typeLabel}
-              </span>
-            ) : null}
-            {project.status ? (
-              <span className="text-foreground/65">{project.status}</span>
-            ) : null}
-          </div>
-        </div>
+    <article className="flex flex-col gap-6">
+      <Breadcrumb
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Work", to: "/work" },
+          { label: title },
+        ]}
+      />
+
+      <header className="mt-2 flex items-baseline justify-between gap-4">
+        <h1 className="min-w-0 font-medium">{title}</h1>
+        <p className="shrink-0 text-[13px] text-foreground/50">
+          {project.status ? `${project.status} · ` : null}
+          <time className="font-mono text-xs">{project.year}</time>
+        </p>
       </header>
 
-      {project.videoSrc ? (
-        <div className="mb-6">
-          <BevelBox media className="overflow-hidden bg-black">
-            <video
-              src={project.videoSrc}
-              poster={project.src}
-              className="block aspect-[1250/720] w-full bg-black object-contain"
-              aria-label={`${project.title1} ${project.title2} walkthrough`}
-              autoPlay
-              controls
-              loop
-              muted
-              playsInline
-              preload="metadata"
-            />
-          </BevelBox>
-          {project.archiveNote ? (
-            <p className="mt-3 text-xs leading-relaxed text-foreground/55">
-              {project.archiveNote}
-            </p>
-          ) : null}
-        </div>
-      ) : (
-        <ProjectPreviewOrImage
-          slug={project.slug}
-          src={heroSrc}
-          alt={`${project.title1} ${project.title2}`}
-        />
-      )}
+      <p className="text-pretty text-foreground/65">{project.summary}</p>
 
-      <div className="space-y-4 border-b border-dotted border-border pb-6 text-pretty text-base text-foreground">
-        <p className="max-w-xl">{project.summary}</p>
-        <p className="max-w-xl">{project.useCase}</p>
+      <div>
+        {project.videoSrc ? (
+          <video
+            src={project.videoSrc}
+            poster={project.src}
+            className={`${mediaClassName} aspect-[1250/720] object-contain`}
+            aria-label={`${title} walkthrough`}
+            autoPlay
+            controls
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+        ) : (
+          <img
+            src={project.hero ?? project.src}
+            alt={title}
+            className={`${mediaClassName} h-auto`}
+          />
+        )}
+        {project.archiveNote ? (
+          <p className="mt-3 text-xs text-foreground/50">
+            {project.archiveNote}
+          </p>
+        ) : null}
       </div>
 
-      {project.tech && project.tech.length > 0 ? (
-        <div className="border-b border-dotted border-border py-6">
-          <h2 className="mb-3 text-sm font-medium">Tech</h2>
-          <ul className="flex flex-wrap gap-2">
-            {project.tech.map((item) => (
-              <li
-                key={item}
-                className="border border-dotted border-border px-2 py-1 text-xs text-foreground/65"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : null}
+      <p className="text-pretty text-foreground/65">{project.useCase}</p>
 
-      {project.liveUrl ||
-      project.sourceUrl ||
-      project.contributionUrl ||
-      project.featureUrl ? (
-        <div className="pt-6">
-          <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
-            {project.liveUrl ? (
-              <WorkLink href={project.liveUrl} label="Live demo" />
-            ) : null}
-            {project.sourceUrl ? (
-              <WorkLink href={project.sourceUrl} label="Source" />
-            ) : null}
-            {project.contributionUrl ? (
-              <WorkLink
-                href={project.contributionUrl}
-                label="My contribution"
-              />
-            ) : null}
-            {project.featureUrl ? (
-              <WorkLink
-                href={project.featureUrl}
-                label="Featured on Vibrant.design"
-              />
-            ) : null}
-          </div>
-        </div>
+      {links.length > 0 ? (
+        <p className="flex flex-wrap gap-x-4 gap-y-1">
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="link-inline"
+            >
+              {link.label}
+            </a>
+          ))}
+        </p>
       ) : null}
     </article>
   );

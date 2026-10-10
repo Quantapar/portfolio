@@ -7,12 +7,13 @@ import { ThemeProvider } from "./context/ThemeProvider";
 import "./index.css";
 import App from "./App.tsx";
 
-const storedTheme = localStorage.getItem("theme");
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
-  document.documentElement.classList.add("dark");
-}
+// Light mode only for now. Restore this to honour a saved or system dark preference.
+// const storedTheme = localStorage.getItem("theme");
+// const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+//
+// if (storedTheme === "dark" || (!storedTheme && prefersDark)) {
+//   document.documentElement.classList.add("dark");
+// }
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

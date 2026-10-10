@@ -1,14 +1,22 @@
+import { existsSync } from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
+import path from "node:path";
 import type { Plugin } from "vite";
 import { tweetLinks, type Tweet } from "../src/data/tweets.ts";
 
 const VIRTUAL_ID = "virtual:tweets";
 const RESOLVED_ID = `\0${VIRTUAL_ID}`;
 const ENDPOINT = "https://cdn.syndication.twimg.com/tweet-result";
+/** Where post videos are kept, inside the public folder, so thumbnails can loop them. */
+const VIDEO_DIR = "work/experiments";
 
 type RawMedia = {
     type: "photo" | "video" | "animated_gif";
     media_url_https: string;
     ext_alt_text?: string;
+    video_info?: {
+        variants: Array<{ content_type: string; url: string; bitrate?: number }>;
+    };
 };
 
 type RawTweet = {
@@ -69,6 +77,37 @@ function tweetMedia(raw: RawTweet): Tweet["media"] {
     };
 }
 
+/** The smallest MP4 X offers: thumbnails are tiny, so the lightest file is the right one. */
+function smallestVideoUrl(raw: RawTweet) {
+    const variants = raw.mediaDetails?.[0]?.video_info?.variants ?? [];
+
+    return variants
+        .filter((variant) => variant.content_type === "video/mp4")
+        .sort((a, b) => (a.bitrate ?? 0) - (b.bitrate ?? 0))[0]?.url;
+}
+
+/**
+ * X refuses to serve its videos to other sites, so each one is saved next to the site's own files.
+ * Returns the public path, or undefined when there is no video or it could not be fetched.
+ */
+async function localVideo(raw: RawTweet, publicDir: string) {
+    const url = smallestVideoUrl(raw);
+    if (!url) return undefined;
+
+    const publicPath = `/${VIDEO_DIR}/${raw.id_str}.mp4`;
+    const file = path.join(publicDir, VIDEO_DIR, `${raw.id_str}.mp4`);
+
+    if (!existsSync(file)) {
+        const response = await fetch(url, { signal: AbortSignal.timeout(60_000) });
+        if (!response.ok) throw new Error(`video responded with ${response.status}`);
+
+        await mkdir(path.dirname(file), { recursive: true });
+        await writeFile(file, Buffer.from(await response.arrayBuffer()));
+    }
+
+    return publicPath;
+}
+
 function toTweet(raw: RawTweet): Tweet {
     return {
         id: raw.id_str,
@@ -86,7 +125,11 @@ function toTweet(raw: RawTweet): Tweet {
     };
 }
 
-async function fetchTweet(id: string): Promise<Tweet> {
+async function fetchTweet(
+    id: string,
+    publicDir: string,
+    warn: (message: string) => void,
+): Promise<Tweet> {
     const url = `${ENDPOINT}?id=${id}&lang=en&token=${tweetToken(id)}`;
     const response = await fetch(url, { signal: AbortSignal.timeout(10_000) });
 
@@ -100,10 +143,21 @@ async function fetchTweet(id: string): Promise<Tweet> {
         throw new Error("post is deleted or not public");
     }
 
-    return toTweet(raw);
+    const tweet = toTweet(raw);
+
+    if (tweet.media) {
+        // A missing video only costs the motion: the thumbnail still shows the poster.
+        tweet.media.video = await localVideo(raw, publicDir).catch((error) => {
+            const reason = error instanceof Error ? error.message : String(error);
+            warn(`No video saved for post ${id}: ${reason}.`);
+            return undefined;
+        });
+    }
+
+    return tweet;
 }
 
-async function fetchTweets(warn: (message: string) => void) {
+async function fetchTweets(publicDir: string, warn: (message: string) => void) {
     const results = await Promise.all(
         tweetLinks.map(async (link) => {
             const id = tweetId(link);
@@ -115,7 +169,9 @@ async function fetchTweets(warn: (message: string) => void) {
 
             try {
                 // One retry covers a dropped connection without slowing the build much.
-                return await fetchTweet(id).catch(() => fetchTweet(id));
+                return await fetchTweet(id, publicDir, warn).catch(() =>
+                    fetchTweet(id, publicDir, warn),
+                );
             } catch (error) {
                 const reason = error instanceof Error ? error.message : String(error);
                 warn(`Skipping post ${id}: ${reason}.`);
@@ -130,16 +186,20 @@ async function fetchTweets(warn: (message: string) => void) {
 /** Resolves the links in src/data/tweets.ts into `virtual:tweets` at dev start and build. */
 export function tweets(): Plugin {
     let pending: Promise<Tweet[]> | undefined;
+    let publicDir = "public";
 
     return {
         name: "tweets",
+        configResolved(config) {
+            publicDir = config.publicDir;
+        },
         resolveId(id) {
             return id === VIRTUAL_ID ? RESOLVED_ID : undefined;
         },
         async load(id) {
             if (id !== RESOLVED_ID) return undefined;
 
-            pending ??= fetchTweets((message) => this.warn(message));
+            pending ??= fetchTweets(publicDir, (message) => this.warn(message));
 
             return `export const tweets = ${JSON.stringify(await pending)};`;
         },
