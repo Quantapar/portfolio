@@ -4,8 +4,10 @@ import { Hero } from "../components/sections/Hero";
 import { AboutContact } from "../components/sections/AboutContact";
 import { ExperienceSection } from "../components/sections/ExperienceSection";
 import { GitHubActivitySection } from "../components/sections/GitHubActivitySection";
+import { TweetsSection } from "../components/sections/TweetsSection";
 import { ConversationSection } from "../components/sections/ConversationSection";
 import { WorkGallery } from "../components/sections/WorkGallery";
+import { tweets } from "virtual:tweets";
 
 export function HomePage() {
   return (
@@ -17,6 +19,12 @@ export function HomePage() {
       <GridDivider />
       <WorkGallery />
       <GridDivider />
+      {tweets.length > 0 ? (
+        <>
+          <TweetsSection />
+          <GridDivider />
+        </>
+      ) : null}
       <ExperienceSection />
       <GridDivider />
       <GitHubActivitySection />

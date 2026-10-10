@@ -2,6 +2,7 @@ import {defineConfig} from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
+import {tweets} from './plugins/tweets.ts'
 
 const siteUrl = (
     process.env.VITE_SITE_URL?.replace(/\/$/, '') || 'https://www.quantapar.com'
@@ -12,6 +13,7 @@ export default defineConfig({
     plugins: [
         react(),
         tailwindcss(),
+        tweets(),
         {
             name: 'html-meta',
             transformIndexHtml(html) {
