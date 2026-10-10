@@ -21,7 +21,12 @@ function WorkCategory({ title, items }: { title: string; items: WorkItem[] }) {
 export function WorkIndexPage() {
   return (
     <main>
-      <Breadcrumb items={[{ label: "Home", to: "/" }, { label: "Work" }]} />
+      <Breadcrumb
+        items={[
+          { label: "Home", to: "/" },
+          { label: "Work", transitionName: "work-heading" },
+        ]}
+      />
       <h1 className="sr-only">Work</h1>
 
       <div className="mt-8 flex flex-col gap-12">

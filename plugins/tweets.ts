@@ -7,8 +7,8 @@ import { tweetLinks, type Tweet } from "../src/data/tweets.ts";
 const VIRTUAL_ID = "virtual:tweets";
 const RESOLVED_ID = `\0${VIRTUAL_ID}`;
 const ENDPOINT = "https://cdn.syndication.twimg.com/tweet-result";
-/** Where post videos are kept, inside the public folder, so thumbnails can loop them. */
-const VIDEO_DIR = "work/experiments";
+/** Where post videos and their still frames are kept, inside the public folder. */
+const MEDIA_DIR = "work/experiments";
 
 type RawMedia = {
     type: "photo" | "video" | "animated_gif";
@@ -94,18 +94,25 @@ async function localVideo(raw: RawTweet, publicDir: string) {
     const url = smallestVideoUrl(raw);
     if (!url) return undefined;
 
-    const publicPath = `/${VIDEO_DIR}/${raw.id_str}.mp4`;
-    const file = path.join(publicDir, VIDEO_DIR, `${raw.id_str}.mp4`);
+    return saveMedia(url, `${raw.id_str}.mp4`, publicDir);
+}
+
+/**
+ * Keeps a copy of a post's file beside the site's own, and returns its public path.
+ * A file already there is left alone, so a hand-trimmed copy is never overwritten.
+ */
+async function saveMedia(url: string, fileName: string, publicDir: string) {
+    const file = path.join(publicDir, MEDIA_DIR, fileName);
 
     if (!existsSync(file)) {
         const response = await fetch(url, { signal: AbortSignal.timeout(60_000) });
-        if (!response.ok) throw new Error(`video responded with ${response.status}`);
+        if (!response.ok) throw new Error(`file responded with ${response.status}`);
 
         await mkdir(path.dirname(file), { recursive: true });
         await writeFile(file, Buffer.from(await response.arrayBuffer()));
     }
 
-    return publicPath;
+    return `/${MEDIA_DIR}/${fileName}`;
 }
 
 function toTweet(raw: RawTweet): Tweet {
@@ -146,6 +153,14 @@ async function fetchTweet(
     const tweet = toTweet(raw);
 
     if (tweet.media) {
+        // The still frame is saved too, so thumbnails don't depend on X staying reachable.
+        const extension = path.extname(new URL(tweet.media.src).pathname) || ".jpg";
+        tweet.media.src = await saveMedia(
+            tweet.media.src,
+            `${id}${extension}`,
+            publicDir,
+        ).catch(() => tweet.media!.src);
+
         // A missing video only costs the motion: the thumbnail still shows the poster.
         tweet.media.video = await localVideo(raw, publicDir).catch((error) => {
             const reason = error instanceof Error ? error.message : String(error);

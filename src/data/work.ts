@@ -16,9 +16,14 @@ function projectTitle(project: Project) {
     return `${project.title1} ${project.title2}`.trim();
 }
 
+/** Identifies a piece wherever it appears: its post id when it came from X, else its slug. */
+export function workKey(project: Project) {
+    return project.postUrl?.match(/status\/(\d+)/)?.[1] ?? project.slug;
+}
+
 function toItem(project: Project): WorkItem {
     return {
-        key: project.slug,
+        key: workKey(project),
         title: projectTitle(project),
         image: project.src,
         to: `/work/${project.slug}`,
@@ -34,7 +39,7 @@ const liveByPostId = new Map(
 );
 
 /** Work shared on X, in the order set in tweets.ts. */
-export const experimentItems: WorkItem[] = tweets.flatMap((tweet) => {
+const postedItems: WorkItem[] = tweets.flatMap((tweet) => {
     if (!tweet.media) return [];
 
     const live = liveByPostId.get(tweet.id);
@@ -61,7 +66,16 @@ const HOME_POST_IDS = [
 ];
 
 export const homeItems = HOME_POST_IDS.flatMap(
-    (id) => experimentItems.find((item) => item.key === id) ?? [],
+    (id) => postedItems.find((item) => item.key === id) ?? [],
 );
+
+/**
+ * The full list opens with the same six, in the same order, as the home page.
+ * Someone arriving from there sees the grid they just left, and anything new starts at the seventh.
+ */
+export const experimentItems: WorkItem[] = [
+    ...homeItems,
+    ...postedItems.filter((item) => !homeItems.includes(item)),
+];
 
 export const projectItems = getProjectsByType("product").map(toItem);

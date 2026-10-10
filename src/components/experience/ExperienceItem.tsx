@@ -1,11 +1,11 @@
 import { Laptop } from "lucide-react";
 import type { PointerEvent, ReactNode } from "react";
-import { Link } from "react-router-dom";
 import type {
   Experience,
   ExperienceLogo,
   LogoTone,
 } from "../../data/experience";
+import { TransitionLink } from "../ui/TransitionLink";
 import type { ExperienceHover } from "./ExperiencePreview";
 
 const rowClassName =
@@ -28,9 +28,9 @@ function ExperienceLink({
   // Case studies live on this site; everything else opens the shipped work.
   if (href.startsWith("/")) {
     return (
-      <Link to={href} className={rowClassName} {...handlers}>
+      <TransitionLink to={href} className={rowClassName} {...handlers}>
         {children}
-      </Link>
+      </TransitionLink>
     );
   }
 

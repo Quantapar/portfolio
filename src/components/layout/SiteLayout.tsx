@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { matchPath, Outlet, useLocation } from "react-router-dom";
 import { getProjectBySlug } from "../../data/projects";
+import { markRouteReady } from "../../lib/routeTransition";
 import { getProjectPreview } from "../work/previews";
 import { PageShell } from "./PageShell";
 import { SiteFooter } from "./SiteFooter";
@@ -8,8 +9,12 @@ import { SiteFooter } from "./SiteFooter";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
+  useLayoutEffect(() => {
+    // Instant, not smooth: a new page should start at the top, not scroll there.
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+    // Live pieces load their code first and report ready themselves.
+    if (!isLiveWorkPath(pathname)) markRouteReady();
   }, [pathname]);
 
   return null;

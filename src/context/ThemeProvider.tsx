@@ -79,6 +79,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
 
     isAnimatingRef.current = true;
+    // Opts this transition into the wipe; page changes share the same API and must not get it.
+    document.documentElement.dataset.transition = "theme";
 
     const transition = document.startViewTransition(() => {
       flushSync(() => {
@@ -88,6 +90,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     });
 
     transition.finished.finally(() => {
+      delete document.documentElement.dataset.transition;
       isAnimatingRef.current = false;
     });
   }, [theme]);

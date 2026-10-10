@@ -426,21 +426,31 @@
   }
 }
 
-::view-transition-old(root) {
-  z-index: -1;
-  animation: none;
-}
-
+/* Page changes: the page cross-fades briefly while shared pieces travel to their new place. */
+::view-transition-old(root),
 ::view-transition-new(root) {
-  animation: theme-slide-down 600ms ease-in-out both;
+  animation-duration: 220ms;
 }
 
-.dark::view-transition-old(root) {
+::view-transition-group(*) {
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* A thumbnail growing into a page changes shape, so its two snapshots fill the box instead of stretching. */
+::view-transition-old(*),
+::view-transition-new(*) {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Theme change: the new theme wipes down over the old one. Opt-in, so page changes are unaffected. */
+html[data-transition="theme"]::view-transition-old(root) {
   z-index: -1;
   animation: none;
 }
 
-.dark::view-transition-new(root) {
+html[data-transition="theme"]::view-transition-new(root) {
   animation: theme-slide-down 600ms ease-in-out both;
 }
 

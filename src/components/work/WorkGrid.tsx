@@ -1,7 +1,8 @@
 import { useReducedMotion } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 import type { WorkItem } from "../../data/work";
+import { workTransitionName } from "../../lib/routeTransition";
+import { TransitionLink } from "../ui/TransitionLink";
 
 type WorkGridProps = {
   items: WorkItem[];
@@ -50,7 +51,11 @@ function LoopingVideo({ src, poster }: { src: string; poster: string }) {
 
 function Thumbnail({ item }: { item: WorkItem }) {
   return (
-    <span className="block aspect-[3/2] overflow-hidden bg-background ring-1 ring-foreground/5">
+    <span
+      // 16:10 is the shape the clips and screenshots were recorded in, so nothing is cut off the sides.
+      className="block aspect-[16/10] overflow-hidden bg-background ring-1 ring-foreground/5"
+      style={{ viewTransitionName: workTransitionName(item.key) }}
+    >
       {item.video ? (
         <LoopingVideo src={item.video} poster={item.image} />
       ) : (
@@ -72,7 +77,7 @@ export function WorkGrid({ items }: WorkGridProps) {
     <div className="work-grid grid grid-cols-1 gap-6 sm:grid-cols-3">
       {items.map((item) =>
         item.to.startsWith("/") ? (
-          <Link
+          <TransitionLink
             key={item.key}
             to={item.to}
             aria-label={item.title}
@@ -80,7 +85,7 @@ export function WorkGrid({ items }: WorkGridProps) {
             className="work-entry block"
           >
             <Thumbnail item={item} />
-          </Link>
+          </TransitionLink>
         ) : (
           <a
             key={item.key}

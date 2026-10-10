@@ -3,22 +3,27 @@ import { Highlight } from "../ui/Highlight";
 import { CopyEmailButton } from "../ui/CopyEmailButton";
 import { GitHubContributionsCard } from "../ui/GitHubContributionsCard";
 import {
-  CalendarHoverIcon,
-  GitHubHoverIcon,
-  LinkedInHoverIcon,
-  XHoverIcon,
-} from "../ui/HoverIcons";
+  CalendarOutlineIcon,
+  GitHubOutlineIcon,
+  LinkedInOutlineIcon,
+  XOutlineIcon,
+} from "../ui/OutlineIcons";
 import { LinkPreview } from "../ui/LinkPreview";
 import { CalCard, LinkedInProfileCard, XProfileCard } from "../ui/ProfileCards";
 
 import { EMAIL, links, USERNAME } from "../../data/site";
 import { useGitHubContributions } from "../../hooks/useGitHubContributions";
 
+// The dotted border and fill live on a layer behind the content, so a press can shrink
+// the surface while the text and icon stay put.
 const chipClassName =
-  "group inline-flex items-center border border-dotted border-border py-1 text-sm whitespace-nowrap text-foreground transition-[background-color,border-color,scale] duration-150 ease-[var(--ease-out)] active:scale-[0.98] [@media(hover:hover)_and_(pointer:fine)]:hover:border-foreground/35 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-foreground/5";
+  "group relative isolate inline-flex items-center border border-transparent py-1 text-sm whitespace-nowrap text-foreground before:absolute before:-inset-px before:-z-10 before:border before:border-dotted before:border-border before:transition-[background-color,border-color,scale] before:duration-150 before:ease-[var(--ease-out)] active:before:bg-foreground/10 [@media(hover:hover)_and_(pointer:fine)]:hover:before:border-foreground/35 [@media(hover:hover)_and_(pointer:fine)]:hover:before:bg-foreground/5";
+
+// A wide chip needs only a slight squeeze to read as pressed.
+const textChipClassName = `${chipClassName} pr-3 pl-2.5 active:before:scale-[0.985]`;
 
 // Square chips that hold only a logo, sized to the height of the text chips.
-const iconChipClassName = `${chipClassName} size-[30px] justify-center`;
+const iconChipClassName = `${chipClassName} size-[30px] justify-center active:before:scale-[0.96]`;
 
 export function AboutContact() {
   const contributions = useGitHubContributions(USERNAME);
@@ -59,17 +64,14 @@ export function AboutContact() {
       </div>
 
       <div className="mt-5 flex flex-wrap items-center gap-2">
-        <CopyEmailButton
-          email={EMAIL}
-          className={`${chipClassName} pr-3 pl-2.5`}
-        />
+        <CopyEmailButton email={EMAIL} className={textChipClassName} />
         <LinkPreview
           href={links.linkedin}
           card={<LinkedInProfileCard />}
           label="LinkedIn"
           className={iconChipClassName}
         >
-          <LinkedInHoverIcon className="text-foreground/50" />
+          <LinkedInOutlineIcon className="text-foreground/50" />
         </LinkPreview>
         <LinkPreview
           href={links.github}
@@ -81,7 +83,7 @@ export function AboutContact() {
           label="GitHub"
           className={iconChipClassName}
         >
-          <GitHubHoverIcon className="text-foreground/50" />
+          <GitHubOutlineIcon className="text-foreground/50" />
         </LinkPreview>
         <LinkPreview
           href={links.x}
@@ -89,7 +91,7 @@ export function AboutContact() {
           label="X"
           className={iconChipClassName}
         >
-          <XHoverIcon className="text-foreground/50" />
+          <XOutlineIcon className="text-foreground/50" />
         </LinkPreview>
         <LinkPreview
           href={links.cal}
@@ -97,7 +99,7 @@ export function AboutContact() {
           label="Book a call"
           className={iconChipClassName}
         >
-          <CalendarHoverIcon className="text-foreground/50" />
+          <CalendarOutlineIcon className="text-foreground/50" />
         </LinkPreview>
       </div>
     </section>

@@ -1,4 +1,6 @@
 import type { Project } from "../../data/projects";
+import { workKey } from "../../data/work";
+import { workTransitionName } from "../../lib/routeTransition";
 import { Breadcrumb } from "../ui/Breadcrumb";
 
 type ProjectShowcaseProps = {
@@ -24,7 +26,7 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
       <Breadcrumb
         items={[
           { label: "Home", to: "/" },
-          { label: "Work", to: "/work" },
+          { label: "Work", to: "/work", transitionName: "work-heading" },
           { label: title },
         ]}
       />
@@ -39,26 +41,31 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
       <p className="text-pretty text-foreground/65">{project.summary}</p>
 
       <div>
-        {project.videoSrc ? (
-          <video
-            src={project.videoSrc}
-            poster={project.src}
-            className={`${mediaClassName} aspect-[1250/720] object-contain`}
-            aria-label={`${title} walkthrough`}
-            autoPlay
-            controls
-            loop
-            muted
-            playsInline
-            preload="metadata"
-          />
-        ) : (
-          <img
-            src={project.hero ?? project.src}
-            alt={title}
-            className={`${mediaClassName} h-auto`}
-          />
-        )}
+        {/* The thumbnail that was clicked grows into this. */}
+        <div
+          style={{ viewTransitionName: workTransitionName(workKey(project)) }}
+        >
+          {project.videoSrc ? (
+            <video
+              src={project.videoSrc}
+              poster={project.src}
+              className={`${mediaClassName} aspect-[1250/720] object-contain`}
+              aria-label={`${title} walkthrough`}
+              autoPlay
+              controls
+              loop
+              muted
+              playsInline
+              preload="metadata"
+            />
+          ) : (
+            <img
+              src={project.hero ?? project.src}
+              alt={title}
+              className={`${mediaClassName} h-auto`}
+            />
+          )}
+        </div>
         {project.archiveNote ? (
           <p className="mt-3 text-xs text-foreground/50">
             {project.archiveNote}
