@@ -31,12 +31,12 @@ export function SiteFooter() {
           </a>{" "}
           and{" "}
           <a
-            href="https://www.harshsingh.me/"
+            href="https://www.raphaelsalaja.com/"
             target="_blank"
             rel="noreferrer"
             className="link-inline"
           >
-            Harsh Singh
+            Raphael Salaja
           </a>
           .
         </p>
