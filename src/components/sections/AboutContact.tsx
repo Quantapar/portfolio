@@ -32,7 +32,7 @@ export function AboutContact() {
             <h1 className="font-heading font-medium tracking-tight text-foreground">
               Manu Sharma
             </h1>
-            <p className="text-foreground/50">
+            <p className="-mt-1 text-foreground/50">
               aka <span className="italic">quantapar</span>
             </p>
           </div>
