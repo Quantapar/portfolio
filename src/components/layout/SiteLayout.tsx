@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { matchPath, Outlet, useLocation } from "react-router-dom";
 import { getProjectBySlug } from "../../data/projects";
 import { PageShell } from "./PageShell";
+import { SiteFooter } from "./SiteFooter";
 import { SiteHeader } from "./SiteHeader";
 
 function ScrollToTop() {
@@ -35,6 +36,7 @@ export function SiteLayout() {
       <PageShell>
         <SiteHeader showBrand={!isNotFound} />
         <Outlet />
+        {isNotFound ? null : <SiteFooter signature={pathname === "/"} />}
       </PageShell>
     </div>
   );

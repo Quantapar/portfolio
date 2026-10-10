@@ -68,7 +68,7 @@ export const projects: Project[] = [
         status: "OSS contribution",
         summary: "A comprehensive redesign of a free, open-source screenshot editor, spanning its marketing experience and core browser-based workspace.",
         useCase: "Refreshed responsive landing pages, editor navigation, canvas states, export controls, and the animation timeline to make a feature-rich creative tool feel clearer and more cohesive.",
-        src: "/work/screenshot-studio.png",
+        src: "/work/screenshot-studio.jpg",
         liveUrl: "https://www.screenshot-studio.com/landing",
         sourceUrl: "https://github.com/KartikLabhshetwar/screenshot-studio",
         contributionUrl: "https://github.com/KartikLabhshetwar/screenshot-studio/commit/0740e087968b82580bff0005fd4dc464d1553775",

@@ -1,115 +1,82 @@
 export type Experience = {
     company: string;
-    roleType?: string;
+    role: string;
     period: {
         start: string;
         end: string;
     };
-    bullets: Array<
-        | string
-        | {
-            before: string;
-            link: {
-                label: string;
-                href: string;
-            };
-            after: string;
-        }
-    >;
-    tags: string[];
-    logo: {
-        src?: string;
-        label: string;
-        color?: string;
-        className?: string;
-    };
+    /** One line on what the work was. */
+    summary: string;
+    /** A phrase inside the summary to mark as the thing the row links to. */
+    highlight?: string;
+    /** Where the row leads: the shipped work, or its case study on this site. */
+    href: string;
+    /** Screenshot of that work, shown beside the row on hover. */
+    preview: string;
+    logo: ExperienceLogo;
 };
+
+/** Background colour of the logo tile. */
+export type LogoTone = "blue" | "orange" | "neutral";
+
+export type ExperienceLogo =
+    // A stock icon, for work with no brand of its own.
+    | { kind: "icon"; icon: "laptop"; tone: LogoTone }
+    // A transparent brand mark, drawn in white on the tile.
+    | { kind: "mark"; src: string; tone: LogoTone }
+    // Artwork that already is a tile, shown edge to edge.
+    | { kind: "image"; src: string; tone: LogoTone };
 
 export const experience: Experience[] = [
     {
         company: "Freelance",
-        roleType: "Design Engineer",
+        role: "Design Engineer",
         period: {
             start: "Jun 2026",
             end: "Present"
         },
-        bullets: [
-            {
-                before: "Redesigned and rebuilt the core product experience for ",
-                link: {
-                    label: "Screenshot Studio",
-                    href: "https://www.screenshot-studio.com/landing"
-                },
-                after: ", a free, open-source screenshot editor."
-            },
-            "Delivered responsive improvements across the marketing site, editor workspace, canvas states, export controls, and animation timeline."
-        ],
-        tags: [
-            "Next.js", "TypeScript", "Tailwind CSS", "Motion"
-        ],
+        summary: "Designing and building product interfaces for clients, e.g. Screenshot Studio",
+        highlight: "Screenshot Studio",
+        href: "https://www.screenshot-studio.com/landing",
+        preview: "/work/screenshot-studio.jpg",
         logo: {
-            src: "/logos/freelance.jpg",
-            label: "Freelance"
+            kind: "icon",
+            icon: "laptop",
+            tone: "blue"
         }
     },
     {
         company: "Neatlogs",
-        roleType: "Design Engineer Intern",
+        role: "Design Engineer Intern",
         period: {
             start: "Apr 2026",
-            end: "June 2026"
+            end: "Jun 2026"
         },
-        bullets: [
-            {
-                before: "Designed and developed the responsive ",
-                link: {
-                    label: "Neatlogs",
-                    href: "/work/neatlogs"
-                },
-                after: ", preserved here as a video walkthrough of the version I shipped."
-            },
-            {
-                before: "The work was selected for the ",
-                link: {
-                    label: "Vibrant.design showcase",
-                    href: "https://vibrant.design/website/l4accpy-neatlogs-com"
-                },
-                after: "."
-            },
-            "Collaborated across design and engineering to translate product requirements into reusable, production-ready frontend components."
-        ],
-        tags: [
-            "React", "TypeScript", "Tailwind CSS", "UI/UX"
-        ],
+        summary: "Designed and built the product site, reusable UI components and interactions",
+        highlight: "product site",
+        href: "/work/neatlogs",
+        preview: "/work/neatlogs.jpg",
         logo: {
+            kind: "image",
             src: "/logos/neatlogs.png",
-            label: "Neatlogs"
+            tone: "neutral"
         }
-    }, {
+    },
+    {
         company: "Krane Apps",
-        roleType: "Design Engineer Intern",
+        role: "Design Engineer Intern",
         period: {
             start: "Oct 2025",
             end: "Apr 2026"
         },
-        bullets: [
-            {
-                before: "Designed and developed a website revamp for ",
-                link: {
-                    label: "Krane Apps",
-                    href: "https://krane-apps-github-style-website.vercel.app/"
-                },
-                after: ", creating a cleaner product experience with responsive layouts and consistent interface patterns."
-            },
-            "Contributed to product design, prototyping, component development, and the implementation of interactive user experiences."
-        ],
-        tags: [
-            "React", "TypeScript", "Prototyping", "Motion"
-        ],
+        summary: "Product design, prototyping and interactive components, plus the website revamp",
+        highlight: "website revamp",
+        href: "https://krane-apps-github-style-website.vercel.app/",
+        preview: "/work/krane-apps.png",
         logo: {
+            kind: "mark",
             src: "/logos/krane-apps.png",
-            label: "Krane Apps",
-            className: "size-12"
+            tone: "orange"
         }
     },
 ];

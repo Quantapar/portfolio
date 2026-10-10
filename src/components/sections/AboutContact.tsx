@@ -2,13 +2,23 @@ import { FightClubAvatar } from "../ui/FightClubAvatar";
 import { Highlight } from "../ui/Highlight";
 import { CopyEmailButton } from "../ui/CopyEmailButton";
 import { GitHubContributionsCard } from "../ui/GitHubContributionsCard";
+import {
+  CalendarHoverIcon,
+  GitHubHoverIcon,
+  LinkedInHoverIcon,
+  XHoverIcon,
+} from "../ui/HoverIcons";
 import { LinkPreview } from "../ui/LinkPreview";
+import { CalCard, LinkedInProfileCard, XProfileCard } from "../ui/ProfileCards";
 
 import { EMAIL, links, USERNAME } from "../../data/site";
 import { useGitHubContributions } from "../../hooks/useGitHubContributions";
 
 const chipClassName =
   "group inline-flex items-center border border-dotted border-border py-1 text-sm whitespace-nowrap text-foreground transition-[background-color,border-color,scale] duration-150 ease-[var(--ease-out)] active:scale-[0.98] [@media(hover:hover)_and_(pointer:fine)]:hover:border-foreground/35 [@media(hover:hover)_and_(pointer:fine)]:hover:bg-foreground/5";
+
+// Square chips that hold only a logo, sized to the height of the text chips.
+const iconChipClassName = `${chipClassName} size-[30px] justify-center`;
 
 export function AboutContact() {
   const contributions = useGitHubContributions(USERNAME);
@@ -63,11 +73,12 @@ export function AboutContact() {
           className={`${chipClassName} pr-3 pl-2.5`}
         />
         <LinkPreview
-          href={links.x}
-          imageSrc="/previews/x-profile.jpg"
-          className={`${chipClassName} px-3`}
+          href={links.linkedin}
+          card={<LinkedInProfileCard />}
+          label="LinkedIn"
+          className={iconChipClassName}
         >
-          X
+          <LinkedInHoverIcon className="text-foreground/50" />
         </LinkPreview>
         <LinkPreview
           href={links.github}
@@ -76,16 +87,26 @@ export function AboutContact() {
               <GitHubContributionsCard contributions={contributions} />
             ) : undefined
           }
-          className={`${chipClassName} px-3`}
+          label="GitHub"
+          className={iconChipClassName}
         >
-          GitHub
+          <GitHubHoverIcon className="text-foreground/50" />
         </LinkPreview>
         <LinkPreview
-          href={links.linkedin}
-          imageSrc="/previews/linkedin-profile.jpg"
-          className={`${chipClassName} px-3`}
+          href={links.x}
+          card={<XProfileCard />}
+          label="X"
+          className={iconChipClassName}
         >
-          LinkedIn
+          <XHoverIcon className="text-foreground/50" />
+        </LinkPreview>
+        <LinkPreview
+          href={links.cal}
+          card={<CalCard />}
+          label="Book a call"
+          className={iconChipClassName}
+        >
+          <CalendarHoverIcon className="text-foreground/50" />
         </LinkPreview>
       </div>
     </section>

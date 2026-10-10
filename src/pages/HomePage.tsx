@@ -5,7 +5,6 @@ import { AboutContact } from "../components/sections/AboutContact";
 import { ExperienceSection } from "../components/sections/ExperienceSection";
 import { GitHubActivitySection } from "../components/sections/GitHubActivitySection";
 import { TweetsSection } from "../components/sections/TweetsSection";
-import { ConversationSection } from "../components/sections/ConversationSection";
 import { WorkGallery } from "../components/sections/WorkGallery";
 import { tweets } from "virtual:tweets";
 
@@ -28,8 +27,6 @@ export function HomePage() {
       <ExperienceSection />
       <GridDivider />
       <GitHubActivitySection />
-      <GridDivider />
-      <ConversationSection />
     </>
   );
 }

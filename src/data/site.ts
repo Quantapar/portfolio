@@ -10,5 +10,16 @@ export const links = {
     x: `https://x.com/${USERNAME}`,
     mail: `mailto:${EMAIL}`,
     resume: "/resume.pdf",
-    cal: "https://cal.com/manu-wc4w1k",
+    cal: "https://cal.com/manu-sharma-43j51q/30min",
+} as const;
+
+/** Shown on the contact hover cards. Typed in by hand, so refresh them now and then. */
+export const profiles = {
+    x: { name: "manu", handle: USERNAME, following: 625, followers: 421 },
+    linkedin: { headline: "Design Engineer", connections: "500+" },
+    cal: {
+        handle: "manu-sharma-43j51q",
+        event: "30 min meeting",
+        location: "Google Meet",
+    },
 } as const;

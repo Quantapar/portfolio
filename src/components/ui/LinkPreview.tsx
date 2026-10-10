@@ -1,10 +1,4 @@
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-} from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   useEffect,
   useState,
@@ -13,13 +7,36 @@ import {
   type ReactNode,
 } from "react";
 
+// The card rises 8px out of a slight blur and shrink; it leaves faster than it arrives.
+const cardMotion = {
+  initial: { opacity: 0, scale: 0.96, y: 8, filter: "blur(6px)" },
+  animate: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
+  exit: {
+    opacity: 0,
+    scale: 0.97,
+    y: 6,
+    filter: "blur(6px)",
+    transition: { duration: 0.14, ease: [0.4, 0, 1, 1] },
+  },
+  transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
+} as const;
+
+const reducedCardMotion = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0, transition: { duration: 0 } },
+  transition: { duration: 0 },
+} as const;
+
 type LinkPreviewProps = {
   href: string;
   /** Screenshot of the destination, shown at 200×125. */
   imageSrc?: string;
-  /** Custom card content, shown instead of a screenshot. */
+  /** Custom card content, shown instead of a screenshot. It stays open while hovered, so it can hold links. */
   card?: ReactNode;
   className?: string;
+  /** Accessible name, for links whose content is only an icon. */
+  label?: string;
   children: ReactNode;
 };
 
@@ -28,12 +45,11 @@ export function LinkPreview({
   imageSrc,
   card,
   className = "link-inline",
+  label,
   children,
 }: LinkPreviewProps) {
   const [open, setOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-  const x = useMotionValue(0);
-  const followX = useSpring(x, { stiffness: 100, damping: 15 });
 
   // Fetch ahead of the first hover so the card never opens empty.
   useEffect(() => {
@@ -60,26 +76,16 @@ export function LinkPreview({
     if (event.pointerType === "mouse") setOpen(true);
   };
 
-  const handlePointerMove = (event: PointerEvent<HTMLSpanElement>) => {
-    if (shouldReduceMotion) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    x.set((event.clientX - rect.left - rect.width / 2) / 2);
-  };
-
   const handleFocus = (event: FocusEvent<HTMLAnchorElement>) => {
     if (event.target.matches(":focus-visible")) setOpen(true);
   };
 
-  const close = () => {
-    setOpen(false);
-    x.set(0);
-  };
+  const close = () => setOpen(false);
 
   return (
     <span
       className="relative inline-flex"
       onPointerEnter={handlePointerEnter}
-      onPointerMove={handlePointerMove}
       onPointerLeave={close}
     >
       <a
@@ -87,6 +93,7 @@ export function LinkPreview({
         target="_blank"
         rel="noreferrer"
         className={className}
+        aria-label={label}
         onFocus={handleFocus}
         onBlur={close}
       >
@@ -97,30 +104,14 @@ export function LinkPreview({
         {open && content ? (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute bottom-full left-1/2 z-50 block -translate-x-1/2 pb-2.5"
+            // The shadow sits here because the card animates its own filter.
+            className={`absolute bottom-full left-1/2 z-50 block -translate-x-1/2 pb-2.5 drop-shadow-xl ${card ? "" : "pointer-events-none"}`.trim()}
           >
             <motion.span
               // Screenshots get a thin frame with see-through corners; custom cards keep the padded one.
-              className={`btn-bevel relative block origin-bottom drop-shadow-xl ${card ? "p-3" : "btn-bevel-media p-1"}`}
-              style={{ x: followX, backgroundColor: "var(--background)" }}
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 0 }
-                  : { opacity: 0, y: 20, scale: 0.6 }
-              }
-              animate={{
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                transition: shouldReduceMotion
-                  ? { duration: 0.12 }
-                  : { type: "spring", stiffness: 260, damping: 20 },
-              }}
-              exit={{
-                opacity: 0,
-                ...(shouldReduceMotion ? {} : { y: 8, scale: 0.9 }),
-                transition: { duration: 0.15, ease: [0.23, 1, 0.32, 1] },
-              }}
+              className={`btn-bevel relative block origin-bottom ${card ? "p-3" : "btn-bevel-media p-1"}`}
+              style={{ backgroundColor: "var(--background)" }}
+              {...(shouldReduceMotion ? reducedCardMotion : cardMotion)}
             >
               <span className="btn-bevel-frame" />
               <span className="btn-bevel-corner btn-bevel-corner-tl" />
