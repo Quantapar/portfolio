@@ -16,7 +16,7 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
   const heroSrc = project.hero ?? project.src;
 
   return (
-    <article className="px-4 py-8 sm:px-6">
+    <article className="px-4 py-10 sm:px-6">
       <header className="mb-6 border-b border-dotted border-border pb-6">
         <div className="flex items-center justify-between gap-4">
           <BackHeading to="/work" className="min-w-0">
@@ -65,9 +65,9 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
         />
       )}
 
-      <div className="space-y-4 border-b border-dotted border-border pb-6 text-sm leading-relaxed text-foreground/75">
-        <p>{project.summary}</p>
-        <p>{project.useCase}</p>
+      <div className="space-y-4 border-b border-dotted border-border pb-6 text-pretty text-base text-foreground">
+        <p className="max-w-xl">{project.summary}</p>
+        <p className="max-w-xl">{project.useCase}</p>
       </div>
 
       {project.tech && project.tech.length > 0 ? (

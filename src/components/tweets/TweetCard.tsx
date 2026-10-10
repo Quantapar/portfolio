@@ -1,6 +1,6 @@
 import { Heart, MessageCircle } from "lucide-react";
 import type { Tweet } from "../../data/tweets";
-import { XIcon } from "../ui/ContactLink";
+import { XIcon } from "../ui/BrandIcons";
 
 const dateFormat = new Intl.DateTimeFormat("en-US", {
   month: "short",
@@ -62,13 +62,13 @@ export function TweetCard({ tweet }: TweetCardProps) {
 
       {text ? (
         <p
-          className={`whitespace-pre-line text-sm leading-relaxed text-foreground/75 ${media ? "line-clamp-2" : "line-clamp-[9]"}`}
+          className={`whitespace-pre-line text-pretty text-sm leading-relaxed text-foreground/70 ${media ? "line-clamp-2" : "line-clamp-[9]"}`}
         >
           {text}
         </p>
       ) : null}
 
-      <div className="mt-auto flex items-center gap-4 pt-1 text-xs tabular-nums text-foreground/50">
+      <div className="mt-auto flex items-center gap-4 pt-1 font-mono text-xs tabular-nums text-foreground/50">
         <span className="inline-flex items-center gap-1.5">
           <Heart aria-hidden="true" className="size-3.5" />
           {countFormat.format(tweet.likes)}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { GitHubCalendar } from "react-github-calendar";
 import { BevelBox } from "../ui/BevelBox";
-import { GitHubIcon } from "../ui/ContactLink";
+import { GitHubIcon } from "../ui/BrandIcons";
 import { useTheme } from "../../hooks/useTheme";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 
@@ -33,18 +33,20 @@ export function GitHubActivitySection() {
   const isCompact = useMediaQuery("(max-width: 639px)");
 
   return (
-    <section id="github" className="scroll-mt-20 px-4 py-8 sm:px-6">
+    <section id="github" className="scroll-mt-20 px-4 py-10 sm:px-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h2 className="text-lg font-medium">GitHub Activity</h2>
         <a
           href={links.github}
           target="_blank"
           rel="noreferrer"
-          className="pressable inline-flex items-center gap-2 text-sm text-foreground/60"
+          className="group pressable inline-flex items-center gap-2 text-sm text-foreground/60"
         >
           <GitHubIcon />
           Profile
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true" className="arrow-nudge">
+            ↗
+          </span>
         </a>
       </div>
 

@@ -1,6 +1,6 @@
 import type { ProjectType } from "../../data/projects";
 
-export type WorkFilter = "all" | ProjectType;
+export type WorkFilter = "all" | Exclude<ProjectType, "component">;
 
 type WorkFiltersProps = {
   value: WorkFilter;
@@ -10,7 +10,6 @@ type WorkFiltersProps = {
 const FILTER_OPTIONS: { value: WorkFilter; label: string }[] = [
   { value: "all", label: "All" },
   { value: "product", label: "Projects" },
-  { value: "component", label: "Components" },
   { value: "mobile", label: "Mobile" },
 ];
 
@@ -20,7 +19,7 @@ export function WorkFilters({ value, onChange }: WorkFiltersProps) {
       <div
         role="tablist"
         aria-label="Filter work"
-        className="grid grid-cols-2 gap-2 min-[400px]:grid-cols-4"
+        className="grid grid-cols-3 gap-2"
       >
         {FILTER_OPTIONS.map((option) => {
           const isActive = value === option.value;

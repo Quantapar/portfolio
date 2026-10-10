@@ -12,7 +12,7 @@ export function WorkLink({ href, label, icon }: WorkLinkProps) {
       href={href}
       target="_blank"
       rel="noreferrer"
-      className="pressable btn-bevel relative inline-flex w-full items-center gap-2.5 px-3 py-2 text-sm sm:w-auto"
+      className="group pressable btn-bevel relative inline-flex w-full items-center gap-2.5 px-3 py-2 text-sm sm:w-auto"
     >
       <span className="btn-bevel-frame" aria-hidden="true" />
       <span
@@ -37,7 +37,7 @@ export function WorkLink({ href, label, icon }: WorkLinkProps) {
         </span>
       ) : null}
       {label}
-      <span aria-hidden="true" className="text-foreground/50">
+      <span aria-hidden="true" className="arrow-nudge text-foreground/50">
         ↗
       </span>
     </a>

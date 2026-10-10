@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "@fontsource-variable/geist/wght.css";
-import "@fontsource-variable/inter/wght.css";
+import "@fontsource-variable/schibsted-grotesk/wght.css";
+import "@fontsource-variable/schibsted-grotesk/wght-italic.css";
 import { ThemeProvider } from "./context/ThemeProvider";
 import "./index.css";
 import App from "./App.tsx";

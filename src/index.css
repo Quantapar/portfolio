@@ -19,7 +19,8 @@
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
   --color-border: var(--border);
-  --font-sans: "Inter Variable", Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans:
+    "Schibsted Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
   --font-heading: "Geist Variable", Geist, ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -273,6 +274,90 @@
     transition: clip-path 200ms var(--ease-out);
   }
 
+  .link-inline {
+    font-weight: 500;
+    color: var(--foreground);
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1.5px;
+    text-decoration-color: color-mix(in srgb, var(--foreground) 40%, transparent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 200ms var(--ease-out);
+  }
+
+  /* Copy icon: the two sheets round into one circle, the back one fades, then the tick draws in. */
+  .copy-check {
+    --copy-spring: cubic-bezier(0.32, 0.72, 0, 1);
+    --copy-morph: 340ms;
+    flex: none;
+    overflow: visible;
+  }
+
+  .copy-check-sheet {
+    x: 8.75px;
+    y: 8.75px;
+    width: 13px;
+    height: 13px;
+    rx: 3.75px;
+    transition:
+      x var(--copy-morph) var(--copy-spring) 70ms,
+      y var(--copy-morph) var(--copy-spring) 70ms,
+      width var(--copy-morph) var(--copy-spring) 70ms,
+      height var(--copy-morph) var(--copy-spring) 70ms,
+      rx var(--copy-morph) var(--copy-spring) 70ms;
+  }
+
+  .copy-check-back {
+    x: 2.25px;
+    y: 2.25px;
+    transition:
+      x var(--copy-morph) var(--copy-spring) 70ms,
+      y var(--copy-morph) var(--copy-spring) 70ms,
+      width var(--copy-morph) var(--copy-spring) 70ms,
+      height var(--copy-morph) var(--copy-spring) 70ms,
+      rx var(--copy-morph) var(--copy-spring) 70ms,
+      opacity 100ms linear 120ms,
+      translate 160ms var(--ease-out);
+  }
+
+  .copy-check-tick {
+    stroke-dasharray: 1 2;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 120ms linear;
+  }
+
+  [data-copied] .copy-check-sheet {
+    x: 4px;
+    y: 4px;
+    width: 16px;
+    height: 16px;
+    rx: 8px;
+    transition-delay: 0ms;
+  }
+
+  [data-copied] .copy-check-back {
+    opacity: 0;
+    transition:
+      x var(--copy-morph) var(--copy-spring),
+      y var(--copy-morph) var(--copy-spring),
+      width var(--copy-morph) var(--copy-spring),
+      height var(--copy-morph) var(--copy-spring),
+      rx var(--copy-morph) var(--copy-spring),
+      opacity 80ms linear 40ms;
+  }
+
+  [data-copied] .copy-check-tick {
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 220ms cubic-bezier(0.22, 1, 0.36, 1) 130ms;
+  }
+
+  /* Arrows inside a .group link lean toward where the link goes. */
+  .arrow-nudge,
+  .arrow-nudge-x {
+    display: inline-block;
+    transition: transform 200ms var(--ease-out);
+  }
+
   @media (hover: hover) and (pointer: fine) {
     .pressable:hover {
       opacity: 0.7;
@@ -280,6 +365,22 @@
 
     .pressable-subtle:hover {
       background-color: color-mix(in srgb, var(--foreground) 5%, transparent);
+    }
+
+    .link-inline:hover {
+      text-decoration-color: var(--foreground);
+    }
+
+    .group:hover:not([data-copied]) .copy-check-back {
+      translate: 2px 0;
+    }
+
+    .group:hover .arrow-nudge {
+      transform: translate(2px, -2px);
+    }
+
+    .group:hover .arrow-nudge-x {
+      transform: translateX(2px);
     }
   }
 
@@ -301,8 +402,22 @@
     }
 
     .pressable,
-    .icon-morph {
+    .icon-morph,
+    .copy-check-sheet,
+    .copy-check-back,
+    .copy-check-tick,
+    [data-copied] .copy-check-sheet,
+    [data-copied] .copy-check-back,
+    [data-copied] .copy-check-tick,
+    .link-inline,
+    .arrow-nudge,
+    .arrow-nudge-x {
       transition: none;
+    }
+
+    .group:hover .arrow-nudge,
+    .group:hover .arrow-nudge-x {
+      transform: none;
     }
 
     .pressable:active {

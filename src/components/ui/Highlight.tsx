@@ -5,8 +5,6 @@ type HighlightProps = {
   href?: string;
 };
 
-const highlightClassName =
-  "font-medium text-foreground underline decoration-foreground/35 underline-offset-[3px]";
 
 export function Highlight({ children, href }: HighlightProps) {
   if (href) {
@@ -15,12 +13,12 @@ export function Highlight({ children, href }: HighlightProps) {
         href={href}
         target="_blank"
         rel="noreferrer"
-        className={highlightClassName}
+        className="link-inline"
       >
         {children}
       </a>
     );
   }
 
-  return <span className={highlightClassName}>{children}</span>;
+  return <span className="font-medium text-foreground">{children}</span>;
 }

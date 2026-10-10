@@ -11,7 +11,7 @@ function ChevronRightIcon() {
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="size-3.5 text-foreground/50"
+      className="arrow-nudge-x size-3.5 text-foreground/50"
       aria-hidden="true"
     >
       <path d="M6 3l5 5-5 5" />
@@ -23,13 +23,13 @@ export function WorkGallery() {
   const featured = getFeaturedProjects();
 
   return (
-    <section id="work" className="scroll-mt-20 px-4 py-8 sm:px-6">
+    <section id="work" className="scroll-mt-20 px-4 py-10 sm:px-6">
       <h2 className="mb-6 text-lg font-medium">Work</h2>
       <WorkProjectGrid projects={featured} />
       <div className="mt-8">
         <Link
           to="/work"
-          className="pressable btn-bevel relative inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"
+          className="group pressable btn-bevel relative inline-flex min-h-11 items-center gap-2 px-3 py-2 text-sm sm:w-auto"
         >
           <span className="btn-bevel-frame" aria-hidden="true" />
           <span

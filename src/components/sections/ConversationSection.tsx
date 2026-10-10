@@ -6,7 +6,7 @@ import { links } from "../../data/site";
 
 export function ConversationSection() {
   return (
-    <section className="px-4 py-8 pb-3 sm:px-6">
+    <section className="px-4 py-10 pb-3 sm:px-6">
       <h2 className="text-lg font-medium">Get in touch</h2>
 
       <p className="mt-6 max-w-md text-balance text-xl leading-snug font-medium tracking-tight sm:text-2xl">
@@ -31,7 +31,7 @@ export function ConversationSection() {
             href={links.x}
             target="_blank"
             rel="noreferrer"
-            className="font-medium text-foreground/70 underline decoration-dotted decoration-foreground/35 underline-offset-[3px] transition-colors duration-[160ms] ease-[var(--ease-out)] hover:text-foreground"
+            className="link-inline"
           >
             shoot a dm on X
           </a>

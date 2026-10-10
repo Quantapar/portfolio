@@ -14,10 +14,10 @@ type ExperienceItemProps = {
 function ExperiencePeriod({ period }: { period: Experience["period"] }) {
   return (
     <>
-      <span className="mt-1 block text-sm text-foreground/50 sm:hidden">
+      <span className="mt-1 block font-mono text-xs text-foreground/50 sm:hidden">
         {period.start} to {period.end}
       </span>
-      <span className="mt-1 hidden text-sm text-foreground/50 sm:block">
+      <span className="mt-1 hidden font-mono text-xs text-foreground/50 sm:block">
         {period.start} — {period.end}
       </span>
     </>
@@ -126,7 +126,7 @@ export function ExperienceItem({
         <div className="min-h-0 overflow-hidden">
           <div className="border-t border-dotted border-border px-3 pb-4 pt-3 sm:px-4">
             <ul
-              className="space-y-2 text-sm leading-relaxed text-foreground/70 transition-opacity [transition-timing-function:var(--ease-out)]"
+              className="space-y-2 text-pretty text-sm leading-relaxed text-foreground/70 transition-opacity [transition-timing-function:var(--ease-out)]"
               style={{
                 opacity: open ? 1 : 0,
                 transitionDuration: shouldReduceMotion ? "120ms" : "180ms",
@@ -154,7 +154,7 @@ export function ExperienceItem({
                         {bullet.link.href.startsWith("/") ? (
                           <Link
                             to={bullet.link.href}
-                            className="text-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground/70"
+                            className="link-inline"
                           >
                             {bullet.link.label}
                           </Link>
@@ -163,7 +163,7 @@ export function ExperienceItem({
                             href={bullet.link.href}
                             target="_blank"
                             rel="noreferrer"
-                            className="text-foreground underline decoration-dotted underline-offset-4 transition-colors hover:text-foreground/70"
+                            className="link-inline"
                           >
                             {bullet.link.label}
                           </a>

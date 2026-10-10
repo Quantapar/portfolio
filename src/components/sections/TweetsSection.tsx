@@ -11,7 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/Carousel";
-import { XIcon } from "../ui/ContactLink";
+import { XIcon } from "../ui/BrandIcons";
 
 import { links } from "../../data/site";
 
@@ -37,18 +37,20 @@ export function TweetsSection() {
   );
 
   return (
-    <section id="posts" className="scroll-mt-20 px-4 py-8 sm:px-6">
+    <section id="posts" className="scroll-mt-20 px-4 py-10 sm:px-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h2 className="text-lg font-medium">Posts</h2>
         <a
           href={links.x}
           target="_blank"
           rel="noreferrer"
-          className="pressable inline-flex items-center gap-2 text-sm text-foreground/60"
+          className="group pressable inline-flex items-center gap-2 text-sm text-foreground/60"
         >
           <XIcon />
           Profile
-          <span aria-hidden="true">↗</span>
+          <span aria-hidden="true" className="arrow-nudge">
+            ↗
+          </span>
         </a>
       </div>
 
