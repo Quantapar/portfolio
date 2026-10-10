@@ -24,7 +24,8 @@ export function WorkGallery() {
         {/* The grid shows six pieces; this says plainly that there are more. */}
         <TransitionLink
           to="/work"
-          className="group inline-flex items-center gap-1 text-[13px] text-foreground/50 transition-colors duration-200 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground"
+          // The padding widens the clickable area; the negative margin keeps the words where they were.
+          className="group -my-1.5 -mr-2 inline-flex items-center gap-1 px-2 py-1.5 text-[13px] text-foreground/60 transition-colors duration-200 [@media(hover:hover)_and_(pointer:fine)]:hover:text-foreground"
         >
           View all
           <span

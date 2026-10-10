@@ -10,6 +10,8 @@ export type Project = {
     summary: string;
     useCase: string;
     src: string;
+    /** Pixel size of `src`, so its space is reserved before it loads. */
+    srcSize?: { width: number; height: number };
     hero?: string;
     videoSrc?: string;
     archiveNote?: string;
@@ -34,6 +36,7 @@ export const projects: Project[] = [
         summary: "The responsive product site I designed and developed for Neatlogs during my design engineering internship.",
         useCase: "A polished launch experience that turns an observability workflow into a clear visual story, with responsive layouts, reusable UI, and considered interaction details.",
         src: "/work/neatlogs.jpg",
+        srcSize: { width: 1250, height: 720 },
         videoSrc: "/work/neatlogs.mp4",
         archiveNote: "This recording preserves the version I designed and shipped during my internship, before later changes to neatlogs.com.",
         featureUrl: "https://vibrant.design/website/l4accpy-neatlogs-com",
@@ -65,6 +68,7 @@ export const projects: Project[] = [
         summary: "A comprehensive redesign of a free, open-source screenshot editor, spanning its marketing experience and core browser-based workspace.",
         useCase: "Refreshed responsive landing pages, editor navigation, canvas states, export controls, and the animation timeline to make a feature-rich creative tool feel clearer and more cohesive.",
         src: "/work/screenshot-studio.jpg",
+        srcSize: { width: 1600, height: 988 },
         liveUrl: "https://www.screenshot-studio.com/landing",
         sourceUrl: "https://github.com/KartikLabhshetwar/screenshot-studio",
         contributionUrl: "https://github.com/KartikLabhshetwar/screenshot-studio/commit/0740e087968b82580bff0005fd4dc464d1553775",
@@ -80,6 +84,7 @@ export const projects: Project[] = [
         summary: "A full revamp of Jaipur's event guide. Discover concerts, comedy, food fests, art, and workshops across the city.",
         useCase: "Curated city events in one modern interface, built for locals looking for what's happening this week.",
         src: "/work/jaipur.png",
+        srcSize: { width: 1200, height: 676 },
         liveUrl: "https://jagrukjaipur.quantapar.com/",
         tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"]
     }, {
@@ -92,6 +97,7 @@ export const projects: Project[] = [
         summary: "A SaaS analytics dashboard built as an assignment. KPI cards with sparklines, filterable order tables, and a collapsible sidebar.",
         useCase: "Dark analytics interface with sortable columns, status tabs, and metric cards for operational monitoring.",
         src: "/work/dashboard-ui.png",
+        srcSize: { width: 1200, height: 676 },
         liveUrl: "https://dashboard-ui.quantapar.com/",
         sourceUrl: "https://github.com/Quantapar/dashboard-ui",
         tech: ["React", "TypeScript", "Tailwind CSS"]
@@ -105,6 +111,7 @@ export const projects: Project[] = [
         summary: "A complete frontend revamp for the 100xDevs platform. Immersive web animations, modern UI components, and a robust design system.",
         useCase: "Platform refresh with motion-led interactions and a cohesive component library for developer education.",
         src: "/work/100xDevsFrontend.png",
+        srcSize: { width: 1200, height: 676 },
         liveUrl: "https://100xdevs.quantapar.com/",
         sourceUrl: "https://github.com/Quantapar/100xDevs-Frontend",
         tech: ["React", "Tailwind CSS", "Framer Motion"]
@@ -118,6 +125,7 @@ export const projects: Project[] = [
         summary: "Full UI revamp of the Krane Apps website with a GitHub-style design. Rebuilt for a cleaner, more professional look.",
         useCase: "Open-source contribution. GitHub-inspired layout and component patterns for a developer tools company site.",
         src: "/work/krane-apps.png",
+        srcSize: { width: 1024, height: 566 },
         liveUrl: "https://krane-apps-github-style-website.vercel.app/",
         sourceUrl: "https://github.com/bluntbrain/krane-apps-github-style-website",
         tech: ["React", "UI Design", "Open Source"]
@@ -187,6 +195,7 @@ export const projects: Project[] = [
         summary: "A warm, high-contrast product landing page for an AI reliability workspace.",
         useCase: "Product marketing screen with bold hero typography and clear navigation, shared as a design study on X.",
         src: "/work/torchbase-landing.png",
+        srcSize: { width: 1440, height: 900 },
         postUrl: "https://x.com/quantapar/status/2077693670493769794",
         tech: ["Landing page", "Product design"]
     },

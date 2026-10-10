@@ -127,7 +127,7 @@ export function ExperienceItem({ item, onHover }: ExperienceItemProps) {
       <span className="min-w-0 flex-1">
         <span className="flex flex-wrap items-baseline gap-x-2">
           <span className="font-medium text-foreground">{item.company}</span>
-          <span className="text-[13px] text-foreground/50">{item.role}</span>
+          <span className="text-[13px] text-foreground/60">{item.role}</span>
         </span>
         <span className="block text-pretty text-foreground/65">
           <Summary text={item.summary} highlight={item.highlight} />

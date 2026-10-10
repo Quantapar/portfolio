@@ -1,31 +1,67 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
+  useEffect,
+  useRef,
   useState,
   type FocusEvent,
   type PointerEvent,
   type ReactNode,
 } from "react";
 
-// The card rises 8px out of a slight blur and shrink; it leaves faster than it arrives.
-const cardMotion = {
-  initial: { opacity: 0, scale: 0.96, y: 8, filter: "blur(6px)" },
-  animate: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
-  exit: {
-    opacity: 0,
-    scale: 0.97,
-    y: 6,
-    filter: "blur(6px)",
-    transition: { duration: 0.14, ease: [0.4, 0, 1, 1] },
-  },
-  transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
-} as const;
+/** How long the cursor must rest on a link before its card opens. */
+const OPEN_DELAY_MS = 120;
+/** After a card closes, the next one opens without waiting, so browsing a row stays fluid. */
+const WARM_MS = 300;
+/** Room a card needs above its link, tallest card plus the gap. With less, it opens below. */
+const ROOM_ABOVE = 208;
+/** Closest a card may sit to the edge of the window. */
+const EDGE = 8;
 
-const reducedCardMotion = {
+// Shared by every preview on the page: when the last card closed.
+let lastClosedAt = -Infinity;
+
+type Side = "above" | "below";
+
+// The card moves 8px toward its resting place out of a slight blur and shrink,
+// and leaves faster than it arrives. `away` points from the link to the card.
+function cardMotion(side: Side) {
+  const away = side === "above" ? -1 : 1;
+
+  return {
+    initial: { opacity: 0, scale: 0.96, y: -8 * away, filter: "blur(6px)" },
+    animate: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
+    exit: {
+      opacity: 0,
+      scale: 0.97,
+      y: -6 * away,
+      filter: "blur(6px)",
+      transition: { duration: 0.14, ease: [0.4, 0, 1, 1] },
+    },
+    transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
+  } as const;
+}
+
+// For reduced motion, and for the keyboard: a key press should get its answer at once.
+const instantMotion = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
   exit: { opacity: 0, transition: { duration: 0 } },
   transition: { duration: 0 },
 } as const;
+
+/** Slides the card sideways just enough to keep it inside the window. */
+function keepInWindow(positioner: HTMLSpanElement | null) {
+  const anchor = positioner?.parentElement;
+  if (!positioner || !anchor) return;
+
+  const width = positioner.offsetWidth;
+  const link = anchor.getBoundingClientRect();
+  const centered = link.left + link.width / 2 - width / 2;
+  const rightmost = document.documentElement.clientWidth - EDGE - width;
+  const left = Math.min(Math.max(centered, EDGE), Math.max(EDGE, rightmost));
+
+  positioner.style.translate = `calc(-50% + ${left - centered}px) 0`;
+}
 
 type LinkPreviewProps = {
   href: string;
@@ -45,18 +81,56 @@ export function LinkPreview({
   children,
 }: LinkPreviewProps) {
   const [open, setOpen] = useState(false);
+  const [side, setSide] = useState<Side>("above");
+  const [byKeyboard, setByKeyboard] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  const openTimer = useRef<number | null>(null);
+
+  const cancelOpen = () => {
+    if (openTimer.current !== null) {
+      window.clearTimeout(openTimer.current);
+      openTimer.current = null;
+    }
+  };
+
+  useEffect(() => cancelOpen, []);
+
+  const show = (link: Element, keyboard: boolean) => {
+    // Decided as the card opens, from where the link is on screen right now.
+    setSide(link.getBoundingClientRect().top >= ROOM_ABOVE ? "above" : "below");
+    setByKeyboard(keyboard);
+    setOpen(true);
+  };
 
   const handlePointerEnter = (event: PointerEvent<HTMLSpanElement>) => {
     // Touch has no hover: a tap should go straight to the link.
-    if (event.pointerType === "mouse") setOpen(true);
+    if (event.pointerType !== "mouse") return;
+
+    const link = event.currentTarget;
+    cancelOpen();
+
+    if (performance.now() - lastClosedAt < WARM_MS) {
+      show(link, false);
+      return;
+    }
+
+    // A cursor only passing over leaves before this fires, so nothing flashes.
+    openTimer.current = window.setTimeout(() => {
+      openTimer.current = null;
+      show(link, false);
+    }, OPEN_DELAY_MS);
   };
 
   const handleFocus = (event: FocusEvent<HTMLAnchorElement>) => {
-    if (event.target.matches(":focus-visible")) setOpen(true);
+    if (event.target.matches(":focus-visible")) show(event.target, true);
   };
 
-  const close = () => setOpen(false);
+  const close = () => {
+    cancelOpen();
+    if (open) lastClosedAt = performance.now();
+    setOpen(false);
+  };
 
   return (
     <span
@@ -79,14 +153,18 @@ export function LinkPreview({
       <AnimatePresence>
         {open && card ? (
           <span
+            ref={keepInWindow}
             aria-hidden="true"
             // The shadow sits here because the card animates its own filter.
-            className="absolute bottom-full left-1/2 z-50 block -translate-x-1/2 pb-2.5 drop-shadow-xl"
+            className={`absolute left-1/2 z-50 block drop-shadow-xl ${side === "above" ? "bottom-full pb-2.5" : "top-full pt-2.5"}`}
+            style={{ translate: "-50% 0" }}
           >
             <motion.span
-              className="btn-bevel relative block origin-bottom p-3"
+              className={`btn-bevel relative block p-3 ${side === "above" ? "origin-bottom" : "origin-top"}`}
               style={{ backgroundColor: "var(--background)" }}
-              {...(shouldReduceMotion ? reducedCardMotion : cardMotion)}
+              {...(shouldReduceMotion || byKeyboard
+                ? instantMotion
+                : cardMotion(side))}
             >
               <span className="btn-bevel-frame" />
               <span className="btn-bevel-corner btn-bevel-corner-tl" />

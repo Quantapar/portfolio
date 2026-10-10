@@ -19,7 +19,7 @@ export function NotFoundPage() {
       <p className="mt-6 text-center text-base font-medium tracking-tight text-foreground sm:text-lg">
         Wrong door.
       </p>
-      <p className="mt-2 max-w-xs text-center text-sm text-foreground/50">
+      <p className="mt-2 max-w-xs text-center text-sm text-foreground/60">
         This page isn’t here. Maybe it wandered off.
       </p>
 

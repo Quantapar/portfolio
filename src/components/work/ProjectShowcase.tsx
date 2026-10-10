@@ -33,7 +33,7 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
 
       <header className="mt-2 flex items-baseline justify-between gap-4">
         <h1 className="min-w-0 font-medium">{title}</h1>
-        <time className="shrink-0 font-mono text-xs text-foreground/50">
+        <time className="shrink-0 font-mono text-xs text-foreground/60">
           {project.year}
         </time>
       </header>
@@ -62,12 +62,14 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
             <img
               src={project.hero ?? project.src}
               alt={title}
+              width={project.srcSize?.width}
+              height={project.srcSize?.height}
               className={`${mediaClassName} h-auto`}
             />
           )}
         </div>
         {project.archiveNote ? (
-          <p className="mt-3 text-xs text-foreground/50">
+          <p className="mt-3 text-xs text-foreground/60">
             {project.archiveNote}
           </p>
         ) : null}

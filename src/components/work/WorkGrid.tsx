@@ -1,5 +1,5 @@
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { WorkItem } from "../../data/work";
 import { workTransitionName } from "../../lib/routeTransition";
 import { TransitionLink } from "../ui/TransitionLink";
@@ -73,17 +73,30 @@ function Thumbnail({ item }: { item: WorkItem }) {
 
 /** Thumbnails only: the picture is the label, and the page behind it carries the words. */
 export function WorkGrid({ items }: WorkGridProps) {
+  // The piece the cursor last touched stays lit while the cursor crosses the gaps,
+  // so the others don't flash back to full and dim again on the way to the next one.
+  const [activeKey, setActiveKey] = useState<string | null>(null);
+
+  const entryProps = (item: WorkItem) => ({
+    "aria-label": item.title,
+    title: item.title,
+    className: "work-entry block",
+    "data-active": item.key === activeKey ? "" : undefined,
+    onPointerEnter: (event: PointerEvent<HTMLAnchorElement>) => {
+      // Touch has no hover; dimming there would stick after a tap.
+      if (event.pointerType === "mouse") setActiveKey(item.key);
+    },
+  });
+
   return (
-    <div className="work-grid grid grid-cols-1 gap-6 sm:grid-cols-3">
+    <div
+      className="work-grid grid grid-cols-1 gap-6 sm:grid-cols-3"
+      data-dimming={activeKey === null ? undefined : ""}
+      onPointerLeave={() => setActiveKey(null)}
+    >
       {items.map((item) =>
         item.to.startsWith("/") ? (
-          <TransitionLink
-            key={item.key}
-            to={item.to}
-            aria-label={item.title}
-            title={item.title}
-            className="work-entry block"
-          >
+          <TransitionLink key={item.key} to={item.to} {...entryProps(item)}>
             <Thumbnail item={item} />
           </TransitionLink>
         ) : (
@@ -92,9 +105,7 @@ export function WorkGrid({ items }: WorkGridProps) {
             href={item.to}
             target="_blank"
             rel="noreferrer"
-            aria-label={item.title}
-            title={item.title}
-            className="work-entry block"
+            {...entryProps(item)}
           >
             <Thumbnail item={item} />
           </a>
