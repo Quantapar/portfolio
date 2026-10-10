@@ -31,10 +31,9 @@ export function ProjectShowcase({ project }: ProjectShowcaseProps) {
 
       <header className="mt-2 flex items-baseline justify-between gap-4">
         <h1 className="min-w-0 font-medium">{title}</h1>
-        <p className="shrink-0 text-[13px] text-foreground/50">
-          {project.status ? `${project.status} · ` : null}
-          <time className="font-mono text-xs">{project.year}</time>
-        </p>
+        <time className="shrink-0 font-mono text-xs text-foreground/50">
+          {project.year}
+        </time>
       </header>
 
       <p className="text-pretty text-foreground/65">{project.summary}</p>
