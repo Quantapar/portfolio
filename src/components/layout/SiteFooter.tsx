@@ -1,6 +1,6 @@
 import { SITE_NAME } from "../../data/site";
 // Light mode only for now. Restore this import and the block below to bring the toggle back.
-// import { ThemeToggle } from "../ThemeToggle";
+// import { ThemeToggle } from "../ui/ThemeToggle";
 import { Signature } from "../ui/Signature";
 
 export function SiteFooter() {

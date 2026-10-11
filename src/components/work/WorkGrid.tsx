@@ -1,5 +1,5 @@
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useRef, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import type { WorkItem } from "../../data/work";
 import { workTransitionName } from "../../lib/routeTransition";
 import { TransitionLink } from "../ui/TransitionLink";
@@ -8,6 +8,9 @@ import { preloadProjectPreview } from "./previews";
 type WorkGridProps = {
   items: WorkItem[];
 };
+
+/** How long the cursor may rest in a gap between thumbnails before the grid lets go of its fade. */
+const HOLD_MS = 500;
 
 /** How long the cursor must rest on a thumbnail before its page starts loading. */
 const PRELOAD_DELAY_MS = 80;
@@ -82,7 +85,18 @@ function Thumbnail({ item }: { item: WorkItem }) {
 
 /** Thumbnails only: the picture is the label, and the page behind it carries the words. */
 export function WorkGrid({ items }: WorkGridProps) {
+  // The piece the cursor last touched stays lit while the cursor crosses the gaps,
+  // so the others don't flash back to full and dim again on the way to the next one.
+  const [activeKey, setActiveKey] = useState<string | null>(null);
+  const releaseTimer = useRef<number | null>(null);
   const preloadTimer = useRef<number | null>(null);
+
+  const cancelRelease = () => {
+    if (releaseTimer.current !== null) {
+      window.clearTimeout(releaseTimer.current);
+      releaseTimer.current = null;
+    }
+  };
 
   const cancelPreload = () => {
     if (preloadTimer.current !== null) {
@@ -91,7 +105,13 @@ export function WorkGrid({ items }: WorkGridProps) {
     }
   };
 
-  useEffect(() => cancelPreload, []);
+  useEffect(
+    () => () => {
+      cancelRelease();
+      cancelPreload();
+    },
+    [],
+  );
 
   const entryProps = (item: WorkItem) => {
     const slug = liveSlug(item);
@@ -100,10 +120,14 @@ export function WorkGrid({ items }: WorkGridProps) {
       "aria-label": item.title,
       title: item.title,
       className: "work-entry block",
+      "data-active": item.key === activeKey ? "" : undefined,
       onPointerEnter: (event: PointerEvent<HTMLAnchorElement>) => {
-        // Touch has no hover: its press, below, is the first sign there is.
+        // Touch has no hover: dimming there would stick after a tap, and its press,
+        // below, is the first sign of interest there is.
         if (event.pointerType !== "mouse") return;
 
+        cancelRelease();
+        setActiveKey(item.key);
         cancelPreload();
 
         // A cursor only crossing the grid leaves before this fires, so nothing is fetched for it.
@@ -114,7 +138,17 @@ export function WorkGrid({ items }: WorkGridProps) {
           }, PRELOAD_DELAY_MS);
         }
       },
-      onPointerLeave: cancelPreload,
+      onPointerLeave: () => {
+        cancelPreload();
+
+        // Crossing a gap takes a moment and lands on the next piece, which cancels this.
+        // A cursor that stays in the gap is no longer looking at anything, so the fade lifts.
+        cancelRelease();
+        releaseTimer.current = window.setTimeout(() => {
+          releaseTimer.current = null;
+          setActiveKey(null);
+        }, HOLD_MS);
+      },
       // A press is no longer a guess.
       onPointerDown: () => {
         if (slug) preloadProjectPreview(slug, "press");
@@ -123,7 +157,16 @@ export function WorkGrid({ items }: WorkGridProps) {
   };
 
   return (
-    <div className="work-grid grid grid-cols-1 gap-6 sm:grid-cols-3">
+    // Two across on phones, so a long list is half as far to scroll.
+    <div
+      className="work-grid grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6"
+      data-dimming={activeKey === null ? undefined : ""}
+      // Leaving the grid altogether lifts the fade at once.
+      onPointerLeave={() => {
+        cancelRelease();
+        setActiveKey(null);
+      }}
+    >
       {items.map((item) =>
         item.to.startsWith("/") ? (
           <TransitionLink key={item.key} to={item.to} {...entryProps(item)}>

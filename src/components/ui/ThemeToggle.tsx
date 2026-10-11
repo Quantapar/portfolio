@@ -1,4 +1,4 @@
-import { useTheme } from "../context/ThemeProvider";
+import { useTheme } from "../../context/ThemeProvider";
 
 function SunIcon() {
   return (

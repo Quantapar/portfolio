@@ -12,7 +12,7 @@ import {
 const OPEN_DELAY_MS = 120;
 /** After a card closes, the next one opens without waiting, so browsing a row stays fluid. */
 const WARM_MS = 300;
-/** Room a card needs above its link, tallest card plus the gap. With less, it opens below. */
+/** Room to assume a card needs above its link before it has been measured: the tallest card plus the gap. */
 const ROOM_ABOVE = 208;
 /** Closest a card may sit to the edge of the window. */
 const EDGE = 8;
@@ -101,6 +101,8 @@ export function LinkPreview({
   const [side, setSide] = useState<Side>("above");
   const [instant, setInstant] = useState(false);
   const positioner = useRef<HTMLSpanElement | null>(null);
+  // What this link's own card needs above it, known once the card has been on screen.
+  const room = useRef<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
   const openTimer = useRef<number | null>(null);
@@ -114,9 +116,30 @@ export function LinkPreview({
 
   useEffect(() => cancelOpen, []);
 
+  // Above whenever the card fits there, so it does not cover the text that follows the link.
+  const sideFor = (link: Element): Side =>
+    link.getBoundingClientRect().top >= (room.current ?? ROOM_ABOVE)
+      ? "above"
+      : "below";
+
+  /** Runs as the card lands in the page, before anything is painted. */
+  const place = (node: HTMLSpanElement | null) => {
+    positioner.current = node;
+    keepInWindow(node);
+
+    const anchor = node?.parentElement;
+    if (!node || !anchor) return;
+
+    // The card's real height replaces the guess made before it existed. If that changes
+    // the answer, the card is moved now, while it is still unseen.
+    room.current = node.offsetHeight + EDGE;
+    const fits = sideFor(anchor);
+    if (fits !== side) setSide(fits);
+  };
+
   const show = (link: Element, immediately: boolean) => {
     // Decided as the card opens, from where the link is on screen right now.
-    setSide(link.getBoundingClientRect().top >= ROOM_ABOVE ? "above" : "below");
+    setSide(sideFor(link));
     // A card of ours still on screen, open or on its way out, keeps the way it was opened:
     // one that is leaving simply turns around when the cursor comes straight back.
     if (!positioner.current) setInstant(immediately);
@@ -182,16 +205,15 @@ export function LinkPreview({
       <AnimatePresence>
         {open && card ? (
           <span
-            ref={(node) => {
-              positioner.current = node;
-              keepInWindow(node);
-            }}
+            ref={place}
             aria-hidden="true"
             // The shadow sits here because the card animates its own filter.
             className={`absolute left-1/2 z-50 block drop-shadow-xl ${side === "above" ? "bottom-full pb-2.5" : "top-full pt-2.5"}`}
             style={{ translate: "-50% 0" }}
           >
             <motion.span
+              // A card moved to the other side starts its entrance again, from the right direction.
+              key={side}
               className="btn-bevel relative block p-3"
               style={{
                 backgroundColor: "var(--background)",

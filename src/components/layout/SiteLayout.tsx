@@ -1,21 +1,43 @@
 import { useLayoutEffect } from "react";
-import { matchPath, Outlet, useLocation } from "react-router-dom";
+import {
+  matchPath,
+  Outlet,
+  useLocation,
+  useNavigationType,
+} from "react-router-dom";
 import { getProjectBySlug } from "../../data/projects";
 import { markRouteReady } from "../../lib/routeTransition";
 import { getProjectPreview } from "../work/previews";
 import { PageShell } from "./PageShell";
 import { SiteFooter } from "./SiteFooter";
 
-function ScrollToTop() {
-  const { pathname } = useLocation();
+// How far down each visited page was scrolled, by its place in the browser's history.
+const scrollPositions = new Map<string, number>();
+
+/** A new page starts at the top; one returned to with Back or Forward resumes where it was left. */
+function RouteScroll() {
+  const { pathname, key } = useLocation();
+  const navigationType = useNavigationType();
 
   useLayoutEffect(() => {
-    // Instant, not smooth: a new page should start at the top, not scroll there.
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    // Positions are restored here, so the browser's own attempt would only fight this one.
+    window.history.scrollRestoration = "manual";
+  }, []);
+
+  useLayoutEffect(() => {
+    const top = navigationType === "POP" ? (scrollPositions.get(key) ?? 0) : 0;
+    // Instant, not smooth: a page should be where it belongs, not scroll there.
+    window.scrollTo({ top, left: 0, behavior: "instant" });
 
     // Live pieces load their code first and report ready themselves.
     if (!isLiveWorkPath(pathname)) markRouteReady();
-  }, [pathname]);
+
+    // Recorded as the visitor scrolls: by the time they leave, the page is already gone.
+    const remember = () => scrollPositions.set(key, window.scrollY);
+    window.addEventListener("scroll", remember, { passive: true });
+
+    return () => window.removeEventListener("scroll", remember);
+  }, [key, pathname, navigationType]);
 
   return null;
 }
@@ -36,7 +58,7 @@ export function SiteLayout() {
   if (isLiveWorkPath(pathname)) {
     return (
       <>
-        <ScrollToTop />
+        <RouteScroll />
         <Outlet />
       </>
     );
@@ -44,7 +66,7 @@ export function SiteLayout() {
 
   return (
     <div className="min-h-dvh w-full overflow-x-clip">
-      <ScrollToTop />
+      <RouteScroll />
       {/* Content scrolling up dissolves into the page instead of meeting a hard top edge. */}
       <div
         aria-hidden="true"

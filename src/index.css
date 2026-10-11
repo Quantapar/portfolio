@@ -364,11 +364,22 @@
     }
   }
 
-  /* Work grid: hovering one thumbnail lifts it while the rest fade back. */
+  /* Work grid: the thumbnail under the cursor lifts while the rest fade back.
+     The grid sets these attributes for mouse pointers only (see WorkGrid). */
   .work-entry {
     transition:
       filter 200ms var(--ease-out),
       transform 200ms var(--ease-out);
+  }
+
+  .work-grid[data-dimming] .work-entry {
+    filter: opacity(0.2) grayscale(1);
+    transform: scale(0.98);
+  }
+
+  .work-grid[data-dimming] .work-entry[data-active] {
+    filter: none;
+    transform: scale(1.02);
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -390,16 +401,6 @@
 
     .group:hover .arrow-nudge {
       transform: translate(2px, -2px);
-    }
-
-    .work-grid:has(.work-entry:hover) .work-entry {
-      filter: opacity(0.2) grayscale(1);
-      transform: scale(0.98);
-    }
-
-    .work-grid:has(.work-entry:hover) .work-entry:hover {
-      filter: none;
-      transform: scale(1.02);
     }
   }
 
@@ -435,8 +436,8 @@
     }
 
     .group:hover .arrow-nudge,
-    .work-grid:has(.work-entry:hover) .work-entry,
-    .work-grid:has(.work-entry:hover) .work-entry:hover {
+    .work-grid[data-dimming] .work-entry,
+    .work-grid[data-dimming] .work-entry[data-active] {
       transform: none;
     }
 

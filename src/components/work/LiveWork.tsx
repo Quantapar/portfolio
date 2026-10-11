@@ -1,4 +1,5 @@
 import { Suspense, useLayoutEffect } from "react";
+import { useLocation } from "react-router-dom";
 import type { Project } from "../../data/projects";
 import { workKey } from "../../data/work";
 import { markRouteReady, workTransitionName } from "../../lib/routeTransition";
@@ -21,6 +22,8 @@ function RouteReady() {
 /** The piece itself fills the page; the only chrome is the way back. */
 export function LiveWork({ project }: LiveWorkProps) {
   const Preview = projectPreviews[project.slug];
+  const { state } = useLocation();
+  const openedFromWork = (state as { from?: string } | null)?.from === "/work";
 
   return (
     <main className="grid min-h-dvh place-items-center">
@@ -38,11 +41,14 @@ export function LiveWork({ project }: LiveWorkProps) {
         </Suspense>
       </div>
       <TransitionLink
-        to="/"
+        // Back to the page the piece was opened from, at the thumbnail that was clicked.
+        // Someone who arrived here directly has no such page, and goes home.
+        to={openedFromWork ? "/work" : "/"}
+        back
         // White text blended as a difference, so it reads dark on light stages and light on dark ones.
         className="fixed bottom-[64px] left-1/2 z-10 -translate-x-1/2 px-3 py-2 text-sm whitespace-nowrap text-white/70 underline decoration-transparent decoration-dotted underline-offset-4 mix-blend-difference transition-colors duration-300 [@media(hover:hover)_and_(pointer:fine)]:hover:text-white [@media(hover:hover)_and_(pointer:fine)]:hover:decoration-white/50"
       >
-        Return home
+        {openedFromWork ? "Back to all work" : "Return home"}
       </TransitionLink>
     </main>
   );
