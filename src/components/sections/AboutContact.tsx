@@ -1,9 +1,11 @@
+import type { ReactNode } from "react";
 import { FightClubAvatar } from "../ui/FightClubAvatar";
 import { CopyEmailButton } from "../ui/CopyEmailButton";
 import { GitHubContributionsCard } from "../ui/GitHubContributionsCard";
 import {
   CalendarOutlineIcon,
   GitHubOutlineIcon,
+  LinkedInLettersIcon,
   LinkedInOutlineIcon,
   XOutlineIcon,
 } from "../ui/OutlineIcons";
@@ -28,6 +30,88 @@ const textChipClassName = `${chipClassName} pr-3 pl-2.5 active:before:scale-[0.9
 
 // Square chips that hold only a logo, sized to the height of the text chips.
 const iconChipClassName = `${chipClassName} size-[30px] justify-center active:before:scale-[0.96]`;
+
+/**
+ * How the four link icons beside the email are drawn. "outline" is a line icon in a dotted chip;
+ * "tile" is the raised colour tile used for the company logos under Experience.
+ * Change this one word to switch.
+ */
+const CONTACT_ICONS = "tile" as "outline" | "tile";
+const tiles = CONTACT_ICONS === "tile";
+
+// The tile recipe from the company logos: a gradient face, a darker rim and a faint highlight line inside it.
+const tileTones = {
+  blue: "from-blue-400 to-blue-600 ring-offset-blue-500",
+  neutral: "from-neutral-600 to-neutral-800 ring-offset-neutral-700",
+  black: "from-neutral-800 to-neutral-950 ring-offset-neutral-900",
+  green: "from-emerald-400 to-emerald-600 ring-offset-emerald-500",
+} as const;
+
+type TileTone = keyof typeof tileTones;
+
+// The tile is the link itself: the same height as the email chip, it brightens under the cursor
+// and gives a little when pressed.
+const tileClassName =
+  "relative inline-flex size-[30px] shrink-0 items-center justify-center rounded-sm bg-linear-to-b text-white shadow-md transition-[scale,filter] duration-150 ease-[var(--ease-out)] active:scale-[0.96] [@media(hover:hover)_and_(pointer:fine)]:hover:brightness-110";
+
+// White line icons, a little heavier than on the page so they hold up against colour.
+const tileGlyphClassName = "stroke-[2.3] drop-shadow-md drop-shadow-black/40";
+
+/** Drawn above the icon, so the rim and its highlight sit on top of everything in the tile. */
+function TileRim({ tone }: { tone: TileTone }) {
+  return (
+    <span
+      className={`pointer-events-none absolute inset-0 rounded-sm ring-1 ring-white/20 ring-offset-2 ring-inset ${tileTones[tone]}`}
+    />
+  );
+}
+
+type IconLinkProps = {
+  href: string;
+  label: string;
+  card?: ReactNode;
+  tone: TileTone;
+  /** The line icon, and the one to draw on a tile when it needs a different drawing there. */
+  icon: (props: { className?: string }) => ReactNode;
+  tileIcon?: (props: { className?: string }) => ReactNode;
+  /** Extra classes for the icon on its tile. */
+  tileIconClassName?: string;
+};
+
+function IconLink({
+  href,
+  label,
+  card,
+  tone,
+  icon: Icon,
+  tileIcon: TileIcon = Icon,
+  tileIconClassName = "",
+}: IconLinkProps) {
+  if (!tiles) {
+    return (
+      <LinkPreview
+        href={href}
+        card={card}
+        label={label}
+        className={iconChipClassName}
+      >
+        <Icon className="text-foreground/50" />
+      </LinkPreview>
+    );
+  }
+
+  return (
+    <LinkPreview
+      href={href}
+      card={card}
+      label={label}
+      className={`${tileClassName} ${tileTones[tone]}`}
+    >
+      <TileIcon className={`${tileGlyphClassName} ${tileIconClassName}`} />
+      <TileRim tone={tone} />
+    </LinkPreview>
+  );
+}
 
 export function AboutContact() {
   const contributions = useGitHubContributions(USERNAME);
@@ -72,42 +156,41 @@ export function AboutContact() {
 
       <div className="mt-5 flex flex-wrap items-center gap-2" data-enter="1">
         <CopyEmailButton email={EMAIL} className={textChipClassName} />
-        <LinkPreview
+        <IconLink
           href={links.linkedin}
-          card={<LinkedInProfileCard />}
           label="LinkedIn"
-          className={iconChipClassName}
-        >
-          <LinkedInOutlineIcon className="text-foreground/50" />
-        </LinkPreview>
-        <LinkPreview
+          card={<LinkedInProfileCard />}
+          tone="blue"
+          icon={LinkedInOutlineIcon}
+          tileIcon={LinkedInLettersIcon}
+        />
+        <IconLink
           href={links.github}
+          label="GitHub"
           card={
             contributions ? (
               <GitHubContributionsCard contributions={contributions} />
             ) : undefined
           }
-          label="GitHub"
-          className={iconChipClassName}
-        >
-          <GitHubOutlineIcon className="text-foreground/50" />
-        </LinkPreview>
-        <LinkPreview
+          tone="neutral"
+          icon={GitHubOutlineIcon}
+        />
+        <IconLink
           href={links.x}
-          card={<XProfileCard />}
           label="X"
-          className={iconChipClassName}
-        >
-          <XOutlineIcon className="text-foreground/50" />
-        </LinkPreview>
-        <LinkPreview
+          card={<XProfileCard />}
+          tone="black"
+          icon={XOutlineIcon}
+          // Filled, the wide stroke of the X reads as one bar instead of two thin lines.
+          tileIconClassName="fill-current"
+        />
+        <IconLink
           href={links.cal}
-          card={<CalCard />}
           label="Book a call"
-          className={iconChipClassName}
-        >
-          <CalendarOutlineIcon className="text-foreground/50" />
-        </LinkPreview>
+          card={<CalCard />}
+          tone="green"
+          icon={CalendarOutlineIcon}
+        />
       </div>
     </section>
   );

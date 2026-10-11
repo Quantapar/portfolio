@@ -56,6 +56,31 @@ export function LinkedInOutlineIcon({ className }: OutlineIconProps) {
   );
 }
 
+/** LinkedIn's letters without the square around them, for a tile that already is one. */
+export function LinkedInLettersIcon({ className }: OutlineIconProps) {
+  return (
+    <svg
+      viewBox="4 4 16 16"
+      width="15"
+      height="15"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={`shrink-0 ${className ?? ""}`.trim()}
+    >
+      {/* Drawn larger than in the square icon, so its own width keeps the lines from growing heavy. */}
+      <g strokeWidth="1.55">
+        <path d="M8 11v5" />
+        <path d="M8 8v.01" />
+        <path d="M12 16v-5" />
+        <path d="M16 16v-3a2 2 0 1 0 -4 0" />
+      </g>
+    </svg>
+  );
+}
+
 export function CalendarOutlineIcon({ className }: OutlineIconProps) {
   return (
     <OutlineIcon className={className}>
