@@ -8,6 +8,9 @@
   position: relative;
   display: grid;
   min-height: 100svh;
+  /* The menu is wider than a phone. A column that may be narrower than it lets the menu stay
+     centred and overhang both sides equally, instead of pushing the page wider. */
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   overflow: hidden;
   background: #fff;
@@ -23,10 +26,23 @@
 
 .radial-tool-menu {
   position: relative;
-  width: min(760px, 100vw);
+  /* Everything inside is placed in pixels on a 760px-wide board, so the board keeps that
+     width and shrinks as a whole. Its tools span 570px of it; tan(atan2()) turns the two
+     lengths into the plain ratio that scale needs. */
+  width: 760px;
   height: min(560px, 100svh);
   min-height: 520px;
   isolation: isolate;
+  scale: min(1, tan(atan2(100vw - 24px, 570px)));
+}
+
+/* The labels on the left are longer than those on the right, so the tools sit 16px left of the
+   board's middle. On a screen narrower than the board that shows as uneven margins, so the
+   board moves over by that much, shrunk by the same ratio as the board itself. */
+@media (max-width: 759px) {
+  .radial-tool-menu {
+    translate: calc(16px * min(1, tan(atan2(100vw - 24px, 570px)))) 0;
+  }
 }
 
 .radial-tool-menu__orbit {
@@ -267,10 +283,3 @@
   }
 }
 
-@media (max-width: 410px) {
-.radial-tool-menu {
-    width: 760px;
-    min-width: 760px;
-    transform: scale(0.72);
-  }
-}

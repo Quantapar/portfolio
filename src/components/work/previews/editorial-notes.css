@@ -168,6 +168,12 @@
 
 .editorial-notes__header h2 {
     font-size: clamp(38px, 11vw, 48px);
+    /* The fixed line break strands a word on a phone, so the lines find their own balance here. */
+    text-wrap: balance;
+  }
+
+.editorial-notes__header h2 br {
+    display: none;
   }
 
 .editorial-notes__header > a {
@@ -182,5 +188,13 @@
 
 .editorial-note--portrait .editorial-note__image-wrap {
     aspect-ratio: 4 / 5;
+  }
+}
+
+/* On a phone the link back to the site rests at the end of this piece instead of floating over
+   it (see LiveWork). This is the room it rests in: 64px under the link, 36px for it, 36px above. */
+@media (width < 40rem) {
+  .editorial-notes {
+    padding-bottom: 136px;
   }
 }

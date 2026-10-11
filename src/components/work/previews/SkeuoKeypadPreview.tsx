@@ -47,7 +47,13 @@ const castShadow = ({ tint, light }: Palette, depth: number) =>
 
 const icons: Record<KeyId, React.ReactNode> = {
   power: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.6"
+      strokeLinecap="round"
+    >
       <path d="M12 3.5v7.5" />
       <path d="M6.7 6.9a7.3 7.3 0 1 0 10.6 0" />
     </svg>
@@ -77,7 +83,12 @@ const keys: { id: KeyId; label: string }[] = [
   { id: "stop", label: "Stop" },
 ];
 
-const spring = { type: "spring", stiffness: 900, damping: 30, mass: 0.6 } as const;
+const spring = {
+  type: "spring",
+  stiffness: 900,
+  damping: 30,
+  mass: 0.6,
+} as const;
 
 function useKeyClick() {
   const ctx = useRef<AudioContext | null>(null);
@@ -88,7 +99,10 @@ function useKeyClick() {
     const gain = ac.createGain();
     osc.type = "triangle";
     osc.frequency.setValueAtTime(pitch, ac.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(pitch * 0.4, ac.currentTime + 0.04);
+    osc.frequency.exponentialRampToValueAtTime(
+      pitch * 0.4,
+      ac.currentTime + 0.04,
+    );
     gain.gain.setValueAtTime(0.05, ac.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.05);
     osc.connect(gain).connect(ac.destination);
@@ -126,7 +140,10 @@ function Key({ id, label, latched, disabled, onPress }: KeyProps) {
       }}
       transition={reduceMotion ? { duration: 0 } : spring}
       className="relative size-[96px] cursor-pointer rounded-[14px] outline-none transition-[filter] duration-150 hover:brightness-[1.02] focus-visible:ring-2 focus-visible:ring-[#c26f7d]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#efecea] disabled:cursor-default disabled:hover:brightness-100"
-      style={{ background: palette.skirt, WebkitTapHighlightColor: "transparent" }}
+      style={{
+        background: palette.skirt,
+        WebkitTapHighlightColor: "transparent",
+      }}
     >
       {/* Concave dish: shaded under the top rim, bright lip at the bottom */}
       <span
@@ -174,7 +191,8 @@ export function SkeuoKeypadPreview() {
 
   return (
     <section
-      className="grid min-h-dvh place-items-center bg-[#f4f2f1] p-6"
+      // The column may be narrower than the tray, so the tray stays centred instead of widening the page.
+      className="grid min-h-dvh grid-cols-[minmax(0,1fr)] place-items-center overflow-hidden bg-[#f4f2f1] p-6"
       aria-label="Skeuomorphic media keys"
     >
       {/* Recessed tray */}

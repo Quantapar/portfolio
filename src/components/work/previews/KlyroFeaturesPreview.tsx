@@ -107,7 +107,9 @@ export function KlyroFeaturesPreview() {
           opacity: 1,
           transform: "translate3d(0, 0, 0) scale(1)",
         }}
-        viewport={{ once: true, amount: 0.35 }}
+        // On a phone the cards stack into a column taller than the screen, and a short screen never
+        // shows a third of it at once. A smaller share lets it appear on load there too.
+        viewport={{ once: true, amount: 0.15 }}
         transition={
           reduceMotion
             ? { duration: 0.16 }

@@ -53,8 +53,7 @@ export function EditorialNotesPreview() {
       <div className="editorial-notes__inner">
         <header className="editorial-notes__header">
           <h2 id="editorial-notes-title">
-            Notes on focus, flow,
-            <br />
+            Notes on focus, flow, <br />
             and work that moves.
           </h2>
           <a href="#editorial-notes-grid">View all</a>
@@ -83,4 +82,3 @@ export function EditorialNotesPreview() {
     </section>
   );
 }
-

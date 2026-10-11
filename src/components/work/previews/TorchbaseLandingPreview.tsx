@@ -125,7 +125,8 @@ function Navbar() {
 
         <NavbarLinks />
 
-        <div className="flex items-center gap-3 justify-self-end">
+        {/* Pinned to the last column: on a phone the links are gone, and it would slide into the middle one. */}
+        <div className="col-start-3 flex items-center gap-3 justify-self-end">
           <DemoLink
             label="Torchbase on GitHub"
             className="text-neutral-700 transition-colors duration-150 hover:text-neutral-900"
@@ -219,12 +220,12 @@ function Hero() {
         <HeroWaitlistTag />
 
         {/* An h1 on the real site. Here the page around the piece already has one. */}
-        <h2 className="text-4xl leading-tight font-medium tracking-tighter text-white sm:text-5xl md:text-6xl lg:text-7xl">
+        <h2 className="text-4xl leading-tight font-medium tracking-tighter text-balance text-white sm:text-5xl md:text-6xl lg:text-7xl">
           God&apos;s blessing to your AI
         </h2>
 
         <p className="torchbase-secondary max-w-xl text-base leading-snug font-medium text-white/80 sm:text-lg">
-          one workspace for teams to find issues, align on failures, and ship
+          one workspace for teams to find issues, align on failures, and ship{" "}
           <br className="hidden sm:block" />
           fixes together. get agents to production faster
         </p>

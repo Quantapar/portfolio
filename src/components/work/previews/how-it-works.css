@@ -661,3 +661,11 @@
     background-position: -110% 0;
   }
 }
+
+/* On a phone the link back to the site rests at the end of this piece instead of floating over
+   it (see LiveWork). This is the room it rests in: 64px under the link, 36px for it, 36px above. */
+@media (width < 40rem) {
+  .how-it-works-stage {
+    padding-bottom: 136px;
+  }
+}

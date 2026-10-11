@@ -1,6 +1,9 @@
 /* Recessed tray the media keys sit in. The keys themselves are styled with Tailwind classes. */
 .skeuo-keypad-tray {
   display: flex;
+  /* 412px wide at full size. On a narrower screen it shrinks to fit, 24px clear of each edge;
+     tan(atan2()) turns the two lengths into the plain ratio that scale needs. */
+  scale: min(1, tan(atan2(100vw - 48px, 412px)));
   gap: 4px;
   padding: 8px 8px 12px;
   border-radius: 12px;
