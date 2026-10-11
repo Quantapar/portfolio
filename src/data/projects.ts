@@ -83,8 +83,8 @@ export const projects: Project[] = [
         year: 2025,
         summary: "A full revamp of Jaipur's event guide. Discover concerts, comedy, food fests, art, and workshops across the city.",
         useCase: "Curated city events in one modern interface, built for locals looking for what's happening this week.",
-        src: "/work/jaipur.png",
-        srcSize: { width: 1200, height: 676 },
+        src: "/work/jagruk-jaipur.jpg",
+        srcSize: { width: 1600, height: 1000 },
         liveUrl: "https://jagrukjaipur.quantapar.com/",
         tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"]
     }, {
@@ -96,8 +96,8 @@ export const projects: Project[] = [
         year: 2025,
         summary: "A SaaS analytics dashboard built as an assignment. KPI cards with sparklines, filterable order tables, and a collapsible sidebar.",
         useCase: "Dark analytics interface with sortable columns, status tabs, and metric cards for operational monitoring.",
-        src: "/work/dashboard-ui.png",
-        srcSize: { width: 1200, height: 676 },
+        src: "/work/dashboard.png",
+        srcSize: { width: 1600, height: 1000 },
         liveUrl: "https://dashboard-ui.quantapar.com/",
         sourceUrl: "https://github.com/Quantapar/dashboard-ui",
         tech: ["React", "TypeScript", "Tailwind CSS"]
@@ -110,8 +110,8 @@ export const projects: Project[] = [
         year: 2025,
         summary: "A complete frontend revamp for the 100xDevs platform. Immersive web animations, modern UI components, and a robust design system.",
         useCase: "Platform refresh with motion-led interactions and a cohesive component library for developer education.",
-        src: "/work/100xDevsFrontend.png",
-        srcSize: { width: 1200, height: 676 },
+        src: "/work/100xdevs.jpg",
+        srcSize: { width: 1600, height: 998 },
         liveUrl: "https://100xdevs.quantapar.com/",
         sourceUrl: "https://github.com/Quantapar/100xDevs-Frontend",
         tech: ["React", "Tailwind CSS", "Framer Motion"]
