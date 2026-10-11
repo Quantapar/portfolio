@@ -154,43 +154,52 @@ export function AboutContact() {
         </p>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-2" data-enter="1">
+      {/* The column is 85% of the screen, so below 404px the email and the four icons no longer fit
+          on one line. From there down they stack as two rows of the same width. */}
+      <div
+        className="mt-5 flex flex-wrap items-center gap-2 max-[404px]:inline-grid max-[404px]:grid-cols-[max-content] max-[404px]:gap-y-3"
+        data-enter="1"
+      >
         <CopyEmailButton email={EMAIL} className={textChipClassName} />
-        <IconLink
-          href={links.linkedin}
-          label="LinkedIn"
-          card={<LinkedInProfileCard />}
-          tone="blue"
-          icon={LinkedInOutlineIcon}
-          tileIcon={LinkedInLettersIcon}
-        />
-        <IconLink
-          href={links.github}
-          label="GitHub"
-          card={
-            contributions ? (
-              <GitHubContributionsCard contributions={contributions} />
-            ) : undefined
-          }
-          tone="neutral"
-          icon={GitHubOutlineIcon}
-        />
-        <IconLink
-          href={links.x}
-          label="X"
-          card={<XProfileCard />}
-          tone="black"
-          icon={XOutlineIcon}
-          // Filled, the wide stroke of the X reads as one bar instead of two thin lines.
-          tileIconClassName="fill-current"
-        />
-        <IconLink
-          href={links.cal}
-          label="Book a call"
-          card={<CalCard />}
-          tone="green"
-          icon={CalendarOutlineIcon}
-        />
+        {/* The four icons stay together. Stacked under the email they spread out to its width,
+            so the two rows line up at both ends. */}
+        <div className="flex items-center gap-2 max-[404px]:justify-between">
+          <IconLink
+            href={links.linkedin}
+            label="LinkedIn"
+            card={<LinkedInProfileCard />}
+            tone="blue"
+            icon={LinkedInOutlineIcon}
+            tileIcon={LinkedInLettersIcon}
+          />
+          <IconLink
+            href={links.github}
+            label="GitHub"
+            card={
+              contributions ? (
+                <GitHubContributionsCard contributions={contributions} />
+              ) : undefined
+            }
+            tone="neutral"
+            icon={GitHubOutlineIcon}
+          />
+          <IconLink
+            href={links.x}
+            label="X"
+            card={<XProfileCard />}
+            tone="black"
+            icon={XOutlineIcon}
+            // Filled, the wide stroke of the X reads as one bar instead of two thin lines.
+            tileIconClassName="fill-current"
+          />
+          <IconLink
+            href={links.cal}
+            label="Book a call"
+            card={<CalCard />}
+            tone="green"
+            icon={CalendarOutlineIcon}
+          />
+        </div>
       </div>
     </section>
   );
