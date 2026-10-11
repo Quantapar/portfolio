@@ -55,6 +55,11 @@ const postedItems: WorkItem[] = tweets.flatMap((tweet) => {
     ];
 });
 
+/** Experiments rebuilt here that have no post on X yet. Giving one a `postUrl` hands it over to the list above. */
+const unpostedItems: WorkItem[] = getProjectsByType("component")
+    .filter((project) => project.src && !project.postUrl)
+    .map((project) => ({ ...toItem(project), video: project.videoSrc }));
+
 /** The six posts shown on the home page, in display order. All are videos, so the grid moves. */
 const HOME_POST_IDS = [
     "2068122566859149516", // gooey letter morph
@@ -75,6 +80,7 @@ export const homeItems = HOME_POST_IDS.flatMap(
  */
 export const experimentItems: WorkItem[] = [
     ...homeItems,
+    ...unpostedItems,
     ...postedItems.filter((item) => !homeItems.includes(item)),
 ];
 

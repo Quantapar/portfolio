@@ -36,6 +36,10 @@ export const projectPreviews: Record<string, Preview> = {
     () => import("./Dithered404Preview"),
     "Dithered404Preview",
   ),
+  "camera-anatomy": load(
+    () => import("./CameraAnatomyPreview"),
+    "CameraAnatomyPreview",
+  ),
   "skeuomorphic-controls": load(
     () => import("./SkeuoKeypadPreview"),
     "SkeuoKeypadPreview",

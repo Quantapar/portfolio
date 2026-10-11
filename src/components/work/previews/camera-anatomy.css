@@ -1,0 +1,141 @@
+/* Camera anatomy. The drawing's classes and tokens come from the Anatomy kit
+   (camera-anatomy/anatomy/iso.css, turn.css); this file sets the section, the
+   materials the kit has no ramp for, and the highlight. */
+
+.camera-stage {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  /* The link back to the site sits 64px above the bottom of the screen and is 36px tall.
+     The drawing keeps clear of it, with a little air in between. */
+  --camera-clear: 112px;
+  padding: 16px 16px var(--camera-clear);
+  background: #f4f2f1;
+}
+
+.camera {
+  /* The kit paints every solid in the paper colour so it hides what is behind
+     it; paper has to be the section's own background. */
+  --anatomy-paper: #f4f2f1;
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.camera[data-ready] {
+  opacity: 1;
+}
+
+.camera__stage {
+  /* 640 x 520 holds the closed camera. Taken apart it stands 601 tall, and the stage is
+     sized so that still fits in the room above, so the camera keeps one size open or shut. */
+  width: min(
+    100vw - 32px,
+    (100svh - 16px - var(--camera-clear)) * 640 / 601,
+    880px
+  );
+  aspect-ratio: 640 / 520;
+  outline: none;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.camera__stage[data-drag] {
+  cursor: grabbing;
+}
+
+.camera__stage:focus-visible {
+  outline: 1px solid var(--anatomy-muted);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+/* What is painted takes the pointer, so a part hidden behind another can't be
+   hovered through it. */
+.camera__stage svg[data-live] > g {
+  pointer-events: auto;
+}
+
+.camera__stage .cam-ground .iso-halo {
+  filter: blur(12px);
+}
+
+/* Glass, and the mirror that shows the sky: the kit's own tones, cooled, with a
+   darker edge so it reads as clear. */
+.camera svg[data-live] [data-name="view.prism"],
+.camera svg[data-live] [data-name="view.condenser"],
+.camera svg[data-live] [data-name="view.screen"],
+.camera svg[data-live] [data-name="view.mirror"],
+.camera svg[data-live] [data-name$=".element"] {
+  --anatomy-paper: #dfeaf1;
+  --anatomy-face: #eaf2f7;
+  --anatomy-top: #f3f8fb;
+  --anatomy-shade-0: #b9cfdd;
+  --anatomy-shade-1: #c8dae6;
+  --anatomy-shade-2: #d6e4ed;
+  --anatomy-shade-3: #e4eef4;
+  --anatomy-hi: #40607a;
+  --anatomy-mid: #7d9bb1;
+  --anatomy-lo: #a5bccb;
+  --anatomy-faint: #c3d4df;
+  --tn-0: var(--anatomy-shade-0);
+  --tn-1: var(--anatomy-shade-1);
+  --tn-2: var(--anatomy-shade-2);
+  --tn-3: var(--anatomy-shade-3);
+  --tn-4: var(--anatomy-top);
+}
+
+/* Film base is translucent: the gate and the shutter blades behind it show
+   through, as they do through a strip of negatives held up to the light. */
+.camera svg[data-live] [data-name="film.strip"] {
+  opacity: 0.62;
+}
+
+/* Glass seen in the faces of the lens assemblies, and the hole in the iris. */
+.camera .cam-glass {
+  fill: #cfe0ec;
+  stroke: none;
+}
+
+.camera .cam-aperture {
+  fill: #15171a;
+  stroke: none;
+}
+
+/* Engraving filled with white paint, as on a lens's front ring. */
+.camera .cam-engrave {
+  stroke: #c9cdd3;
+}
+
+.camera [data-on] .cam-engrave {
+  stroke: var(--anatomy-hi);
+}
+
+/* The highlighted system is the one accent: the same forms in blueprint blue. */
+.camera svg[data-live] [data-on] {
+  --anatomy-paper: #cfdafb;
+  --anatomy-face: #e0e8fd;
+  --anatomy-top: #f1f5ff;
+  --anatomy-shade-0: #a9bdf6;
+  --anatomy-shade-1: #bccbf9;
+  --anatomy-shade-2: #cfdafb;
+  --anatomy-shade-3: #e0e8fd;
+  --anatomy-hi: #2747b8;
+  --anatomy-mid: #4f6fd8;
+  --anatomy-lo: #7f99ea;
+  --anatomy-faint: #a5b8f2;
+  --anatomy-dot: #2747b8;
+  --tn-0: var(--anatomy-shade-0);
+  --tn-1: var(--anatomy-shade-1);
+  --tn-2: var(--anatomy-shade-2);
+  --tn-3: var(--anatomy-shade-3);
+  --tn-4: var(--anatomy-top);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .camera {
+    transition: none;
+  }
+}

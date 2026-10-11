@@ -200,6 +200,19 @@ export const projects: Project[] = [
         tech: ["Landing page", "Product design"]
     },
     {
+        slug: "camera-anatomy",
+        title1: "Camera",
+        title2: "Anatomy",
+        type: "component",
+        featured: false,
+        year: 2026,
+        summary: "An interactive exploded view of a single-lens reflex camera, drawn as an isometric SVG that turns, comes apart and fires its shutter.",
+        useCase: "A study in explaining a mechanism by letting people handle it: drag to turn the camera, tap to take it apart, and press the shutter release to watch the mirror, curtains and wind lever run.",
+        src: "/work/experiments/camera-anatomy.jpg",
+        videoSrc: "/work/experiments/camera-anatomy.mp4",
+        tech: ["React", "TypeScript", "SVG"]
+    },
+    {
         slug: "skeuomorphic-controls",
         title1: "Skeuomorphic",
         title2: "Controls",
