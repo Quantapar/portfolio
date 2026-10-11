@@ -348,8 +348,8 @@
      The grid sets these attributes for mouse pointers only (see WorkGrid). */
   .work-entry {
     transition:
-      filter 200ms ease,
-      transform 200ms ease;
+      filter 200ms var(--ease-out),
+      transform 200ms var(--ease-out);
   }
 
   .work-grid[data-dimming] .work-entry {

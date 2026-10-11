@@ -17,8 +17,10 @@ const ROOM_ABOVE = 208;
 /** Closest a card may sit to the edge of the window. */
 const EDGE = 8;
 
-// Shared by every preview on the page: when the last card closed.
+// Shared by every preview on the page: when the last card closed, and the card itself
+// while it is still fading out.
 let lastClosedAt = -Infinity;
+let leavingCard: HTMLElement | null = null;
 
 type Side = "above" | "below";
 
@@ -41,7 +43,8 @@ function cardMotion(side: Side) {
   } as const;
 }
 
-// For reduced motion, and for the keyboard: a key press should get its answer at once.
+// For reduced motion, for the keyboard (a key press should get its answer at once), and for
+// moving from one open card to the next, where a second entrance would only be in the way.
 const instantMotion = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },
@@ -82,7 +85,8 @@ export function LinkPreview({
 }: LinkPreviewProps) {
   const [open, setOpen] = useState(false);
   const [side, setSide] = useState<Side>("above");
-  const [byKeyboard, setByKeyboard] = useState(false);
+  const [instant, setInstant] = useState(false);
+  const positioner = useRef<HTMLSpanElement | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
   const openTimer = useRef<number | null>(null);
@@ -96,11 +100,14 @@ export function LinkPreview({
 
   useEffect(() => cancelOpen, []);
 
-  const show = (link: Element, keyboard: boolean) => {
+  const show = (link: Element, immediately: boolean) => {
     // Decided as the card opens, from where the link is on screen right now.
     setSide(link.getBoundingClientRect().top >= ROOM_ABOVE ? "above" : "below");
-    setByKeyboard(keyboard);
+    setInstant(immediately);
     setOpen(true);
+
+    // The card being left would otherwise fade out underneath the one that just appeared.
+    if (immediately) leavingCard?.style.setProperty("display", "none");
   };
 
   const handlePointerEnter = (event: PointerEvent<HTMLSpanElement>) => {
@@ -111,7 +118,7 @@ export function LinkPreview({
     cancelOpen();
 
     if (performance.now() - lastClosedAt < WARM_MS) {
-      show(link, false);
+      show(link, true);
       return;
     }
 
@@ -128,7 +135,10 @@ export function LinkPreview({
 
   const close = () => {
     cancelOpen();
-    if (open) lastClosedAt = performance.now();
+    if (open) {
+      lastClosedAt = performance.now();
+      leavingCard = positioner.current;
+    }
     setOpen(false);
   };
 
@@ -153,7 +163,10 @@ export function LinkPreview({
       <AnimatePresence>
         {open && card ? (
           <span
-            ref={keepInWindow}
+            ref={(node) => {
+              positioner.current = node;
+              keepInWindow(node);
+            }}
             aria-hidden="true"
             // The shadow sits here because the card animates its own filter.
             className={`absolute left-1/2 z-50 block drop-shadow-xl ${side === "above" ? "bottom-full pb-2.5" : "top-full pt-2.5"}`}
@@ -162,7 +175,7 @@ export function LinkPreview({
             <motion.span
               className={`btn-bevel relative block p-3 ${side === "above" ? "origin-bottom" : "origin-top"}`}
               style={{ backgroundColor: "var(--background)" }}
-              {...(shouldReduceMotion || byKeyboard
+              {...(shouldReduceMotion || instant
                 ? instantMotion
                 : cardMotion(side))}
             >

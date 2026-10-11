@@ -1,14 +1,24 @@
 import { lazy, type ComponentType } from "react";
 
-/** Wraps a named export so the piece (and its styles) is fetched only when its page is opened. */
+type Preview = ComponentType & {
+  /** Starts fetching the piece ahead of time. Asking twice costs nothing: the browser keeps the first answer. */
+  preload: () => Promise<unknown>;
+};
+
+/** Wraps a named export so the piece (and its styles) is fetched only when it is needed. */
 function load<Name extends string>(
   importer: () => Promise<Record<Name, ComponentType>>,
   name: Name,
-) {
-  return lazy(() => importer().then((module) => ({ default: module[name] })));
+): Preview {
+  return Object.assign(
+    lazy<ComponentType>(() =>
+      importer().then((module) => ({ default: module[name] })),
+    ),
+    { preload: importer },
+  );
 }
 
-export const projectPreviews: Record<string, ComponentType> = {
+export const projectPreviews: Record<string, Preview> = {
   "address-card": load(
     () => import("./AddressCardPreview"),
     "AddressCardPreview",
@@ -77,4 +87,19 @@ export const projectPreviews: Record<string, ComponentType> = {
 
 export function getProjectPreview(slug: string) {
   return projectPreviews[slug];
+}
+
+/** Too large to fetch on a passing hover: the charts library alone is several hundred KB. */
+const HEAVY = new Set(["bento-features"]);
+
+/**
+ * Fetches a piece before its page is asked for, so the click that follows has nothing to wait on.
+ * A hover is only a guess, so heavy pieces wait for the press.
+ */
+export function preloadProjectPreview(slug: string, intent: "hover" | "press") {
+  const preview = projectPreviews[slug];
+  if (!preview || (intent === "hover" && HEAVY.has(slug))) return;
+
+  // A failed guess is not an error: the page fetches the piece again when it opens.
+  void preview.preload().catch(() => {});
 }
