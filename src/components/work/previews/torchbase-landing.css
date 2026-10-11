@@ -1,0 +1,17 @@
+/* Torchbase landing. Layout and colour are Tailwind classes in the component, as on the
+   real site; this file only brings in its two typefaces, which nothing else here uses. */
+
+.torchbase-landing {
+  --torchbase-primary: "Hanken Grotesk Variable", system-ui, sans-serif;
+  --torchbase-secondary: "Manrope Variable", system-ui, sans-serif;
+  font-family: var(--torchbase-primary);
+}
+
+/* The portfolio gives headings a typeface of its own. */
+.torchbase-landing h2 {
+  font-family: var(--torchbase-primary);
+}
+
+.torchbase-landing .torchbase-secondary {
+  font-family: var(--torchbase-secondary);
+}

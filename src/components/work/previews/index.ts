@@ -40,6 +40,10 @@ export const projectPreviews: Record<string, Preview> = {
     () => import("./CameraAnatomyPreview"),
     "CameraAnatomyPreview",
   ),
+  "torchbase-landing": load(
+    () => import("./TorchbaseLandingPreview"),
+    "TorchbaseLandingPreview",
+  ),
   "skeuomorphic-controls": load(
     () => import("./SkeuoKeypadPreview"),
     "SkeuoKeypadPreview",

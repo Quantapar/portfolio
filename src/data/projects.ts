@@ -193,11 +193,11 @@ export const projects: Project[] = [
         featured: false,
         year: 2025,
         summary: "A warm, high-contrast product landing page for an AI reliability workspace.",
-        useCase: "Product marketing screen with bold hero typography and clear navigation, shared as a design study on X.",
+        useCase: "Product marketing screen with bold hero typography and clear navigation, rebuilt here from the page's own code.",
         src: "/work/torchbase-landing.png",
         srcSize: { width: 1440, height: 900 },
         postUrl: "https://x.com/quantapar/status/2077693670493769794",
-        tech: ["Landing page", "Product design"]
+        tech: ["React", "TypeScript", "Tailwind CSS", "Motion"]
     },
     {
         slug: "camera-anatomy",
