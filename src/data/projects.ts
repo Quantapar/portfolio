@@ -149,7 +149,8 @@ export const projects: Project[] = [
         year: 2025,
         summary: "A customizable profile card with animated color picker and editable fields.",
         useCase: "Web3 profile display with live theme customization useful for wallet or identity surfaces.",
-        src: "",
+        src: "/work/experiments/address-card.jpg",
+        videoSrc: "/work/experiments/address-card.mp4",
         tech: ["React", "Framer Motion", "Web3 UI"]
     }, {
         slug: "otp-verify",

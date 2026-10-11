@@ -29,7 +29,6 @@ export const tweetLinks: string[] = [
     "https://x.com/quantapar/status/2106370001347486199",
     "https://x.com/quantapar/status/2106148793901289662",
     "https://x.com/quantapar/status/2106110424676802947",
-    "https://x.com/quantapar/status/2105803356245729347",
     "https://x.com/quantapar/status/2105748267082650008",
     "https://x.com/quantapar/status/2105668385317294275",
     "https://x.com/quantapar/status/2105417315898757443",

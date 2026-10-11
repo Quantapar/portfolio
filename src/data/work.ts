@@ -60,6 +60,11 @@ const unpostedItems: WorkItem[] = getProjectsByType("component")
     .filter((project) => project.src && !project.postUrl)
     .map((project) => ({ ...toItem(project), video: project.videoSrc }));
 
+/** An unposted experiment that has a set place in the full list: its slug, and the post it follows. */
+const PLACED_AFTER: Record<string, string> = {
+    "address-card": "2106110424676802947", // FAQ in motion
+};
+
 /** The six posts shown on the home page, in display order. All are videos, so the grid moves. */
 const HOME_POST_IDS = [
     "2068122566859149516", // gooey letter morph
@@ -74,14 +79,21 @@ export const homeItems = HOME_POST_IDS.flatMap(
     (id) => postedItems.find((item) => item.key === id) ?? [],
 );
 
+const laterPosts = postedItems.filter((item) => !homeItems.includes(item));
+
+/** The post an unposted experiment is placed after, if it has a place and that post is still listed. */
+function placedAfter(item: WorkItem) {
+    return laterPosts.find((post) => post.key === PLACED_AFTER[item.key]);
+}
+
 /**
  * The full list opens with the same six, in the same order, as the home page.
  * Someone arriving from there sees the grid they just left, and anything new starts at the seventh.
  */
 export const experimentItems: WorkItem[] = [
     ...homeItems,
-    ...unpostedItems,
-    ...postedItems.filter((item) => !homeItems.includes(item)),
+    ...unpostedItems.filter((item) => !placedAfter(item)),
+    ...laterPosts.flatMap((post) => [post, ...unpostedItems.filter((item) => placedAfter(item) === post)]),
 ];
 
 export const projectItems = getProjectsByType("product").map(toItem);
