@@ -200,6 +200,19 @@ export const projects: Project[] = [
         tech: ["React", "TypeScript", "Tailwind CSS", "Motion"]
     },
     {
+        slug: "iss-anatomy",
+        title1: "ISS",
+        title2: "Anatomy",
+        type: "component",
+        featured: false,
+        year: 2026,
+        summary: "An interactive drawing of the International Space Station in isometric SVG: it turns, pulls apart into its modules, and sends its crew ship on a fly-around.",
+        useCase: "A study in making a large, intricate machine readable. Drag to turn the station, tap to separate its elements, hover one to pick it out, and tap the crew ship to watch it undock and circle.",
+        src: "/work/experiments/iss-anatomy.jpg",
+        videoSrc: "/work/experiments/iss-anatomy.mp4",
+        tech: ["React", "TypeScript", "SVG"]
+    },
+    {
         slug: "camera-anatomy",
         title1: "Camera",
         title2: "Anatomy",

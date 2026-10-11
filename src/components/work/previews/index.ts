@@ -36,6 +36,10 @@ export const projectPreviews: Record<string, Preview> = {
     () => import("./Dithered404Preview"),
     "Dithered404Preview",
   ),
+  "iss-anatomy": load(
+    () => import("./IssAnatomyPreview"),
+    "IssAnatomyPreview",
+  ),
   "camera-anatomy": load(
     () => import("./CameraAnatomyPreview"),
     "CameraAnatomyPreview",

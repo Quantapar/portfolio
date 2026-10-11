@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { TURN } from "./camera-anatomy/anatomy/turn.mjs";
-import "./camera-anatomy/anatomy/iso.css";
-import "./camera-anatomy/anatomy/turn.css";
+import { TURN } from "./anatomy/turn.mjs";
+import "./anatomy/iso.css";
+import "./anatomy/turn.css";
 import "./camera-anatomy.css";
 import figureUrl from "./camera-anatomy/figure.json?url";
 import { SHOT_SECONDS, follow } from "./camera-anatomy/motion";

@@ -1,0 +1,136 @@
+/* Space station anatomy. The drawing's classes and tokens come from the Anatomy
+   kit (anatomy/iso.css, turn.css); this file sets the section, the surfaces
+   the kit has no ramp for, and the highlight. */
+
+.iss-stage {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  /* The link back to the site sits 64px above the bottom of the screen and is 36px tall.
+     The drawing keeps clear of it, with a little air in between. */
+  --iss-clear: 112px;
+  padding: 16px 16px var(--iss-clear);
+  background: #f4f2f1;
+}
+
+.iss {
+  /* The kit paints every solid in the paper colour so it hides what is behind
+     it; paper has to be the section's own background. */
+  --anatomy-paper: #f4f2f1;
+  --iss-cell: #1f2c4d;
+  --iss-cell-line: #40527f;
+  --iss-rail: #c79a2e;
+  opacity: 0;
+  transition: opacity 600ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.iss[data-ready] {
+  opacity: 1;
+}
+
+.iss__stage {
+  /* 1216 x 800 holds the station through a whole turn, in the room above the link back. */
+  width: min(
+    100vw - 32px,
+    (100svh - 16px - var(--iss-clear)) * 1216 / 800,
+    1720px
+  );
+  aspect-ratio: 1216 / 800;
+  /* The kit draws its world as a mirror image: seen from above, its x axis lies
+     to the right of its y axis. A station has a handedness (Kibo is to port,
+     Columbus to starboard), so the stage is flipped to show it true. */
+  transform: scaleX(-1);
+  outline: none;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.iss__stage[data-drag] {
+  cursor: grabbing;
+}
+
+.iss__stage:focus-visible {
+  outline: 1px solid var(--anatomy-muted);
+  outline-offset: 6px;
+  border-radius: 8px;
+}
+
+/* What is painted takes the pointer, so a part hidden behind another can't be
+   hovered through it. */
+.iss__stage svg[data-live] > g {
+  pointer-events: auto;
+}
+
+/* Artwork on a face fades out as the face turns edge-on, and at that moment
+   its transform is all but flat. Under the flip above, Chrome mis-clips the
+   whole drawing for a frame when it has to paint through such a transform
+   (found at heading 15°, where one of Rassvet's handrail rows is a hair off
+   edge-on), so what has faded to nothing is not painted at all. */
+.iss svg[data-live] g[opacity="0"] {
+  display: none;
+}
+
+/* Solar cells: the sun side of every array. */
+.iss .iss-cells {
+  fill: var(--iss-cell);
+  stroke: none;
+}
+
+.iss .iss-cell-line {
+  stroke: var(--iss-cell-line);
+}
+
+.iss .iss-cell-string {
+  stroke: #5b6ea0;
+}
+
+/* Handrails are anodised gold. */
+.iss .iss-rail {
+  stroke: var(--iss-rail);
+  stroke-width: 1.15;
+}
+
+/* Thruster pods and other blacked panels. */
+.iss .iss-dark {
+  fill: #2b2e33;
+  stroke: none;
+}
+
+/* Windows. */
+.iss .iss-glass {
+  fill: #9fc3dc;
+  stroke: none;
+}
+
+/* The highlighted element is the one accent: the same forms in blueprint blue. */
+.iss svg[data-live] [data-on] {
+  --anatomy-paper: #cfdafb;
+  --anatomy-face: #e0e8fd;
+  --anatomy-top: #f1f5ff;
+  --anatomy-shade-0: #a9bdf6;
+  --anatomy-shade-1: #bccbf9;
+  --anatomy-shade-2: #cfdafb;
+  --anatomy-shade-3: #e0e8fd;
+  --anatomy-hi: #2747b8;
+  --anatomy-mid: #4f6fd8;
+  --anatomy-lo: #7f99ea;
+  --anatomy-faint: #a5b8f2;
+  --anatomy-dot: #2747b8;
+  --iss-cell: #2747b8;
+  --iss-cell-line: #7f99ea;
+  --iss-rail: #2747b8;
+  --tn-0: var(--anatomy-shade-0);
+  --tn-1: var(--anatomy-shade-1);
+  --tn-2: var(--anatomy-shade-2);
+  --tn-3: var(--anatomy-shade-3);
+  --tn-4: var(--anatomy-top);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iss {
+    transition: none;
+  }
+}
