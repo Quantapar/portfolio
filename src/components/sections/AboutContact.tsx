@@ -9,7 +9,7 @@ import {
   LinkedInOutlineIcon,
   XOutlineIcon,
 } from "../ui/OutlineIcons";
-import { LinkPreview } from "../ui/LinkPreview";
+import { LinkPreview, LinkPreviewGroup } from "../ui/LinkPreview";
 import {
   CalCard,
   LinkedInProfileCard,
@@ -19,16 +19,16 @@ import {
 import { designEngineeringPost, EMAIL, links, USERNAME } from "../../data/site";
 import { useGitHubContributions } from "../../hooks/useGitHubContributions";
 
-// The dotted border and fill live on a layer behind the content, so a press can shrink
-// the surface while the text and icon stay put.
+// The dotted border and fill live on a layer behind the content. A press shrinks the whole
+// chip, so the text and the icon give with the surface as one piece.
 const chipClassName =
-  "group relative isolate inline-flex items-center border border-transparent py-1 text-sm whitespace-nowrap text-foreground before:absolute before:-inset-px before:-z-10 before:border before:border-dotted before:border-border before:transition-[background-color,border-color,scale] before:duration-150 before:ease-[var(--ease-out)] active:before:bg-foreground/10 [@media(hover:hover)_and_(pointer:fine)]:hover:before:border-foreground/35 [@media(hover:hover)_and_(pointer:fine)]:hover:before:bg-foreground/5";
+  "group relative isolate inline-flex items-center border border-transparent py-1 text-sm whitespace-nowrap text-foreground transition-[scale] duration-150 ease-[var(--ease-out)] before:absolute before:-inset-px before:-z-10 before:border before:border-dotted before:border-border before:transition-[background-color,border-color] before:duration-150 before:ease-[var(--ease-out)] active:before:bg-foreground/10 [@media(hover:hover)_and_(pointer:fine)]:hover:before:border-foreground/35 [@media(hover:hover)_and_(pointer:fine)]:hover:before:bg-foreground/5";
 
-// A wide chip needs only a slight squeeze to read as pressed.
-const textChipClassName = `${chipClassName} pr-3 pl-2.5 active:before:scale-[0.985]`;
+// A wide chip needs less of a squeeze than a square one to read as pressed.
+const textChipClassName = `${chipClassName} pr-3 pl-2.5 active:scale-[0.97]`;
 
 // Square chips that hold only a logo, sized to the height of the text chips.
-const iconChipClassName = `${chipClassName} size-[30px] justify-center active:before:scale-[0.96]`;
+const iconChipClassName = `${chipClassName} size-[30px] justify-center active:scale-[0.96]`;
 
 /**
  * How the four link icons beside the email are drawn. "outline" is a line icon in a dotted chip;
@@ -158,8 +158,8 @@ export function AboutContact() {
       >
         <CopyEmailButton email={EMAIL} className={textChipClassName} />
         {/* The four icons stay together. Stacked under the email they spread out to its width,
-            so the two rows line up at both ends. */}
-        <div className="flex items-center gap-2 max-[404px]:justify-between">
+            so the two rows line up at both ends. They share one hover card, which moves along the row. */}
+        <LinkPreviewGroup className="flex items-center gap-2 max-[404px]:justify-between">
           <IconLink
             href={links.linkedin}
             label="LinkedIn"
@@ -195,7 +195,7 @@ export function AboutContact() {
             tone="green"
             icon={CalendarOutlineIcon}
           />
-        </div>
+        </LinkPreviewGroup>
       </div>
     </section>
   );

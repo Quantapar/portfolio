@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from "framer-motion";
 import type {
   ContributionDay,
   GitHubContributions,
@@ -13,21 +12,6 @@ const levelColors = {
   light: ["rgba(17,17,17,0.06)", "#9BE9A8", "#40C463", "#30A14E", "#216E39"],
   dark: ["rgba(255,255,255,0.06)", "#0E4429", "#006D32", "#26A641", "#39D353"],
 };
-
-const gridMotion = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.003, delayChildren: 0.04 } },
-};
-
-// The scale is written as a full transform so the browser can run all the cells off the main thread.
-const cellMotion = {
-  hidden: { opacity: 0, transform: "scale(0.55)" },
-  show: {
-    opacity: 1,
-    transform: "scale(1)",
-    transition: { duration: 0.42, ease: [0.32, 0.72, 0, 1] },
-  },
-} as const;
 
 /** Groups days into Sunday-to-Saturday columns, like GitHub's calendar. */
 function toWeeks(days: ContributionDay[]) {
@@ -50,7 +34,6 @@ export function GitHubContributionsCard({
   contributions,
 }: GitHubContributionsCardProps) {
   const { theme } = useTheme();
-  const shouldReduceMotion = useReducedMotion();
   const colors = levelColors[theme];
   const weeks = toWeeks(contributions.days).slice(-WEEKS);
 
@@ -74,25 +57,19 @@ export function GitHubContributionsCard({
           contributions in {year}
         </span>
       </span>
-      <motion.span
-        className="flex gap-[3px]"
-        variants={gridMotion}
-        initial={shouldReduceMotion ? false : "hidden"}
-        animate="show"
-      >
+      <span className="flex gap-[3px]">
         {weeks.map((week) => (
           <span key={week[0].date} className="flex flex-col gap-[3px]">
             {week.map((day) => (
-              <motion.span
+              <span
                 key={day.date}
-                variants={cellMotion}
                 className="size-[11px] rounded-[3px]"
                 style={{ backgroundColor: colors[day.level] }}
               />
             ))}
           </span>
         ))}
-      </motion.span>
+      </span>
     </span>
   );
 }
