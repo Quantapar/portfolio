@@ -23,7 +23,7 @@ let lastClosedAt = -Infinity;
 type Side = "above" | "below";
 
 // The card moves 8px toward its resting place out of a slight blur and shrink,
-// and leaves faster than it arrives. `away` points from the link to the card.
+// and leaves faster than it arrives. Both ease out, so each starts moving the moment it is asked to. `away` points from the link to the card.
 function cardMotion(side: Side) {
   const away = side === "above" ? -1 : 1;
 
@@ -35,7 +35,7 @@ function cardMotion(side: Side) {
       scale: 0.97,
       y: -6 * away,
       filter: "blur(6px)",
-      transition: { duration: 0.14, ease: [0.4, 0, 1, 1] },
+      transition: { duration: 0.14, ease: [0.23, 1, 0.32, 1] },
     },
     transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
   } as const;
