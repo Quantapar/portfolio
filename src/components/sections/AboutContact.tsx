@@ -12,7 +12,6 @@ import {
 import { LinkPreview } from "../ui/LinkPreview";
 import {
   CalCard,
-  DesignEngineeringCard,
   LinkedInProfileCard,
   XProfileCard,
 } from "../ui/ProfileCards";
@@ -135,10 +134,7 @@ export function AboutContact() {
       <div className="space-y-3 text-pretty text-foreground/65" data-enter="0">
         <p>
           I&apos;m a{" "}
-          <LinkPreview
-            href={designEngineeringPost.url}
-            card={<DesignEngineeringCard />}
-          >
+          <LinkPreview href={designEngineeringPost.url}>
             Design Engineer
           </LinkPreview>{" "}
           based in India, building clean, interactive interfaces and UI

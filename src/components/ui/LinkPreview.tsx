@@ -138,6 +138,9 @@ export function LinkPreview({
   };
 
   const show = (link: Element, immediately: boolean) => {
+    // A plain link has nothing to open, and must not count as a card that just closed.
+    if (!card) return;
+
     // Decided as the card opens, from where the link is on screen right now.
     setSide(sideFor(link));
     // A card of ours still on screen, open or on its way out, keeps the way it was opened:

@@ -13,11 +13,9 @@ export const links = {
     cal: `https://cal.com/${USERNAME}/30min`,
 } as const;
 
-/** The article behind "Design Engineer" in the intro, as shown on its hover card. */
+/** The article behind "Design Engineer" in the intro. */
 export const designEngineeringPost = {
     url: "https://vercel.com/blog/design-engineering-at-vercel",
-    source: "vercel.com",
-    title: "Design Engineering at Vercel",
 } as const;
 
 /** Shown on the contact hover cards. Typed in by hand, so refresh them now and then. */
