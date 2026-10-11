@@ -51,7 +51,7 @@ export function ExperienceSection() {
   }, []);
 
   return (
-    <section id="experience" className="scroll-mt-20">
+    <section id="experience" className="scroll-mt-20" data-enter="3">
       <ExperienceGroup title="Currently" items={current} onHover={setHover} />
       <ExperienceGroup
         title="Previously"

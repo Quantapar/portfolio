@@ -16,7 +16,6 @@ function playGlitchSound() {
 export function FightClubAvatar() {
   const [showAlt, setShowAlt] = useState(false);
   const [glitching, setGlitching] = useState(false);
-  const enteredRef = useRef(false);
   const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -32,19 +31,15 @@ export function FightClubAvatar() {
   }, []);
 
   const swap = () => {
-    if (enteredRef.current) return;
-    enteredRef.current = true;
-
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    playGlitchSound();
     setShowAlt((prev) => !prev);
 
     if (prefersReducedMotion) return;
 
-    // Drop the class for a frame so CSS restarts the animation on every hover.
+    // Drop the class for a frame so CSS restarts the animation on every swap.
     setGlitching(false);
     if (timerRef.current !== null) {
       window.clearTimeout(timerRef.current);
@@ -58,18 +53,16 @@ export function FightClubAvatar() {
     });
   };
 
-  const resetGate = () => {
-    enteredRef.current = false;
-  };
-
   return (
     <button
       type="button"
       aria-label="Swap Fight Club avatar"
-      onPointerEnter={swap}
-      onPointerLeave={resetGate}
-      onFocus={swap}
-      onBlur={resetGate}
+      // The swap, its glitch and its sound are one effect and answer a press only.
+      // A passing cursor or keyboard focus is not a request for any of it.
+      onClick={() => {
+        playGlitchSound();
+        swap();
+      }}
       className="size-11 shrink-0 overflow-hidden border border-dotted border-border p-0"
     >
       <img

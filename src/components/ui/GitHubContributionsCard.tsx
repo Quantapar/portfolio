@@ -19,11 +19,12 @@ const gridMotion = {
   show: { transition: { staggerChildren: 0.003, delayChildren: 0.04 } },
 };
 
+// The scale is written as a full transform so the browser can run all the cells off the main thread.
 const cellMotion = {
-  hidden: { opacity: 0, scale: 0.55 },
+  hidden: { opacity: 0, transform: "scale(0.55)" },
   show: {
     opacity: 1,
-    scale: 1,
+    transform: "scale(1)",
     transition: { duration: 0.42, ease: [0.32, 0.72, 0, 1] },
   },
 } as const;

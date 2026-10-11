@@ -26,16 +26,25 @@ type Side = "above" | "below";
 
 // The card moves 8px toward its resting place out of a slight blur and shrink,
 // and leaves faster than it arrives. Both ease out, so each starts moving the moment it is asked to. `away` points from the link to the card.
+// The move and the shrink are written as one transform, so the browser runs them off the
+// main thread, in step with the opacity and blur, even while the page is busy.
 function cardMotion(side: Side) {
   const away = side === "above" ? -1 : 1;
 
   return {
-    initial: { opacity: 0, scale: 0.96, y: -8 * away, filter: "blur(6px)" },
-    animate: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
+    initial: {
+      opacity: 0,
+      transform: `translateY(${-8 * away}px) scale(0.96)`,
+      filter: "blur(6px)",
+    },
+    animate: {
+      opacity: 1,
+      transform: "translateY(0px) scale(1)",
+      filter: "blur(0px)",
+    },
     exit: {
       opacity: 0,
-      scale: 0.97,
-      y: -6 * away,
+      transform: `translateY(${-6 * away}px) scale(0.97)`,
       filter: "blur(6px)",
       transition: { duration: 0.14, ease: [0.23, 1, 0.32, 1] },
     },
@@ -52,7 +61,10 @@ const instantMotion = {
   transition: { duration: 0 },
 } as const;
 
-/** Slides the card sideways just enough to keep it inside the window. */
+/**
+ * Slides the card sideways just enough to keep it inside the window, and records how far,
+ * so the card can still grow from the point nearest its link instead of from its own middle.
+ */
 function keepInWindow(positioner: HTMLSpanElement | null) {
   const anchor = positioner?.parentElement;
   if (!positioner || !anchor) return;
@@ -62,8 +74,10 @@ function keepInWindow(positioner: HTMLSpanElement | null) {
   const centered = link.left + link.width / 2 - width / 2;
   const rightmost = document.documentElement.clientWidth - EDGE - width;
   const left = Math.min(Math.max(centered, EDGE), Math.max(EDGE, rightmost));
+  const shift = left - centered;
 
-  positioner.style.translate = `calc(-50% + ${left - centered}px) 0`;
+  positioner.style.translate = `calc(-50% + ${shift}px) 0`;
+  positioner.style.setProperty("--card-shift", `${shift}px`);
 }
 
 type LinkPreviewProps = {
@@ -103,11 +117,16 @@ export function LinkPreview({
   const show = (link: Element, immediately: boolean) => {
     // Decided as the card opens, from where the link is on screen right now.
     setSide(link.getBoundingClientRect().top >= ROOM_ABOVE ? "above" : "below");
-    setInstant(immediately);
+    // A card of ours still on screen, open or on its way out, keeps the way it was opened:
+    // one that is leaving simply turns around when the cursor comes straight back.
+    if (!positioner.current) setInstant(immediately);
     setOpen(true);
 
-    // The card being left would otherwise fade out underneath the one that just appeared.
-    if (immediately) leavingCard?.style.setProperty("display", "none");
+    // Another link's card would otherwise fade out underneath the one that just appeared.
+    // Never our own: it is the card being shown.
+    if (immediately && leavingCard !== positioner.current) {
+      leavingCard?.style.setProperty("display", "none");
+    }
   };
 
   const handlePointerEnter = (event: PointerEvent<HTMLSpanElement>) => {
@@ -173,8 +192,12 @@ export function LinkPreview({
             style={{ translate: "-50% 0" }}
           >
             <motion.span
-              className={`btn-bevel relative block p-3 ${side === "above" ? "origin-bottom" : "origin-top"}`}
-              style={{ backgroundColor: "var(--background)" }}
+              className="btn-bevel relative block p-3"
+              style={{
+                backgroundColor: "var(--background)",
+                // The edge facing the link, at the point in line with the link's middle.
+                transformOrigin: `calc(50% - var(--card-shift, 0px)) ${side === "above" ? "100%" : "0%"}`,
+              }}
               {...(shouldReduceMotion || instant
                 ? instantMotion
                 : cardMotion(side))}

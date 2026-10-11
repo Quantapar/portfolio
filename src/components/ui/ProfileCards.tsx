@@ -1,4 +1,9 @@
-import { links, profiles, SITE_NAME } from "../../data/site";
+import {
+  designEngineeringPost,
+  links,
+  profiles,
+  SITE_NAME,
+} from "../../data/site";
 
 // Spans throughout: these render inside a link preview, which may sit in running text.
 
@@ -82,6 +87,20 @@ function GoogleMeetIcon() {
         fill="#ffba00"
         d="M63.5 0h-43v20.5h29V36l20-16.57V6c0-3.315-2.685-6-6-6z"
       />
+    </svg>
+  );
+}
+
+/** Vercel's mark, in the colour of the text around it. */
+function VercelIcon() {
+  return (
+    <svg
+      viewBox="0 0 76 65"
+      aria-hidden="true"
+      // A triangle's weight sits low, so it is raised 1px to look centred in its tile.
+      className="-mt-px h-3 w-auto shrink-0 text-foreground"
+    >
+      <path fill="currentColor" d="M37.5274 0L75.0548 65H0L37.5274 0Z" />
     </svg>
   );
 }
@@ -208,6 +227,28 @@ export function CalCard() {
       <span className="mt-1.5 flex items-center gap-2 text-[13px]">
         <GoogleMeetIcon />
         <span className="text-foreground/60">{location}</span>
+      </span>
+    </span>
+  );
+}
+
+/** Says where the "Design Engineer" link leads before it is clicked. */
+export function DesignEngineeringCard() {
+  const { source, title } = designEngineeringPost;
+
+  return (
+    // Kept small: one row, as wide as its title, with the site's mark where a favicon would be.
+    <span className="flex items-center gap-2.5 whitespace-nowrap">
+      <span className="flex size-8 shrink-0 items-center justify-center border border-dotted border-border">
+        <VercelIcon />
+      </span>
+      <span className="block">
+        <span className="block text-[13px] leading-tight font-medium text-foreground">
+          {title}
+        </span>
+        <span className="mt-0.5 block text-[13px] leading-tight text-foreground/60">
+          {source}
+        </span>
       </span>
     </span>
   );

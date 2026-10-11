@@ -4,7 +4,11 @@ import { WorkGrid } from "../work/WorkGrid";
 
 export function WorkGallery() {
   return (
-    <section id="work" className="flex scroll-mt-20 flex-col gap-4">
+    <section
+      id="work"
+      className="flex scroll-mt-20 flex-col gap-4"
+      data-enter="2"
+    >
       <div className="flex items-baseline justify-between gap-4">
         <h2 className="font-medium">
           {/* The heading is one way into the full list; its fill sits 4px/6px outside the text. */}

@@ -1,5 +1,4 @@
 import { FightClubAvatar } from "../ui/FightClubAvatar";
-import { Highlight } from "../ui/Highlight";
 import { CopyEmailButton } from "../ui/CopyEmailButton";
 import { GitHubContributionsCard } from "../ui/GitHubContributionsCard";
 import {
@@ -9,9 +8,14 @@ import {
   XOutlineIcon,
 } from "../ui/OutlineIcons";
 import { LinkPreview } from "../ui/LinkPreview";
-import { CalCard, LinkedInProfileCard, XProfileCard } from "../ui/ProfileCards";
+import {
+  CalCard,
+  DesignEngineeringCard,
+  LinkedInProfileCard,
+  XProfileCard,
+} from "../ui/ProfileCards";
 
-import { EMAIL, links, USERNAME } from "../../data/site";
+import { designEngineeringPost, EMAIL, links, USERNAME } from "../../data/site";
 import { useGitHubContributions } from "../../hooks/useGitHubContributions";
 
 // The dotted border and fill live on a layer behind the content, so a press can shrink
@@ -30,7 +34,7 @@ export function AboutContact() {
 
   return (
     <section id="about" className="scroll-mt-20">
-      <div className="mb-5">
+      <div className="mb-5" data-enter="0">
         <div className="flex items-center gap-3">
           <FightClubAvatar />
           <div className="min-w-0">
@@ -44,26 +48,29 @@ export function AboutContact() {
         </div>
       </div>
 
-      <div className="space-y-3 text-pretty text-foreground/65">
+      <div className="space-y-3 text-pretty text-foreground/65" data-enter="0">
         <p>
           I&apos;m a{" "}
-          <Highlight href="https://vercel.com/blog/design-engineering-at-vercel">
+          <LinkPreview
+            href={designEngineeringPost.url}
+            card={<DesignEngineeringCard />}
+          >
             Design Engineer
-          </Highlight>{" "}
-          based in India, building clean, interactive web and mobile UI
-          components that scale across platforms and users
+          </LinkPreview>{" "}
+          based in India, building clean, interactive interfaces and UI
+          components for web and mobile
         </p>
         <p>
-          I work with <Highlight>React, Tailwind, and Motion</Highlight>, and
-          I&apos;m usually on{" "}
+          I work with React, Tailwind, and Motion, and I&apos;m usually on{" "}
           <LinkPreview href={links.x} card={<XProfileCard />}>
             X / Twitter
           </LinkPreview>{" "}
-          sharing what I&apos;m making
+          sharing what I&apos;m building and experimenting with. If you&apos;re
+          building something cool, say hi
         </p>
       </div>
 
-      <div className="mt-5 flex flex-wrap items-center gap-2">
+      <div className="mt-5 flex flex-wrap items-center gap-2" data-enter="1">
         <CopyEmailButton email={EMAIL} className={textChipClassName} />
         <LinkPreview
           href={links.linkedin}

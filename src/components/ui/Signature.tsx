@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import opentypeJs from "opentype.js";
 
 type OpentypeApi = {
@@ -41,6 +41,7 @@ export function Signature({
   const [height, setHeight] = useState(fontSize * 3);
   const horizontalPadding = fontSize * 0.1;
   const maskId = `signature-reveal-${useId().replace(/:/g, "")}`;
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     let cancelled = false;
@@ -128,7 +129,8 @@ export function Signature({
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
       className={`overflow-visible text-foreground ${className}`.trim()}
-      initial="hidden"
+      // With reduced motion it starts as it would end: already drawn, with nothing left to play.
+      initial={shouldReduceMotion ? "visible" : "hidden"}
       whileInView={inView ? "visible" : undefined}
       animate={inView ? undefined : "visible"}
       viewport={{ once }}
