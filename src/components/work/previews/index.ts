@@ -20,79 +20,91 @@ function load<Name extends string>(
 
 export const projectPreviews: Record<string, Preview> = {
   "address-card": load(
-    () => import("./AddressCardPreview"),
+    () => import("./address-card/AddressCardPreview"),
     "AddressCardPreview",
   ),
   "floating-toolbar": load(
-    () => import("./FloatingToolbarPreview"),
+    () => import("./floating-toolbar/FloatingToolbarPreview"),
     "FloatingToolbarPreview",
   ),
-  "otp-verify": load(() => import("./OtpVerifyPreview"), "OtpVerifyPreview"),
+  "otp-verify": load(
+    () => import("./otp-verify/OtpVerifyPreview"),
+    "OtpVerifyPreview",
+  ),
   "wallet-balance": load(
-    () => import("./WalletBalancePreview"),
+    () => import("./wallet-balance/WalletBalancePreview"),
     "WalletBalancePreview",
   ),
   "dithered-404": load(
-    () => import("./Dithered404Preview"),
+    () => import("./dithered-404/Dithered404Preview"),
     "Dithered404Preview",
   ),
   "iss-anatomy": load(
-    () => import("./IssAnatomyPreview"),
+    () => import("./iss-anatomy/IssAnatomyPreview"),
     "IssAnatomyPreview",
   ),
   "camera-anatomy": load(
-    () => import("./CameraAnatomyPreview"),
+    () => import("./camera-anatomy/CameraAnatomyPreview"),
     "CameraAnatomyPreview",
   ),
   "torchbase-landing": load(
-    () => import("./TorchbaseLandingPreview"),
+    () => import("./torchbase-landing/TorchbaseLandingPreview"),
     "TorchbaseLandingPreview",
   ),
   "skeuomorphic-controls": load(
-    () => import("./SkeuoKeypadPreview"),
+    () => import("./skeuo-keypad/SkeuoKeypadPreview"),
     "SkeuoKeypadPreview",
   ),
   "gooey-button": load(
-    () => import("./GooeyActionPreview"),
+    () => import("./gooey-action/GooeyActionPreview"),
     "GooeyActionPreview",
   ),
-  "gooey-text": load(() => import("./GooeyTextPreview"), "GooeyTextPreview"),
+  "gooey-text": load(
+    () => import("./gooey-text/GooeyTextPreview"),
+    "GooeyTextPreview",
+  ),
   "gooey-toggle": load(
-    () => import("./GooeyTogglePreview"),
+    () => import("./gooey-toggle/GooeyTogglePreview"),
     "GooeyTogglePreview",
   ),
   "fast-and-easy-cards": load(
-    () => import("./HowItWorksPreview"),
+    () => import("./how-it-works/HowItWorksPreview"),
     "HowItWorksPreview",
   ),
-  toaster: load(() => import("./ToastToasterPreview"), "ToastToasterPreview"),
+  toaster: load(
+    () => import("./toast-toaster/ToastToasterPreview"),
+    "ToastToasterPreview",
+  ),
   "that-button": load(
-    () => import("./RejectButtonPreview"),
+    () => import("./reject-button/RejectButtonPreview"),
     "RejectButtonPreview",
   ),
-  "faq-in-motion": load(() => import("./KlyroFaqPreview"), "KlyroFaqPreview"),
+  "faq-in-motion": load(
+    () => import("./klyro-faq/KlyroFaqPreview"),
+    "KlyroFaqPreview",
+  ),
   "radial-toolkit": load(
-    () => import("./RadialToolMenuPreview"),
+    () => import("./radial-tool-menu/RadialToolMenuPreview"),
     "RadialToolMenuPreview",
   ),
   "signature-animation": load(
-    () => import("./SignaturePreview"),
+    () => import("./signature/SignaturePreview"),
     "SignaturePreview",
   ),
   "skeuomorphic-toggle": load(
-    () => import("./SkeuoThemeTogglePreview"),
+    () => import("./skeuo-theme-toggle/SkeuoThemeTogglePreview"),
     "SkeuoThemeTogglePreview",
   ),
   "card-layouts": load(
-    () => import("./EditorialNotesPreview"),
+    () => import("./editorial-notes/EditorialNotesPreview"),
     "EditorialNotesPreview",
   ),
   "bento-features": load(
-    () => import("./KlyroFeaturesPreview"),
+    () => import("./klyro-features/KlyroFeaturesPreview"),
     "KlyroFeaturesPreview",
   ),
   "scroll-text-reveal": load(
-    () => import("./ScrollTextRevealPreview"),
+    () => import("./scroll-text-reveal/ScrollTextRevealPreview"),
     "ScrollTextRevealPreview",
   ),
 };

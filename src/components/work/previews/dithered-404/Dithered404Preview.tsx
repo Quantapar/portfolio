@@ -1,4 +1,4 @@
-import { DitheredLogo } from "./DitheredLogo";
+import { DitheredLogo } from "../../../ui/DitheredLogo";
 
 export function Dithered404Preview() {
   return (

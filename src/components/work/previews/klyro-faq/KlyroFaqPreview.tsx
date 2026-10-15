@@ -1,6 +1,6 @@
 import { type FormEvent, useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import faqIllustration from "./assets/faq-illustration-transparent.png";
+import faqIllustration from "./faq-illustration-transparent.png";
 import "./klyro-faq.css";
 
 const klyroFaqs = [

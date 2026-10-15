@@ -1,5 +1,5 @@
-import { GooeyText } from "./gooey-text/GooeyText";
-import { useGooeyKeyboard } from "./gooey-text/useGooeyKeyboard";
+import { GooeyText } from "./GooeyText";
+import { useGooeyKeyboard } from "./useGooeyKeyboard";
 
 function Chevron({ dir }: { dir: "left" | "right" }) {
   return (

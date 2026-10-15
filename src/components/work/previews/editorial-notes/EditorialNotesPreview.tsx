@@ -1,7 +1,7 @@
-import editorialImageFour from "./assets/editorial-4.jpg";
-import editorialImageOne from "./assets/editorial-1.jpg";
-import editorialImageThree from "./assets/editorial-3.jpg";
-import editorialImageTwo from "./assets/editorial-2.jpg";
+import editorialImageFour from "./editorial-4.jpg";
+import editorialImageOne from "./editorial-1.jpg";
+import editorialImageThree from "./editorial-3.jpg";
+import editorialImageTwo from "./editorial-2.jpg";
 import "./editorial-notes.css";
 
 const editorialNotes = [

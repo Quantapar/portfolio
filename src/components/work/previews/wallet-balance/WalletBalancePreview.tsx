@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import btcLogo from "../../../assets/btc-logo.svg";
-import solLogo from "../../../assets/sol-logo.svg";
-import usdcLogo from "../../../assets/usdc-logo.svg";
-import ethLogo from "../../../assets/eth-logo.svg";
+import btcLogo from "./btc-logo.svg";
+import solLogo from "./sol-logo.svg";
+import usdcLogo from "./usdc-logo.svg";
+import ethLogo from "./eth-logo.svg";
 
 const COINS = [
   {

@@ -1,38 +1,43 @@
 import { useEffect, useRef, useState } from "react";
-import { TURN } from "./anatomy/turn.mjs";
-import "./anatomy/iso.css";
-import "./anatomy/turn.css";
-import "./iss-anatomy.css";
-import figureUrl from "./iss-anatomy/figure.json?url";
-import { VISIT_SECONDS, follow } from "./iss-anatomy/motion";
+import { TURN } from "../anatomy-kit/turn.mjs";
+import "../anatomy-kit/iso.css";
+import "../anatomy-kit/turn.css";
+import "./camera-anatomy.css";
+import figureUrl from "./figure.json?url";
+import { SHOT_SECONDS, follow } from "./motion";
 
-// Generated ahead of time: the stage markup is the station at rest, and `turn` is
+// Generated ahead of time: the stage markup is the camera at rest, and `turn` is
 // what the Anatomy runtime re-projects every frame.
 type Figure = {
   width: number;
   height: number;
-  /** ViewBox units per decimetre. */
+  /** ViewBox units per millimetre. */
   scale: number;
-  /** How far the drawing reaches from the middle of its frame once the station is apart, over a full turn. */
-  apart: { side: number; above: number; below: number };
+  camera: {
+    ox: number;
+    oy: number;
+    k: number;
+    azimuth: number;
+    elevation: number;
+  };
+  /** The base's outline on the ground, in millimetres, for the shadow. */
+  shadow: [number, number][];
   stage: string;
   turn: unknown;
   systems: { id: string; label: string }[];
 };
 
 const RAD = Math.PI / 180;
-const REST_HEADING = 28; // from ahead and above: the truss across the frame, the laboratories and the crew ship in front
-const TOUR_SPEED = 5; // degrees a second
+const REST_HEADING = -62; // three-quarter view: front and wind side toward the viewer
+const TOUR_SPEED = 9; // degrees a second
 const IN_VIEW = 0.01; // the share of the stage on screen before anything animates
 const TOUR_RESUME = 3600;
-const VISIT_EVERY = 22; // seconds from one fly-around's start to the next while the station is left alone
+const SHOT_EVERY = 4.2; // seconds between exposures while the camera is left alone
 const DRAG_SLOP = 4;
-const GRIP_RADIUS = 300; // decimetres: the truss under the pointer follows it at about this radius
-// A turn redraws every part. Where that takes longer than a frame, an even
-// thirty frames a second reads better than sixty with every third one dropped.
-const LATE_MS = 20; // a frame that took longer than this missed its slot
-const LATE_SHARE = 0.3; // this share of late frames is a machine that can't keep up
-const RETRY_MS = 4000; // how long to hold the slower pace before trying the full one again
+// How far the drawing reaches from the middle of its 640 x 520 frame once the
+// camera is apart, over a full turn and a wind stroke (measured on the page).
+const APART = { side: 416, above: 322, below: 279 };
+const GRIP_RADIUS = 60; // mm: the body's skin under the pointer follows it at about this radius
 
 /** Critically damped approach to a target, four sub-steps a frame. */
 function settle(
@@ -56,7 +61,7 @@ function settle(
   return true;
 }
 
-function mountStation(stage: HTMLDivElement, figure: Figure) {
+function mountCamera(stage: HTMLDivElement, figure: Figure) {
   stage.innerHTML = figure.stage;
   const still = matchMedia("(prefers-reduced-motion: reduce)");
   const controller = TURN.mount(stage, figure.turn, { follow });
@@ -66,43 +71,63 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
   const systemOf = (node: Element | null) =>
     node?.closest("[data-name]")?.getAttribute("data-name")?.split(".")[0] ??
     null;
+  const ground = stage.querySelector<SVGPathElement>("[data-ground]")!;
 
   let heading = REST_HEADING;
   let target = REST_HEADING;
   const open = { x: 0, v: 0 };
   let opened = false; // what the reader asked for; `open` eases toward it
-  let visit = VISIT_SECONDS; // seconds into the crew ship's fly-around; at the end, it is docked again
-  let sinceVisit = 0;
-  let drawn: { heading: number; open: number; visit: number } | null = null;
+  let shot = SHOT_SECONDS; // seconds into the exposure cycle; at the end, the camera is at rest
+  let sinceShot = 0;
+  let drawn: { heading: number; open: number; shot: number } | null = null;
   let selected: string | null = null;
   let frame = 0;
   let last = 0;
   let visible = false;
+  let revealed = false;
   let touring = !still.matches;
   let idle = 0;
-  let halved = false; // painting every other frame
-  let skip = false;
-  let late = 0; // the running share of frames that missed their slot at the full pace
-  let retryAt = 0;
-  let retryAfter = RETRY_MS;
-  // Apart, the station steps back just far enough to stay inside its section.
+  // Apart, the camera steps back just far enough to stay inside its section.
   const room = stage.closest("section") ?? stage;
   let apart = { scale: 1, drop: 0 };
 
   const paint = () => {
-    // At the end of the fly-around the ship is back on its port: draw it as time 0.
+    // At the end of the cycle everything is back where it began: draw it as time 0.
     controller.set({
-      iss: heading,
+      cam: heading,
       open: open.x,
-      visit: visit >= VISIT_SECONDS ? 0 : visit,
+      shot: shot >= SHOT_SECONDS ? 0 : shot,
     });
-    // The stage is drawn mirrored (see iss.css), so every transform set here keeps the flip.
+    // The shadow lies under the base and turns with it. It belongs to the
+    // closed camera; the parts that leave take theirs with them.
+    const turn = heading * RAD;
+    const { ox, oy, k, azimuth, elevation } = figure.camera;
+    ground.setAttribute(
+      "d",
+      figure.shadow
+        .map(([x, y], index) => {
+          const [wx, wy] = [
+            x * Math.cos(turn) - y * Math.sin(turn),
+            x * Math.sin(turn) + y * Math.cos(turn),
+          ];
+          const sx = ox + (wx * Math.sin(azimuth) - wy * Math.cos(azimuth)) * k;
+          const sy =
+            oy +
+            ((wx * Math.cos(azimuth) + wy * Math.sin(azimuth)) *
+              Math.sin(elevation) +
+              Math.cos(elevation)) *
+              k;
+          return `${index ? "L" : "M"}${sx.toFixed(1)} ${sy.toFixed(1)}`;
+        })
+        .join("") + "Z",
+    );
+    ground.style.opacity = String(1 - 0.45 * open.x);
     const scale = 1 + (apart.scale - 1) * open.x;
     stage.style.transform =
       open.x > 0
-        ? `translateY(${(apart.drop * open.x).toFixed(2)}px) scale(${(-scale).toFixed(4)}, ${scale.toFixed(4)})`
+        ? `translateY(${(apart.drop * open.x).toFixed(2)}px) scale(${scale.toFixed(4)})`
         : "";
-    drawn = { heading, open: open.x, visit };
+    drawn = { heading, open: open.x, shot };
   };
 
   const describe = () => {
@@ -111,7 +136,7 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
     stage.setAttribute("aria-valuenow", String(turned));
     stage.setAttribute(
       "aria-valuetext",
-      `Station ${opened ? "pulled apart into its elements" : "assembled"}, turned ${turned} degrees${system ? `, ${system.label} highlighted` : ""}`,
+      `Camera ${opened ? "taken apart" : "assembled"}, turned ${turned} degrees${system ? `, ${system.label} highlighted` : ""}`,
     );
   };
 
@@ -125,28 +150,14 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
 
   function tick(now: number) {
     const dt = last ? Math.min((now - last) / 1000, 1 / 30) : 1 / 60;
-    if (halved) {
-      if (now > retryAt) {
-        halved = false;
-        late = 0;
-      }
-    } else if (last && drawn) {
-      late += ((now - last > LATE_MS ? 1 : 0) - late) * 0.05;
-      if (late > LATE_SHARE) {
-        halved = true;
-        retryAt = now + retryAfter;
-        retryAfter = Math.min(retryAfter * 2, 32000); // each failed try waits longer before the next
-      }
-    }
     last = now;
     const calm = still.matches;
     const onTour = touring && !calm;
     if (onTour) {
       target += TOUR_SPEED * dt;
-      // Left alone and whole, the crew ship backs off for a look round every so often.
-      sinceVisit += dt;
-      if (sinceVisit > VISIT_EVERY && visit >= VISIT_SECONDS && !opened)
-        depart();
+      // Left alone, the camera takes a picture every few seconds.
+      sinceShot += dt;
+      if (sinceShot > SHOT_EVERY && shot >= SHOT_SECONDS) fire();
     }
     heading = calm
       ? target
@@ -154,20 +165,18 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
     if (Math.abs(target - heading) < 1e-3) heading = target;
     let opening = false;
     if (calm) open.x = opened ? 1 : 0;
-    else opening = settle(open, opened ? 1 : 0, dt, 0.5, 2e-3);
-    const away = visit < VISIT_SECONDS;
-    if (away)
-      visit = calm ? VISIT_SECONDS : Math.min(VISIT_SECONDS, visit + dt);
-    const changed =
+    else opening = settle(open, opened ? 1 : 0, dt, 0.34, 2e-3);
+    const firing = shot < SHOT_SECONDS;
+    if (firing) shot = calm ? SHOT_SECONDS : Math.min(SHOT_SECONDS, shot + dt);
+    if (
       !drawn ||
       Math.abs(heading - drawn.heading) > 1e-4 ||
       open.x !== drawn.open ||
-      visit !== drawn.visit;
+      shot !== drawn.shot
+    )
+      paint();
     const settled =
-      !onTour && heading === target && !opening && visit >= VISIT_SECONDS;
-    // At the slower pace every other frame is skipped; the motion keeps its own time.
-    skip = halved && !skip && !settled;
-    if (changed && !skip) paint();
+      !onTour && heading === target && !opening && shot >= SHOT_SECONDS;
     frame = visible && !settled ? requestAnimationFrame(tick) : 0;
   }
   const run = () => {
@@ -189,10 +198,10 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
     describe();
     run();
   };
-  function depart() {
-    if (visit < VISIT_SECONDS) return; // one fly-around at a time
-    visit = 0;
-    sinceVisit = 0;
+  function fire() {
+    if (shot < SHOT_SECONDS) return; // one exposure at a time, as the real interlock insists
+    shot = 0;
+    sinceShot = 0;
     run();
   }
 
@@ -202,21 +211,25 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
       // A section lying exactly against the viewport's edge counts as
       // intersecting with nothing showing: ask for a sliver actually in view.
       visible = entry.intersectionRatio >= IN_VIEW;
+      // The camera comes apart the first time it is properly in view.
+      if (!revealed && entry.intersectionRatio > 0.45) {
+        revealed = true;
+        setOpen(true);
+      }
       if (visible) run();
       else if (frame) {
         cancelAnimationFrame(frame);
         frame = 0;
       }
     },
-    { threshold: [IN_VIEW] },
+    { threshold: [IN_VIEW, 0.45] },
   );
   watcher.observe(stage);
 
   const fit = () => {
     const unit = stage.clientWidth / figure.width;
     if (!unit) return;
-    const { side, above, below } = figure.apart;
-    const tall = (above + below) / 2;
+    const tall = (APART.above + APART.below) / 2;
     // The section's padding stays clear of the drawing: the link back to the site sits in the bottom of it.
     const pad = getComputedStyle(room);
     const wide =
@@ -229,13 +242,11 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
       parseFloat(pad.paddingBottom);
     const scale = Math.min(
       1,
-      wide / 2 / (side * unit),
+      wide / 2 / (APART.side * unit),
       high / 2 / (tall * unit),
     );
-    // The parts reach further one way than the other: shift the drawing by half the difference.
-    const drop = ((above - below) / 2) * unit * scale;
-    if (scale === apart.scale && drop === apart.drop) return;
-    apart = { scale, drop };
+    // The parts reach further up than down: lower the drawing by half the difference.
+    apart = { scale, drop: ((APART.above - APART.below) / 2) * unit * scale };
     drawn = null;
     if (frame) return;
     paint();
@@ -284,7 +295,7 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
       }
       if (!drag.captured) return;
       hold();
-      target = drag.base + dx * degreesPerPixel();
+      target = drag.base - dx * degreesPerPixel();
       describe();
       run();
       return;
@@ -307,8 +318,8 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
     if (stage.hasPointerCapture(event.pointerId))
       stage.releasePointerCapture(event.pointerId);
     if (!tapped || event.type !== "pointerup") return;
-    // A tap on the crew ship sends it round; anywhere else pulls the station apart or closes it up.
-    if (on?.startsWith("dragon.") && !opened) depart();
+    // A tap on the shutter release takes a picture; anywhere else opens or closes the camera.
+    if (on?.startsWith("shut.release")) fire();
     else setOpen(!opened);
   };
   const onLeave = (event: PointerEvent) => {
@@ -319,7 +330,7 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
       target =
         Math.round(target / 15) * 15 +
-        (event.key === "ArrowLeft" ? -step : step);
+        (event.key === "ArrowLeft" ? step : -step);
     } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
       const ids = figure.systems.map((entry) => entry.id);
       const at = selected ? ids.indexOf(selected) : -1;
@@ -330,14 +341,16 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
             : (at <= 0 ? ids.length : at) - 1
         ],
       );
+      // Most of every system is inside: take the camera apart so what is highlighted can be seen.
+      opened = true;
     } else if (event.key === " ") {
       opened = !opened;
     } else if (
       event.key === "Enter" ||
-      event.key === "d" ||
-      event.key === "D"
+      event.key === "f" ||
+      event.key === "F"
     ) {
-      depart();
+      fire();
     } else if (event.key === "Escape") {
       select(null);
     } else if (event.key === "Home") {
@@ -381,7 +394,7 @@ function mountStation(stage: HTMLDivElement, figure: Figure) {
   };
 }
 
-export function IssAnatomyPreview() {
+export function CameraAnatomyPreview() {
   const stageRef = useRef<HTMLDivElement>(null);
   const [figure, setFigure] = useState<Figure | null>(null);
 
@@ -395,7 +408,7 @@ export function IssAnatomyPreview() {
       .then(setFigure)
       .catch((error: unknown) => {
         if (!request.signal.aborted)
-          console.error("Station figure failed to load", error);
+          console.error("Camera figure failed to load", error);
       });
     return () => request.abort();
   }, []);
@@ -407,29 +420,26 @@ export function IssAnatomyPreview() {
     // code ever disagree, leave the section empty rather than throw from an
     // effect, which would unmount the whole app.
     try {
-      return mountStation(stage, figure);
+      return mountCamera(stage, figure);
     } catch (error) {
-      console.error("Station figure failed to mount", error);
+      console.error("Camera figure failed to mount", error);
       stage.innerHTML = "";
     }
   }, [figure]);
 
   return (
-    <section
-      className="iss-stage"
-      aria-label="Interactive International Space Station anatomy"
-    >
+    <section className="camera-stage" aria-label="Interactive camera anatomy">
       <div
-        className="iso iss"
+        className="iso camera"
         data-theme="light"
         data-ready={figure ? "" : undefined}
       >
         <div
           ref={stageRef}
-          className="iso-stage iso-turn iss__stage"
+          className="iso-stage iso-turn camera__stage"
           tabIndex={0}
           role="slider"
-          aria-label="International Space Station. Drag or use the left and right arrow keys to turn it, press Space to pull it apart into its elements or close it up, press Enter to send the crew ship on a fly-around, and use the up and down arrow keys to step through its elements."
+          aria-label="Single-lens reflex camera. Drag or use the left and right arrow keys to turn it, press Space to take it apart or put it back together, press Enter to fire the shutter, and use the up and down arrow keys to step through its systems."
           aria-valuemin={0}
           aria-valuemax={359}
           aria-valuenow={0}

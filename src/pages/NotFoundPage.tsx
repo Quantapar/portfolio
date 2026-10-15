@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { DitheredLogo } from "../components/work/previews/DitheredLogo";
+import { DitheredLogo } from "../components/ui/DitheredLogo";
 import { useTheme } from "../hooks/useTheme";
 
 export function NotFoundPage() {
