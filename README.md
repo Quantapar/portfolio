@@ -4,15 +4,6 @@ Source for [quantapar.com](https://www.quantapar.com), my portfolio as a design 
 
 ![Preview](public/og-image.png)
 
-## Stack
-
-- [React 19](https://react.dev) + [TypeScript](https://www.typescriptlang.org)
-- [Vite](https://vite.dev)
-- [Tailwind CSS v4](https://tailwindcss.com)
-- [Motion](https://motion.dev) for animation
-- [React Router](https://reactrouter.com)
-- Deployed on [Vercel](https://vercel.com)
-
 ## Running locally
 
 ```bash
