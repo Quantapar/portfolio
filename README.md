@@ -58,7 +58,3 @@ Copy `.env.example` to `.env` if you want to change the site URL used in the Ope
 ## Credits
 
 The isometric drawings in `previews/anatomy-kit` are based on an MIT-licensed kit. Its license is kept next to the code.
-
-## Contact
-
-[x.com/quantapar](https://x.com/quantapar) · [linkedin.com/in/quantapar](https://linkedin.com/in/quantapar) · quantapar@gmail.com
