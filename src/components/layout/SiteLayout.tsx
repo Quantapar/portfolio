@@ -1,11 +1,9 @@
-import { useLayoutEffect } from "react";
-import {
-  matchPath,
-  Outlet,
-  useLocation,
-  useNavigationType,
-} from "react-router-dom";
+"use client";
+
+import { usePathname } from "next/navigation";
+import { useLayoutEffect, type ReactNode } from "react";
 import { getProjectBySlug } from "../../data/projects";
+import { enterEntry } from "../../lib/historyEntry";
 import { markRouteReady } from "../../lib/routeTransition";
 import { getProjectPreview } from "../work/previews";
 import { PageShell } from "./PageShell";
@@ -16,8 +14,7 @@ const scrollPositions = new Map<string, number>();
 
 /** A new page starts at the top; one returned to with Back or Forward resumes where it was left. */
 function RouteScroll() {
-  const { pathname, key } = useLocation();
-  const navigationType = useNavigationType();
+  const pathname = usePathname();
 
   useLayoutEffect(() => {
     // Positions are restored here, so the browser's own attempt would only fight this one.
@@ -25,7 +22,8 @@ function RouteScroll() {
   }, []);
 
   useLayoutEffect(() => {
-    const top = navigationType === "POP" ? (scrollPositions.get(key) ?? 0) : 0;
+    const { key, returning } = enterEntry();
+    const top = returning ? (scrollPositions.get(key) ?? 0) : 0;
     // Instant, not smooth: a page should be where it belongs, not scroll there.
     window.scrollTo({ top, left: 0, behavior: "instant" });
 
@@ -37,13 +35,13 @@ function RouteScroll() {
     window.addEventListener("scroll", remember, { passive: true });
 
     return () => window.removeEventListener("scroll", remember);
-  }, [key, pathname, navigationType]);
+  }, [pathname]);
 
   return null;
 }
 
 function projectSlug(pathname: string) {
-  return matchPath({ path: "/work/:slug", end: true }, pathname)?.params.slug;
+  return pathname.match(/^\/work\/([^/]+)\/?$/)?.[1];
 }
 
 /** Work rebuilt on this site takes the whole screen, with no column, fade or footer around it. */
@@ -52,14 +50,18 @@ function isLiveWorkPath(pathname: string) {
   return Boolean(slug && getProjectBySlug(slug) && getProjectPreview(slug));
 }
 
-export function SiteLayout() {
-  const { pathname } = useLocation();
+type SiteLayoutProps = {
+  children: ReactNode;
+};
+
+export function SiteLayout({ children }: SiteLayoutProps) {
+  const pathname = usePathname();
 
   if (isLiveWorkPath(pathname)) {
     return (
       <>
         <RouteScroll />
-        <Outlet />
+        {children}
       </>
     );
   }
@@ -73,7 +75,7 @@ export function SiteLayout() {
         className="pointer-events-none fixed inset-x-0 top-0 z-10 h-24 bg-linear-to-b from-background to-transparent"
       />
       <PageShell>
-        <Outlet />
+        {children}
         {/* The sign-off belongs to the home page; inner pages end with their content. */}
         {pathname === "/" ? <SiteFooter /> : null}
       </PageShell>

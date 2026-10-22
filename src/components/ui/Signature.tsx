@@ -1,6 +1,6 @@
 import { useEffect, useId, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import opentypeJs from "opentype.js";
+import * as opentypeJs from "opentype.js";
 
 type OpentypeApi = {
   parse: (buffer: ArrayBuffer) => opentypeJs.Font;

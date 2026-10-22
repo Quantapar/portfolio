@@ -10,7 +10,7 @@ const editorialNotes = [
     title: "Find the signal.",
     description:
       "Klyro brings scattered priorities into focus, so the next move is easier to see.",
-    image: editorialImageOne,
+    image: editorialImageOne.src,
     imageAlt: "A blurred blue silhouette emerging through light",
     shape: "square",
   },
@@ -19,7 +19,7 @@ const editorialNotes = [
     title: "Momentum needs direction",
     description:
       "Speed means little without a shared horizon. Keep ownership and progress visible as work moves.",
-    image: editorialImageTwo,
+    image: editorialImageTwo.src,
     imageAlt: "A dark silhouette standing before a grainy sunset",
     shape: "portrait",
   },
@@ -28,7 +28,7 @@ const editorialNotes = [
     title: "Protect the focus",
     description:
       "Clear boundaries give deep work room to happen without leaving the team in the dark.",
-    image: editorialImageThree,
+    image: editorialImageThree.src,
     imageAlt: "A blurred figure raising a glowing hand",
     shape: "landscape",
   },
@@ -37,7 +37,7 @@ const editorialNotes = [
     title: "Let busywork fall away",
     description:
       "Automate the repeatable work and give your attention back to the decisions that matter.",
-    image: editorialImageFour,
+    image: editorialImageFour.src,
     imageAlt: "A falling silhouette surrounded by grainy color",
     shape: "square",
   },

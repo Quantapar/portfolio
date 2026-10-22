@@ -12,7 +12,7 @@ const COINS = [
     geckoId: "bitcoin",
     bg: "#F7931A",
     icon: (
-      <img src={btcLogo} width="22" height="22" alt="" style={{ pointerEvents: "none" }} />
+      <img src={btcLogo.src} width="22" height="22" alt="" style={{ pointerEvents: "none" }} />
     ),
   },
   {
@@ -21,7 +21,7 @@ const COINS = [
     geckoId: "solana",
     bg: "#1a1a2e",
     icon: (
-      <img src={solLogo} width="18" height="18" alt="" style={{ pointerEvents: "none" }} />
+      <img src={solLogo.src} width="18" height="18" alt="" style={{ pointerEvents: "none" }} />
     ),
   },
   {
@@ -30,7 +30,7 @@ const COINS = [
     geckoId: "usd-coin",
     bg: "#2775CA",
     icon: (
-      <img src={usdcLogo} width="22" height="22" alt="" style={{ pointerEvents: "none" }} />
+      <img src={usdcLogo.src} width="22" height="22" alt="" style={{ pointerEvents: "none" }} />
     ),
   },
   {
@@ -39,7 +39,7 @@ const COINS = [
     geckoId: "ethereum",
     bg: "#627EEA",
     icon: (
-      <img src={ethLogo} width="16" height="16" alt="" style={{ pointerEvents: "none" }} />
+      <img src={ethLogo.src} width="16" height="16" alt="" style={{ pointerEvents: "none" }} />
     ),
   },
 ];

@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { createPortal } from "react-dom";
+import { useIsClient } from "../../hooks/useIsClient";
 
 export type ExperienceHover = {
   image: string;
@@ -41,7 +42,11 @@ type ExperiencePreviewProps = {
 
 export function ExperiencePreview({ hover }: ExperiencePreviewProps) {
   const shouldReduceMotion = useReducedMotion();
+  // The card lives on the document body, which only exists once the page is in the browser.
+  const isClient = useIsClient();
   const position = hover ? place(hover.rect) : null;
+
+  if (!isClient) return null;
 
   return createPortal(
     <AnimatePresence>

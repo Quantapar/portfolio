@@ -1,7 +1,10 @@
-import { Suspense, useLayoutEffect } from "react";
-import { useLocation } from "react-router-dom";
+"use client";
+
+import { Suspense, useLayoutEffect, useSyncExternalStore } from "react";
 import type { Project } from "../../data/projects";
 import { workKey } from "../../data/work";
+import { useIsClient } from "../../hooks/useIsClient";
+import { entryFrom } from "../../lib/historyEntry";
 import { markRouteReady, workTransitionName } from "../../lib/routeTransition";
 import { TransitionLink } from "../ui/TransitionLink";
 import { projectPreviews } from "./previews";
@@ -29,11 +32,16 @@ function RouteReady() {
   return null;
 }
 
+const subscribe = () => () => {};
+
 /** The piece itself fills the page; the only chrome is the way back. */
 export function LiveWork({ project }: LiveWorkProps) {
   const Preview = projectPreviews[project.slug];
-  const { state } = useLocation();
-  const openedFromWork = (state as { from?: string } | null)?.from === "/work";
+  // The server can't know where the visitor came from, so it renders the link for a direct visit.
+  const from = useSyncExternalStore(subscribe, entryFrom, () => undefined);
+  const openedFromWork = from === "/work";
+  // Pieces run in the browser only: they measure, animate and load their own code there.
+  const isClient = useIsClient();
 
   return (
     <main className="relative grid min-h-dvh place-items-center">
@@ -45,10 +53,12 @@ export function LiveWork({ project }: LiveWorkProps) {
         className="w-full"
         style={{ viewTransitionName: workTransitionName(workKey(project)) }}
       >
-        <Suspense fallback={null}>
-          <Preview />
-          <RouteReady />
-        </Suspense>
+        {isClient ? (
+          <Suspense fallback={null}>
+            <Preview />
+            <RouteReady />
+          </Suspense>
+        ) : null}
       </div>
       <TransitionLink
         // Back to the page the piece was opened from, at the thumbnail that was clicked.

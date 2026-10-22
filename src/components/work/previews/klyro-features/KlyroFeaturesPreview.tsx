@@ -21,7 +21,7 @@ function CompanyLogo({
   fallback: ReactNode;
 }) {
   const [failed, setFailed] = useState(false);
-  const token = import.meta.env.VITE_LOGO_DEV_KEY?.trim();
+  const token = process.env.NEXT_PUBLIC_LOGO_DEV_KEY?.trim();
 
   if (!token || failed) return fallback;
 

@@ -1,13 +1,17 @@
-import { useParams } from "react-router-dom";
+"use client";
+
 import { getProjectBySlug } from "../data/projects";
 import { LiveWork } from "../components/work/LiveWork";
 import { ProjectShowcase } from "../components/work/ProjectShowcase";
 import { getProjectPreview } from "../components/work/previews";
 import { NotFoundPage } from "./NotFoundPage";
 
-export function ProjectPage() {
-  const { slug } = useParams<{ slug: string }>();
-  const project = slug ? getProjectBySlug(slug) : undefined;
+type ProjectPageProps = {
+  slug: string;
+};
+
+export function ProjectPage({ slug }: ProjectPageProps) {
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return <NotFoundPage />;

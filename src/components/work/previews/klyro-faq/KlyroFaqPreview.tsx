@@ -171,7 +171,7 @@ export function KlyroFaqPreview() {
         <aside className="klyro-faq__intro">
           <h2 id="klyro-faq-title">FAQ’s</h2>
           <img
-            src={faqIllustration}
+            src={faqIllustration.src}
             alt="Illustration of a puzzled person reading a document"
           />
         </aside>

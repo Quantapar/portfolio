@@ -1,13 +1,14 @@
-import {
-  Link,
-  useLocation,
-  useNavigate,
-  useResolvedPath,
-  type LinkProps,
-} from "react-router-dom";
+"use client";
+
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import type { ComponentProps } from "react";
+import { canStepBack, rememberFrom } from "../../lib/historyEntry";
 import { canTransition, startRouteTransition } from "../../lib/routeTransition";
 
-type TransitionLinkProps = Omit<LinkProps, "state"> & {
+type TransitionLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
+  /** A path on this site. */
+  to: string;
   /**
    * Step back in history instead of opening `to`, when this page was reached from inside the site.
    * The visitor then lands where they left off; `to` is where anyone who arrived directly goes.
@@ -22,19 +23,15 @@ export function TransitionLink({
   back = false,
   ...props
 }: TransitionLinkProps) {
-  const navigate = useNavigate();
-  const { pathname, key } = useLocation();
-  const target = useResolvedPath(to);
-  // Tells the next page where it was opened from.
-  const state = { from: pathname };
-  // The router keys the page a visitor arrived on as "default"; any other was opened from this site.
-  const stepBack = back && key !== "default";
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <Link
-      to={to}
+      href={to}
+      // Each page sets its own scroll position once it has rendered (see SiteLayout).
+      scroll={false}
       {...props}
-      state={state}
       onClick={(event) => {
         onClick?.(event);
 
@@ -46,18 +43,23 @@ export function TransitionLink({
           event.ctrlKey ||
           event.shiftKey ||
           event.altKey ||
-          target.pathname === pathname ||
-          (!stepBack && !canTransition())
+          to === pathname
         ) {
           return;
         }
 
+        const stepBack = back && canStepBack();
+
+        // Tells the next page where it was opened from.
+        if (!stepBack) rememberFrom(pathname);
+        if (!stepBack && !canTransition()) return;
+
         event.preventDefault();
         startRouteTransition(() => {
           if (stepBack) {
-            void navigate(-1);
+            router.back();
           } else {
-            void navigate(to, { state });
+            router.push(to, { scroll: false });
           }
         });
       }}

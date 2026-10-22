@@ -3,8 +3,10 @@ import { TURN } from "../anatomy-kit/turn.mjs";
 import "../anatomy-kit/iso.css";
 import "../anatomy-kit/turn.css";
 import "./camera-anatomy.css";
-import figureUrl from "./figure.json?url";
 import { SHOT_SECONDS, follow } from "./motion";
+
+// Fetched when the piece opens, so the large drawing stays out of the script.
+const figureUrl = new URL("./figure.json", import.meta.url).href;
 
 // Generated ahead of time: the stage markup is the camera at rest, and `turn` is
 // what the Anatomy runtime re-projects every frame.

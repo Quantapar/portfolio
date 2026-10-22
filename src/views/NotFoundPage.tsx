@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { DitheredLogo } from "../components/ui/DitheredLogo";
 import { useTheme } from "../hooks/useTheme";
 
@@ -25,7 +27,7 @@ export function NotFoundPage() {
 
       <div className="mt-8">
         <Link
-          to="/"
+          href="/"
           className="pressable btn-bevel relative inline-flex min-h-11 items-center px-3 py-2 text-sm"
         >
           <span className="btn-bevel-frame" aria-hidden="true" />

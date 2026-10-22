@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { AboutContact } from "../components/sections/AboutContact";
 import { ExperienceSection } from "../components/sections/ExperienceSection";
@@ -5,8 +7,9 @@ import { WorkGallery } from "../components/sections/WorkGallery";
 
 // The entrance is for a visitor who lands on this page. Arriving from another page
 // is already carried by the morph, so a second entrance would only fight it.
+// The server only renders this page for a visitor landing on it.
 let entrancePending =
-  typeof window !== "undefined" && window.location.pathname === "/";
+  typeof window === "undefined" || window.location.pathname === "/";
 
 export function HomePage() {
   const [entering] = useState(entrancePending);

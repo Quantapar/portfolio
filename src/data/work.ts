@@ -1,5 +1,9 @@
-import { tweets } from "virtual:tweets";
 import { getProjectsByType, projects, type Project } from "./projects";
+import type { Tweet } from "./tweets";
+import generatedTweets from "./tweets.generated.json";
+
+// Written by scripts/tweets.ts from the links in tweets.ts.
+const tweets = generatedTweets as Tweet[];
 
 /** One thumbnail in a work grid. */
 export type WorkItem = {

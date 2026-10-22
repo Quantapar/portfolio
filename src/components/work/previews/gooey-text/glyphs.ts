@@ -1,7 +1,6 @@
 // A single-line ("skeleton") SVG font: every glyph is ONE open stroke, which is
 // exactly what the gooey effect wants — the circles ride along that stroke.
-// Vite's ?raw import hands us the file contents as a string.
-import defaultFont from "./letterfont.svg?raw";
+import defaultFont from "./letterfont";
 
 // Parse a font string once into a `char -> raw stroke path` map (cached).
 const fontCache = new Map<string, Map<string, string>>();

@@ -1,3 +1,5 @@
+"use client";
+
 import { experimentItems, projectItems, type WorkItem } from "../data/work";
 import { Breadcrumb } from "../components/ui/Breadcrumb";
 import { WorkGrid } from "../components/work/WorkGrid";

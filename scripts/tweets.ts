@@ -1,11 +1,11 @@
 import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import type { Plugin } from "vite";
 import { tweetLinks, type Tweet } from "../src/data/tweets.ts";
 
-const VIRTUAL_ID = "virtual:tweets";
-const RESOLVED_ID = `\0${VIRTUAL_ID}`;
+const PUBLIC_DIR = "public";
+/** Read by src/data/work.ts. Rebuilt on every run, so it is not committed. */
+const OUTPUT_FILE = "src/data/tweets.generated.json";
 const ENDPOINT = "https://cdn.syndication.twimg.com/tweet-result";
 /** Where post videos and their still frames are kept, inside the public folder. */
 const MEDIA_DIR = "work/experiments";
@@ -198,25 +198,8 @@ async function fetchTweets(publicDir: string, warn: (message: string) => void) {
     return results.filter((tweet) => tweet !== null);
 }
 
-/** Resolves the links in src/data/tweets.ts into `virtual:tweets` at dev start and build. */
-export function tweets(): Plugin {
-    let pending: Promise<Tweet[]> | undefined;
-    let publicDir = "public";
+/** Resolves the links in src/data/tweets.ts into OUTPUT_FILE. Runs before dev start and build. */
+const tweets = await fetchTweets(PUBLIC_DIR, (message) => console.warn(`[tweets] ${message}`));
 
-    return {
-        name: "tweets",
-        configResolved(config) {
-            publicDir = config.publicDir;
-        },
-        resolveId(id) {
-            return id === VIRTUAL_ID ? RESOLVED_ID : undefined;
-        },
-        async load(id) {
-            if (id !== RESOLVED_ID) return undefined;
-
-            pending ??= fetchTweets(publicDir, (message) => this.warn(message));
-
-            return `export const tweets = ${JSON.stringify(await pending)};`;
-        },
-    };
-}
+await writeFile(OUTPUT_FILE, `${JSON.stringify(tweets, null, 2)}\n`);
+console.log(`[tweets] ${tweets.length} of ${tweetLinks.length} posts saved to ${OUTPUT_FILE}.`);

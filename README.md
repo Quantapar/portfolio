@@ -14,18 +14,20 @@ pnpm dev
 | Command        | What it does                         |
 | -------------- | ------------------------------------ |
 | `pnpm dev`     | Start the dev server                 |
-| `pnpm build`   | Type-check and build to `dist/`      |
-| `pnpm preview` | Serve the production build locally   |
+| `pnpm build`   | Type-check and build to `.next/`     |
+| `pnpm start`   | Serve the production build locally   |
 | `pnpm lint`    | Run ESLint                           |
 
-Copy `.env.example` to `.env` if you want to change the site URL used in the Open Graph tags. Everything else works without it.
+Built with Next.js: every page is rendered to HTML at build time, so search engines and link previews see the full content.
+
+Copy `.env.example` to `.env` if you want to change the site URL used in the Open Graph tags, canonical links and sitemap. Everything else works without it.
 
 ## Project structure
 
 ```
 .
-├── plugins/
-│   └── tweets.ts            Vite plugin that fetches posts and their media at build time
+├── scripts/
+│   └── tweets.ts            Fetches posts and their media before dev start and build
 ├── public/                  Static files served as-is (favicons, resume, images, video)
 │   ├── audio/
 │   ├── logos/               Company logos for the experience section
@@ -33,6 +35,7 @@ Copy `.env.example` to `.env` if you want to change the site URL used in the Ope
 │   └── work/                Thumbnails for the work grid
 │       └── experiments/     Media pulled in by the tweets plugin
 └── src/
+    ├── app/                 Routes, page metadata, sitemap and robots.txt
     ├── components/
     │   ├── experience/      Experience list items
     │   ├── layout/          Page shell, layout and footer
@@ -44,9 +47,7 @@ Copy `.env.example` to `.env` if you want to change the site URL used in the Ope
     ├── data/                Site info, experience, projects and posts
     ├── hooks/
     ├── lib/
-    ├── pages/               Home, work index, project page and 404
-    ├── App.tsx              Routes
-    └── main.tsx
+    └── views/               Home, work index, project page and 404
 ```
 
 ### Adding a live piece
