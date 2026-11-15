@@ -75,6 +75,20 @@ export const projects: Project[] = [
         tech: ["Next.js", "TypeScript", "Tailwind CSS", "Motion"]
     },
     {
+        slug: "mobile-ui-lab",
+        title1: "Mobile UI",
+        title2: "Lab",
+        type: "product",
+        featured: true,
+        year: 2026,
+        summary: "Phone-sized interface studies, every one of them live: a wallet, launch screens, sign-ins, the Dynamic Island, a VPN and a playground of motion studies.",
+        useCase: "A lab for mobile interaction design in the browser. Each screen sits in an iPhone frame and responds to taps, drags and flings, from Backpack's icon opening into its networks to notifications that fall out of the Dynamic Island.",
+        src: "/work/mobile-ui.jpg",
+        srcSize: { width: 1600, height: 1000 },
+        liveUrl: "https://mobile-ui.quantapar.com/",
+        tech: ["React", "TypeScript", "CSS", "Motion"]
+    },
+    {
         slug: "jagruk-jaipur",
         title1: "Jagruk",
         title2: "Jaipur",
