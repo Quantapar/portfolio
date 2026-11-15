@@ -103,6 +103,14 @@ export const projectPreviews: Record<string, Preview> = {
     () => import("./klyro-features/KlyroFeaturesPreview"),
     "KlyroFeaturesPreview",
   ),
+  "earth-timeline": load(
+    () => import("./earth-timeline/EarthTimelinePreview"),
+    "EarthTimelinePreview",
+  ),
+  "gta-disc": load(
+    () => import("./gta-disc/GtaDiscPreview"),
+    "GtaDiscPreview",
+  ),
   "scroll-text-reveal": load(
     () => import("./scroll-text-reveal/ScrollTextRevealPreview"),
     "ScrollTextRevealPreview",
@@ -113,8 +121,11 @@ export function getProjectPreview(slug: string) {
   return projectPreviews[slug];
 }
 
-/** Too large to fetch on a passing hover: the charts library alone is several hundred KB. */
-const HEAVY = new Set(["bento-features"]);
+/**
+ * Too large to fetch on a passing hover: the charts library alone is several hundred KB,
+ * and the disc starts pulling its model and box art the moment its code runs.
+ */
+const HEAVY = new Set(["bento-features", "gta-disc"]);
 
 /**
  * Fetches a piece before its page is asked for, so the click that follows has nothing to wait on.

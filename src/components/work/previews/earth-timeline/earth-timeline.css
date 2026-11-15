@@ -1,0 +1,9 @@
+/* The scene sizes itself to its parent and expects a white page behind it. */
+.earth-timeline-stage {
+  /* The link back to the site sits 64px above the bottom of the screen and is 36px tall.
+     The ruler keeps clear of it, with a little air in between. */
+  height: 100svh;
+  padding-bottom: 112px;
+  overflow: hidden;
+  background: #fff;
+}

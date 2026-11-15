@@ -69,21 +69,22 @@ const PLACED_AFTER: Record<string, string> = {
     "address-card": "2106110424676802947", // FAQ in motion
 };
 
-/** The six posts shown on the home page, in display order. All are videos, so the grid moves. */
-const HOME_POST_IDS = [
+/** The six pieces shown on the home page, in display order: a post id, or the slug of an unposted experiment. All are videos, so the grid moves. */
+const HOME_KEYS = [
     "2068122566859149516", // gooey letter morph
+    "earth-timeline",
+    "gta-disc",
     "2107981350540280266", // skeuomorphic controls
     "2106481012205351264", // gooey interaction
     "2106148793901289662", // lil gooey toggle
-    "2105668385317294275", // cards with motion
-    "2088754683750084634", // toast
 ];
 
-export const homeItems = HOME_POST_IDS.flatMap(
-    (id) => postedItems.find((item) => item.key === id) ?? [],
+export const homeItems = HOME_KEYS.flatMap(
+    (key) => [...postedItems, ...unpostedItems].find((item) => item.key === key) ?? [],
 );
 
 const laterPosts = postedItems.filter((item) => !homeItems.includes(item));
+const laterUnposted = unpostedItems.filter((item) => !homeItems.includes(item));
 
 /** The post an unposted experiment is placed after, if it has a place and that post is still listed. */
 function placedAfter(item: WorkItem) {
@@ -96,8 +97,8 @@ function placedAfter(item: WorkItem) {
  */
 export const experimentItems: WorkItem[] = [
     ...homeItems,
-    ...unpostedItems.filter((item) => !placedAfter(item)),
-    ...laterPosts.flatMap((post) => [post, ...unpostedItems.filter((item) => placedAfter(item) === post)]),
+    ...laterUnposted.filter((item) => !placedAfter(item)),
+    ...laterPosts.flatMap((post) => [post, ...laterUnposted.filter((item) => placedAfter(item) === post)]),
 ];
 
 export const projectItems = getProjectsByType("product").map(toItem);

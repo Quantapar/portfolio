@@ -1,0 +1,132 @@
+/* The GTA VI disc in a warm white room, staged after desktop.fm. The colour lives on
+   the disc. */
+
+.gd {
+  --ink: #2d2d2d;
+  --muted: #6b6466; /* 5.3:1 on the room's white */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  position: relative;
+  height: 100svh;
+  min-height: 560px;
+  overflow: hidden;
+  isolation: isolate;
+  background: #f7f1f3; /* PAGE in scene.ts: white with a blush of the Vice City sunset */
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.gd-stage {
+  position: absolute;
+  inset: 0;
+  outline: none;
+}
+
+.gd-stage:focus-visible {
+  box-shadow: inset 0 0 0 2px rgb(0 0 0 / 0.3);
+}
+
+.gd-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  opacity: 0;
+  transform: scale(0.97);
+  /* The page is this one screen: every drag is the box's (turning it any way, the
+     cover, the disc, the poster), none the browser's. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transition:
+    opacity 900ms var(--ease-out),
+    transform 1200ms var(--ease-out);
+}
+
+.gd-canvas[data-ready] {
+  opacity: 1;
+  transform: none;
+}
+
+.gd-canvas:active {
+  cursor: grabbing;
+}
+
+/* While the box's art comes in: a short line that fills, held back a moment so a quick
+   load never shows it. */
+.gd-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 96px;
+  height: 2px;
+  margin: -1px 0 0 -48px;
+  overflow: hidden;
+  border-radius: 1px;
+  background: rgb(45 45 45 / 0.1);
+  pointer-events: none;
+  animation: gd-fade 300ms ease 400ms backwards;
+  transition: opacity 300ms ease;
+}
+
+.gd-loading > span {
+  display: block;
+  height: 100%;
+  background: rgb(45 45 45 / 0.55);
+  transform-origin: left;
+  transition: transform 400ms var(--ease-out);
+}
+
+.gd-loading[data-done] {
+  opacity: 0;
+}
+
+.gd-foot {
+  position: absolute;
+  right: 0;
+  /* Clear of the link back to the site, which sits 64px up and is 36px tall. */
+  bottom: 112px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.gd-sound {
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gd-canvas {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+}
+
+/* The button arrives with the disc, once it is out of the case. */
+.gd-sound {
+  animation: gd-arrive 700ms var(--ease-out) 650ms both;
+}
+
+@keyframes gd-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gd-sound {
+    animation-name: gd-fade;
+  }
+}
+
+@keyframes gd-fade {
+  from {
+    opacity: 0;
+  }
+}

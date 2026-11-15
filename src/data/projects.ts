@@ -227,6 +227,34 @@ export const projects: Project[] = [
         tech: ["React", "TypeScript", "SVG"]
     },
     {
+        slug: "earth-timeline",
+        title1: "Earth",
+        title2: "Timeline",
+        type: "component",
+        featured: false,
+        year: 2026,
+        summary: "The Earth from the Big Bang to today on a scrubbable timeline: drag the ruler and the globe spins through each era, from a magma ocean to Snowball Earth.",
+        useCase: "A study in scrubbing through time. A WebGL shader paints every era on one globe and motion-blurs the spin, so the jump from one era to the next happens inside the blur.",
+        src: "/work/experiments/earth-timeline.jpg",
+        srcSize: { width: 768, height: 480 },
+        videoSrc: "/work/experiments/earth-timeline.mp4",
+        tech: ["React", "TypeScript", "WebGL", "GLSL"]
+    },
+    {
+        slug: "gta-disc",
+        title1: "GTA VI",
+        title2: "Disc",
+        type: "component",
+        featured: false,
+        year: 2026,
+        summary: "A Grand Theft Auto VI game disc in 3D: swing open the case, pull the disc off the hub and the soundtrack comes in as it tumbles.",
+        useCase: "A study in making a physical object feel real on screen, with an iridescent read side, a clear hub you can see through, and a drag to throw it or press and hold to spin it faster. Fan art: the artwork is Rockstar's.",
+        src: "/work/experiments/gta-disc.jpg",
+        srcSize: { width: 768, height: 480 },
+        videoSrc: "/work/experiments/gta-disc.mp4",
+        tech: ["React", "TypeScript", "Three.js"]
+    },
+    {
         slug: "skeuomorphic-controls",
         title1: "Skeuomorphic",
         title2: "Controls",
