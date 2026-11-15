@@ -102,20 +102,6 @@ export const projects: Project[] = [
         liveUrl: "https://jagrukjaipur.quantapar.com/",
         tech: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"]
     }, {
-        slug: "dashboard-ui",
-        title1: "Dashboard",
-        title2: "UI",
-        type: "product",
-        featured: false,
-        year: 2025,
-        summary: "A SaaS analytics dashboard built as an assignment. KPI cards with sparklines, filterable order tables, and a collapsible sidebar.",
-        useCase: "Dark analytics interface with sortable columns, status tabs, and metric cards for operational monitoring.",
-        src: "/work/dashboard.png",
-        srcSize: { width: 1600, height: 1000 },
-        liveUrl: "https://dashboard-ui.quantapar.com/",
-        sourceUrl: "https://github.com/Quantapar/dashboard-ui",
-        tech: ["React", "TypeScript", "Tailwind CSS"]
-    }, {
         slug: "100xdevs",
         title1: "100xDevs",
         title2: "Frontend",
